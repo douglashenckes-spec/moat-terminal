@@ -16,6 +16,7 @@ def build_company_page():
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Dossiê de Empresa • Moat Terminal</title>
   <meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
@@ -679,7 +680,9 @@ def build_company_page():
     // Renderizar Hero Card
     function renderHero() {{
       const s = currentStock;
-      document.getElementById('pageTitle').innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
+      const pt = document.getElementById('pageTitle');
+      if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
+      document.title = `${{s.ticker}} • ${{s.empresa}} • Moat Terminal`;
 
       // Coloração Dinâmica do Hero Card conforme a Classificação de Entrada (3 Alternativas)
       let heroBgClass = 'bg-white border-slate-200';
@@ -2059,39 +2062,55 @@ def build_company_page():
     }}
 
     // Inicialização
+    let isInitialized = false;
     function init() {{
-      renderHero();
-      renderEssentialMultiples();
-      renderValuationCalculators();
-      renderHistoryChart();
-      renderDupont();
-      renderSectorPeers();
-      renderFinancialsAndCfa();
-      initGlobalTooltips();
+      if (isInitialized) return;
+      try {{
+        renderHero();
+        renderEssentialMultiples();
+        renderValuationCalculators();
+        renderHistoryChart();
+        renderDupont();
+        renderSectorPeers();
+        renderFinancialsAndCfa();
+        initGlobalTooltips();
 
-      // Gauges Calibrados
-      const s = currentStock;
-      const roicOrRoe = s.roic || s.roe || 0;
-      renderAnalogGauge('heroGaugeRoe', roicOrRoe, 0.0, 0.30, s.is_financial ? 'ROE' : 'ROIC', {{
-        isPercent: true,
-        refVal: 0.15,
-        refText: 'Ref: ≥ 15%'
-      }});
-      renderAnalogGauge('heroGaugeDebt', s.div_liq_ebitda, -1.0, 3.5, 'Dív. Líq./EBITDA', {{
-        isDebt: true,
-        isFinancial: s.is_financial,
-        refVal: 2.0,
-        refText: 'Teto: 2.0x • Caixa = Top'
-      }});
-      renderAnalogGauge('heroGaugeSpread', s.ey_spread, -4.0, 10.0, 'Spread NTN-B', {{
-        isSpread: true,
-        refVal: 0.0,
-        refText: 'Prêmio Real: > 0%'
-      }});
-      renderRadar();
+        // Gauges Calibrados
+        const s = currentStock;
+        if (s) {{
+          const roicOrRoe = s.roic || s.roe || 0;
+          renderAnalogGauge('heroGaugeRoe', roicOrRoe, 0.0, 0.30, s.is_financial ? 'ROE' : 'ROIC', {{
+            isPercent: true,
+            refVal: 0.15,
+            refText: 'Ref: ≥ 15%'
+          }});
+          renderAnalogGauge('heroGaugeDebt', s.div_liq_ebitda, -1.0, 3.5, 'Dív. Líq./EBITDA', {{
+            isDebt: true,
+            isFinancial: s.is_financial,
+            refVal: 2.0,
+            refText: 'Teto: 2.0x • Caixa = Top'
+          }});
+          renderAnalogGauge('heroGaugeSpread', s.ey_spread, -4.0, 10.0, 'Spread NTN-B', {{
+            isSpread: true,
+            refVal: 0.0,
+            refText: 'Prêmio Real: > 0%'
+          }});
+          renderRadar();
+        }}
+        isInitialized = true;
+      }} catch (err) {{
+        console.error('Erro na inicialização de empresa:', err);
+      }}
     }}
 
-    window.addEventListener('DOMContentLoaded', init);
+    // Execução robusta e imediata (resolve race condition de DOMContentLoaded)
+    if (document.readyState === 'loading') {{
+      document.addEventListener('DOMContentLoaded', init);
+    }} else {{
+      init();
+    }}
+    window.addEventListener('load', init);
+    setTimeout(init, 50);
   </script>
 </body>
 </html>
