@@ -1,0 +1,308 @@
+/* ==========================================================================
+   JP MORGAN & CHARLIE MUNGER TERMINAL - INSTITUTIONAL DARK THEME
+   Paleta: #0B0E14 (Canvas), #151A23 (Card/Surface), #232B3B (Border)
+   Tipografia: Inter (Corpo/Títulos), JetBrains Mono (Métricas/Números)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* Reset e Fundo Base */
+html, body, [data-testid="stAppViewContainer"] {
+    background-color: #0B0E14 !important;
+    color: #E2E8F0 !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+[data-testid="stHeader"] {
+    background-color: rgba(11, 14, 20, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid #232B3B !important;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #0F131A !important;
+    border-right: 1px solid #232B3B !important;
+}
+
+/* Tipografia de Código e Números */
+code, kbd, samp, pre, .mono-val {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Header Institucional */
+.jpm-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(180deg, #151A23 0%, #0F131C 100%);
+    border: 1px solid #232B3B;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.jpm-title-section h1 {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.jpm-badge-cfa {
+    background-color: rgba(30, 136, 229, 0.15);
+    color: #64B5F6;
+    border: 1px solid rgba(100, 181, 246, 0.3);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.jpm-quote {
+    color: #94A3B8;
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    font-style: italic;
+}
+
+.jpm-audit-badge {
+    background-color: #111822;
+    border: 1px solid #232B3B;
+    border-radius: 6px;
+    padding: 0.5rem 0.85rem;
+    text-align: right;
+}
+
+.jpm-audit-badge .status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #00D084;
+    box-shadow: 0 0 8px rgba(0, 208, 132, 0.6);
+    margin-right: 6px;
+}
+
+.jpm-audit-badge .label {
+    font-size: 0.72rem;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.jpm-audit-badge .timestamp {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #CBD5E1;
+    font-weight: 500;
+}
+
+/* Cartões Institucionais */
+.jpm-card {
+    background-color: #151A23;
+    border: 1px solid #232B3B;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.jpm-card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #F8FAFC;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Indicadores / Metric Box */
+.jpm-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.jpm-kpi-box {
+    background-color: #0E121A;
+    border: 1px solid #1E2535;
+    border-radius: 6px;
+    padding: 0.75rem;
+}
+
+.jpm-kpi-label {
+    font-size: 0.7rem;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.25rem;
+}
+
+.jpm-kpi-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #F1F5F9;
+}
+
+/* Badges de Status de Entrada e Qualidade */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.status-badge-asymmetry {
+    background-color: rgba(0, 208, 132, 0.12);
+    color: #00D084;
+    border: 1px solid rgba(0, 208, 132, 0.35);
+}
+
+.status-badge-fair {
+    background-color: rgba(242, 201, 76, 0.12);
+    color: #F2C94C;
+    border: 1px solid rgba(242, 201, 76, 0.35);
+}
+
+.status-badge-stretched {
+    background-color: rgba(235, 87, 87, 0.12);
+    color: #EB5757;
+    border: 1px solid rgba(235, 87, 87, 0.35);
+}
+
+.status-badge-neutral {
+    background-color: rgba(148, 163, 184, 0.12);
+    color: #94A3B8;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* Quality Score Pill */
+.quality-pill {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.quality-tier1 {
+    background: rgba(0, 208, 132, 0.15);
+    color: #00E699;
+    border: 1px solid rgba(0, 208, 132, 0.4);
+}
+
+.quality-tier2 {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38BDF8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.quality-tier3 {
+    background: rgba(251, 191, 36, 0.15);
+    color: #FBBF24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.quality-tier4 {
+    background: rgba(248, 113, 113, 0.15);
+    color: #F87171;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* Bullet Cards do Veredito CFA */
+.cfa-bullet-card {
+    background-color: #0E121A;
+    border: 1px solid #1E2535;
+    border-left: 3px solid #1E88E5;
+    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.cfa-bullet-card.risk {
+    border-left-color: #F59E0B;
+}
+
+.cfa-bullet-card.entry {
+    border-left-color: #00D084;
+}
+
+.cfa-bullet-header {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+
+.cfa-bullet-body {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #E2E8F0;
+}
+
+/* Tabelas e Dataframes */
+[data-testid="stDataFrame"] {
+    background-color: #151A23 !important;
+    border: 1px solid #232B3B !important;
+    border-radius: 8px !important;
+}
+
+/* Botões do Streamlit customizados */
+.stButton > button {
+    background-color: #151A23 !important;
+    color: #E2E8F0 !important;
+    border: 1px solid #232B3B !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+    font-size: 0.82rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    background-color: #1E2535 !important;
+    border-color: #3B82F6 !important;
+    color: #FFFFFF !important;
+}
+
+.stButton > button:active {
+    background-color: #0F131C !important;
+}
+
+/* Tab styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background-color: transparent;
+    border-bottom: 1px solid #232B3B;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: transparent;
+    border-radius: 6px 6px 0 0;
+    color: #94A3B8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: none;
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: #151A23 !important;
+    color: #38BDF8 !important;
+    border: 1px solid #232B3B !important;
+    border-bottom: none !important;
+}
