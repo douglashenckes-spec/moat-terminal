@@ -1,0 +1,41 @@
+name: Atualização Diária B3 (Nuvem)
+
+on:
+  schedule:
+    # 10:00 UTC = 07:00 Horário de Brasília (Segunda a Sexta)
+    - cron: '0 10 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests beautifulsoup4 lxml
+
+      - name: Executar Pipeline de Atualização dos Dados B3
+        run: |
+          python build_standalone_data.py
+          python build_standalone_html.py
+          python build_company_page.py
+          python build_seo_sitemap.py
+
+      - name: Publicar Atualizações no GitHub Pages
+        run: |
+          git config --global user.name "Moat Terminal Cloud Bot"
+          git config --global user.email "bot@moatterminal.com.br"
+          git add index.html empresa.html sitemap.xml cache/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): atualizacao automatica B3 na nuvem [$(date +'%d/%m/%Y')]" && git push)
