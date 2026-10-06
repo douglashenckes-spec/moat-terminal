@@ -3,7 +3,7 @@ import os
 import shutil
 
 def build_company_page():
-    base_dir = r"C:\Users\dougl\.gemini\antigravity\scratch\jpm_munger_terminal"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
     data_path = os.path.join(base_dir, "cache", "standalone_data.json")
     
     with open(data_path, "r", encoding="utf-8") as f:
@@ -2127,11 +2127,13 @@ def build_company_page():
     out_file = os.path.join(base_dir, "empresa.html")
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print(f"Generated standalone company page: {out_file}")
-
     brain_dir = r"C:\Users\dougl\.gemini\antigravity\brain\19bf6b03-9073-46f6-9498-57b18f1f9a41"
-    shutil.copyfile(out_file, os.path.join(brain_dir, "empresa.html"))
-    print(f"Copied to brain artifact: {os.path.join(brain_dir, 'empresa.html')}")
+    if os.path.exists(brain_dir):
+        try:
+            shutil.copyfile(out_file, os.path.join(brain_dir, "empresa.html"))
+            print(f"Copied to brain artifact: {os.path.join(brain_dir, 'empresa.html')}")
+        except Exception:
+            pass
 
 if __name__ == '__main__':
     build_company_page()
