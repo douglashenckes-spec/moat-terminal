@@ -21,11 +21,24 @@ def build_company_page():
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://moatterminal.com.br/empresa.html">
+  <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/empresa.html">
+  <script>
+    (function() {{
+      try {{
+        var params = new URLSearchParams(window.location.search);
+        var t = params.get('ticker');
+        if (t) {{
+          t = t.toUpperCase().trim();
+          var can = document.getElementById('canonicalTag');
+          if (can) can.href = 'https://moatterminal.com.br/empresa.html?ticker=' + encodeURIComponent(t);
+        }}
+      }} catch(e) {{}}
+    }})();
+  </script>
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://moatterminal.com.br/empresa.html">
+  <meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/empresa.html">
   <meta property="og:title" id="ogTitle" content="Dossiê de Empresa • Moat Terminal">
   <meta property="og:description" content="Análise fundamentalista institucional e vantagens competitivas (Moats) da B3.">
   <meta property="og:site_name" content="MOAT TERMINAL">
@@ -691,6 +704,16 @@ def build_company_page():
       const pt = document.getElementById('pageTitle');
       if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
       document.title = `${{s.ticker}} • ${{s.empresa}} • Moat Terminal`;
+
+      const fullCanonical = `https://moatterminal.com.br/empresa.html?ticker=${{s.ticker}}`;
+      const canEl = document.getElementById('canonicalTag') || document.querySelector('link[rel="canonical"]');
+      if (canEl) canEl.href = fullCanonical;
+      const ogUrlEl = document.getElementById('ogUrl') || document.querySelector('meta[property="og:url"]');
+      if (ogUrlEl) ogUrlEl.content = fullCanonical;
+      const ogTitleEl = document.getElementById('ogTitle');
+      if (ogTitleEl) ogTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
+      const twTitleEl = document.getElementById('twTitle');
+      if (twTitleEl) twTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
 
       // Coloração Dinâmica do Hero Card conforme a Classificação de Entrada (3 Alternativas)
       let heroBgClass = 'bg-white border-slate-200';
