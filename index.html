@@ -66,7 +66,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- GOOGLE ADSENSE -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8661500874049196" crossorigin="anonymous"></script>
@@ -88,21 +88,20 @@
       theme: {
         extend: {
           fontFamily: {
+            serif: ['Newsreader', 'Georgia', 'serif'],
             sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            jpCanvas: '#080C14',
-            jpCard: '#0D1424',
-            jpCardHover: '#131D33',
-            jpBorder: 'rgba(255, 255, 255, 0.09)',
-            jpAmber: '#FBBF24',
-            jpAmberDark: '#D97706',
-            jpCyan: '#38BDF8',
-            jpGreen: '#10E79D',
-            jpYellow: '#FBBF24',
-            jpRed: '#F43F5E',
-            jpBlue: '#38BDF8',
+            bcgForest: '#004B49',
+            bcgDeep: '#003836',
+            bcgMint: '#00A887',
+            bcgLightMint: '#E6F4F1',
+            bcgWarmBg: '#FBFBF9',
+            bcgCard: '#FFFFFF',
+            bcgBorder: '#E7E7E2',
+            bcgMuted: '#5A6A68',
+            bcgDark: '#111827',
           }
         }
       }
@@ -110,38 +109,41 @@
   </script>
   <style>
     body {
-      background-color: #F8FAFC;
+      background-color: #FBFBF9;
       background-image: 
-        radial-gradient(circle at 10% 15%, rgba(14, 165, 233, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%);
+        radial-gradient(circle at 10% 15%, rgba(0, 75, 73, 0.025) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(0, 168, 135, 0.025) 0%, transparent 45%);
       background-attachment: fixed;
-      color: #0F172A;
+      color: #1A202C;
       font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    }
+    .font-editorial {
+      font-family: 'Newsreader', Georgia, serif;
     }
     .glass-panel {
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      border: 1px solid #E7E7E2;
+      box-shadow: 0 4px 20px -2px rgba(0, 56, 54, 0.03);
     }
     .glass-card {
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+      border: 1px solid #E7E7E2;
+      box-shadow: 0 1px 3px 0 rgba(0, 56, 54, 0.03);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .glass-card:hover {
       background: #FFFFFF;
-      border-color: #CBD5E1;
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      border-color: #BCE5DC;
+      box-shadow: 0 12px 28px -5px rgba(0, 56, 54, 0.07);
       transform: translateY(-1px);
     }
     .glass-pill {
-      background: #F1F5F9;
-      border: 1px solid #E2E8F0;
+      background: #F4F4F0;
+      border: 1px solid #E7E7E2;
       color: #334155;
     }
     .glass-pill:hover {
-      background: #E2E8F0;
+      background: #EAEAE4;
       color: #0F172A;
     }
     .mono-num {
@@ -218,20 +220,22 @@
     }
 
     .topbar-nav-btn {
-      color: #64748B;
+      color: rgba(255, 255, 255, 0.75);
       border: 1px solid transparent;
       transition: all 0.15s ease;
       cursor: pointer;
     }
     .topbar-nav-btn:hover {
-      color: #0F172A;
-      background-color: rgba(255, 255, 255, 0.7);
+      color: #FFFFFF;
+      background-color: rgba(255, 255, 255, 0.12);
     }
     .topbar-nav-btn.active {
-      background-color: #FFFFFF;
-      color: #0F172A;
-      border-color: #E2E8F0;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      background-color: #00A887;
+      color: #FFFFFF;
+      border-color: #00A887;
+      box-shadow: 0 2px 8px rgba(0, 168, 135, 0.35);
+      font-weight: 700;
+    }
     .info-badge {
       display: inline-flex;
       align-items: center;
@@ -258,7 +262,7 @@
     }
   </style>
 </head>
-<body class="h-screen text-slate-800 bg-[#F8FAFC] flex flex-col overflow-hidden font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900">
+<body class="h-screen text-[#1A202C] bg-[#FBFBF9] flex flex-col overflow-hidden font-sans antialiased selection:bg-[#00A887]/20 selection:text-[#003836]">
 
   <!-- GLOBAL INTERACTIVE EDUCATIONAL TOOLTIP (BALÃOZINHO INSTITUCIONAL) -->
   <div id="globalTooltip" class="fixed hidden z-[999999] max-w-xs sm:max-w-sm bg-slate-900 text-white p-3.5 rounded-2xl shadow-2xl border border-slate-700 pointer-events-none transition-opacity duration-150 text-xs font-sans">
@@ -267,31 +271,31 @@
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (BRANDING + NAVEGAÇÃO SUPERIOR + BUSCA + CONTROLES) -->
-  <header class="bg-white border-b border-slate-200 px-3 sm:px-6 py-2 sm:py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-3 z-30 flex-shrink-0 shadow-xs">
+  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (BRANDING + NAVEGAÇÃO SUPERIOR + BUSCA + CONTROLES • BCG AESTHETIC) -->
+  <header class="bg-[#003836] border-b border-[#004B49] text-white px-3 sm:px-6 py-2 sm:py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-3 z-30 flex-shrink-0 shadow-sm">
     
     <!-- Esquerda: Brand Institucional & Status Moat -->
-    <div onclick="goToHome()" class="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none hover:opacity-90 transition" title="Ir para o Panorama Geral (Home)">
-      <div class="w-7 h-7 sm:w-8 h-8 rounded-xl bg-slate-950 flex items-center justify-center text-white shadow-xs border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform" title="Moat Terminal • Vantagens Competitivas B3">
-        <svg class="w-4 h-4 text-emerald-400 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3"/></svg>
+    <div onclick="goToHome()" class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group select-none transition" title="Ir para o Panorama Geral (Home)">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#004B49] flex items-center justify-center text-white shadow-xs border border-emerald-500/30 flex-shrink-0 group-hover:scale-105 transition-transform" title="Moat Terminal • Vantagens Competitivas B3">
+        <svg class="w-4 h-4 text-[#00A887] stroke-[2.4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3"/></svg>
       </div>
       <div class="flex flex-col">
         <div class="flex items-center gap-1.5">
-          <span class="font-bold text-slate-950 text-xs tracking-wider font-mono leading-none group-hover:text-emerald-700 transition">MOAT TERMINAL</span>
-          <span class="px-1 py-0.2 text-[8px] bg-emerald-100 text-emerald-900 font-bold font-mono rounded">PRO</span>
+          <span class="font-bold text-white text-xs sm:text-sm tracking-wider font-mono leading-none group-hover:text-emerald-300 transition">MOAT TERMINAL</span>
+          <span class="px-1.5 py-0.2 text-[8px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono rounded">STRATEGY</span>
         </div>
-        <div class="flex items-center gap-1.5 sm:gap-2 text-[10px] text-slate-500 font-mono mt-0.5">
-          <span class="text-slate-600 font-medium hidden sm:inline">Economic Moats &amp; Compounding</span>
-          <span class="text-slate-300 hidden sm:inline">•</span>
-          <span class="text-emerald-700 font-bold flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span> 2T26 CVM
+        <div class="flex items-center gap-1.5 sm:gap-2 text-[10px] text-emerald-100/70 font-mono mt-0.5">
+          <span class="text-emerald-100/90 font-medium hidden sm:inline">Economic Moats &amp; Capital Allocation</span>
+          <span class="text-emerald-400/40 hidden sm:inline">•</span>
+          <span class="text-emerald-300 font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
           </span>
         </div>
       </div>
     </div>
 
     <!-- Centro: Segmented Navigation Pills (3 Abas Diretas & Essenciais) -->
-    <nav class="flex items-center bg-slate-100 p-0.5 sm:p-1 rounded-xl border border-slate-200/80 gap-0.5 sm:gap-1 font-mono text-xs">
+    <nav class="flex items-center bg-black/25 p-0.5 sm:p-1 rounded-xl border border-white/10 gap-0.5 sm:gap-1 font-mono text-xs">
       <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span class="hidden sm:inline">Panorama Geral</span>
@@ -305,7 +309,7 @@
       <button id="nav-table" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
         <span>Scanner</span>
-        <span class="text-[10px] text-slate-600 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200 hidden md:inline-block" id="sidebarUniverseCount">--</span>
+        <span class="text-[10px] text-emerald-950 font-mono bg-emerald-200 px-1.5 py-0.2 rounded font-bold border border-emerald-300 hidden md:inline-block" id="sidebarUniverseCount">--</span>
       </button>
     </nav>
 
@@ -313,7 +317,7 @@
     <div class="flex items-center gap-1.5 sm:gap-2.5 ml-auto sm:ml-0">
       <div class="relative" id="searchWrapper">
         <div class="relative flex items-center">
-          <span class="absolute left-2.5 text-slate-400 pointer-events-none">
+          <span class="absolute left-2.5 text-emerald-200/60 pointer-events-none">
             <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
           <input type="text" id="searchInput" 
@@ -322,30 +326,30 @@
                  onfocus="handleSearchFocus()" 
                  placeholder="Buscar Ativo..." 
                  autocomplete="off"
-                 class="w-28 sm:w-48 md:w-64 bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-2 sm:pr-7 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-emerald-500 font-mono transition shadow-2xs">
-          <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-slate-200 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+                 class="w-28 sm:w-48 md:w-64 bg-white/10 border border-white/20 rounded-lg pl-8 pr-2 sm:pr-7 py-1.5 text-xs text-white placeholder-emerald-100/50 focus:outline-none focus:bg-white focus:text-slate-900 focus:border-[#00A887] font-mono transition shadow-2xs">
+          <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-emerald-200/70 bg-white/10 border border-white/20 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
 
         <!-- Dropdown de Sugestões em Tempo Real -->
-        <div id="searchDropdown" class="hidden absolute right-0 sm:left-0 w-80 sm:w-96 mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[99999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans">
+        <div id="searchDropdown" class="hidden absolute right-0 sm:left-0 w-80 sm:w-96 mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[99999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans text-slate-800">
           <!-- Injetado dinamicamente via JS -->
         </div>
       </div>
 
-      <div class="text-xs font-mono text-slate-700 hidden md:flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-        <span class="text-slate-500 text-[11px]">Ativo:</span>
-        <b class="text-emerald-700 font-bold" id="topSelectedTickerBadge">--</b>
+      <div class="text-xs font-mono text-emerald-100 hidden md:flex items-center gap-1.5 bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/15 shadow-2xs">
+        <span class="text-emerald-200/70 text-[11px]">Ativo:</span>
+        <b class="text-white font-bold" id="topSelectedTickerBadge">--</b>
       </div>
 
-      <div class="text-xs font-mono text-slate-600 hidden xl:block bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-        <b class="text-emerald-700 font-bold" id="displayedCount">--</b>/<span id="totalUniverseCount">--</span>
+      <div class="text-xs font-mono text-emerald-100/80 hidden xl:block bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/15 shadow-2xs">
+        <b class="text-emerald-300 font-bold" id="displayedCount">--</b>/<span id="totalUniverseCount">--</span>
       </div>
 
       <!-- Selo 'Atualizado' com Balãozinho de Data e Hora no Hover -->
       <div class="relative group cursor-pointer" id="lastUpdateBadgeWrapper" onclick="const p=this.querySelector('.update-tooltip-popup'); if(p) p.classList.toggle('!block');">
-        <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-50/80 hover:bg-emerald-100/80 border border-emerald-200/90 text-emerald-950 font-mono text-xs shadow-2xs transition select-none">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
-          <span class="font-bold text-emerald-900 text-[11px] sm:text-xs">Atualizado</span>
+        <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#004B49] hover:bg-[#005C59] border border-[#00A887]/40 text-white font-mono text-xs shadow-2xs transition select-none">
+          <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse flex-shrink-0"></span>
+          <span class="font-bold text-emerald-200 text-[11px] sm:text-xs">Atualizado</span>
         </div>
 
         <!-- Balãozinho Suspenso no Hover (Data e Hora) -->
@@ -355,9 +359,9 @@
             <span>Última Atualização dos Dados</span>
           </div>
           <div class="text-slate-200 text-[11px] space-y-1">
-            <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:00</div>
+            <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:20</div>
             <p class="text-slate-400 leading-tight text-[10.5px]">
-              Rotina processada diariamente às <b>07:00 BRT</b> (Pré-Abertura B3).
+              Rotina processada diariamente na nuvem (07:20, 12:20 e 18:45 BRT).
             </p>
           </div>
           <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
@@ -367,8 +371,8 @@
         </div>
       </div>
 
-      <button onclick="openWelcomeGuide()" class="px-2 sm:px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-900 font-semibold rounded-lg text-xs font-mono cursor-pointer transition flex items-center gap-1.5 shadow-2xs" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
-        <svg class="w-3.5 h-3.5 text-indigo-600 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+      <button onclick="openWelcomeGuide()" class="px-2 sm:px-2.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold rounded-lg text-xs font-mono cursor-pointer transition flex items-center gap-1.5 shadow-2xs" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
+        <svg class="w-3.5 h-3.5 text-emerald-300 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
         <span class="hidden sm:inline">Guia &amp; Isenção</span>
       </button>
     </div>
@@ -385,28 +389,31 @@
     </div>
 
     <!-- CANVAS DOS WORKSPACES COM SCROLL NATURAL E ESPAÇOSO -->
-    <main class="flex-1 min-h-0 relative overflow-y-auto p-4 sm:p-6 bg-[#F8FAFC]" id="workspaceContainer">
+    <main class="flex-1 min-h-0 relative overflow-y-auto p-4 sm:p-6 bg-[#FBFBF9]" id="workspaceContainer">
 
       <!-- WORKSPACE 0: 🏠 HOME (PANORAMA GERAL EXECUTIVO) -->
       <section id="view-home" class="w-full glass-panel rounded-2xl flex flex-col p-5 sm:p-6 space-y-5">
         <!-- CARD ÚNICO: APRESENTAÇÃO & BOAS-VINDAS DO MOAT TERMINAL (SIMPLES, EXECUTIVO E CONFORME CVM) -->
-        <div id="welcomeGuideBanner" class="p-5 glass-card rounded-2xl border border-slate-200/90 bg-white shadow-2xs flex-shrink-0 transition-all duration-300">
+        <div id="welcomeGuideBanner" class="p-5 glass-card rounded-2xl border border-[#E7E7E2] bg-white shadow-2xs flex-shrink-0 transition-all duration-300">
           <!-- Cabeçalho do Card Único -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-bold shadow-xs flex-shrink-0">
-                <svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E7E7E2]">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#003836] text-[#00A887] flex items-center justify-center font-bold shadow-xs flex-shrink-0 border border-[#004B49]">
+                <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
               </div>
-              <div class="flex flex-wrap items-center gap-2">
-                <h2 class="text-sm font-bold font-mono text-slate-950 uppercase tracking-wide">
-                  BEM-VINDO AO MOAT TERMINAL
-                </h2>
-                <span class="px-2.5 py-0.5 text-[10px] font-mono bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full font-bold">
-                  BASE AUDITADA • 2T26 CVM
-                </span>
-                <span class="px-2.5 py-0.5 text-[10px] font-mono bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-bold">
-                  194 AÇÕES B3
-                </span>
+              <div class="flex flex-col">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h2 class="text-base sm:text-lg font-bold font-editorial text-slate-900 tracking-tight">
+                    Inteligência Estratégica de Alocação em Ações B3
+                  </h2>
+                  <span class="px-2.5 py-0.5 text-[10px] font-mono bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] rounded-full font-bold">
+                    BASE AUDITADA • 2T26 CVM
+                  </span>
+                  <span class="px-2.5 py-0.5 text-[10px] font-mono bg-[#F2F2ED] text-slate-700 border border-[#E7E7E2] rounded-full font-bold">
+                    194 AÇÕES B3
+                  </span>
+                </div>
+                <span class="text-[11px] font-mono text-slate-500 mt-0.5">Filosofia Charlie Munger &amp; Vantagens Competitivas Duráveis</span>
               </div>
             </div>
 

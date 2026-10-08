@@ -53,10 +53,10 @@
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3'/%3E%3C/svg%3E">
   
-  <!-- Inter & JetBrains Mono Fonts -->
+  <!-- Google Fonts: Newsreader (Editorial Serif) + Plus Jakarta Sans + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- GOOGLE ADSENSE -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8661500874049196" crossorigin="anonymous"></script>
@@ -78,13 +78,16 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            jpSlate: '#0F172A',
-            jpBorder: '#E2E8F0',
-            jpCard: '#FFFFFF',
+            bcgForest: '#004B49',
+            bcgDeep: '#003836',
+            bcgMint: '#00A887',
+            bcgWarmBg: '#FBFBF9',
+            bcgBorder: '#E7E7E2',
           }
         }
       }
@@ -93,33 +96,40 @@
 
   <style>
     body {
-      background-color: #F8FAFC;
-      color: #0F172A;
-      font-family: 'Inter', sans-serif;
+      background-color: #FBFBF9;
+      color: #1A202C;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
+    }
+    .font-editorial {
+      font-family: 'Newsreader', Georgia, serif;
     }
     .glass-card {
       background-color: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.02);
+      border: 1px solid #E7E7E2;
+      box-shadow: 0 1px 3px rgba(0, 56, 54, 0.03);
+    }
+    .glass-card:hover {
+      border-color: #BCE5DC;
+      box-shadow: 0 8px 24px -4px rgba(0, 56, 54, 0.06);
     }
     .glass-pill {
-      background-color: #F8FAFC;
-      border: 1px solid #E2E8F0;
+      background-color: #F4F4F0;
+      border: 1px solid #E7E7E2;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: #F1F5F9;
+      background: #FBFBF9;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
+      background: #D5D5CF;
       border-radius: 4px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #94A3B8;
+      background: #A8A8A0;
     }
     .info-badge {
       display: inline-flex;
@@ -146,7 +156,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col custom-scrollbar">
+<body class="min-h-screen flex flex-col custom-scrollbar bg-[#FBFBF9] text-[#1A202C]">
 
   <!-- GLOBAL INTERACTIVE EDUCATIONAL TOOLTIP (BALÃOZINHO INSTITUCIONAL) -->
   <div id="globalTooltip" class="fixed hidden z-[999999] max-w-xs sm:max-w-sm bg-slate-900 text-white p-3.5 rounded-2xl shadow-2xl border border-slate-700 pointer-events-none transition-opacity duration-150 text-xs font-sans">
@@ -155,27 +165,27 @@
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL GLOBAL -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-2xs">
+  <!-- TOPBAR INSTITUCIONAL GLOBAL (BCG DEEP PINE AESTHETIC) -->
+  <header class="sticky top-0 z-40 bg-[#003836] border-b border-[#004B49] text-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand & Link Voltar -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-mono font-semibold transition" title="Voltar ao Scanner e Panorama Geral">
+        <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-mono font-semibold transition" title="Voltar ao Scanner e Panorama Geral">
           <svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           <span class="hidden sm:inline">Voltar ao Terminal</span>
         </a>
-        <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
+        <div class="h-5 w-px bg-white/20 hidden sm:block"></div>
         <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Voltar ao Moat Terminal (Home)">
-          <div class="w-8 h-8 rounded-xl bg-slate-950 flex items-center justify-center text-white shadow-xs border border-slate-800 flex-shrink-0 group-hover:scale-105 transition-transform">
-            <svg class="w-4 h-4 text-emerald-400 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3"/></svg>
+          <div class="w-8 h-8 rounded-xl bg-[#004B49] flex items-center justify-center text-white shadow-xs border border-emerald-500/30 flex-shrink-0 group-hover:scale-105 transition-transform">
+            <svg class="w-4 h-4 text-[#00A887] stroke-[2.4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3"/></svg>
           </div>
           <div class="flex flex-col">
             <div class="flex items-center gap-1.5">
-              <span class="font-bold text-slate-950 text-xs tracking-wider font-mono leading-none group-hover:text-emerald-700 transition">MOAT TERMINAL</span>
-              <span class="px-1 py-0.2 text-[8px] bg-emerald-100 text-emerald-900 font-bold font-mono rounded">PRO</span>
+              <span class="font-bold text-white text-xs tracking-wider font-mono leading-none group-hover:text-emerald-300 transition">MOAT TERMINAL</span>
+              <span class="px-1 py-0.2 text-[8px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono rounded">STRATEGY</span>
             </div>
-            <span class="text-[9px] text-slate-500 font-mono mt-0.5">Economic Moats &amp; Compounding</span>
+            <span class="text-[9px] text-emerald-100/70 font-mono mt-0.5">Economic Moats &amp; Capital Allocation</span>
           </div>
         </a>
       </div>
@@ -183,24 +193,24 @@
       <!-- Barra de Busca Rápida com Autocomplete -->
       <div class="flex-1 max-w-md relative" id="companySearchWrapper">
         <div class="relative flex items-center">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-200/60">
             <svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
-          <input type="text" id="companySearchInput" placeholder="Buscar outra ação (ex: ITUB4, CURY3, VALE3)... (/)" autocomplete="off" class="w-full bg-slate-50 border border-slate-200 focus:border-emerald-500 focus:bg-white rounded-full pl-9 pr-8 py-1.5 text-xs font-mono text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-2xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
-          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-slate-200 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+          <input type="text" id="companySearchInput" placeholder="Buscar outra ação (ex: ITUB4, CURY3, VALE3)... (/)" autocomplete="off" class="w-full bg-white/10 border border-white/20 focus:border-[#00A887] focus:bg-white focus:text-slate-900 rounded-xl pl-9 pr-8 py-1.5 text-xs font-mono text-white placeholder-emerald-100/50 focus:outline-none transition shadow-2xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
+          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-emerald-200/70 bg-white/10 border border-white/20 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
         <!-- Dropdown de Busca -->
-        <div id="searchResultsDropdown" class="absolute left-0 w-80 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans"></div>
+        <div id="searchResultsDropdown" class="absolute left-0 w-80 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans text-slate-800"></div>
       </div>
 
       <!-- Ações: Compartilhar & Atualização -->
       <div class="flex items-center gap-2">
-        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-mono font-semibold transition cursor-pointer" title="Copiar link direto para esta análise">
-          <svg class="w-3.5 h-3.5 stroke-[1.75] text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-mono font-semibold transition cursor-pointer" title="Copiar link direto para esta análise">
+          <svg class="w-3.5 h-3.5 stroke-[1.75] text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
           <span id="copyLinkText" class="hidden sm:inline">Compartilhar Link</span>
         </button>
-        <span class="text-[11px] font-mono text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-1 rounded-full font-bold hidden md:inline">
-          Base 2T26 Auditada
+        <span class="text-[11px] font-mono text-emerald-300 bg-[#004B49] border border-[#00A887]/40 px-2.5 py-1 rounded-xl font-bold hidden md:inline">
+          Base 2T26 CVM Auditada
         </span>
       </div>
 
@@ -758,13 +768,13 @@
             ${getStockLogoHtml(s.ticker, s.empresa, 'w-16 h-16')}
             <div class="flex flex-col min-w-0">
               <div class="flex flex-wrap items-center gap-2">
-                <h1 class="text-2xl sm:text-3xl font-bold font-mono text-slate-900 tracking-wide">${s.ticker}</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">${s.ticker}</h1>
                 <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white/90 text-slate-800 border border-slate-200">2T26 Vigente</span>
                 <span class="text-xs px-3 py-0.5 rounded-full font-sans ${entryBadgeClass}">${s.entry_status}</span>
                 ${curveBadge}
                 ${s.is_distorted ? '<span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">' + (s.distortion_label || 'Distorção Contábil') + '</span>' : ''}
               </div>
-              <div class="text-sm font-semibold text-slate-700 mt-1 truncate">${s.empresa}</div>
+              <div class="text-base font-medium font-editorial text-slate-800 mt-1 truncate">${s.empresa}</div>
               <div class="text-xs text-slate-500 font-sans mt-0.5 flex flex-wrap items-center gap-2">
                 <span>Setor: <b class="text-slate-800">${s.setor || 'Geral'}</b></span>
                 <span>•</span>
