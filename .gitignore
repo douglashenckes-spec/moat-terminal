@@ -6,3 +6,7 @@ venv/
 .vscode/
 capture_*.py
 test_*.py
+debug_*.py
+check_*.py
+snap_*.py
+*.log
