@@ -2,9 +2,15 @@ name: Atualização Diária B3 (Nuvem)
 
 on:
   schedule:
-    # 10:00 UTC = 07:00 Horário de Brasília (Segunda a Sexta)
-    - cron: '0 10 * * 1-5'
+    # 07:20 Horário de Brasília (10:20 UTC) - Pré-abertura (minuto quebrado evita fila do GitHub)
+    - cron: '20 10 * * 1-5'
+    # 12:20 Horário de Brasília (15:20 UTC) - Meio do pregão B3
+    - cron: '20 15 * * 1-5'
+    # 18:45 Horário de Brasília (21:45 UTC) - Fechamento oficial consolidado da B3
+    - cron: '45 21 * * 1-5'
   workflow_dispatch:
+  repository_dispatch:
+    types: [daily_update]
 
 jobs:
   update-data:
