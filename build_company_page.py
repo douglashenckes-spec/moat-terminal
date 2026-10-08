@@ -178,19 +178,19 @@ def build_company_page():
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL GLOBAL (BCG DEEP PINE AESTHETIC) -->
-  <header class="sticky top-0 z-40 bg-[#003836] border-b border-[#004B49] text-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+  <!-- TOPBAR INSTITUCIONAL GLOBAL (OPÇÃO 1: EXECUTIVE LIGHT • PADRÃO BCG.COM) -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[68px] flex items-center justify-between gap-3 sm:gap-4">
       
       <!-- Brand & Link Voltar -->
       <div class="flex items-center gap-3">
-        <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-mono font-semibold transition" title="Voltar ao Scanner e Panorama Geral">
+        <a href="index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs" title="Voltar ao Scanner e Panorama Geral">
           <svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           <span class="hidden sm:inline">Voltar ao Terminal</span>
         </a>
-        <div class="h-5 w-px bg-white/20 hidden sm:block"></div>
+        <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
         <a href="index.html" class="flex items-center gap-2.5 sm:gap-3.5 group cursor-pointer" title="Voltar ao Moat Terminal (Home)">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#004B49]/90 flex items-center justify-center text-white shadow-xs border border-[#00A887]/40 flex-shrink-0 group-hover:border-[#00A887] group-hover:scale-105 transition-all">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs border flex-shrink-0 group-hover:scale-105 transition-all">
             <svg class="w-6 h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Fosso Externo Circular (Water Moat) -->
               <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
@@ -205,10 +205,10 @@ def build_company_page():
           </div>
           <div class="flex flex-col">
             <div class="flex items-center gap-2">
-              <span class="font-bold text-white text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#00A887] transition-colors">MOAT TERMINAL</span>
-              <span class="px-1.5 py-0.2 text-[8px] bg-[#00A887]/20 text-[#00A887] border border-[#00A887]/40 font-bold font-mono rounded tracking-wider">STRATEGY</span>
+              <span class="font-bold text-slate-900 text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors">MOAT TERMINAL</span>
+              <span class="px-1.5 py-0.5 text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider">STRATEGY</span>
             </div>
-            <span class="text-[9.5px] text-emerald-100/70 font-mono tracking-wider uppercase mt-1">Economic Moats &amp; Capital Allocation</span>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5 hidden sm:inline">Economic Moats &amp; Capital Allocation</span>
           </div>
         </a>
       </div>
@@ -216,11 +216,11 @@ def build_company_page():
       <!-- Barra de Busca Rápida com Autocomplete -->
       <div class="flex-1 max-w-md relative" id="companySearchWrapper">
         <div class="relative flex items-center">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-200/60">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
             <svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
-          <input type="text" id="companySearchInput" placeholder="Buscar outra ação (ex: ITUB4, CURY3, VALE3)... (/)" autocomplete="off" class="w-full bg-white/10 border border-white/20 focus:border-[#00A887] focus:bg-white focus:text-slate-900 rounded-xl pl-9 pr-8 py-1.5 text-xs font-sans text-white placeholder-emerald-100/50 focus:outline-none transition shadow-2xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
-          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-emerald-200/70 bg-white/10 border border-white/20 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+          <input type="text" id="companySearchInput" placeholder="Buscar outra ação (ex: ITUB4, CURY3, VALE3)... (/)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-9 pr-8 py-1.5 sm:py-2 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
+          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
         <!-- Dropdown de Busca -->
         <div id="searchResultsDropdown" class="absolute left-0 w-80 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans text-slate-800"></div>
@@ -228,11 +228,12 @@ def build_company_page():
 
       <!-- Ações: Compartilhar & Atualização -->
       <div class="flex items-center gap-2">
-        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-mono font-semibold transition cursor-pointer" title="Copiar link direto para esta análise">
-          <svg class="w-3.5 h-3.5 stroke-[1.75] text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition cursor-pointer shadow-xs" title="Copiar link direto para esta análise">
+          <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
           <span id="copyLinkText" class="hidden sm:inline">Compartilhar Link</span>
         </button>
-        <span class="text-[11px] font-mono text-emerald-300 bg-[#004B49] border border-[#00A887]/40 px-2.5 py-1 rounded-xl font-bold hidden md:inline">
+        <span class="text-[11px] font-sans font-semibold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1.5 sm:py-2 rounded-xl hidden md:inline-flex items-center gap-1.5 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse"></span>
           Base 2T26 CVM Auditada
         </span>
       </div>

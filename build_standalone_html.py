@@ -244,21 +244,21 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     .topbar-nav-btn {{
-      color: rgba(255, 255, 255, 0.75);
+      color: #475569;
       border: 1px solid transparent;
       transition: all 0.15s ease;
       cursor: pointer;
     }}
     .topbar-nav-btn:hover {{
-      color: #FFFFFF;
-      background-color: rgba(255, 255, 255, 0.12);
+      color: #0F172A;
+      background-color: rgba(0, 0, 0, 0.05);
     }}
     .topbar-nav-btn.active {{
-      background-color: #00A887;
+      background-color: #004B49;
       color: #FFFFFF;
-      border-color: #00A887;
-      box-shadow: 0 2px 8px rgba(0, 168, 135, 0.35);
-      font-weight: 700;
+      border-color: #004B49;
+      box-shadow: 0 1px 3px rgba(0, 75, 73, 0.25);
+      font-weight: 600;
     }}
     .info-badge {{
       display: inline-flex;
@@ -295,13 +295,12 @@ html_template = f"""<!DOCTYPE html>
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (BRANDING + NAVEGAÇÃO SUPERIOR + BUSCA + CONTROLES • BCG AESTHETIC) -->
-  <header class="bg-[#003836] border-b border-[#004B49] text-white px-3 sm:px-6 py-2 sm:py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-3 z-30 flex-shrink-0 shadow-sm">
+  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (OPÇÃO 1: EXECUTIVE LIGHT • PADRÃO BCG.COM) -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 px-4 sm:px-6 h-16 sm:h-[68px] flex items-center justify-between gap-3 z-30 flex-shrink-0 shadow-xs">
     
-    <!-- Esquerda: Brand Institucional & Status Moat -->
     <!-- Esquerda: Brand Institucional & Status Moat (Emblema Cidadela de Vauban 1A) -->
-    <div onclick="goToHome()" class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group select-none transition" title="Ir para o Panorama Geral (Home)">
-      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#004B49]/90 flex items-center justify-center text-white shadow-xs border border-[#00A887]/40 flex-shrink-0 group-hover:border-[#00A887] group-hover:scale-105 transition-all" title="Moat Terminal • Vantagens Competitivas B3">
+    <div onclick="goToHome()" class="flex items-center gap-3 cursor-pointer group select-none transition flex-shrink-0" title="Ir para o Panorama Geral (Home)">
+      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs flex-shrink-0 group-hover:scale-105 transition-all" title="Moat Terminal • Vantagens Competitivas B3">
         <svg class="w-6 h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Fosso Externo Circular (Water Moat) -->
           <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
@@ -316,13 +315,13 @@ html_template = f"""<!DOCTYPE html>
       </div>
       <div class="flex flex-col">
         <div class="flex items-center gap-2">
-          <span class="font-bold text-white text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#00A887] transition-colors">MOAT TERMINAL</span>
-          <span class="px-1.5 py-0.2 text-[8px] bg-[#00A887]/20 text-[#00A887] border border-[#00A887]/40 font-bold font-mono rounded tracking-wider">STRATEGY</span>
+          <span class="font-bold text-slate-900 text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors">MOAT TERMINAL</span>
+          <span class="px-1.5 py-0.5 text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider">STRATEGY</span>
         </div>
-        <div class="flex items-center gap-1.5 sm:gap-2 text-[10px] text-emerald-100/70 font-mono mt-1">
-          <span class="text-emerald-100/90 font-medium hidden sm:inline tracking-wider uppercase text-[9px]">Economic Moats &amp; Capital Allocation</span>
-          <span class="text-emerald-400/40 hidden sm:inline">•</span>
-          <span class="text-emerald-300 font-bold flex items-center gap-1">
+        <div class="flex items-center gap-2 text-[10px] text-slate-500 font-sans mt-0.5">
+          <span class="font-medium hidden sm:inline text-slate-600">Economic Moats &amp; Capital Allocation</span>
+          <span class="text-slate-300 hidden sm:inline">•</span>
+          <span class="text-emerald-700 font-mono font-semibold flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
           </span>
         </div>
@@ -330,29 +329,29 @@ html_template = f"""<!DOCTYPE html>
     </div>
 
     <!-- Centro: Segmented Navigation Pills (3 Abas Diretas & Essenciais) -->
-    <nav class="flex items-center bg-black/25 p-0.5 sm:p-1 rounded-xl border border-white/10 gap-0.5 sm:gap-1 font-sans text-xs">
-      <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
+    <nav class="flex items-center bg-[#F4F4F0] p-1 rounded-xl border border-[#E7E7E2] gap-1 font-sans text-xs">
+      <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span class="hidden sm:inline">Panorama Geral</span>
         <span class="sm:hidden">Home</span>
       </button>
-      <button id="nav-matrix" onclick="switchWorkspace('matrix')" class="topbar-nav-btn flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
+      <button id="nav-matrix" onclick="switchWorkspace('matrix')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16M4 12h16M12 4v16"/></svg>
         <span class="hidden sm:inline">Matriz Estratégica 2x2</span>
         <span class="sm:hidden">Matriz</span>
       </button>
-      <button id="nav-table" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
+      <button id="nav-table" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
         <span>Scanner</span>
-        <span class="text-[10px] text-emerald-950 font-mono bg-emerald-200 px-1.5 py-0.2 rounded font-bold border border-emerald-300 hidden md:inline-block" id="sidebarUniverseCount">--</span>
+        <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200 hidden md:inline-block" id="sidebarUniverseCount">--</span>
       </button>
     </nav>
 
-    <!-- Direita: Busca Universal, Ativo Ativo e Ações -->
-    <div class="flex items-center gap-1.5 sm:gap-2.5 ml-auto sm:ml-0">
+    <!-- Direita: Busca Universal, Status de Atualização & Guia -->
+    <div class="flex items-center gap-2 sm:gap-2.5">
       <div class="relative" id="searchWrapper">
         <div class="relative flex items-center">
-          <span class="absolute left-2.5 text-emerald-200/60 pointer-events-none">
+          <span class="absolute left-2.5 text-slate-400 pointer-events-none">
             <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
           <input type="text" id="searchInput" 
@@ -361,8 +360,8 @@ html_template = f"""<!DOCTYPE html>
                  onfocus="handleSearchFocus()" 
                  placeholder="Buscar Ativo..." 
                  autocomplete="off"
-                 class="w-28 sm:w-48 md:w-64 bg-white/10 border border-white/20 rounded-lg pl-8 pr-2 sm:pr-7 py-1.5 text-xs text-white placeholder-emerald-100/50 focus:outline-none focus:bg-white focus:text-slate-900 focus:border-[#00A887] font-mono transition shadow-2xs">
-          <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-emerald-200/70 bg-white/10 border border-white/20 px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+                 class="w-28 sm:w-48 md:w-60 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-7 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
+          <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
 
         <!-- Dropdown de Sugestões em Tempo Real -->
@@ -371,20 +370,16 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <div class="text-xs font-mono text-emerald-100 hidden md:flex items-center gap-1.5 bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/15 shadow-2xs">
-        <span class="text-emerald-200/70 text-[11px]">Ativo:</span>
-        <b class="text-white font-bold" id="topSelectedTickerBadge">--</b>
-      </div>
-
-      <div class="text-xs font-mono text-emerald-100/80 hidden xl:block bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/15 shadow-2xs">
-        <b class="text-emerald-300 font-bold" id="displayedCount">--</b>/<span id="totalUniverseCount">--</span>
-      </div>
+      <!-- Elementos ocultos para manter compatibilidade JS sem poluir a barra -->
+      <span id="topSelectedTickerBadge" class="hidden">--</span>
+      <span id="displayedCount" class="hidden">--</span>
+      <span id="totalUniverseCount" class="hidden">--</span>
 
       <!-- Selo 'Atualizado' com Balãozinho de Data e Hora no Hover -->
       <div class="relative group cursor-pointer" id="lastUpdateBadgeWrapper" onclick="const p=this.querySelector('.update-tooltip-popup'); if(p) p.classList.toggle('!block');">
-        <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#004B49] hover:bg-[#005C59] border border-[#00A887]/40 text-white font-mono text-xs shadow-2xs transition select-none">
+        <div class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#E6F4F1] hover:bg-[#DCF0EC] border border-[#BCE5DC] text-[#004B49] font-sans text-xs font-semibold shadow-xs transition select-none">
           <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse flex-shrink-0"></span>
-          <span class="font-bold text-emerald-200 text-[11px] sm:text-xs">Atualizado</span>
+          <span class="text-[11px] sm:text-xs">Atualizado</span>
         </div>
 
         <!-- Balãozinho Suspenso no Hover (Data e Hora) -->
@@ -406,8 +401,9 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <button onclick="openWelcomeGuide()" class="px-2 sm:px-2.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold rounded-lg text-xs font-mono cursor-pointer transition flex items-center gap-1.5 shadow-2xs" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
-        <svg class="w-3.5 h-3.5 text-emerald-300 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+      <!-- Botão Guia & Isenção -->
+      <button onclick="openWelcomeGuide()" class="px-2.5 sm:px-3 py-1.5 bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 font-medium rounded-xl text-xs font-sans cursor-pointer transition flex items-center gap-1.5 shadow-xs" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
+        <svg class="w-3.5 h-3.5 text-[#004B49] stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
         <span class="hidden sm:inline">Guia &amp; Isenção</span>
       </button>
     </div>
