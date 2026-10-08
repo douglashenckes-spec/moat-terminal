@@ -819,15 +819,17 @@ def build_company_page():
           </div>
         </div>
 
-        <!-- Box de Resumo Executivo Didático para o Investidor -->
-        <div class="mt-4 p-4 border rounded-2xl flex items-start gap-3.5 text-xs font-sans text-slate-800 leading-relaxed shadow-2xs ${{diagBoxClass}}">
-          <span class="mt-0.5">${{diagIconSvg}}</span>
-          <div>
-            <div class="font-bold ${{diagTitleClass}} font-mono text-[11px] uppercase tracking-wider mb-1 flex items-center gap-2">
-              <span>Diagnóstico Executivo para o Investidor</span>
-              <span class="px-2 py-0.2 rounded-full text-[9px] font-bold bg-white text-slate-800 border border-slate-300">Linguagem Simples</span>
+        <!-- Box de Resumo Executivo Didático para o Investidor (BCG Briefing) -->
+        <div class="mt-5 p-5 border rounded-2xl flex items-start gap-4 text-xs font-sans text-slate-800 leading-relaxed shadow-3xs ${{diagBoxClass}}">
+          <span class="mt-0.5 text-base">${{diagIconSvg}}</span>
+          <div class="space-y-1.5 flex-1">
+            <div class="font-bold ${{diagTitleClass}} font-mono text-[11px] uppercase tracking-wider flex items-center justify-between gap-2 border-b border-black/5 pb-1.5">
+              <span class="flex items-center gap-1.5">
+                <span>BRIEFING ESTRATÉGICO &amp; FOSSO COMPETITIVO</span>
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-white text-slate-800 border border-slate-200">Visão Institucional</span>
             </div>
-            <p class="text-slate-700 text-xs leading-relaxed font-sans">${{generateHumanExecutiveSummary(s)}}</p>
+            <p class="text-slate-700 text-xs sm:text-[13px] leading-relaxed font-sans">${{generateHumanExecutiveSummary(s)}}</p>
           </div>
         </div>
 
@@ -864,13 +866,13 @@ def build_company_page():
       ];
 
       document.getElementById('essentialMultiplesGrid').innerHTML = items.map(c => `
-        <div class="glass-card rounded-xl p-3 border border-slate-200 text-center flex flex-col justify-between">
+        <div class="glass-card rounded-2xl p-3.5 border border-[#E7E7E2] bg-white hover:border-[#00A887] transition-all text-center flex flex-col justify-between">
           <div class="text-[10px] text-slate-500 uppercase font-mono font-semibold flex items-center justify-center gap-1">
             <span>${{c.label}}</span>
             ${{c.tip ? `<span class="info-badge cursor-pointer" data-tooltip="${{c.tip}}">ⓘ</span>` : ''}}
           </div>
           <div class="text-sm sm:text-base font-mono font-bold ${{c.color}} my-1">${{c.val}}</div>
-          <div class="text-[9px] text-slate-500 font-sans truncate" title="${{c.desc}}">${{c.desc}}</div>
+          <div class="text-[9.5px] text-slate-500 font-sans truncate" title="${{c.desc}}">${{c.desc}}</div>
         </div>
       `).join('');
     }}
@@ -906,12 +908,12 @@ def build_company_page():
 
       document.getElementById('valuationCalculatorsContainer').innerHTML = `
         <!-- Calculadora 1: Graham -->
-        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono space-y-1.5">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 stroke-[1.75] text-sky-700 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco de Benjamin Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
+              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco de Benjamin Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${{grahamMargin !== null && grahamMargin > 0 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : 'bg-slate-200 text-slate-800'}}">
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{grahamMargin !== null && grahamMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}}">
               ${{grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + grahamMargin.toFixed(1) + '% de Margem' : 'LPA/VPA Inválido'}}
             </span>
           </div>
@@ -925,12 +927,12 @@ def build_company_page():
         </div>
 
         <!-- Calculadora 2: Bazin -->
-        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono space-y-1.5">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 stroke-[1.75] text-emerald-700 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin (DY 6%) <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
+              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin (DY 6%) <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${{bazinMargin !== null && bazinMargin > 0 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : 'bg-slate-200 text-slate-800'}}">
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{bazinMargin !== null && bazinMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}}">
               ${{bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + bazinMargin.toFixed(1) + '% vs Cotação' : 'Sem Proventos'}}
             </span>
           </div>
@@ -944,12 +946,12 @@ def build_company_page():
         </div>
 
         <!-- Calculadora 3: Prêmio Real vs NTN-B -->
-        <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono space-y-1.5">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 stroke-[1.75] text-indigo-700 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0V5l-8 4v12h16V9l-8-4z"/></svg> Prêmio de Risco vs Tesouro NTN-B 2035 <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span>
+              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0V5l-8 4v12h16V9l-8-4z"/></svg> Prêmio de Risco vs Tesouro NTN-B 2035 <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${{spreadVal !== null && spreadVal > 0 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : 'bg-rose-100 text-rose-950 border border-rose-300'}}">
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{spreadVal !== null && spreadVal > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-rose-100 text-rose-950 border border-rose-300'}}">
               ${{spreadVal !== null ? (spreadVal > 0 ? '+' : '') + spreadVal.toFixed(1) + '% Real' : 'N/D'}}
             </span>
           </div>
@@ -963,11 +965,11 @@ def build_company_page():
         </div>
 
         <!-- Card Didático: Por que os Métodos de Valuation Divergem? -->
-        <div class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/60 font-sans space-y-2 mt-3 shadow-2xs">
-          <div class="font-bold text-xs text-indigo-950 font-mono flex items-center gap-1.5 uppercase tracking-wider">
-            <svg class="w-4 h-4 stroke-[1.75] text-indigo-700 inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg> Guia Didático: Por que os Métodos Divergem?
+        <div class="p-4 rounded-2xl border border-[#BCE5DC] bg-[#E6F4F1]/60 font-sans space-y-2 mt-3 shadow-2xs">
+          <div class="font-bold text-xs text-[#004B49] font-mono flex items-center gap-1.5 uppercase tracking-wider">
+            <svg class="w-4 h-4 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg> Guia Didático: Por que os Métodos Divergem?
           </div>
-          <div class="text-[11px] text-slate-700 space-y-1.5 leading-relaxed">
+          <div class="text-[11.5px] text-slate-700 space-y-1.5 leading-relaxed">
             <p>• <b>Benjamin Graham (Valor Intrínseco):</b> Foco em margem de segurança patrimonial e lucros sustentáveis passados. Exigente com empresas intensivas em capital ou holdings com ativos subavaliados.</p>
             <p>• <b>Décio Bazin (Referência de Proventos):</b> Foco exclusivo em fluxo histórico de dividendos. Estima a cotação teórica para obter 6% de retorno anual em dinheiro.</p>
             <p>• <b>Charlie Munger & Buffett (Qualidade & Moat):</b> Prioriza alta rentabilidade do capital reinvestido (ROIC/ROE > 15%). Uma empresa espetacular com múltiplos equilibrados supera um negócio medíocre a preço vil.</p>

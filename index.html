@@ -175,11 +175,11 @@
       border-color: #E2E8F0;
     }
     .sidebar-nav-btn.active {
-      background: #ECFDF5;
-      color: #065F46;
-      border: 1px solid #A7F3D0;
+      background: #004B49;
+      color: #FFFFFF;
+      border: 1px solid #004B49;
       font-weight: 700;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 2px 8px rgba(0, 75, 73, 0.25);
     }
     .tab-btn {
       border-radius: 9999px;
@@ -187,9 +187,9 @@
       color: #64748B;
     }
     .tab-btn.active {
-      background: #ECFDF5;
-      color: #065F46;
-      border: 1px solid #A7F3D0;
+      background: #004B49;
+      color: #FFFFFF;
+      border: 1px solid #004B49;
       font-weight: 700;
     }
     .filter-btn {
@@ -198,10 +198,10 @@
       color: #475569;
     }
     .filter-btn.active {
-      background: #ECFDF5;
-      border-color: #A7F3D0;
-      color: #065F46;
-      box-shadow: 0 1px 4px rgba(16, 185, 129, 0.15);
+      background: #004B49;
+      border-color: #004B49;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 75, 73, 0.25);
       font-weight: 700;
     }
     .drawer-backdrop {
@@ -391,148 +391,162 @@
     <!-- CANVAS DOS WORKSPACES COM SCROLL NATURAL E ESPAÇOSO -->
     <main class="flex-1 min-h-0 relative overflow-y-auto p-4 sm:p-6 bg-[#FBFBF9]" id="workspaceContainer">
 
-      <!-- WORKSPACE 0: 🏠 HOME (PANORAMA GERAL EXECUTIVO) -->
-      <section id="view-home" class="w-full glass-panel rounded-2xl flex flex-col p-5 sm:p-6 space-y-5">
-        <!-- CARD ÚNICO: APRESENTAÇÃO & BOAS-VINDAS DO MOAT TERMINAL (SIMPLES, EXECUTIVO E CONFORME CVM) -->
-        <div id="welcomeGuideBanner" class="p-5 glass-card rounded-2xl border border-[#E7E7E2] bg-white shadow-2xs flex-shrink-0 transition-all duration-300">
-          <!-- Cabeçalho do Card Único -->
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E7E7E2]">
-            <div class="flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-[#003836] text-[#00A887] flex items-center justify-center font-bold shadow-xs flex-shrink-0 border border-[#004B49]">
-                <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-              </div>
-              <div class="flex flex-col">
-                <div class="flex flex-wrap items-center gap-2">
-                  <h2 class="text-base sm:text-lg font-bold font-editorial text-slate-900 tracking-tight">
-                    Inteligência Estratégica de Alocação em Ações B3
-                  </h2>
-                  <span class="px-2.5 py-0.5 text-[10px] font-mono bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] rounded-full font-bold">
-                    BASE AUDITADA • 2T26 CVM
-                  </span>
-                  <span class="px-2.5 py-0.5 text-[10px] font-mono bg-[#F2F2ED] text-slate-700 border border-[#E7E7E2] rounded-full font-bold">
-                    194 AÇÕES B3
-                  </span>
-                </div>
-                <span class="text-[11px] font-mono text-slate-500 mt-0.5">Filosofia Charlie Munger &amp; Vantagens Competitivas Duráveis</span>
-              </div>
+      <!-- WORKSPACE 0: 🏠 HOME (PANORAMA GERAL EXECUTIVO • BCG EDITORIAL DESIGN) -->
+      <section id="view-home" class="w-full rounded-3xl flex flex-col space-y-8 max-w-7xl mx-auto">
+        
+        <!-- 1. BCG HERO EDITORIAL BRIEFING -->
+        <div class="p-8 sm:p-12 rounded-3xl bg-white border border-[#E7E7E2] shadow-sm relative overflow-hidden flex-shrink-0">
+          <div class="absolute -top-24 -right-24 w-96 h-96 bg-[#00A887]/8 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-[#003836]/5 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div class="relative z-10 max-w-4xl space-y-5">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-[#E6F4F1] border border-[#BCE5DC] text-[#004B49] text-xs font-mono font-bold tracking-wider uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse"></span>
+              <span>Inteligência Estratégica B3 • 2T26 Auditado</span>
             </div>
-
-            <!-- Botão de Minimizar / Expandir -->
-            <button type="button" onclick="toggleWelcomeBanner()" id="btnToggleWelcome" class="self-start sm:self-center px-2.5 py-1 text-xs font-mono font-medium text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition cursor-pointer flex items-center gap-1.5 shadow-3xs" title="Minimizar ou expandir apresentação">
-              <span id="txtToggleWelcome">Minimizar</span>
-              <svg id="iconToggleWelcome" class="w-3.5 h-3.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </button>
-          </div>
-
-          <!-- Corpo do Card Único (Simples e Direto) -->
-          <div id="welcomeGuideBody" class="mt-3.5 space-y-3 transition-all duration-300">
-            <!-- Descrição e Filosofia Munger -->
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              Painel institucional de inteligência de mercado e pesquisa quantitativa inspirado em <b>Charlie Munger e Benjamin Graham</b>. Triagem de empresas com vantagens competitivas duráveis (<i>Economic Moats</i>), alta rentabilidade do capital empregado (<i>ROIC &amp; ROE</i>) e dispersão de valuation frente ao custo de oportunidade soberano (<i>NTN-B 2035 a IPCA + 6,50%</i>).
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-editorial font-bold text-slate-950 tracking-tight leading-[1.12]">
+              Onde o fosso competitivo encontra a disciplina de valor.
+            </h1>
+            
+            <p class="text-sm sm:text-lg text-slate-600 font-sans leading-relaxed max-w-3xl pt-1">
+              Terminal de alta convicção analítica inspirado em <b>Charlie Munger e Benjamin Graham</b>. Triagem fundamentalista de <b>194 ações brasileiras</b> com foco em vantagens competitivas duráveis (<i>Economic Moats</i>), retorno sobre capital (<i>ROIC &amp; ROE</i>) e prêmio real sobre o custo soberano.
             </p>
 
-            <!-- Card de Responsabilidade CVM / Aviso Legal -->
-            <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 text-amber-950 flex items-start gap-2.5">
-              <span class="text-base leading-none mt-0.5">⚖️</span>
-              <div class="space-y-0.5 text-[11.5px] leading-relaxed">
-                <div class="font-mono font-bold uppercase text-[10.5px] text-amber-900 tracking-wider">
-                  Isenção de Responsabilidade • Resolução CVM nº 20/2021
-                </div>
-                <p class="text-amber-900/90 font-sans">
-                  Ferramenta de computação analítica para finalidade <b>estritamente educacional</b>. Os scores de qualidade, múltiplos e filtros <b>não configuram relatório de análise, consultoria ou recomendação de investimento</b>. Decisões de alocação patrimonial são de <b>exclusiva responsabilidade do usuário</b>.
+            <!-- Ações Executivas Diretas -->
+            <div class="flex flex-wrap items-center gap-3.5 pt-3">
+              <button type="button" onclick="switchWorkspace('table')" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#003836] hover:bg-[#004B49] text-white font-mono text-xs font-bold shadow-md transition-all cursor-pointer hover:shadow-lg hover:-translate-y-0.5">
+                <span>Explorar Scanner B3 (194 Ativos)</span>
+                <span class="text-emerald-300">➜</span>
+              </button>
+              <button type="button" onclick="switchWorkspace('matrix')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4F4F0] hover:bg-[#EAEAE4] border border-[#E7E7E2] text-slate-800 font-mono text-xs font-semibold transition cursor-pointer">
+                <span>Matriz Estratégica 2x2</span>
+                <span class="text-slate-500">📊</span>
+              </button>
+              <button type="button" onclick="setFilterAndGoTable('IBOV')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white hover:bg-[#F4F4F0] border border-[#E7E7E2] text-slate-700 font-mono text-xs font-medium transition cursor-pointer">
+                <span>🇧🇷 Carteira Ibovespa (76)</span>
+              </button>
+              <button type="button" onclick="openWelcomeGuide()" class="inline-flex items-center gap-2 px-3.5 py-3 rounded-xl text-slate-500 hover:text-slate-800 text-xs font-mono transition cursor-pointer underline underline-offset-4">
+                <span>Guia Regulatório CVM 20/2021</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. TRÊS PILARES MACRO (ESCALA EDITORIAL BCG) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 flex-shrink-0">
+          
+          <!-- Pilar 1: Sovereign Benchmark -->
+          <div class="glass-card rounded-3xl p-7 border border-[#E7E7E2] flex flex-col justify-between hover:border-[#00A887] transition-all bg-white group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Régua Soberana Livre de Risco</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold font-mono">NTN-B 2035</span>
+              </div>
+              <div class="text-4xl font-mono font-bold text-[#003836] tracking-tight group-hover:text-[#00A887] transition-colors">IPCA + 6,50%</div>
+              <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
+                O custo de oportunidade soberano do Brasil. Qualquer investimento na bolsa precisa entregar retorno operacional excedente para justificar o prêmio de risco do equity.
+              </p>
+            </div>
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+              <span class="text-[11px]">Benchmark Soberano</span>
+              <span class="text-[#004B49] font-bold flex items-center gap-1">
+                <span>Taxa Real</span> <span class="text-xs">🛡️</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Pilar 2: Market Multiple -->
+          <div class="glass-card rounded-3xl p-7 border border-[#E7E7E2] flex flex-col justify-between hover:border-[#00A887] transition-all bg-white group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Valuation Consolidado B3</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-bold font-mono" id="home-stat-pl-tag">Barato</span>
+              </div>
+              <div class="text-4xl font-mono font-bold text-slate-900 tracking-tight" id="home-stat-pl">9,1x P/L</div>
+              <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
+                Múltiplo mediano Preço/Lucro LTM do universo monitorado. Sinaliza dispersão favorável de múltiplos com desconto em relação à média decenal da B3.
+              </p>
+            </div>
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+              <span class="text-[11px]">Preço / Lucro Mediano</span>
+              <span class="text-amber-800 font-bold flex items-center gap-1">
+                <span>Desconto Histórico</span> <span class="text-xs">📉</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Pilar 3: Return on Capital -->
+          <div class="glass-card rounded-3xl p-7 border border-[#E7E7E2] flex flex-col justify-between hover:border-[#00A887] transition-all bg-white group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Eficiência &amp; Retorno do Capital</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] text-[10px] font-bold font-mono" id="home-stat-spread-tag">Prêmio Positivo</span>
+              </div>
+              <div class="text-4xl font-mono font-bold text-[#00A887] tracking-tight" id="home-stat-roic">10,2% ROIC</div>
+              <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
+                Retorno médio gerado pelo capital empregado. Ativos classificados como Tier 1 (Wide Moat) operam com ROIC acima de 18% a.a., ampliando a barreira contra concorrentes.
+              </p>
+            </div>
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+              <span class="text-[11px]">Spread Médio vs NTN-B</span>
+              <span class="text-[#004B49] font-bold flex items-center gap-1">
+                <span id="home-stat-spread">+4,1%</span> <span class="text-xs">🏰</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. DESTAQUES ESTRATÉGICOS (BRIEFINGS EXECUTIVOS TIER 1 & BAZIN) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-shrink-0">
+          
+          <!-- Card 1: Wide Moat Tier 1 -->
+          <div class="glass-card rounded-3xl flex flex-col overflow-hidden border border-[#E7E7E2] shadow-xs bg-white p-6 sm:p-7 space-y-4">
+            <div class="border-b border-[#F2F2ED] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="space-y-1">
+                <span class="text-[10.5px] font-mono font-bold tracking-widest uppercase text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full inline-block">
+                  ALTA CONVICÇÃO • TIER 1
+                </span>
+                <h3 class="text-xl sm:text-2xl font-editorial font-bold text-slate-900 pt-1">
+                  Empresas com Fosso Econômico (Wide Moat)
+                </h3>
+                <p class="text-xs text-slate-600 font-sans leading-relaxed">
+                  Negócios líderes com barreiras competitivas duradouras, precificação resiliente e alto retorno sobre o capital.
                 </p>
               </div>
-            </div>
-
-            <!-- Rodapé com Atalhos Rápidos para as Ferramentas -->
-            <div class="flex items-center gap-2 pt-1 font-mono text-xs flex-wrap">
-              <span class="text-slate-400 text-[11px] font-sans">Acesso rápido:</span>
-              <button type="button" onclick="switchWorkspace('matrix')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs">
-                <span>📊</span> Matriz 2x2
-              </button>
-              <button type="button" onclick="switchWorkspace('table')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs">
-                <span>🔍</span> Scanner B3 (194 Ativos)
-              </button>
-              <button type="button" onclick="setFilterAndGoTable('IBOV')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs">
-                <span>🇧🇷</span> 76 Ações Ibovespa
+              <button onclick="setFilterAndGoTable('CAT_TIER1')" class="text-xs font-mono font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
+                <span>Ver Todos</span> <span>➜</span>
               </button>
             </div>
-          </div>
-        </div>
-
-        <!-- 2. Termômetro Macro da B3 (A Régua Sovereign) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 flex-shrink-0">
-          <!-- NTN-B Sovereign Benchmark -->
-          <div class="glass-card rounded-xl p-4">
-            <div class="flex items-center justify-between text-xs text-slate-700 font-mono font-semibold">
-              <span>BENCHMARK LIVRE DE RISCO</span>
-              <span class="text-indigo-800 font-bold">NTN-B 2035</span>
-            </div>
-            <div class="text-2xl font-bold font-mono text-indigo-800 mt-1">IPCA + 6,50%</div>
-            <div class="text-[11px] text-slate-600 font-medium mt-1">Custo de oportunidade soberano de longo prazo do Brasil.</div>
-          </div>
-          <!-- P/L Mediano B3 -->
-          <div class="glass-card rounded-xl p-4">
-            <div class="flex items-center justify-between text-xs text-slate-700 font-mono font-semibold">
-              <span>P/L MEDIANO B3</span>
-              <span class="text-amber-800 font-bold" id="home-stat-pl-tag">Barato</span>
-            </div>
-            <div class="text-2xl font-bold font-mono text-slate-900 mt-1" id="home-stat-pl">9,1x</div>
-            <div class="text-[11px] text-slate-600 font-medium mt-1">Múltiplo mediano sobre o lucro contábil LTM.</div>
-          </div>
-          <!-- ROIC Mediano B3 -->
-          <div class="glass-card rounded-xl p-4">
-            <div class="flex items-center justify-between text-xs text-slate-700 font-mono font-semibold">
-              <span>ROIC / ROE MEDIANO</span>
-              <span class="text-emerald-700 font-bold">Retorno do Capital</span>
-            </div>
-            <div class="text-2xl font-bold font-mono text-emerald-800 mt-1" id="home-stat-roic">10,2%</div>
-            <div class="text-[11px] text-slate-600 font-medium mt-1">Retorno real gerado pelo capital empregado na bolsa.</div>
-          </div>
-          <!-- Spread Mediano vs NTN-B -->
-          <div class="glass-card rounded-xl p-4">
-            <div class="flex items-center justify-between text-xs text-slate-700 font-mono font-semibold">
-              <span>SPREAD MEDIANO VS NTN-B</span>
-              <span class="text-emerald-700 font-bold" id="home-stat-spread-tag">Prêmio Positivo</span>
-            </div>
-            <div class="text-2xl font-bold font-mono text-emerald-800 mt-1" id="home-stat-spread">+4,1%</div>
-            <div class="text-[11px] text-slate-600 font-medium mt-1">Prêmio de risco das ações sobre o Tesouro IPCA+.</div>
-          </div>
-        </div>
-
-        <!-- 2. Destaques Fundamentalistas Munger (Líderes Tier 1 & Vacas Leiteiras Bazin) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-shrink-0">
-          <!-- Top 5 Líderes de Setor (Tier 1) -->
-          <div class="glass-card rounded-2xl flex flex-col overflow-hidden border border-slate-200/90 shadow-2xs bg-white">
-            <div class="p-3.5 border-b border-slate-100 flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-amber-700 flex items-center"><svg class="w-4 h-4 stroke-[1.75] inline-block text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-6-13a4 4 0 008 0V4H6v4zm0 0H4a2 2 0 00-2 2v1a3 3 0 003 3h1m8-6h2a2 2 0 012 2v1a3 3 0 01-3 3h-1"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Empresas Wide Moat (Tier 1)</span>
-              </div>
-              <button onclick="setFilterAndGoTable('CAT_TIER1')" class="text-[11px] font-mono font-semibold text-slate-700 hover:text-slate-900 hover:underline transition cursor-pointer flex items-center gap-1">
-                <span>Ver seleção completa</span> <span>➜</span>
-              </button>
-            </div>
-            <div class="p-3 flex-1 space-y-2 font-mono text-xs" id="home-list-munger">
+            <div class="space-y-2.5 font-mono text-xs pt-1" id="home-list-munger">
               <!-- Renderizado via JS -->
             </div>
           </div>
 
-          <!-- Top 5 Dividendos Consistentes (Bazin >6%) -->
-          <div class="glass-card rounded-2xl flex flex-col overflow-hidden border border-slate-200/90 shadow-2xs bg-white">
-            <div class="p-3.5 border-b border-slate-100 flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-emerald-700 flex items-center"><svg class="w-4 h-4 stroke-[1.75] inline-block text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">Dividendos Consistentes (> 6%)</span>
+          <!-- Card 2: Vacas Leiteiras Bazin -->
+          <div class="glass-card rounded-3xl flex flex-col overflow-hidden border border-[#E7E7E2] shadow-xs bg-white p-6 sm:p-7 space-y-4">
+            <div class="border-b border-[#F2F2ED] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="space-y-1">
+                <span class="text-[10.5px] font-mono font-bold tracking-widest uppercase text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1 rounded-full inline-block">
+                  FLUXO DE CAIXA • BAZIN
+                </span>
+                <h3 class="text-xl sm:text-2xl font-editorial font-bold text-slate-900 pt-1">
+                  Dividendos Sustentáveis (&gt; 6% a.a.)
+                </h3>
+                <p class="text-xs text-slate-600 font-sans leading-relaxed">
+                  Companhias maduras e geradoras de caixa com histórico de proventos regulares protegidos por balanços sólidos.
+                </p>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_DIVIDENDS')" class="text-[11px] font-mono font-semibold text-slate-700 hover:text-slate-900 hover:underline transition cursor-pointer flex items-center gap-1">
-                <span>Ver seleção completa</span> <span>➜</span>
+              <button onclick="setFilterAndGoTable('CAT_DIVIDENDS')" class="text-xs font-mono font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
+                <span>Ver Todos</span> <span>➜</span>
               </button>
             </div>
-            <div class="p-3 flex-1 space-y-2 font-mono text-xs" id="home-list-dividends">
+            <div class="space-y-2.5 font-mono text-xs pt-1" id="home-list-dividends">
               <!-- Renderizado via JS -->
             </div>
           </div>
+
         </div>
 
         <!-- 3. Momentos Contábeis 2T26 & Solvência Munger -->
@@ -1057,22 +1071,22 @@
 
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
-            <thead class="bg-slate-100 border-b border-slate-200 font-mono text-slate-700 uppercase text-[11px] font-bold">
+            <thead class="bg-[#F4F4F0] border-b border-[#E7E7E2] font-mono text-[#003836] uppercase text-[10.5px] font-bold tracking-wider">
               <tr>
-                <th onclick="sortTable('ticker')" class="py-3 px-3 cursor-pointer hover:text-emerald-700 select-none" title="Ordenar por Ticker">Ativo / Empresa ↕</th>
-                <th onclick="sortTable('cotacao')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Ordenar por Cotação">Cotação ↕</th>
-                <th onclick="sortTable('quality_score')" class="py-3 px-2 text-center cursor-pointer hover:text-emerald-700 select-none" title="Moat Score (0 a 100): Avaliação da largura e sustentabilidade do fosso econômico">Moat Score <span class="info-badge cursor-pointer" data-tooltip="quality_score">ⓘ</span> ↕</th>
-                <th onclick="sortTable('pl')" class="py-3 px-2.5 text-right cursor-pointer hover:text-emerald-700 select-none" title="Ordenar por P/L Histórico &amp; Run-Rate">P/L (12M &amp; RR) <span class="info-badge cursor-pointer" data-tooltip="pl_ltm">ⓘ</span> ↕</th>
-                <th onclick="sortTable('ev_ebitda')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Múltiplo EV / EBITDA (Valor da Firma)">EV/EBITDA <span class="info-badge cursor-pointer" data-tooltip="ev_ebitda">ⓘ</span> ↕</th>
-                <th onclick="sortTable('roic')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Retorno sobre Capital Investido">ROIC <span class="info-badge cursor-pointer" data-tooltip="roic">ⓘ</span> ↕</th>
-                <th onclick="sortTable('roe')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Retorno sobre Patrimônio Líquido">ROE <span class="info-badge cursor-pointer" data-tooltip="roe">ⓘ</span> ↕</th>
-                <th onclick="sortTable('div_yield')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Ordenar por Dividend Yield">Div. Yield <span class="info-badge cursor-pointer" data-tooltip="payout">ⓘ</span> ↕</th>
-                <th onclick="sortTable('div_liq_ebitda')" class="py-3 px-2 text-right cursor-pointer hover:text-emerald-700 select-none" title="Dívida Líquida / EBITDA (Alavancagem ou Caixa Líquido)">Dív. Líq. <span class="info-badge cursor-pointer" data-tooltip="debt">ⓘ</span> ↕</th>
-                <th onclick="sortTable('ey_spread')" class="py-3 px-2.5 text-right cursor-pointer hover:text-emerald-700 select-none" title="Spread Real sobre a NTN-B 2035 (IPCA + 6,5% a.a.)">Spread NTN-B <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span> ↕</th>
-                <th class="py-3 px-3 text-slate-700 font-bold">Enquadramentos &amp; Momento</th>
+                <th onclick="sortTable('ticker')" class="py-3 px-3 cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por Ticker">Ativo / Empresa ↕</th>
+                <th onclick="sortTable('cotacao')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por Cotação">Cotação ↕</th>
+                <th onclick="sortTable('quality_score')" class="py-3 px-2 text-center cursor-pointer hover:text-[#00A887] select-none" title="Moat Score (0 a 100): Avaliação da largura e sustentabilidade do fosso econômico">Moat Score <span class="info-badge cursor-pointer" data-tooltip="quality_score">ⓘ</span> ↕</th>
+                <th onclick="sortTable('pl')" class="py-3 px-2.5 text-right cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por P/L Histórico &amp; Run-Rate">P/L (12M &amp; RR) <span class="info-badge cursor-pointer" data-tooltip="pl_ltm">ⓘ</span> ↕</th>
+                <th onclick="sortTable('ev_ebitda')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Múltiplo EV / EBITDA (Valor da Firma)">EV/EBITDA <span class="info-badge cursor-pointer" data-tooltip="ev_ebitda">ⓘ</span> ↕</th>
+                <th onclick="sortTable('roic')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Retorno sobre Capital Investido">ROIC <span class="info-badge cursor-pointer" data-tooltip="roic">ⓘ</span> ↕</th>
+                <th onclick="sortTable('roe')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Retorno sobre Patrimônio Líquido">ROE <span class="info-badge cursor-pointer" data-tooltip="roe">ⓘ</span> ↕</th>
+                <th onclick="sortTable('div_yield')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por Dividend Yield">Div. Yield <span class="info-badge cursor-pointer" data-tooltip="payout">ⓘ</span> ↕</th>
+                <th onclick="sortTable('div_liq_ebitda')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Dívida Líquida / EBITDA (Alavancagem ou Caixa Líquido)">Dív. Líq. <span class="info-badge cursor-pointer" data-tooltip="debt">ⓘ</span> ↕</th>
+                <th onclick="sortTable('ey_spread')" class="py-3 px-2.5 text-right cursor-pointer hover:text-[#00A887] select-none" title="Spread Real sobre a NTN-B 2035 (IPCA + 6,5% a.a.)">Spread NTN-B <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span> ↕</th>
+                <th class="py-3 px-3 text-[#003836] font-bold">Enquadramentos &amp; Momento</th>
               </tr>
             </thead>
-            <tbody id="stocksTableBody" class="divide-y divide-slate-100 font-sans"></tbody>
+            <tbody id="stocksTableBody" class="divide-y divide-[#E7E7E2] font-sans"></tbody>
           </table>
         </div>
       </div>
@@ -2577,18 +2591,21 @@
       const listMunger = document.getElementById('home-list-munger');
       if (listMunger) {
         listMunger.innerHTML = topMunger.map((s, i) => `
-          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-2.5 rounded-xl glass-card hover:border-amber-400/80 hover:bg-amber-50/50 border border-slate-200 transition duration-200 cursor-pointer shadow-xs">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="text-xs font-bold text-slate-700">#${i+1}</span>
-              ${getStockLogoHtml(s.ticker, s.empresa, 'w-6 h-6')}
+          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-3.5 rounded-2xl glass-card hover:border-[#00A887] hover:bg-[#FBFBF9] border border-[#E7E7E2] transition-all duration-200 cursor-pointer shadow-3xs group">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xs font-mono font-bold text-slate-400 group-hover:text-[#00A887]">0${i+1}</span>
+              ${getStockLogoHtml(s.ticker, s.empresa, 'w-8 h-8')}
               <div class="flex flex-col min-w-0">
-                <span class="text-sm font-bold text-slate-900 font-mono leading-none">${s.ticker}</span>
-                <span class="text-[10px] text-slate-600 font-sans truncate max-w-[100px] mt-0.5" title="${s.empresa}">${s.empresa}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold text-slate-900 font-mono leading-none group-hover:text-[#003836]">${s.ticker}</span>
+                  <span class="text-[11px] text-slate-500 font-sans truncate max-w-[150px] hidden sm:inline">${s.empresa}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono mt-0.5">ROIC ${formatPercent(s.roic || s.roe)} • P/L ${formatMultiple(s.pl)}</span>
               </div>
             </div>
-            <div class="flex items-center gap-2 text-right font-mono flex-shrink-0">
-              <span class="text-[11px] text-slate-700 hidden sm:inline font-medium">ROIC: <b class="${getColorRoe(s.roic || s.roe)}">${formatPercent(s.roic || s.roe)}</b></span>
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs">${s.quality_score.toFixed(1)}</span>
+            <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Score ${s.quality_score.toFixed(1)}</span>
+              <span class="text-slate-400 text-xs group-hover:text-[#00A887] transition-transform group-hover:translate-x-0.5">➜</span>
             </div>
           </div>
         `).join('');
@@ -2607,18 +2624,21 @@
       const listSpread = document.getElementById('home-list-spread');
       if (listSpread) {
         listSpread.innerHTML = topSpread.map((s, i) => `
-          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-2.5 rounded-xl glass-card hover:border-sky-400/80 hover:bg-sky-50/50 border border-slate-200 transition duration-200 cursor-pointer shadow-xs">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="text-xs font-bold text-slate-700">#${i+1}</span>
-              ${getStockLogoHtml(s.ticker, s.empresa, 'w-6 h-6')}
+          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-3.5 rounded-2xl glass-card hover:border-[#00A887] hover:bg-[#FBFBF9] border border-[#E7E7E2] transition-all duration-200 cursor-pointer shadow-3xs group">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xs font-mono font-bold text-slate-400 group-hover:text-[#00A887]">0${i+1}</span>
+              ${getStockLogoHtml(s.ticker, s.empresa, 'w-8 h-8')}
               <div class="flex flex-col min-w-0">
-                <span class="text-sm font-bold text-slate-900 font-mono leading-none">${s.ticker}</span>
-                <span class="text-[10px] text-slate-600 font-sans truncate max-w-[100px] mt-0.5" title="${s.empresa}">${s.empresa}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold text-slate-900 font-mono leading-none group-hover:text-[#003836]">${s.ticker}</span>
+                  <span class="text-[11px] text-slate-500 font-sans truncate max-w-[150px] hidden sm:inline">${s.empresa}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono mt-0.5">P/L ${formatMultiple(s.pl)} • Spread +${s.ey_spread.toFixed(1)}%</span>
               </div>
             </div>
-            <div class="flex items-center gap-2 text-right font-mono flex-shrink-0">
-              <span class="text-[11px] text-slate-700 hidden sm:inline font-medium">P/L: <b class="${getColorPl(s.pl)}">${formatMultiple(s.pl)}</b></span>
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-900 border border-sky-300 shadow-xs">+${s.ey_spread.toFixed(1)}%</span>
+            <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200">+${s.ey_spread.toFixed(1)}%</span>
+              <span class="text-slate-400 text-xs group-hover:text-[#00A887] transition-transform group-hover:translate-x-0.5">➜</span>
             </div>
           </div>
         `).join('');
@@ -2637,18 +2657,21 @@
       const listDiv = document.getElementById('home-list-dividends');
       if (listDiv) {
         listDiv.innerHTML = topDiv.map((s, i) => `
-          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-2.5 rounded-xl glass-card hover:border-emerald-400/80 hover:bg-emerald-50/50 border border-slate-200 transition duration-200 cursor-pointer shadow-xs">
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="text-xs font-bold text-slate-700">#${i+1}</span>
-              ${getStockLogoHtml(s.ticker, s.empresa, 'w-6 h-6')}
+          <div onclick="selectTickerAndNavigate('${s.ticker}')" class="flex items-center justify-between p-3.5 rounded-2xl glass-card hover:border-[#00A887] hover:bg-[#FBFBF9] border border-[#E7E7E2] transition-all duration-200 cursor-pointer shadow-3xs group">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="text-xs font-mono font-bold text-slate-400 group-hover:text-[#00A887]">0${i+1}</span>
+              ${getStockLogoHtml(s.ticker, s.empresa, 'w-8 h-8')}
               <div class="flex flex-col min-w-0">
-                <span class="text-sm font-bold text-slate-900 font-mono leading-none">${s.ticker}</span>
-                <span class="text-[10px] text-slate-600 font-sans truncate max-w-[100px] mt-0.5" title="${s.empresa}">${s.empresa}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold text-slate-900 font-mono leading-none group-hover:text-[#003836]">${s.ticker}</span>
+                  <span class="text-[11px] text-slate-500 font-sans truncate max-w-[150px] hidden sm:inline">${s.empresa}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono mt-0.5">DY ${formatPercent(s.div_yield)} • Payout ${s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}</span>
               </div>
             </div>
-            <div class="flex items-center gap-2 text-right font-mono flex-shrink-0">
-              <span class="text-[11px] text-slate-700 hidden sm:inline font-medium">Pay: <b class="text-emerald-800">${s.payout_implicito.toFixed(0)}%</b></span>
-              <span class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-xs">${formatPercent(s.div_yield)}</span>
+            <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">DY ${formatPercent(s.div_yield)}</span>
+              <span class="text-slate-400 text-xs group-hover:text-[#00A887] transition-transform group-hover:translate-x-0.5">➜</span>
             </div>
           </div>
         `).join('');
@@ -3457,8 +3480,8 @@
       stocks.forEach((s, idx) => {
         const isSelected = s.ticker === selectedTicker;
         const tr = document.createElement('tr');
-        const rowBg = isSelected ? 'bg-emerald-50/80 border-l-4 border-emerald-600 font-bold' : (idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40');
-        tr.className = `cursor-pointer transition duration-150 hover:bg-emerald-50/30 hover:border-l-2 hover:border-emerald-500 ${rowBg}`;
+        const rowBg = isSelected ? 'bg-[#E6F4F1] border-l-4 border-[#00A887] font-bold' : (idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFAF7]');
+        tr.className = `cursor-pointer transition duration-150 hover:bg-[#F4F9F8] ${rowBg}`;
         tr.onclick = (e) => {
           if (e.target.closest('button')) return;
           selectTicker(s.ticker);
@@ -3471,7 +3494,7 @@
         if (s.pl_run_rate !== null && s.pl_run_rate !== undefined) {
           rrStr = 'RR: ' + Number(s.pl_run_rate).toFixed(1) + 'x';
           if (s.pl !== null && s.pl > 0) {
-            if (s.pl_run_rate < s.pl * 0.85) rrColor = 'text-emerald-700 font-bold';
+            if (s.pl_run_rate < s.pl * 0.85) rrColor = 'text-[#004B49] font-bold';
             else if (s.pl_run_rate > s.pl * 1.25) rrColor = 'text-amber-700 font-bold';
           }
         }
@@ -3486,16 +3509,16 @@
         let debtDisplay = 'N/D';
         let debtClass = getColorDebt(s.div_liq_ebitda, s.is_financial);
         if (s.is_financial) {
-          debtDisplay = '<span class="text-[10px] text-indigo-700 font-semibold">Banco (Basileia)</span>';
+          debtDisplay = '<span class="text-[10px] text-[#004B49] font-semibold">Banco (Basileia)</span>';
         } else if ((s.details && s.details.divida_liquida !== null && s.details.divida_liquida <= 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0)) {
-          debtDisplay = '<span class="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">Caixa Líq. 🛡️</span>';
+          debtDisplay = '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Caixa Líq. 🛡️</span>';
         } else if (s.div_liq_ebitda !== null) {
           debtDisplay = Number(s.div_liq_ebitda).toFixed(1) + 'x';
         }
 
         // Score Badge
         const scoreBadgeClass = s.quality_score >= 80 
-          ? 'bg-emerald-50 text-emerald-900 border border-emerald-300 font-bold' 
+          ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold' 
           : (s.quality_score >= 65 ? 'bg-amber-50 text-amber-900 border border-amber-300 font-bold' : 'bg-slate-50 text-slate-700 border border-slate-200');
 
         // Categorias atribuídas (máximo 5)
@@ -3516,43 +3539,43 @@
         const spreadClass = getColorSpread(s.ey_spread);
 
         tr.innerHTML = `
-          <td class="py-2.5 px-3 border-b border-slate-100">
-            <div class="flex items-center gap-2">
-              ${getStockLogoHtml(s.ticker, s.empresa, 'w-6 h-6')}
+          <td class="py-3.5 px-3 border-b border-[#E7E7E2]">
+            <div class="flex items-center gap-2.5">
+              ${getStockLogoHtml(s.ticker, s.empresa, 'w-7 h-7')}
               <div class="flex flex-col min-w-0">
                 <div class="flex items-center gap-1.5 leading-none">
                   <span class="text-xs font-bold text-slate-900 tracking-wide font-mono">${s.ticker}</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold ${s.is_latest_balanco ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200'}">${s.tri_balanco || '2T26'}</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold ${s.is_latest_balanco ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-100 text-slate-600 border border-slate-200'}">${s.tri_balanco || '2T26'}</span>
                   ${s.is_distorted ? '<span class="text-[8px] px-1 py-0.2 rounded bg-amber-100 text-amber-900 font-semibold" title="' + (s.distortion_label || 'Distorção Contábil') + '">Dist.</span>' : ''}
-                  <a href="empresa.html?ticker=${s.ticker}" onclick="event.stopPropagation();" class="text-slate-400 hover:text-emerald-700 transition p-0.5" title="Abrir página dedicada de ${s.ticker}">
-                    <svg class="w-3 h-3 stroke-[2] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  <a href="empresa.html?ticker=${s.ticker}" onclick="event.stopPropagation();" class="text-slate-400 hover:text-[#00A887] transition p-0.5" title="Abrir dossiê de ${s.ticker}">
+                    <svg class="w-3.5 h-3.5 stroke-[2] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                   </a>
                 </div>
-                <div class="text-[11px] text-slate-500 font-sans font-medium truncate max-w-[140px] leading-tight mt-0.5" title="${s.empresa} - ${s.setor || ''}">${s.empresa}</div>
+                <div class="text-[11.5px] text-slate-600 font-sans font-medium truncate max-w-[150px] leading-tight mt-0.5" title="${s.empresa} - ${s.setor || ''}">${s.empresa}</div>
               </div>
             </div>
           </td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-slate-100">${formatCurrency(s.cotacao)}</td>
-          <td class="py-2.5 px-2 text-center border-b border-slate-100">
-            <span class="px-2 py-0.5 rounded-full font-bold text-[11px] ${scoreBadgeClass}" title="Moat Score: ${s.quality_score.toFixed(1)} / 92.5">
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-[#E7E7E2]">${formatCurrency(s.cotacao)}</td>
+          <td class="py-3.5 px-2 text-center border-b border-[#E7E7E2]">
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] ${scoreBadgeClass}" title="Moat Score: ${s.quality_score.toFixed(1)} / 92.5">
               ${s.quality_score.toFixed(1)}
             </span>
           </td>
-          <td class="py-2.5 px-2.5 text-right font-mono border-b border-slate-100">
+          <td class="py-3.5 px-2.5 text-right font-mono border-b border-[#E7E7E2]">
             <div class="text-xs font-semibold ${getColorPl(s.pl)} leading-tight">${formatMultiple(s.pl)}</div>
             ${rrStr ? '<div class="text-[9px] ' + rrColor + ' leading-none mt-0.5" title="P/L Run-Rate">' + rrStr + '</div>' : ''}
           </td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono border-b border-slate-100 text-slate-800 font-medium">
+          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] text-slate-800 font-medium">
             ${evDisplay}
           </td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono font-semibold border-b border-slate-100 ${roicColor}">${roicDisplay}</td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono font-semibold border-b border-slate-100 ${roeColor}">${roeDisplay}</td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono font-bold border-b border-slate-100 ${getColorDy(s.div_yield)}">${formatPercent(s.div_yield)}</td>
-          <td class="py-2.5 px-2 text-xs text-right font-mono border-b border-slate-100 ${debtClass}">${debtDisplay}</td>
-          <td class="py-2.5 px-2.5 text-xs text-right font-mono font-bold border-b border-slate-100 ${spreadClass}">
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] ${roicColor}">${roicDisplay}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] ${roeColor}">${roeDisplay}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] ${getColorDy(s.div_yield)}">${formatPercent(s.div_yield)}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] ${debtClass}">${debtDisplay}</td>
+          <td class="py-3.5 px-2.5 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] ${spreadClass}">
             ${spreadStr}
           </td>
-          <td class="py-2.5 px-3 border-b border-slate-100">
+          <td class="py-3.5 px-3 border-b border-[#E7E7E2]">
             <div class="flex flex-wrap items-center gap-1 max-w-[280px]">
               ${tagsHtml}
             </div>
