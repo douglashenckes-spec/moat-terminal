@@ -3204,7 +3204,7 @@ html_template = f"""<!DOCTYPE html>
 
     function openDedicatedCompanyPage(ticker) {{
       const t = ticker || selectedTicker || 'WEGE3';
-      window.open('empresa.html?ticker=' + encodeURIComponent(t), '_blank');
+      window.open('acoes/' + encodeURIComponent(t.toLowerCase()) + '/', '_blank');
     }}
 
     function switchMatrixX(metric) {{
@@ -3578,7 +3578,7 @@ html_template = f"""<!DOCTYPE html>
                   <span class="text-xs font-bold text-slate-900 tracking-wide font-mono">${{s.ticker}}</span>
                   <span class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold ${{s.is_latest_balanco ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-100 text-slate-600 border border-slate-200'}}">${{s.tri_balanco || '2T26'}}</span>
                   ${{s.is_distorted ? '<span class="text-[8px] px-1 py-0.2 rounded bg-amber-100 text-amber-900 font-semibold" title="' + (s.distortion_label || 'Distorção Contábil') + '">Dist.</span>' : ''}}
-                  <a href="empresa.html?ticker=${{s.ticker}}" onclick="event.stopPropagation();" class="text-slate-400 hover:text-[#00A887] transition p-0.5" title="Abrir dossiê de ${{s.ticker}}">
+                  <a href="acoes/${{s.ticker.toLowerCase()}}/" onclick="event.stopPropagation();" class="text-slate-400 hover:text-[#00A887] transition p-0.5" title="Abrir análise de ${{s.ticker}}">
                     <svg class="w-3.5 h-3.5 stroke-[2] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                   </a>
                 </div>

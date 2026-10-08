@@ -23,16 +23,25 @@ def generate_seo_assets():
         '  </url>'
     ]
     
+    sitemap_lines.extend([
+        '  <url>',
+        '    <loc>https://moatterminal.com.br/empresa.html</loc>',
+        f'    <lastmod>{today_str}</lastmod>',
+        '    <changefreq>daily</changefreq>',
+        '    <priority>0.5</priority>',
+        '  </url>'
+    ])
+    
     for s in stocks:
         ticker = s.get("ticker", "").upper().strip()
         if not ticker:
             continue
         sitemap_lines.extend([
             '  <url>',
-            f'    <loc>https://moatterminal.com.br/empresa.html?ticker={ticker}</loc>',
+            f'    <loc>https://moatterminal.com.br/acoes/{ticker.lower()}/</loc>',
             f'    <lastmod>{today_str}</lastmod>',
             '    <changefreq>daily</changefreq>',
-            '    <priority>0.8</priority>',
+            '    <priority>0.9</priority>',
             '  </url>'
         ])
         
