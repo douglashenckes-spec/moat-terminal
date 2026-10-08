@@ -306,7 +306,7 @@
     </div>
 
     <!-- Centro: Segmented Navigation Pills (3 Abas Diretas & Essenciais) -->
-    <nav class="flex items-center bg-black/25 p-0.5 sm:p-1 rounded-xl border border-white/10 gap-0.5 sm:gap-1 font-mono text-xs">
+    <nav class="flex items-center bg-black/25 p-0.5 sm:p-1 rounded-xl border border-white/10 gap-0.5 sm:gap-1 font-sans text-xs">
       <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex-shrink-0">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span class="hidden sm:inline">Panorama Geral</span>
@@ -450,16 +450,16 @@
           <!-- Pilar 1: Sovereign Benchmark -->
           <div class="glass-card rounded-3xl p-7 border border-[#E7E7E2] flex flex-col justify-between hover:border-[#00A887] transition-all bg-white group">
             <div class="space-y-3">
-              <div class="flex items-center justify-between text-xs font-mono">
+              <div class="flex items-center justify-between text-xs font-sans">
                 <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Régua Soberana Livre de Risco</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold font-mono">NTN-B 2035</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-800 text-[10px] font-bold font-sans">NTN-B 2035</span>
               </div>
               <div class="text-4xl font-mono font-bold text-[#003836] tracking-tight group-hover:text-[#00A887] transition-colors">IPCA + 6,50%</div>
               <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
                 O custo de oportunidade soberano do Brasil. Qualquer investimento na bolsa precisa entregar retorno operacional excedente para justificar o prêmio de risco do equity.
               </p>
             </div>
-            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-sans text-slate-500">
               <span class="text-[11px]">Benchmark Soberano</span>
               <span class="text-[#004B49] font-bold flex items-center gap-1">
                 <span>Taxa Real</span> <span class="text-xs">🛡️</span>
@@ -472,14 +472,14 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between text-xs font-mono">
                 <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Valuation Consolidado B3</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-bold font-mono" id="home-stat-pl-tag">Barato</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[10px] font-bold font-sans" id="home-stat-pl-tag">Barato</span>
               </div>
               <div class="text-4xl font-mono font-bold text-slate-900 tracking-tight" id="home-stat-pl">9,1x P/L</div>
               <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
                 Múltiplo mediano Preço/Lucro LTM do universo monitorado. Sinaliza dispersão favorável de múltiplos com desconto em relação à média decenal da B3.
               </p>
             </div>
-            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-sans text-slate-500">
               <span class="text-[11px]">Preço / Lucro Mediano</span>
               <span class="text-amber-800 font-bold flex items-center gap-1">
                 <span>Desconto Histórico</span> <span class="text-xs">📉</span>
@@ -492,14 +492,14 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between text-xs font-mono">
                 <span class="text-slate-400 uppercase tracking-widest text-[10.5px] font-bold">Eficiência &amp; Retorno do Capital</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] text-[10px] font-bold font-mono" id="home-stat-spread-tag">Prêmio Positivo</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] text-[10px] font-bold font-sans" id="home-stat-spread-tag">Prêmio Positivo</span>
               </div>
               <div class="text-4xl font-mono font-bold text-[#00A887] tracking-tight" id="home-stat-roic">10,2% ROIC</div>
               <p class="text-xs text-slate-600 leading-relaxed font-sans pt-1">
                 Retorno médio gerado pelo capital empregado. Ativos classificados como Tier 1 (Wide Moat) operam com ROIC acima de 18% a.a., ampliando a barreira contra concorrentes.
               </p>
             </div>
-            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-mono text-slate-500">
+            <div class="pt-5 mt-5 border-t border-[#F2F2ED] flex items-center justify-between text-xs font-sans text-slate-500">
               <span class="text-[11px]">Spread Médio vs NTN-B</span>
               <span class="text-[#004B49] font-bold flex items-center gap-1">
                 <span id="home-stat-spread">+4,1%</span> <span class="text-xs">🏰</span>
@@ -516,7 +516,7 @@
           <div class="glass-card rounded-3xl flex flex-col overflow-hidden border border-[#E7E7E2] shadow-xs bg-white p-6 sm:p-7 space-y-4">
             <div class="border-b border-[#F2F2ED] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="space-y-1">
-                <span class="text-[10.5px] font-mono font-bold tracking-widest uppercase text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full inline-block">
+                <span class="text-[10.5px] font-sans font-bold tracking-widest uppercase text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full inline-block">
                   ALTA CONVICÇÃO • TIER 1
                 </span>
                 <h3 class="text-xl sm:text-2xl font-editorial font-bold text-slate-900 pt-1">
@@ -526,7 +526,7 @@
                   Negócios líderes com barreiras competitivas duradouras, precificação resiliente e alto retorno sobre o capital.
                 </p>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_TIER1')" class="text-xs font-mono font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
+              <button onclick="setFilterAndGoTable('CAT_TIER1')" class="text-xs font-sans font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
                 <span>Ver Todos</span> <span>➜</span>
               </button>
             </div>
@@ -539,7 +539,7 @@
           <div class="glass-card rounded-3xl flex flex-col overflow-hidden border border-[#E7E7E2] shadow-xs bg-white p-6 sm:p-7 space-y-4">
             <div class="border-b border-[#F2F2ED] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div class="space-y-1">
-                <span class="text-[10.5px] font-mono font-bold tracking-widest uppercase text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1 rounded-full inline-block">
+                <span class="text-[10.5px] font-sans font-bold tracking-widest uppercase text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1 rounded-full inline-block">
                   FLUXO DE CAIXA • BAZIN
                 </span>
                 <h3 class="text-xl sm:text-2xl font-editorial font-bold text-slate-900 pt-1">
@@ -549,7 +549,7 @@
                   Companhias maduras e geradoras de caixa com histórico de proventos regulares protegidos por balanços sólidos.
                 </p>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_DIVIDENDS')" class="text-xs font-mono font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
+              <button onclick="setFilterAndGoTable('CAT_DIVIDENDS')" class="text-xs font-sans font-bold text-[#004B49] hover:text-[#00A887] transition cursor-pointer flex items-center gap-1 self-start sm:self-center flex-shrink-0">
                 <span>Ver Todos</span> <span>➜</span>
               </button>
             </div>
@@ -568,10 +568,10 @@
             <div class="p-3 border-b border-slate-100 flex items-center justify-between">
               <div class="flex items-center gap-1.5 min-w-0">
                 <span class="text-teal-600 flex items-center"><svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase truncate">Lucro Acelerando (Expansão)</span>
+                <span class="text-xs font-sans font-bold text-slate-900 truncate">Lucro Acelerando (Expansão)</span>
                 <span class="text-[10px] font-mono text-teal-700 font-bold" id="cnt-cat-accel">(--)</span>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_EXPANSION')" class="text-[10px] font-mono font-bold text-teal-700 hover:text-teal-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com lucro acelerando">
+              <button onclick="setFilterAndGoTable('CAT_EXPANSION')" class="text-[10.5px] font-sans font-bold text-teal-700 hover:text-teal-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com lucro acelerando">
                 Ver todos ➜
               </button>
             </div>
@@ -583,10 +583,10 @@
             <div class="p-3 border-b border-slate-100 flex items-center justify-between">
               <div class="flex items-center gap-1.5 min-w-0">
                 <span class="text-amber-600 flex items-center"><svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase truncate">Lucro em Retração (Desaceleração)</span>
+                <span class="text-xs font-sans font-bold text-slate-900 truncate">Lucro em Retração (Desaceleração)</span>
                 <span class="text-[10px] font-mono text-amber-700 font-bold" id="cnt-cat-decel">(--)</span>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_DECELERATION')" class="text-[10px] font-mono font-bold text-amber-700 hover:text-amber-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com lucro em desaceleração">
+              <button onclick="setFilterAndGoTable('CAT_DECELERATION')" class="text-[10.5px] font-sans font-bold text-amber-700 hover:text-amber-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com lucro em desaceleração">
                 Ver todos ➜
               </button>
             </div>
@@ -598,10 +598,10 @@
             <div class="p-3 border-b border-slate-100 flex items-center justify-between">
               <div class="flex items-center gap-1.5 min-w-0">
                 <span class="text-emerald-600 flex items-center"><svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase truncate">Caixa Líquido</span>
+                <span class="text-xs font-sans font-bold text-slate-900 truncate">Caixa Líquido</span>
                 <span class="text-[10px] font-mono text-emerald-700 font-bold" id="cnt-cat-netcash">(--)</span>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_NET_CASH')" class="text-[10px] font-mono font-bold text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com caixa líquido">
+              <button onclick="setFilterAndGoTable('CAT_NET_CASH')" class="text-[10.5px] font-sans font-bold text-emerald-700 hover:text-emerald-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com caixa líquido">
                 Ver todos ➜
               </button>
             </div>
@@ -613,10 +613,10 @@
             <div class="p-3 border-b border-slate-100 flex items-center justify-between">
               <div class="flex items-center gap-1.5 min-w-0">
                 <span class="text-rose-600 flex items-center"><svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase truncate">Alavancagem Alta (> 2.5x)</span>
+                <span class="text-xs font-sans font-bold text-slate-900 truncate">Alavancagem Alta (> 2.5x)</span>
                 <span class="text-[10px] font-mono text-rose-700 font-bold" id="cnt-cat-highdebt">(--)</span>
               </div>
-              <button onclick="setFilterAndGoTable('CAT_HIGH_DEBT')" class="text-[10px] font-mono font-bold text-rose-700 hover:text-rose-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com dívida alta">
+              <button onclick="setFilterAndGoTable('CAT_HIGH_DEBT')" class="text-[10.5px] font-sans font-bold text-rose-700 hover:text-rose-900 transition cursor-pointer flex-shrink-0" title="Ver todas as empresas com dívida alta">
                 Ver todos ➜
               </button>
             </div>
@@ -631,8 +631,8 @@
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
             <div>
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-900 border border-indigo-200 text-[10px] font-mono font-bold uppercase tracking-wider">Índice Oficial B3</span>
-                <span class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-900 border border-indigo-200 text-[10px] font-sans font-bold uppercase tracking-wider">Índice Oficial B3</span>
+                <span class="text-xs font-sans font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
                   CARTEIRA TEÓRICA IBOVESPA VIGENTE (SET-DEZ/2026)
                 </span>
               </div>
@@ -652,22 +652,22 @@
           <!-- Micro-Dashboard de Estatísticas do Ibovespa -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4">
             <div class="p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/70">
-              <div class="text-[10px] font-mono uppercase text-slate-500 font-semibold">Total de Ativos</div>
+              <div class="text-[10.5px] font-sans uppercase text-slate-500 font-semibold tracking-wider">Total de Ativos</div>
               <div class="text-lg font-bold font-mono text-slate-900" id="home-ibov-count">76 papéis</div>
               <div class="text-[10px] text-slate-500 font-sans">74 empresas listadas</div>
             </div>
             <div class="p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/70">
-              <div class="text-[10px] font-mono uppercase text-slate-500 font-semibold">Concentração Top 5</div>
+              <div class="text-[10.5px] font-sans uppercase text-slate-500 font-semibold tracking-wider">Concentração Top 5</div>
               <div class="text-lg font-bold font-mono text-indigo-800">36,9%</div>
               <div class="text-[10px] text-slate-500 font-sans">VALE, ITUB, PETR (x2), AXIA</div>
             </div>
             <div class="p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/70">
-              <div class="text-[10px] font-mono uppercase text-slate-500 font-semibold">P/L Mediano Ibov</div>
+              <div class="text-[10.5px] font-sans uppercase text-slate-500 font-semibold tracking-wider">P/L Mediano Ibov</div>
               <div class="text-lg font-bold font-mono text-emerald-800" id="home-ibov-median-pl">12,1x</div>
               <div class="text-[10px] text-slate-500 font-sans">Múltiplo de lucro corrente</div>
             </div>
             <div class="p-2.5 rounded-xl bg-slate-50/80 border border-slate-200/70">
-              <div class="text-[10px] font-mono uppercase text-slate-500 font-semibold">DY Médio Ponderado</div>
+              <div class="text-[10.5px] font-sans uppercase text-slate-500 font-semibold tracking-wider">DY Médio Ponderado</div>
               <div class="text-lg font-bold font-mono text-teal-800" id="home-ibov-dy-ponderado">5,5%</div>
               <div class="text-[10px] text-slate-500 font-sans">Remuneração em proventos</div>
             </div>
@@ -675,7 +675,7 @@
 
           <!-- Barra de Filtros Internos do Card e Busca -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3">
-            <div class="flex flex-wrap items-center gap-1.5 font-mono text-[11px]" id="home-ibov-filter-buttons">
+            <div class="flex flex-wrap items-center gap-1.5 font-sans text-xs" id="home-ibov-filter-buttons">
               <button onclick="setHomeIbovFilter('ALL')" id="hibov-flt-ALL" class="hibov-btn active px-2.5 py-1 rounded-lg border border-slate-900 bg-slate-900 text-white font-bold transition cursor-pointer">
                 Todos (76)
               </button>
@@ -921,36 +921,36 @@
         
         <!-- Esquerda: Presets Essenciais -->
         <div class="flex items-center gap-1.5 flex-wrap">
-          <span class="text-xs font-mono text-slate-400 font-bold uppercase mr-1">Filtro:</span>
+          <span class="text-xs font-sans text-slate-400 font-bold uppercase mr-1">Filtro:</span>
           
-          <button onclick="setFilter('ALL')" id="flt-ALL" class="filter-btn active rounded-full px-3 py-1 text-xs font-mono font-medium hover:text-slate-900 cursor-pointer">
+          <button onclick="setFilter('ALL')" id="flt-ALL" class="filter-btn active rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 cursor-pointer">
             Todos (<span id="cnt-ALL">--</span>)
           </button>
           
-          <button onclick="setFilter('IBOV')" id="flt-IBOV" class="filter-btn rounded-full px-3 py-1 text-xs font-mono font-bold hover:text-slate-900 text-indigo-900 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition cursor-pointer flex items-center gap-1.5" title="Filtrar os 76 componentes oficiais do Ibovespa">
+          <button onclick="setFilter('IBOV')" id="flt-IBOV" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-indigo-900 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition cursor-pointer flex items-center gap-1.5" title="Filtrar os 76 componentes oficiais do Ibovespa">
             <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
             <span>Ibovespa</span>
             <span class="bg-indigo-200/70 text-indigo-950 px-1.5 py-0.2 rounded-full text-[10px]" id="cnt-IBOV">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_TIER1')" id="flt-CAT_TIER1" class="filter-btn rounded-full px-3 py-1 text-xs font-mono font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Wide Moat (Tier 1: Score ≥ 80, ROIC/ROE elevado e balanço forte)">
+          <button onclick="setFilter('CAT_TIER1')" id="flt-CAT_TIER1" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Wide Moat (Tier 1: Score ≥ 80, ROIC/ROE elevado e balanço forte)">
             <span>🏆 Wide Moat (Tier 1)</span>
             <span class="text-slate-500 text-[10px]" id="cnt-TIER1">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_DIVIDENDS')" id="flt-CAT_DIVIDENDS" class="filter-btn rounded-full px-3 py-1 text-xs font-mono font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Dividend Yield > 6% com payout seguro">
+          <button onclick="setFilter('CAT_DIVIDENDS')" id="flt-CAT_DIVIDENDS" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Dividend Yield > 6% com payout seguro">
             <span>💰 Dividendos > 6%</span>
             <span class="text-slate-500 text-[10px]" id="sb-cnt-div">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_NET_CASH')" id="flt-CAT_NET_CASH" class="filter-btn rounded-full px-3 py-1 text-xs font-mono font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Caixa Líquido (Dívida zero)">
+          <button onclick="setFilter('CAT_NET_CASH')" id="flt-CAT_NET_CASH" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Caixa Líquido (Dívida zero)">
             <span>🛡️ Caixa Líquido</span>
             <span class="text-slate-500 text-[10px]" id="cnt-NET_CASH">--</span>
           </button>
 
           <!-- Seletor Rápido de Outras Categorias -->
           <div class="relative inline-flex items-center">
-            <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-mono focus:outline-none focus:border-emerald-500 cursor-pointer">
+            <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="" disabled selected>+ Mais Filtros...</option>
               <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão 2T26)</option>
               <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração 2T26)</option>
@@ -970,8 +970,8 @@
         <!-- Direita: Setor + Contadores + Critérios -->
         <div class="flex items-center gap-2.5 flex-wrap">
           <div class="flex items-center gap-1.5">
-            <span class="text-xs font-mono text-slate-400 font-semibold uppercase">Setor:</span>
-            <select id="sectorSelect" onchange="handleSectorChange(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-800 font-mono focus:outline-none focus:border-emerald-500 cursor-pointer">
+            <span class="text-xs font-sans text-slate-400 font-semibold uppercase">Setor:</span>
+            <select id="sectorSelect" onchange="handleSectorChange(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-800 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="ALL">Todos os Setores</option>
             </select>
           </div>
@@ -1009,7 +1009,7 @@
         <!-- KPIs da Categoria -->
         <div class="flex-1 flex flex-col justify-between gap-3">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
-            <span class="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5" id="catActiveTitle">
+            <span class="text-xs font-sans font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5" id="catActiveTitle">
               <span>📊</span> MÉDIAS PONDERADAS DA CATEGORIA
             </span>
             <span class="text-xs font-mono text-indigo-700 font-semibold bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200" id="catActiveCount">-- ativos</span>
@@ -1046,7 +1046,7 @@
         <!-- Racional Metodológico da Categoria -->
         <div class="w-full lg:w-96 glass-card rounded-xl p-4 flex flex-col justify-between gap-2.5 flex-shrink-0 border border-slate-200 bg-slate-50/60">
           <div>
-            <div class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5 mb-1">
+            <div class="text-xs font-sans font-bold text-slate-900 flex items-center gap-1.5 mb-1">
               <span>📐</span> RACIONAL METODOLÓGICO
             </div>
             <p class="text-xs text-slate-600 leading-relaxed font-sans" id="catActiveRationale">
@@ -1066,7 +1066,7 @@
       <div class="glass-panel rounded-2xl flex flex-col shadow-sm overflow-hidden flex-shrink-0 border border-slate-200">
         <div class="p-4 border-b border-slate-200 bg-slate-50 flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2.5">
-            <span class="text-sm font-mono font-bold text-slate-900 flex items-center gap-1.5" id="catTableTitle">
+            <span class="text-sm font-sans font-bold text-slate-900 flex items-center gap-1.5" id="catTableTitle">
               <span>📋</span> ATIVOS ENQUADRADOS NA CATEGORIA
             </span>
             <span class="text-xs text-indigo-800 font-mono font-semibold" id="catTableSubtitle">(-- ativos)</span>
@@ -1082,7 +1082,7 @@
 
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
-            <thead class="bg-[#F4F4F0] border-b border-[#E7E7E2] font-mono text-[#003836] uppercase text-[10.5px] font-bold tracking-wider">
+            <thead class="bg-[#F4F4F0] border-b border-[#E7E7E2] font-sans text-[#003836] uppercase text-[11px] font-bold tracking-wider">
               <tr>
                 <th onclick="sortTable('ticker')" class="py-3 px-3 cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por Ticker">Ativo / Empresa ↕</th>
                 <th onclick="sortTable('cotacao')" class="py-3 px-2 text-right cursor-pointer hover:text-[#00A887] select-none" title="Ordenar por Cotação">Cotação ↕</th>
