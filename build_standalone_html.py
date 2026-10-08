@@ -2522,18 +2522,18 @@ html_template = f"""<!DOCTYPE html>
 
       const elPl = document.getElementById('home-stat-pl');
       if (elPl) {{
-        elPl.innerText = medianPl.toFixed(1) + 'x';
-        elPl.className = 'text-2xl font-bold font-mono ' + getColorPl(medianPl);
+        elPl.innerText = medianPl.toFixed(1).replace('.', ',') + 'x P/L';
+        elPl.className = 'text-4xl font-mono font-bold text-slate-900 tracking-tight';
       }}
       const elRoic = document.getElementById('home-stat-roic');
       if (elRoic) {{
-        elRoic.innerText = (medianRoic * 100).toFixed(1).replace('.', ',') + '%';
-        elRoic.className = 'text-2xl font-bold font-mono text-emerald-800';
+        elRoic.innerText = (medianRoic * 100).toFixed(1).replace('.', ',') + '% ROIC';
+        elRoic.className = 'text-4xl font-mono font-bold text-[#00A887] tracking-tight';
       }}
       const elSpread = document.getElementById('home-stat-spread');
       if (elSpread) {{
         elSpread.innerText = (medianSpread > 0 ? '+' : '') + medianSpread.toFixed(1).replace('.', ',') + '%';
-        elSpread.className = 'text-2xl font-bold font-mono ' + getColorSpread(medianSpread);
+        elSpread.className = 'font-bold font-mono';
       }}
 
       // Universo Limpo: Excluir Recuperação Judicial e Distressed Assets
