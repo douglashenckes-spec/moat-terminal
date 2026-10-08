@@ -10,17 +10,17 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/acoes/azev4/">
   <script>
-    (function() {{
-      try {{
+    (function() {
+      try {
         var params = new URLSearchParams(window.location.search);
         var t = params.get('ticker');
-        if (t) {{
+        if (t) {
           t = t.toUpperCase().trim();
           var can = document.getElementById('canonicalTag');
           if (can) can.href = 'https://moatterminal.com.br/empresa.html?ticker=' + encodeURIComponent(t);
-        }}
-      }} catch(e) {{}}
-    }})();
+        }
+      } catch(e) {}
+    })();
   </script>
 
   <!-- Open Graph -->
@@ -142,7 +142,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJPB4NM5PW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-QJPB4NM5PW');
@@ -151,64 +151,64 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {{
-      theme: {{
-        extend: {{
-          fontFamily: {{
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
             serif: ['Newsreader', 'Georgia', 'serif'],
             sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          }},
-          colors: {{
+          },
+          colors: {
             bcgForest: '#004B49',
             bcgDeep: '#003836',
             bcgMint: '#00A887',
             bcgWarmBg: '#FBFBF9',
             bcgBorder: '#E7E7E2',
-          }}
-        }}
-      }}
-    }}
+          }
+        }
+      }
+    }
   </script>
 
   <style>
-    body {{
+    body {
       background-color: #FBFBF9;
       color: #1A202C;
       font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       -webkit-font-smoothing: antialiased;
-    }}
-    .font-editorial {{
+    }
+    .font-editorial {
       font-family: 'Newsreader', Georgia, serif;
-    }}
-    .glass-card {{
+    }
+    .glass-card {
       background-color: #FFFFFF;
       border: 1px solid #E7E7E2;
       box-shadow: 0 1px 3px rgba(0, 56, 54, 0.03);
-    }}
-    .glass-card:hover {{
+    }
+    .glass-card:hover {
       border-color: #BCE5DC;
       box-shadow: 0 8px 24px -4px rgba(0, 56, 54, 0.06);
-    }}
-    .glass-pill {{
+    }
+    .glass-pill {
       background-color: #F4F4F0;
       border: 1px solid #E7E7E2;
-    }}
-    .custom-scrollbar::-webkit-scrollbar {{
+    }
+    .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
-    }}
-    .custom-scrollbar::-webkit-scrollbar-track {{
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
       background: #FBFBF9;
-    }}
-    .custom-scrollbar::-webkit-scrollbar-thumb {{
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
       background: #D5D5CF;
       border-radius: 4px;
-    }}
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {{
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: #A8A8A0;
-    }}
-    .info-badge {{
+    }
+    .info-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -224,13 +224,13 @@
       transition: all 0.15s ease;
       vertical-align: middle;
       margin-left: 3px;
-    }}
-    .info-badge:hover {{
+    }
+    .info-badge:hover {
       color: #0F172A;
       background-color: #E2E8F0;
       border-color: #94A3B8;
       transform: scale(1.1);
-    }}
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col custom-scrollbar bg-[#FBFBF9] text-[#1A202C]">
@@ -640,234 +640,234 @@
 
     // Encontrar Ativo
     let currentStock = APP_DATA.stocks.find(s => s.ticker === currentTicker);
-    if (!currentStock) {{
+    if (!currentStock) {
       currentStock = APP_DATA.stocks.find(s => s.ticker === 'WEGE3') || APP_DATA.stocks[0];
       currentTicker = currentStock.ticker;
-    }}
+    }
 
     // Logo Helper com fallback monograma
-    function getStockLogoHtml(ticker, companyName, sizeClass = 'w-8 h-8') {{
+    function getStockLogoHtml(ticker, companyName, sizeClass = 'w-8 h-8') {
       const baseTicker = ticker ? ticker.toUpperCase() : 'B3';
       const initial = baseTicker.substring(0, 2);
-      const logoUrl = `https://raw.githubusercontent.com/thefintz/icones-b3/main/icones/${{baseTicker}}.png`;
+      const logoUrl = `https://raw.githubusercontent.com/thefintz/icones-b3/main/icones/${baseTicker}.png`;
       return `
-        <div class="${{sizeClass}} rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 bg-slate-100 border border-slate-200 relative shadow-2xs">
-          <img src="${{logoUrl}}" alt="${{baseTicker}}" class="w-full h-full object-contain p-0.5" 
+        <div class="${sizeClass} rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 bg-slate-100 border border-slate-200 relative shadow-2xs">
+          <img src="${logoUrl}" alt="${baseTicker}" class="w-full h-full object-contain p-0.5" 
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
           <div class="w-full h-full absolute inset-0 items-center justify-center font-mono font-bold text-slate-700 text-xs hidden bg-slate-100">
-            ${{initial}}
+            ${initial}
           </div>
         </div>
       `;
-    }}
+    }
 
-    function formatCurrency(val) {{
+    function formatCurrency(val) {
       if (val === null || val === undefined || isNaN(val)) return 'R$ --';
-      return 'R$ ' + Number(val).toLocaleString('pt-BR', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
-    }}
+      return 'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-    function formatPercent(val) {{
+    function formatPercent(val) {
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
       return (Number(val) * 100).toFixed(1) + '%';
-    }}
+    }
 
-    function formatMultiple(val) {{
+    function formatMultiple(val) {
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
       return Number(val).toFixed(2) + 'x';
-    }}
+    }
 
-    function formatBillions(val) {{
+    function formatBillions(val) {
       if (val === null || val === undefined || isNaN(val)) return 'R$ --';
       const num = Number(val);
       if (Math.abs(num) >= 1e9) return 'R$ ' + (num / 1e9).toFixed(2).replace('.', ',') + ' B';
       if (Math.abs(num) >= 1e6) return 'R$ ' + (num / 1e6).toFixed(1).replace('.', ',') + ' M';
       return 'R$ ' + num.toLocaleString('pt-BR');
-    }}
+    }
 
-    function calcFairPL(qualityScore) {{
+    function calcFairPL(qualityScore) {
       const q = Math.max(20.0, Math.min(100.0, qualityScore || 50.0));
       const norm = (q - 20.0) / 80.0;
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
-    }}
+    }
 
     // Rótulos e Categorias Institucionais Munger da Ação (Até 5 por ativo)
-    function getStockCategories(s) {{
+    function getStockCategories(s) {
       const cats = [];
       if (!s) return cats;
 
       // 1. DIMENSÃO SOLVÊNCIA & BALANÇO (Prioridade)
-      if (s.is_financial) {{
-        cats.push({{
+      if (s.is_financial) {
+        cats.push({
           id: 'CAT_FINANCIAL',
           label: 'Intermediação Financeira (Bancos)',
           shortLabel: 'Bancos',
           icon: '🏛️',
           bgClass: 'bg-indigo-50 text-indigo-950 border border-indigo-200 font-semibold'
-        }});
-      }} else {{
+        });
+      } else {
         const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
         const dle = s.div_liq_ebitda;
-        if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {{
-          cats.push({{
+        if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {
+          cats.push({
             id: 'CAT_NET_CASH',
             label: 'Caixa Líquido (Dívida Zero)',
             shortLabel: 'Caixa Líq.',
             icon: '🛡️',
             bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-          }});
-        }} else if (dle !== null && dle > 2.5) {{
-          cats.push({{
+          });
+        } else if (dle !== null && dle > 2.5) {
+          cats.push({
             id: 'CAT_HIGH_DEBT',
             label: 'Alavancagem Alta (Crítica > 2.5x)',
             shortLabel: 'Alavancagem Alta',
             icon: '🚨',
             bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
-          }});
-        }} else if (dle !== null && dle <= 1.8) {{
-          cats.push({{
+          });
+        } else if (dle !== null && dle <= 1.8) {
+          cats.push({
             id: 'CAT_BALANCED_DEBT',
             label: 'Dívida Equilibrada',
             shortLabel: 'Dívida Ok',
             icon: '⚖️',
             bgClass: 'bg-slate-100 text-slate-800 border border-slate-300 font-semibold'
-          }});
-        }}
-      }}
+          });
+        }
+      }
 
       // 2. DIMENSÃO MOMENTO DOS RESULTADOS & RECORRÊNCIA
-      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
-        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
-          cats.push({{
+      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {
+        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {
+          cats.push({
             id: 'CAT_EXPANSION',
             label: 'Lucro Acelerando (Expansão 2T26)',
             shortLabel: 'Lucro Acelerando',
             icon: '⚡',
             bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-          }});
-        }} else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {{
-          cats.push({{
+          });
+        } else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {
+          cats.push({
             id: 'CAT_DECELERATION',
             label: 'Lucro em Retração (Desaceleração 2T26)',
             shortLabel: 'Lucro em Retração',
             icon: '⚠️',
             bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-          }});
-        }}
-      }}
+          });
+        }
+      }
 
-      if (!s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {{
-        cats.push({{
+      if (!s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {
+        cats.push({
           id: 'CAT_CLEAN_EARNINGS',
           label: 'Lucro Limpo & Recorrente',
           shortLabel: 'Lucro Limpo',
           icon: '💎',
           bgClass: 'bg-teal-50 text-teal-950 border border-teal-300 font-semibold'
-        }});
-      }}
+        });
+      }
 
       // 3. DIMENSÃO QUALIDADE & EFICIÊNCIA DE CAPITAL
       const roicOrRoe = s.roic || s.roe || 0;
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {{
-        cats.push({{
+      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {
+        cats.push({
           id: 'CAT_TIER1',
           label: 'Wide Moat (Tier 1)',
           shortLabel: 'Wide Moat (Tier 1)',
           icon: '🏆',
           bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        }});
-      }} else if (!s.is_financial && s.roic >= 0.18) {{
-        cats.push({{
+        });
+      } else if (!s.is_financial && s.roic >= 0.18) {
+        cats.push({
           id: 'CAT_HIGH_ROIC',
           label: 'Super ROIC (≥ 18%)',
           shortLabel: 'Super ROIC',
           icon: '🏰',
           bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        }});
-      }}
+        });
+      }
 
       // 4. DIMENSÃO DIVIDENDOS & PROVENTOS
-      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
-        cats.push({{
+      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
+        cats.push({
           id: 'CAT_DIVIDENDS',
           label: 'Dividendos Consistentes (> 6%)',
           shortLabel: 'Dividendos > 6%',
           icon: '💰',
           bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        }});
-      }} else if (s.payout_implicito !== null && s.payout_implicito > 105) {{
-        cats.push({{
+        });
+      } else if (s.payout_implicito !== null && s.payout_implicito > 105) {
+        cats.push({
           id: 'CAT_PAYOUT_RISK',
           label: 'Payout Excessivo (> 100%)',
           shortLabel: 'Payout Alto',
           icon: '⚠️',
           bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
-        }});
-      }}
+        });
+      }
 
       // 5. DIMENSÃO VALUATION & MARGEM DE SEGURANÇA
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
-      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
+      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {
         const graham = Math.sqrt(22.5 * lpa * vpa);
-        if (graham > cot * 1.15) {{
-          cats.push({{
+        if (graham > cot * 1.15) {
+          cats.push({
             id: 'CAT_GRAHAM',
             label: 'Desconto Graham',
             shortLabel: 'Graham',
             icon: '📐',
             bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
-          }});
-        }}
-      }}
-      if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {{
+          });
+        }
+      }
+      if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {
         const bazin = (cot * s.div_yield) / 0.06;
-        if (bazin > cot * 1.15) {{
-          cats.push({{
+        if (bazin > cot * 1.15) {
+          cats.push({
             id: 'CAT_BAZIN',
             label: 'Referência Décio Bazin (DY 6%)',
             shortLabel: 'Ref. Bazin',
             icon: '🎯',
             bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
-          }});
-        }}
-      }}
-      if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {{
-        cats.push({{
+          });
+        }
+      }
+      if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {
+        cats.push({
           id: 'CAT_SPREAD_NTNB',
           label: 'Prêmio Real sobre NTN-B',
           shortLabel: 'Prêmio Real',
           icon: '📈',
           bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
-        }});
-      }}
+        });
+      }
 
       // 6. RISCOS DE CICLO & CONTÁBEIS
-      if (s.is_commodity_peak) {{
-        cats.push({{
+      if (s.is_commodity_peak) {
+        cats.push({
           id: 'CAT_COMMODITY_PEAK',
           label: 'Risco de Ciclo Commodities',
           shortLabel: 'Pico Ciclo',
           icon: '⚠️',
           bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-        }});
-      }}
-      if (s.is_distorted) {{
-        cats.push({{
+        });
+      }
+      if (s.is_distorted) {
+        cats.push({
           id: 'CAT_DISTORTION',
           label: 'Distorção Contábil / One-Off',
           shortLabel: 'One-off',
           icon: '🔍',
           bgClass: 'bg-purple-50 text-purple-950 border border-purple-300 font-semibold'
-        }});
-      }}
+        });
+      }
 
       // Retorna no máximo 5 etiquetas por empresa para manter alinhado com o Dossiê 360°
       return cats.slice(0, 5);
-    }}
+    }
 
     // Diagnóstico Executivo Didático em Linguagem Humana
-    function generateHumanExecutiveSummary(s) {{
+    function generateHumanExecutiveSummary(s) {
       if (!s) return '';
       const isFin = s.is_financial;
       const roePct = s.roe ? (s.roe * 100).toFixed(1) + '%' : 'N/D';
@@ -875,32 +875,32 @@
       const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0.0%';
       const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : 'No Moat (Tier 3)');
 
-      if (isFin) {{
-        return `<b>${{s.empresa}} (${{s.ticker}})</b> é uma instituição financeira/holding regulada pelas métricas do Banco Central, avaliada no <b>${{tierShort}}</b> com nota <b>${{s.quality_score.toFixed(1)}}/100</b>. Entrega um retorno patrimonial (ROE) robusto de <b>${{roePct}}</b> ao ano e distribui dividendos regulares de <b>${{dyPct}}</b> a.a. Seu valuation atual oferece <b>${{s.entry_status}}</b> frente à renda fixa pública.`;
-      }}
+      if (isFin) {
+        return `<b>${s.empresa} (${s.ticker})</b> é uma instituição financeira/holding regulada pelas métricas do Banco Central, avaliada no <b>${tierShort}</b> com nota <b>${s.quality_score.toFixed(1)}/100</b>. Entrega um retorno patrimonial (ROE) robusto de <b>${roePct}</b> ao ano e distribui dividendos regulares de <b>${dyPct}</b> a.a. Seu valuation atual oferece <b>${s.entry_status}</b> frente à renda fixa pública.`;
+      }
 
-      const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${{s.div_liq_ebitda.toFixed(1)}}x EBITDA` : 'estrutura de capital auditada');
-      const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${{roicPct}}</b> e retorno patrimonial (ROE) de <b>${{roePct}}</b>` : `ROE de <b>${{roePct}}</b>`;
+      const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${s.div_liq_ebitda.toFixed(1)}x EBITDA` : 'estrutura de capital auditada');
+      const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${roicPct}</b> e retorno patrimonial (ROE) de <b>${roePct}</b>` : `ROE de <b>${roePct}</b>`;
 
-      return `<b>${{s.empresa}} (${{s.ticker}})</b> atua no setor de <b>${{s.setor || 'Atividade Geral'}}</b>, classificada no <b>${{tierShort}}</b> com Score de <b>${{s.quality_score.toFixed(1)}}/100</b>. Apresenta ${{returnDesc}}, ${{debtStatus}} e remuneração em proventos de <b>${{dyPct}}</b> a.a., posicionando-se em <b>${{s.entry_status}}</b>.`;
-    }}
+      return `<b>${s.empresa} (${s.ticker})</b> atua no setor de <b>${s.setor || 'Atividade Geral'}</b>, classificada no <b>${tierShort}</b> com Score de <b>${s.quality_score.toFixed(1)}/100</b>. Apresenta ${returnDesc}, ${debtStatus} e remuneração em proventos de <b>${dyPct}</b> a.a., posicionando-se em <b>${s.entry_status}</b>.`;
+    }
 
     // Renderizar Hero Card
-    function renderHero() {{
+    function renderHero() {
       const s = currentStock;
       const pt = document.getElementById('pageTitle');
-      if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
-      document.title = `${{s.ticker}} • ${{s.empresa}} • Moat Terminal`;
+      if (pt) pt.innerText = `${s.ticker} • ${s.empresa} • Leitura dos Números`;
+      document.title = `${s.ticker} • ${s.empresa} • Moat Terminal`;
 
-      const fullCanonical = `https://moatterminal.com.br/empresa.html?ticker=${{s.ticker}}`;
+      const fullCanonical = `https://moatterminal.com.br/empresa.html?ticker=${s.ticker}`;
       const canEl = document.getElementById('canonicalTag') || document.querySelector('link[rel="canonical"]');
       if (canEl) canEl.href = fullCanonical;
       const ogUrlEl = document.getElementById('ogUrl') || document.querySelector('meta[property="og:url"]');
       if (ogUrlEl) ogUrlEl.content = fullCanonical;
       const ogTitleEl = document.getElementById('ogTitle');
-      if (ogTitleEl) ogTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
+      if (ogTitleEl) ogTitleEl.content = `${s.ticker} • ${s.empresa} • Dossiê Moat Terminal`;
       const twTitleEl = document.getElementById('twTitle');
-      if (twTitleEl) twTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
+      if (twTitleEl) twTitleEl.content = `${s.ticker} • ${s.empresa} • Dossiê Moat Terminal`;
 
       // Coloração Dinâmica do Hero Card conforme a Classificação de Entrada (3 Alternativas)
       let heroBgClass = 'bg-white border-slate-200';
@@ -909,28 +909,28 @@
       let diagTitleClass = 'text-slate-900';
       let diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-slate-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
 
-      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {{
+      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {
         heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
         entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
         diagBoxClass = 'bg-white/95 border-emerald-200/90 text-slate-800 shadow-2xs';
         diagTitleClass = 'text-emerald-950';
         diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-emerald-700 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
-      }} else if (s.entry_tag === 'PRECO_JUSTO') {{
+      } else if (s.entry_tag === 'PRECO_JUSTO') {
         heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
         entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';
         diagBoxClass = 'bg-white/95 border-amber-200/90 text-slate-800 shadow-2xs';
         diagTitleClass = 'text-amber-950';
         diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-amber-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
-      }} else if (s.entry_tag === 'ESTICADA') {{
+      } else if (s.entry_tag === 'ESTICADA') {
         heroBgClass = 'bg-rose-50/70 border-rose-300 shadow-xs';
         entryBadgeClass = 'bg-rose-600 text-white font-bold shadow-2xs';
         diagBoxClass = 'bg-white/95 border-rose-200/90 text-slate-800 shadow-2xs';
         diagTitleClass = 'text-rose-950';
         diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-rose-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
-      }}
+      }
 
       const heroEl = document.getElementById('companyHeroCard');
-      heroEl.className = `glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-200 shadow-sm ${{heroBgClass}}`;
+      heroEl.className = `glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-200 shadow-sm ${heroBgClass}`;
 
       const expPL = calcFairPL(s.quality_score);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
@@ -942,35 +942,35 @@
 
       const categories = getStockCategories(s);
       let catBadgesHtml = '';
-      if (categories.length > 0) {{
+      if (categories.length > 0) {
         catBadgesHtml = categories.map(c => `
-          <a href="index.html?filter=${{c.id}}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${{c.bgClass}} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${{c.label}}">
-            <span>${{c.icon}}</span> <span>${{c.shortLabel || c.label}}</span>
+          <a href="index.html?filter=${c.id}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${c.bgClass} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${c.label}">
+            <span>${c.icon}</span> <span>${c.shortLabel || c.label}</span>
           </a>
         `).join('');
-      }} else {{
+      } else {
         catBadgesHtml = `<span class="text-xs font-mono text-slate-500 italic">Nenhum enquadramento especial nos filtros</span>`;
-      }}
+      }
 
       heroEl.innerHTML = `
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div class="flex items-center gap-4 min-w-0">
-            ${{getStockLogoHtml(s.ticker, s.empresa, 'w-16 h-16')}}
+            ${getStockLogoHtml(s.ticker, s.empresa, 'w-16 h-16')}
             <div class="flex flex-col min-w-0">
               <div class="flex flex-wrap items-center gap-2">
-                <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">${{s.ticker}}</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">${s.ticker}</h1>
                 <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white/90 text-slate-800 border border-slate-200">2T26 Vigente</span>
-                <span class="text-xs px-3 py-0.5 rounded-full font-sans ${{entryBadgeClass}}">${{s.entry_status}}</span>
-                ${{curveBadge}}
-                ${{s.is_distorted ? '<span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">' + (s.distortion_label || 'Distorção Contábil') + '</span>' : ''}}
+                <span class="text-xs px-3 py-0.5 rounded-full font-sans ${entryBadgeClass}">${s.entry_status}</span>
+                ${curveBadge}
+                ${s.is_distorted ? '<span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">' + (s.distortion_label || 'Distorção Contábil') + '</span>' : ''}
               </div>
-              <div class="text-base font-medium font-editorial text-slate-800 mt-1 truncate">${{s.empresa}}</div>
+              <div class="text-base font-medium font-editorial text-slate-800 mt-1 truncate">${s.empresa}</div>
               <div class="text-xs text-slate-500 font-sans mt-0.5 flex flex-wrap items-center gap-2">
-                <span>Setor: <b class="text-slate-800">${{s.setor || 'Geral'}}</b></span>
+                <span>Setor: <b class="text-slate-800">${s.setor || 'Geral'}</b></span>
                 <span>•</span>
-                <span>Segmento: <b class="text-slate-800">${{s.sub_setor || s.tipo || 'B3'}}</b></span>
+                <span>Segmento: <b class="text-slate-800">${s.sub_setor || s.tipo || 'B3'}</b></span>
                 <span>•</span>
-                <span>Liquidez Diária: <b class="text-slate-800">${{formatBillions(s.liq_2m)}}/dia</b></span>
+                <span>Liquidez Diária: <b class="text-slate-800">${formatBillions(s.liq_2m)}/dia</b></span>
               </div>
             </div>
           </div>
@@ -978,35 +978,35 @@
           <div class="flex flex-wrap items-center gap-4 sm:gap-6 self-stretch lg:self-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100">
             <div class="flex flex-col text-left lg:text-right">
               <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Cotação Atual</span>
-              <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5">${{formatCurrency(s.cotacao)}}</span>
+              <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5">${formatCurrency(s.cotacao)}</span>
               <span class="text-[10px] text-slate-500 font-sans">Mercado B3 à vista</span>
             </div>
 
             <div class="flex flex-col text-left lg:text-right">
               <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Valor de Mercado</span>
-              <span class="text-lg font-bold font-mono text-slate-800 mt-0.5">${{s.details && s.details.valor_mercado ? formatBillions(s.details.valor_mercado) : 'N/D'}}</span>
-              <span class="text-[10px] text-slate-500 font-sans">EV: ${{s.details && s.details.valor_firma ? formatBillions(s.details.valor_firma) : 'N/D'}}</span>
+              <span class="text-lg font-bold font-mono text-slate-800 mt-0.5">${s.details && s.details.valor_mercado ? formatBillions(s.details.valor_mercado) : 'N/D'}</span>
+              <span class="text-[10px] text-slate-500 font-sans">EV: ${s.details && s.details.valor_firma ? formatBillions(s.details.valor_firma) : 'N/D'}</span>
             </div>
 
-            <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${{scoreBadgeClass}} min-w-[95px]">
+            <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${scoreBadgeClass} min-w-[95px]">
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-              <span class="text-2xl font-bold font-mono leading-none my-0.5">${{s.quality_score.toFixed(1)}}</span>
-              <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}}</span>
+              <span class="text-2xl font-bold font-mono leading-none my-0.5">${s.quality_score.toFixed(1)}</span>
+              <span class="text-[9px] font-mono font-semibold text-slate-700">${s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}</span>
             </div>
           </div>
         </div>
 
         <!-- Box de Resumo Executivo Didático para o Investidor (BCG Briefing) -->
-        <div class="mt-5 p-5 border rounded-2xl flex items-start gap-4 text-xs font-sans text-slate-800 leading-relaxed shadow-3xs ${{diagBoxClass}}">
-          <span class="mt-0.5 text-base">${{diagIconSvg}}</span>
+        <div class="mt-5 p-5 border rounded-2xl flex items-start gap-4 text-xs font-sans text-slate-800 leading-relaxed shadow-3xs ${diagBoxClass}">
+          <span class="mt-0.5 text-base">${diagIconSvg}</span>
           <div class="space-y-1.5 flex-1">
-            <div class="font-bold ${{diagTitleClass}} font-mono text-[11px] uppercase tracking-wider flex items-center justify-between gap-2 border-b border-black/5 pb-1.5">
+            <div class="font-bold ${diagTitleClass} font-mono text-[11px] uppercase tracking-wider flex items-center justify-between gap-2 border-b border-black/5 pb-1.5">
               <span class="flex items-center gap-1.5">
                 <span>BRIEFING ESTRATÉGICO &amp; FOSSO COMPETITIVO</span>
               </span>
               <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-white text-slate-800 border border-slate-200">Visão Institucional</span>
             </div>
-            <p class="text-slate-700 text-xs sm:text-[13px] leading-relaxed font-sans">${{generateHumanExecutiveSummary(s)}}</p>
+            <p class="text-slate-700 text-xs sm:text-[13px] leading-relaxed font-sans">${generateHumanExecutiveSummary(s)}</p>
           </div>
         </div>
 
@@ -1016,13 +1016,13 @@
             <svg class="w-3.5 h-3.5 stroke-[1.75] text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
             Enquadramentos &amp; Momento:
           </span>
-          ${{catBadgesHtml}}
+          ${catBadgesHtml}
         </div>
       `;
-    }}
+    }
 
     // Renderizar Grid de 8 Múltiplos
-    function renderEssentialMultiples() {{
+    function renderEssentialMultiples() {
       const s = currentStock;
       const roicVal = s.roic || s.roe || 0;
       const dlVal = s.details ? s.details.divida_liquida : null;
@@ -1032,30 +1032,30 @@
       else if (s.div_liq_ebitda !== null) debtText = s.div_liq_ebitda.toFixed(2) + 'x EBITDA';
 
       const items = [
-        {{ label: 'P/L Histórico', val: formatMultiple(s.pl), desc: 'Preço sobre Lucro LTM', color: 'text-slate-900', tip: 'pl_ltm' }},
-        {{ label: 'P/L Run-Rate', val: s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D', desc: 'Ritmo anualizado 2T26', color: s.pl_run_rate && s.pl && s.pl_run_rate < s.pl ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'pl_run_rate' }},
-        {{ label: 'P / VP', val: formatMultiple(s.pvp), desc: 'Preço sobre Patrimônio', color: 'text-slate-900', tip: 'graham' }},
-        {{ label: 'EV / EBITDA', val: s.is_financial ? 'N/A' : (s.ev_ebitda !== null ? formatMultiple(s.ev_ebitda) : 'N/D'), desc: 'Múltiplo da Firma', color: 'text-slate-900', tip: 'ev_ebitda' }},
-        {{ label: 'ROIC Operacional', val: s.is_financial ? 'N/A (Bancos)' : formatPercent(s.roic), desc: 'Retorno Capital Investido (NOPAT/CI)', color: (!s.is_financial && s.roic >= 0.15) ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roic' }},
-        {{ label: 'ROE do Acionista', val: formatPercent(s.roe), desc: 'Retorno s/ Patrimônio Líquido', color: s.roe >= 0.15 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roe' }},
-        {{ label: 'Margem Líquida', val: formatPercent(s.mrg_liq), desc: 'Conversão em Lucro Líquido', color: s.mrg_liq >= 0.15 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'mrg_liq' }},
-        {{ label: 'Dividend Yield', val: formatPercent(s.div_yield), desc: 'Proventos pagos 12m', color: s.div_yield >= 0.06 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'payout' }}
+        { label: 'P/L Histórico', val: formatMultiple(s.pl), desc: 'Preço sobre Lucro LTM', color: 'text-slate-900', tip: 'pl_ltm' },
+        { label: 'P/L Run-Rate', val: s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D', desc: 'Ritmo anualizado 2T26', color: s.pl_run_rate && s.pl && s.pl_run_rate < s.pl ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'pl_run_rate' },
+        { label: 'P / VP', val: formatMultiple(s.pvp), desc: 'Preço sobre Patrimônio', color: 'text-slate-900', tip: 'graham' },
+        { label: 'EV / EBITDA', val: s.is_financial ? 'N/A' : (s.ev_ebitda !== null ? formatMultiple(s.ev_ebitda) : 'N/D'), desc: 'Múltiplo da Firma', color: 'text-slate-900', tip: 'ev_ebitda' },
+        { label: 'ROIC Operacional', val: s.is_financial ? 'N/A (Bancos)' : formatPercent(s.roic), desc: 'Retorno Capital Investido (NOPAT/CI)', color: (!s.is_financial && s.roic >= 0.15) ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roic' },
+        { label: 'ROE do Acionista', val: formatPercent(s.roe), desc: 'Retorno s/ Patrimônio Líquido', color: s.roe >= 0.15 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roe' },
+        { label: 'Margem Líquida', val: formatPercent(s.mrg_liq), desc: 'Conversão em Lucro Líquido', color: s.mrg_liq >= 0.15 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'mrg_liq' },
+        { label: 'Dividend Yield', val: formatPercent(s.div_yield), desc: 'Proventos pagos 12m', color: s.div_yield >= 0.06 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'payout' }
       ];
 
       document.getElementById('essentialMultiplesGrid').innerHTML = items.map(c => `
         <div class="glass-card rounded-2xl p-3.5 border border-[#E7E7E2] bg-white hover:border-[#00A887] transition-all text-center flex flex-col justify-between">
           <div class="text-[10.5px] text-slate-500 uppercase font-sans font-semibold tracking-wider flex items-center justify-center gap-1">
-            <span>${{c.label}}</span>
-            ${{c.tip ? `<span class="info-badge cursor-pointer" data-tooltip="${{c.tip}}">ⓘ</span>` : ''}}
+            <span>${c.label}</span>
+            ${c.tip ? `<span class="info-badge cursor-pointer" data-tooltip="${c.tip}">ⓘ</span>` : ''}
           </div>
-          <div class="text-sm sm:text-base font-mono font-bold ${{c.color}} my-1">${{c.val}}</div>
-          <div class="text-[9.5px] text-slate-500 font-sans truncate" title="${{c.desc}}">${{c.desc}}</div>
+          <div class="text-sm sm:text-base font-mono font-bold ${c.color} my-1">${c.val}</div>
+          <div class="text-[9.5px] text-slate-500 font-sans truncate" title="${c.desc}">${c.desc}</div>
         </div>
       `).join('');
-    }}
+    }
 
     // Renderizar Calculadoras de Valuation (Graham, Bazin, NTN-B)
-    function renderValuationCalculators() {{
+    function renderValuationCalculators() {
       const s = currentStock;
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
@@ -1064,21 +1064,21 @@
       // 1. Valor Intrínseco de Graham: sqrt(22.5 * LPA * VPA)
       let grahamPrice = null;
       let grahamMargin = null;
-      if (lpa && vpa && lpa > 0 && vpa > 0) {{
+      if (lpa && vpa && lpa > 0 && vpa > 0) {
         grahamPrice = Math.sqrt(22.5 * lpa * vpa);
-        if (cot > 0) {{
+        if (cot > 0) {
           grahamMargin = ((grahamPrice - cot) / cot) * 100;
-        }}
-      }}
+        }
+      }
 
       // 2. Referência Décio Bazin: DPA Médio / 0.06 (Exige 6% de Dividend Yield Mínimo)
       let bazinPrice = null;
       let bazinMargin = null;
-      if (s.div_yield && s.div_yield > 0 && cot > 0) {{
+      if (s.div_yield && s.div_yield > 0 && cot > 0) {
         const dpa = cot * s.div_yield;
         bazinPrice = dpa / 0.06;
         bazinMargin = ((bazinPrice - cot) / cot) * 100;
-      }}
+      }
 
       // 3. Prêmio de Risco NTN-B
       const spreadVal = s.ey_spread !== null ? s.ey_spread : null;
@@ -1090,13 +1090,13 @@
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco de Benjamin Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{grahamMargin !== null && grahamMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}}">
-              ${{grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + grahamMargin.toFixed(1) + '% de Margem' : 'LPA/VPA Inválido'}}
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${grahamMargin !== null && grahamMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
+              ${grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + grahamMargin.toFixed(1) + '% de Margem' : 'LPA/VPA Inválido'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
             <span class="text-slate-600 font-sans">Valor Intrínseco Graham (V = √(22.5 × LPA × VPA)):</span>
-            <b class="text-sm font-bold text-slate-900">${{grahamPrice ? formatCurrency(grahamPrice) : 'N/D'}}</b>
+            <b class="text-sm font-bold text-slate-900">${grahamPrice ? formatCurrency(grahamPrice) : 'N/D'}</b>
           </div>
           <p class="text-[10px] text-slate-500 font-sans">
             Referência teórica clássica de Benjamin Graham ponderando valor contábil e lucros passados.
@@ -1109,13 +1109,13 @@
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin (DY 6%) <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{bazinMargin !== null && bazinMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}}">
-              ${{bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + bazinMargin.toFixed(1) + '% vs Cotação' : 'Sem Proventos'}}
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${bazinMargin !== null && bazinMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
+              ${bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + bazinMargin.toFixed(1) + '% vs Cotação' : 'Sem Proventos'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
             <span class="text-slate-600 font-sans">Preço Teórico de Referência (DY 6%):</span>
-            <b class="text-sm font-bold text-slate-900">${{bazinPrice ? formatCurrency(bazinPrice) : 'N/D'}}</b>
+            <b class="text-sm font-bold text-slate-900">${bazinPrice ? formatCurrency(bazinPrice) : 'N/D'}</b>
           </div>
           <p class="text-[10px] text-slate-500 font-sans">
             Modelo quantitativo de proventos: calcula a cotação em que a distribuição equivale a 6,0% ao ano.
@@ -1128,13 +1128,13 @@
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0V5l-8 4v12h16V9l-8-4z"/></svg> Prêmio de Risco vs Tesouro NTN-B 2035 <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${{spreadVal !== null && spreadVal > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-rose-100 text-rose-950 border border-rose-300'}}">
-              ${{spreadVal !== null ? (spreadVal > 0 ? '+' : '') + spreadVal.toFixed(1) + '% Real' : 'N/D'}}
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${spreadVal !== null && spreadVal > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-rose-100 text-rose-950 border border-rose-300'}">
+              ${spreadVal !== null ? (spreadVal > 0 ? '+' : '') + spreadVal.toFixed(1) + '% Real' : 'N/D'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
             <span class="text-slate-600 font-sans">Earnings Yield (Lucro/Preço):</span>
-            <b class="text-sm font-bold text-slate-900">${{s.earnings_yield_pct !== null ? s.earnings_yield_pct.toFixed(1) + '%' : 'N/D'}}</b>
+            <b class="text-sm font-bold text-slate-900">${s.earnings_yield_pct !== null ? s.earnings_yield_pct.toFixed(1) + '%' : 'N/D'}</b>
           </div>
           <p class="text-[10px] text-slate-500 font-sans">
             Compara o rendimento em lucros da empresa diretamente contra o custo de oportunidade do Tesouro IPCA+ 6,50%.
@@ -1153,12 +1153,12 @@
           </div>
         </div>
       `;
-    }}
+    }
 
     // Controle de Abas do Histórico de 5 Anos
     let currentHistTab = 'rev_lucro';
 
-    function switchHistoryTab(tab) {{
+    function switchHistoryTab(tab) {
       currentHistTab = tab;
       const bRev = document.getElementById('btnHistRev');
       const bRent = document.getElementById('btnHistRent');
@@ -1173,16 +1173,16 @@
 
       renderHistoryChart();
       renderDupont();
-    }}
+    }
 
     // Renderizar Gráfico Histórico 5 Anos Interativo
-    function renderHistoryChart() {{
+    function renderHistoryChart() {
       const s = currentStock;
       const h = s.historical_5y;
-      if (!h || !h.years || h.years.length === 0) {{
+      if (!h || !h.years || h.years.length === 0) {
         document.getElementById('historyChartContainer').innerHTML = '<div class="py-8 text-center text-xs font-mono text-slate-400">Histórico de 5 anos em processamento contábil.</div>';
         return;
-      }}
+      }
 
       const subEl = document.getElementById('historySubtitle');
       const container = document.getElementById('historyChartContainer');
@@ -1199,7 +1199,7 @@
       const n = h.years.length;
       const scaleX = (i) => padL + (i / (n - 1)) * innerW;
 
-      if (currentHistTab === 'rev_lucro') {{
+      if (currentHistTab === 'rev_lucro') {
         if (subEl) subEl.innerText = 'Trajetória auditada de faturamento líquido contra resultado final.';
         
         let maxVal = Math.max(...h.receita, ...h.lucro_liquido, 1);
@@ -1209,24 +1209,24 @@
 
         const revPts = h.receita.map((v, i) => [scaleX(i), scaleY(v)]);
         const revPath = revPts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-        const revArea = revPath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+        const revArea = revPath + ` L${scaleX(n-1).toFixed(1)},${(padT + innerH).toFixed(1)} L${scaleX(0).toFixed(1)},${(padT + innerH).toFixed(1)} Z`;
 
         const lucroPts = h.lucro_liquido.map((v, i) => [scaleX(i), scaleY(v)]);
         const lucroPath = lucroPts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-        const lucroArea = lucroPath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+        const lucroArea = lucroPath + ` L${scaleX(n-1).toFixed(1)},${(padT + innerH).toFixed(1)} L${scaleX(0).toFixed(1)},${(padT + innerH).toFixed(1)} Z`;
 
         const yearsLabelsHtml = h.years.map((y, i) => `
-          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+          <text x="${scaleX(i).toFixed(1)}" y="${height - 6}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${y.replace(' (LTM)','*')}</text>
         `).join('');
 
         const revDotsHtml = revPts.map((p, i) => `
-          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4" fill="#0EA5E9" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#0369A1" font-size="9" font-family="JetBrains Mono" font-weight="700">${{formatBillions(h.receita[i]).replace('R$ ','')}}</text>
+          <circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="#0EA5E9" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${p[0].toFixed(1)}" y="${(p[1] - 8).toFixed(1)}" text-anchor="middle" fill="#0369A1" font-size="9" font-family="JetBrains Mono" font-weight="700">${formatBillions(h.receita[i]).replace('R$ ','')}</text>
         `).join('');
 
         const lucroDotsHtml = lucroPts.map((p, i) => `
-          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] + 14).toFixed(1)}}" text-anchor="middle" fill="#047857" font-size="9" font-family="JetBrains Mono" font-weight="700">${{formatBillions(h.lucro_liquido[i]).replace('R$ ','')}}</text>
+          <circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${p[0].toFixed(1)}" y="${(p[1] + 14).toFixed(1)}" text-anchor="middle" fill="#047857" font-size="9" font-family="JetBrains Mono" font-weight="700">${formatBillions(h.lucro_liquido[i]).replace('R$ ','')}</text>
         `).join('');
 
         container.innerHTML = `
@@ -1234,7 +1234,7 @@
             <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span><span class="text-slate-700">Receita Líquida</span></span>
             <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-slate-700">Lucro Líquido</span></span>
           </div>
-          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${w} ${height}">
             <defs>
               <linearGradient id="gradRev" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.25" />
@@ -1245,38 +1245,38 @@
                 <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
-            <line x1="${{padL}}" y1="${{padT + innerH / 2}}" x2="${{w - padR}}" y2="${{padT + innerH / 2}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
-            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
-            <path d="${{revArea}}" fill="url(#gradRev)" />
-            <path d="${{revPath}}" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round" />
-            <path d="${{lucroArea}}" fill="url(#gradLucro)" />
-            <path d="${{lucroPath}}" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-            ${{revDotsHtml}}
-            ${{lucroDotsHtml}}
-            ${{yearsLabelsHtml}}
+            <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${padL}" y1="${padT + innerH / 2}" x2="${w - padR}" y2="${padT + innerH / 2}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${padL}" y1="${padT + innerH}" x2="${w - padR}" y2="${padT + innerH}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${revArea}" fill="url(#gradRev)" />
+            <path d="${revPath}" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round" />
+            <path d="${lucroArea}" fill="url(#gradLucro)" />
+            <path d="${lucroPath}" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+            ${revDotsHtml}
+            ${lucroDotsHtml}
+            ${yearsLabelsHtml}
           </svg>
         `;
 
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Receita (5A)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{h.cagr_receita_pct > 0 ? '+' : ''}}${{h.cagr_receita_pct}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.cagr_receita_pct >= 10 ? 'Forte Expansão' : 'Crescimento Real'}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${h.cagr_receita_pct > 0 ? '+' : ''}${h.cagr_receita_pct}%</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${h.cagr_receita_pct >= 10 ? 'Forte Expansão' : 'Crescimento Real'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Anos com Lucro</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{h.anos_com_lucro}}</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.is_all_profitable ? 'Lucro Ininterrupto 5A' : 'Com Oscilações'}}</span>
+            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${h.anos_com_lucro}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${h.is_all_profitable ? 'Lucro Ininterrupto 5A' : 'Com Oscilações'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Lucro (5A)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{h.cagr_lucro_pct > 0 ? '+' : ''}}${{h.cagr_lucro_pct}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.estabilidade_margens}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${h.cagr_lucro_pct > 0 ? '+' : ''}${h.cagr_lucro_pct}%</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${h.estabilidade_margens}</span>
           </div>
         `;
 
-      }} else if (currentHistTab === 'rentabilidade') {{
+      } else if (currentHistTab === 'rentabilidade') {
         if (subEl) subEl.innerText = 'Trajetória de retorno sobre capital (ROIC/ROE) contra a taxa livre de risco (NTN-B 6,5%).';
         
         const vals = h.roic_roe || [s.roe || 0.1];
@@ -1287,39 +1287,39 @@
 
         const pts = vals.map((v, i) => [scaleX(i), scaleY(v)]);
         const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-        const areaPath = linePath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+        const areaPath = linePath + ` L${scaleX(n-1).toFixed(1)},${(padT + innerH).toFixed(1)} L${scaleX(0).toFixed(1)},${(padT + innerH).toFixed(1)} Z`;
 
         const yNtnb = scaleY(0.065);
 
         const yearsLabelsHtml = h.years.map((y, i) => `
-          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+          <text x="${scaleX(i).toFixed(1)}" y="${height - 6}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${y.replace(' (LTM)','*')}</text>
         `).join('');
 
         const dotsHtml = pts.map((p, i) => `
-          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#047857" font-size="10" font-family="JetBrains Mono" font-weight="800">${{(vals[i] * 100).toFixed(1).replace('.', ',')}}%</text>
+          <circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${p[0].toFixed(1)}" y="${(p[1] - 8).toFixed(1)}" text-anchor="middle" fill="#047857" font-size="10" font-family="JetBrains Mono" font-weight="800">${(vals[i] * 100).toFixed(1).replace('.', ',')}%</text>
         `).join('');
 
         container.innerHTML = `
           <div class="flex items-center justify-end gap-3 text-[11px] font-mono font-bold mb-1">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-slate-700">${{s.is_financial ? 'ROE Anual' : 'ROIC Anual'}}</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span class="text-slate-700">${s.is_financial ? 'ROE Anual' : 'ROIC Anual'}</span></span>
             <span class="flex items-center gap-1.5"><span class="w-4 h-0.5 border-t border-dashed border-slate-400"></span><span class="text-slate-500">NTN-B (+6,5%)</span></span>
           </div>
-          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${w} ${height}">
             <defs>
               <linearGradient id="gradRent" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#10B981" stop-opacity="0.25" />
                 <stop offset="100%" stop-color="#10B981" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
-            <line x1="${{padL}}" y1="${{yNtnb}}" x2="${{w - padR}}" y2="${{yNtnb}}" stroke="#94A3B8" stroke-dasharray="4,4" stroke-width="1.5" />
-            <text x="${{w - padR}}" y="${{yNtnb - 4}}" text-anchor="end" fill="#64748B" font-size="9" font-family="JetBrains Mono" font-weight="bold">NTN-B 6,5%</text>
-            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
-            <path d="${{areaPath}}" fill="url(#gradRent)" />
-            <path d="${{linePath}}" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
-            ${{dotsHtml}}
-            ${{yearsLabelsHtml}}
+            <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${padL}" y1="${yNtnb}" x2="${w - padR}" y2="${yNtnb}" stroke="#94A3B8" stroke-dasharray="4,4" stroke-width="1.5" />
+            <text x="${w - padR}" y="${yNtnb - 4}" text-anchor="end" fill="#64748B" font-size="9" font-family="JetBrains Mono" font-weight="bold">NTN-B 6,5%</text>
+            <line x1="${padL}" y1="${padT + innerH}" x2="${w - padR}" y2="${padT + innerH}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${areaPath}" fill="url(#gradRent)" />
+            <path d="${linePath}" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" />
+            ${dotsHtml}
+            ${yearsLabelsHtml}
           </svg>
         `;
 
@@ -1329,23 +1329,23 @@
 
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
-            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Média 5 Anos (${{s.is_financial ? 'ROE' : 'ROIC'}})</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{avgRent.toFixed(1).replace('.', ',')}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{avgRent >= 15 ? 'Rentabilidade Classe Mundial' : 'Acima da Renda Fixa'}}</span>
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Média 5 Anos (${s.is_financial ? 'ROE' : 'ROIC'})</span>
+            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${avgRent.toFixed(1).replace('.', ',')}%</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${avgRent >= 15 ? 'Rentabilidade Classe Mundial' : 'Acima da Renda Fixa'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Pior Ano (Fundo de Ciclo)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{minRent.toFixed(1).replace('.', ',')}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{minRent >= 10 ? 'Resiliente mesmo em crise' : 'Sensível ao ciclo'}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${minRent.toFixed(1).replace('.', ',')}%</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${minRent >= 10 ? 'Resiliente mesmo em crise' : 'Sensível ao ciclo'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Melhor Ano (Pico)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{maxRent.toFixed(1).replace('.', ',')}}%</div>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${maxRent.toFixed(1).replace('.', ',')}%</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">Potencial máximo comprovado</span>
           </div>
         `;
 
-      }} else if (currentHistTab === 'dividendos') {{
+      } else if (currentHistTab === 'dividendos') {
         if (subEl) subEl.innerText = 'Evolução do Dividend Yield anual distribuído contra o teto Décio Bazin (6,0%).';
         
         const vals = h.div_yield || [s.div_yield || 0.05];
@@ -1356,17 +1356,17 @@
 
         const pts = vals.map((v, i) => [scaleX(i), scaleY(v)]);
         const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-        const areaPath = linePath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+        const areaPath = linePath + ` L${scaleX(n-1).toFixed(1)},${(padT + innerH).toFixed(1)} L${scaleX(0).toFixed(1)},${(padT + innerH).toFixed(1)} Z`;
 
         const yBazin = scaleY(0.06);
 
         const yearsLabelsHtml = h.years.map((y, i) => `
-          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+          <text x="${scaleX(i).toFixed(1)}" y="${height - 6}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${y.replace(' (LTM)','*')}</text>
         `).join('');
 
         const dotsHtml = pts.map((p, i) => `
-          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#B45309" font-size="10" font-family="JetBrains Mono" font-weight="800">${{(vals[i] * 100).toFixed(1).replace('.', ',')}}%</text>
+          <circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${p[0].toFixed(1)}" y="${(p[1] - 8).toFixed(1)}" text-anchor="middle" fill="#B45309" font-size="10" font-family="JetBrains Mono" font-weight="800">${(vals[i] * 100).toFixed(1).replace('.', ',')}%</text>
         `).join('');
 
         container.innerHTML = `
@@ -1374,21 +1374,21 @@
             <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span class="text-slate-700">Dividend Yield Anual</span></span>
             <span class="flex items-center gap-1.5"><span class="w-4 h-0.5 border-t border-dashed border-emerald-500"></span><span class="text-emerald-700">Teto Bazin (6,0%)</span></span>
           </div>
-          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${w} ${height}">
             <defs>
               <linearGradient id="gradDiv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.25" />
                 <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
-            <line x1="${{padL}}" y1="${{yBazin}}" x2="${{w - padR}}" y2="${{yBazin}}" stroke="#10B981" stroke-dasharray="4,4" stroke-width="1.5" />
-            <text x="${{w - padR}}" y="${{yBazin - 4}}" text-anchor="end" fill="#047857" font-size="9" font-family="JetBrains Mono" font-weight="bold">Bazin 6%</text>
-            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
-            <path d="${{areaPath}}" fill="url(#gradDiv)" />
-            <path d="${{linePath}}" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" />
-            ${{dotsHtml}}
-            ${{yearsLabelsHtml}}
+            <line x1="${padL}" y1="${padT}" x2="${w - padR}" y2="${padT}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${padL}" y1="${yBazin}" x2="${w - padR}" y2="${yBazin}" stroke="#10B981" stroke-dasharray="4,4" stroke-width="1.5" />
+            <text x="${w - padR}" y="${yBazin - 4}" text-anchor="end" fill="#047857" font-size="9" font-family="JetBrains Mono" font-weight="bold">Bazin 6%</text>
+            <line x1="${padL}" y1="${padT + innerH}" x2="${w - padR}" y2="${padT + innerH}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${areaPath}" fill="url(#gradDiv)" />
+            <path d="${linePath}" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" />
+            ${dotsHtml}
+            ${yearsLabelsHtml}
           </svg>
         `;
 
@@ -1398,28 +1398,28 @@
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">DY Médio 5 Anos</span>
-            <div class="text-base font-bold font-mono text-amber-800 mt-1">${{avgDiv.toFixed(1).replace('.', ',')}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{avgDiv >= 6.0 ? 'Paga acima de 6% consistentemente' : 'Yield complementar'}}</span>
+            <div class="text-base font-bold font-mono text-amber-800 mt-1">${avgDiv.toFixed(1).replace('.', ',')}%</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${avgDiv >= 6.0 ? 'Paga acima de 6% consistentemente' : 'Yield complementar'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Anos Acima de 6% Bazin</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{yearsAbove6}} de ${{vals.length}} anos</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{yearsAbove6 >= 4 ? 'Excelente Vaca Leiteira' : 'Proventos Variáveis'}}</span>
+            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${yearsAbove6} de ${vals.length} anos</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${yearsAbove6 >= 4 ? 'Excelente Vaca Leiteira' : 'Proventos Variáveis'}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">DY Atual 12M</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%'}}</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${{s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%'}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}</span>
           </div>
         `;
-      }}
-    }}
+      }
+    }
 
     // Renderizar Decomposição DuPont (Raio-X de Rentabilidade)
-    function renderDupont() {{
+    function renderDupont() {
       const s = currentStock;
       const isFin = s.is_financial;
-      const dt = s.details || {{}};
+      const dt = s.details || {};
       const lucro = dt.lucro_liq_12m || 0;
       const rec = dt.receita_liq_12m || 0;
       const ativo = dt.ativo_total || 0;
@@ -1431,7 +1431,7 @@
       const badge = document.getElementById('dupontModelBadge');
       if (!container || !verdictBox) return;
 
-      if (isFin) {{
+      if (isFin) {
         if (badge) badge.innerText = 'Modelo Bancário (Basileia)';
         const roa = ativo > 0 ? (lucro / ativo) : 0;
         const alav = pl > 0 ? (ativo / pl) : 0;
@@ -1445,7 +1445,7 @@
                   <span>1. ROA (Retorno Ativo)</span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Lucro / Ativos</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{(roa * 100).toFixed(2).replace('.', ',')}}%</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${(roa * 100).toFixed(2).replace('.', ',')}%</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Eficiência da carteira de crédito.</div>
               </div>
 
@@ -1457,7 +1457,7 @@
                   <span>2. Alavancagem de Balanço</span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Ativo / PL</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{alav.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${alav.toFixed(2).replace('.', ',')}x</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Alavancagem regulatória prudencial.</div>
               </div>
             </div>
@@ -1469,7 +1469,7 @@
                 <span class="text-xs font-mono text-indigo-950 font-bold uppercase tracking-wider">ROE Resultante:</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-lg font-mono font-black text-indigo-900">${{(roeVal * 100).toFixed(1).replace('.', ',')}}% a.a.</span>
+                <span class="text-lg font-mono font-black text-indigo-900">${(roeVal * 100).toFixed(1).replace('.', ',')}% a.a.</span>
                 <span class="text-[11px] font-sans text-indigo-700 font-medium hidden sm:inline">(Retorno s/ Patrimônio Líquido)</span>
               </div>
             </div>
@@ -1481,27 +1481,27 @@
             <span class="text-indigo-600 font-bold mt-0.5 text-base">ℹ️</span>
             <div>
               <b class="text-slate-900">Leitura Institucional DuPont (Setor Financeiro):</b>
-              O banco entrega um ROE de <b>${{(roeVal * 100).toFixed(1).replace('.', ',')}}%</b> combinando uma margem sobre ativos totais (ROA) de <b>${{(roa * 100).toFixed(2).replace('.', ',')}}%</b> com alavancagem de <b>${{alav.toFixed(1).replace('.', ',')}}x</b>. 
-              ${{alav <= 12 ? 'Estrutura de capital prudente e bem capitalizada segundo as regras de Basileia.' : 'Alavancagem requer acompanhamento dos índices de inadimplência.'}}
+              O banco entrega um ROE de <b>${(roeVal * 100).toFixed(1).replace('.', ',')}%</b> combinando uma margem sobre ativos totais (ROA) de <b>${(roa * 100).toFixed(2).replace('.', ',')}%</b> com alavancagem de <b>${alav.toFixed(1).replace('.', ',')}x</b>. 
+              ${alav <= 12 ? 'Estrutura de capital prudente e bem capitalizada segundo as regras de Basileia.' : 'Alavancagem requer acompanhamento dos índices de inadimplência.'}
             </div>
           </div>
         `;
-      }} else {{
+      } else {
         if (badge) badge.innerText = 'Modelo Clássico 3 Etapas';
         const mrg = rec > 0 ? (lucro / rec) : 0;
         const giro = ativo > 0 ? (rec / ativo) : 0;
         const alav = pl > 0 ? (ativo / pl) : 0;
 
         let engine = '';
-        if (mrg >= 0.15 && alav <= 2.5) {{
+        if (mrg >= 0.15 && alav <= 2.5) {
           engine = '<b>Motor Saudável & Moat:</b> A rentabilidade é gerada majoritariamente por <b>forte margem líquida (' + (mrg*100).toFixed(1).replace('.', ',') + '%)</b> e poder de precificação, sem dependência arriscada de endividamento (alavancagem moderada de ' + alav.toFixed(1).replace('.', ',') + 'x). Padrão Charlie Munger.';
-        }} else if (giro >= 1.0 && alav <= 2.8) {{
+        } else if (giro >= 1.0 && alav <= 2.8) {
           engine = '<b>Motor de Giro Operacional:</b> A empresa compensa margens mais enxutas com <b>alto giro de ativos (' + giro.toFixed(2).replace('.', ',') + 'x)</b>, mostrando excelência na rotação de capital e eficiência comercial.';
-        }} else if (alav > 3.0) {{
+        } else if (alav > 3.0) {
           engine = '<b>Atenção à Alavancagem:</b> Uma fração relevante do ROE decorre da <b>alavancagem financeira (' + alav.toFixed(1).replace('.', ',') + 'x)</b>. O retorno aos sócios é amplificado por capital de terceiros, tornando o lucro mais sensível às oscilações da Selic.';
-        }} else {{
+        } else {
           engine = '<b>Estrutura Equilibrada:</b> O retorno é distribuído com equilíbrio entre margem de vendas (' + (mrg*100).toFixed(1).replace('.', ',') + '%), rotação dos ativos (' + giro.toFixed(2).replace('.', ',') + 'x) e alavancagem de ' + alav.toFixed(1).replace('.', ',') + 'x.';
-        }}
+        }
 
         container.innerHTML = `
           <div class="space-y-3 font-mono">
@@ -1512,7 +1512,7 @@
                   <span class="flex items-center gap-1">1. Margem Líquida <span class="info-badge cursor-pointer" data-tooltip="mrg_liq">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Poder Preço</span>
                 </div>
-                <div class="text-xl font-bold ${{mrg >= 0.12 ? 'text-emerald-700' : 'text-slate-900'}} mt-2">${{(mrg * 100).toFixed(1).replace('.', ',')}}%</div>
+                <div class="text-xl font-bold ${mrg >= 0.12 ? 'text-emerald-700' : 'text-slate-900'} mt-2">${(mrg * 100).toFixed(1).replace('.', ',')}%</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Lucro Líq. / Receita</div>
               </div>
 
@@ -1524,7 +1524,7 @@
                   <span class="flex items-center gap-1">2. Giro do Ativo <span class="info-badge cursor-pointer" data-tooltip="giro">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Eficiência</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{giro.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${giro.toFixed(2).replace('.', ',')}x</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Receita / Ativo Total</div>
               </div>
 
@@ -1536,7 +1536,7 @@
                   <span class="flex items-center gap-1">3. Alavancagem <span class="info-badge cursor-pointer" data-tooltip="alavancagem">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Balanço</span>
                 </div>
-                <div class="text-xl font-bold ${{alav > 3.0 ? 'text-amber-700' : 'text-slate-900'}} mt-2">${{alav.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold ${alav > 3.0 ? 'text-amber-700' : 'text-slate-900'} mt-2">${alav.toFixed(2).replace('.', ',')}x</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Ativo Total / PL</div>
               </div>
             </div>
@@ -1548,7 +1548,7 @@
                 <span class="text-xs font-mono text-indigo-950 font-bold uppercase tracking-wider">ROE DuPont Calculado:</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-lg font-mono font-black text-indigo-900">${{(roeVal * 100).toFixed(1).replace('.', ',')}}% a.a.</span>
+                <span class="text-lg font-mono font-black text-indigo-900">${(roeVal * 100).toFixed(1).replace('.', ',')}% a.a.</span>
                 <span class="text-[11px] font-sans text-indigo-700 font-medium hidden sm:inline">(Retorno s/ Patrimônio Líquido)</span>
               </div>
             </div>
@@ -1559,65 +1559,65 @@
           <div class="flex items-start gap-2">
             <span class="text-indigo-600 font-bold mt-0.5 text-base">💡</span>
             <div class="text-slate-800">
-              ${{engine}}
+              ${engine}
             </div>
           </div>
         `;
-      }}
-    }}
+      }
+    }
     // Renderizar Pares Setoriais (Concorrentes no mesmo setor)
-    function renderSectorPeers() {{
+    function renderSectorPeers() {
       const s = currentStock;
       const peers = APP_DATA.stocks
         .filter(o => o.setor === s.setor && o.ticker !== s.ticker && o.is_liquid_1m)
         .sort((a, b) => b.quality_score - a.quality_score)
         .slice(0, 6);
 
-      document.getElementById('sectorPeersSubtitle').innerText = `Ativos do setor '${{s.setor}}' listados na B3 com liquidez diária.`;
+      document.getElementById('sectorPeersSubtitle').innerText = `Ativos do setor '${s.setor}' listados na B3 com liquidez diária.`;
       document.getElementById('sectorPeersCount').innerText = peers.length + ' concorrentes';
 
       const tbody = document.getElementById('sectorPeersTableBody');
-      if (peers.length === 0) {{
+      if (peers.length === 0) {
         tbody.innerHTML = `<tr><td colspan="9" class="p-4 text-center text-xs text-slate-500">Nenhum concorrente direto com liquidez no mesmo setor.</td></tr>`;
         return;
-      }}
+      }
 
       tbody.innerHTML = peers.map(p => `
-        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='empresa.html?ticker=${{p.ticker}}'">
+        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='empresa.html?ticker=${p.ticker}'">
           <td class="py-2.5 px-3">
             <div class="flex items-center gap-2">
-              ${{getStockLogoHtml(p.ticker, p.empresa, 'w-6 h-6')}}
+              ${getStockLogoHtml(p.ticker, p.empresa, 'w-6 h-6')}
               <div class="flex flex-col min-w-0">
-                <span class="font-bold text-slate-900 font-mono text-xs leading-none">${{p.ticker}}</span>
-                <span class="text-[10px] text-slate-500 font-sans truncate max-w-[120px]">${{p.empresa}}</span>
+                <span class="font-bold text-slate-900 font-mono text-xs leading-none">${p.ticker}</span>
+                <span class="text-[10px] text-slate-500 font-sans truncate max-w-[120px]">${p.empresa}</span>
               </div>
             </div>
           </td>
           <td class="py-2.5 px-2 text-center">
             <span class="px-2 py-0.5 rounded-full font-mono font-bold text-[11px] bg-slate-100 text-slate-900 border border-slate-200">
-              ${{p.quality_score.toFixed(1)}}
+              ${p.quality_score.toFixed(1)}
             </span>
           </td>
-          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${{formatCurrency(p.cotacao)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-800">${{formatMultiple(p.pl)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-800">${{p.is_financial ? 'N/A' : formatPercent(p.roic)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono font-semibold text-emerald-800">${{formatPercent(p.roe)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${{formatPercent(p.mrg_liq)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${{p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? p.div_liq_ebitda.toFixed(1) + 'x' : 'N/D'))}}</td>
-          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${{formatPercent(p.div_yield)}}</td>
+          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${formatCurrency(p.cotacao)}</td>
+          <td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-800">${formatMultiple(p.pl)}</td>
+          <td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-800">${p.is_financial ? 'N/A' : formatPercent(p.roic)}</td>
+          <td class="py-2.5 px-2 text-right font-mono font-semibold text-emerald-800">${formatPercent(p.roe)}</td>
+          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${formatPercent(p.mrg_liq)}</td>
+          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? p.div_liq_ebitda.toFixed(1) + 'x' : 'N/D'))}</td>
+          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${formatPercent(p.div_yield)}</td>
           <td class="py-2.5 px-3 text-center">
-            <a href="empresa.html?ticker=${{p.ticker}}" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
+            <a href="empresa.html?ticker=${p.ticker}" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
               Analisar ➜
             </a>
           </td>
         </tr>
       `).join('');
-    }}
+    }
 
     // Renderizar Balanço e Síntese Fundamentalista
-    function renderFinancialsAndCfa() {{
+    function renderFinancialsAndCfa() {
       const s = currentStock;
-      const d = s.details || {{}};
+      const d = s.details || {};
 
       document.getElementById('companyFinancialDetailsGrid').innerHTML = `
         <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono text-xs space-y-1.5">
@@ -1625,12 +1625,12 @@
             <span>🏛️ Balanço Patrimonial</span>
             <span class="text-[10px] text-slate-500 font-normal">Posição Líquida</span>
           </div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Ativo Total:</span> <b>${{formatBillions(d.ativo_total)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Disponibilidades (Caixa):</span> <b class="text-emerald-800 font-bold">${{formatBillions(d.disponibilidades)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Bruta:</span> <b>${{formatBillions(d.divida_bruta)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Líquida:</span> <b class="${{d.divida_liquida <= 0 ? 'text-emerald-800 font-bold' : 'text-slate-900'}}">${{formatBillions(d.divida_liquida)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Patrimônio Líquido:</span> <b>${{formatBillions(d.patrimonio_liquido)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">VPA (Valor Patrimonial/Ação):</span> <b>R$ ${{d.vpa || 'N/D'}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Ativo Total:</span> <b>${formatBillions(d.ativo_total)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Disponibilidades (Caixa):</span> <b class="text-emerald-800 font-bold">${formatBillions(d.disponibilidades)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Bruta:</span> <b>${formatBillions(d.divida_bruta)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Líquida:</span> <b class="${d.divida_liquida <= 0 ? 'text-emerald-800 font-bold' : 'text-slate-900'}">${formatBillions(d.divida_liquida)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Patrimônio Líquido:</span> <b>${formatBillions(d.patrimonio_liquido)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">VPA (Valor Patrimonial/Ação):</span> <b>R$ ${d.vpa || 'N/D'}</b></div>
         </div>
 
         <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono text-xs space-y-1.5">
@@ -1638,58 +1638,58 @@
             <span>📊 Demonstração de Resultado (12M)</span>
             <span class="text-[10px] text-slate-500 font-normal">Desempenho</span>
           </div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Receita Líquida (12m):</span> <b>${{formatBillions(d.receita_liq_12m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">EBIT Operacional:</span> <b>${{formatBillions(d.ebit_12m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Líquido (12m):</span> <b class="text-emerald-800 font-bold">${{formatBillions(d.lucro_liq_12m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Trimestre (2T26):</span> <b>${{formatBillions(d.lucro_liq_3m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">LPA (Lucro por Ação):</span> <b>R$ ${{d.lpa || 'N/D'}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Payout Médio Implícito:</span> <b>${{s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Receita Líquida (12m):</span> <b>${formatBillions(d.receita_liq_12m)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">EBIT Operacional:</span> <b>${formatBillions(d.ebit_12m)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Líquido (12m):</span> <b class="text-emerald-800 font-bold">${formatBillions(d.lucro_liq_12m)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Trimestre (2T26):</span> <b>${formatBillions(d.lucro_liq_3m)}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">LPA (Lucro por Ação):</span> <b>R$ ${d.lpa || 'N/D'}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Payout Médio Implícito:</span> <b>${s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}</b></div>
         </div>
       `;
 
       let verdictBgClass = 'bg-slate-50 border-slate-200';
       let verdictBadgeClass = 'bg-slate-200 text-slate-800 border-slate-300';
-      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {{
+      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {
         verdictBgClass = 'bg-emerald-50/80 border-emerald-300';
         verdictBadgeClass = 'bg-emerald-600 text-white border-emerald-700';
-      }} else if (s.entry_tag === 'PRECO_JUSTO') {{
+      } else if (s.entry_tag === 'PRECO_JUSTO') {
         verdictBgClass = 'bg-amber-50/80 border-amber-300';
         verdictBadgeClass = 'bg-amber-600 text-white border-amber-700';
-      }} else if (s.entry_tag === 'ESTICADA') {{
+      } else if (s.entry_tag === 'ESTICADA') {
         verdictBgClass = 'bg-rose-50/80 border-rose-300';
         verdictBadgeClass = 'bg-rose-600 text-white border-rose-700';
-      }}
+      }
 
       document.getElementById('companyCfaVerdictBox').innerHTML = `
-        <div class="p-4 rounded-xl border ${{verdictBgClass}} font-sans space-y-2.5 transition-colors duration-200">
+        <div class="p-4 rounded-xl border ${verdictBgClass} font-sans space-y-2.5 transition-colors duration-200">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-mono uppercase tracking-wider flex items-center gap-1.5">
               <svg class="w-4 h-4 text-slate-700 inline-block stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m9-12l-9-4-9 4m18 0l-9 4m9-4v6a4 4 0 01-4 4H7a4 4 0 01-4-4V7l9 4"/></svg> LEITURA DOS NÚMEROS (ANÁLISE QUANTITATIVA CVM)
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold font-mono ${{verdictBadgeClass}} shadow-2xs">
-              ${{s.entry_status}}
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold font-mono ${verdictBadgeClass} shadow-2xs">
+              ${s.entry_status}
             </span>
           </div>
           <p class="text-xs text-slate-800 leading-relaxed font-sans">
-            ${{s.rationale}}
+            ${s.rationale}
           </p>
           <div class="text-[11px] text-slate-600 pt-1.5 border-t border-slate-200/80 flex flex-wrap items-center gap-3">
             <span>Tag Along: <b class="text-slate-900">100% Legal</b></span>
             <span>•</span>
-            <span>Solvência: <b class="text-slate-900">${{d.divida_liquida <= 0 ? 'Caixa Líquido Positivo' : 'Endividamento sob Controle'}}</b></span>
+            <span>Solvência: <b class="text-slate-900">${d.divida_liquida <= 0 ? 'Caixa Líquido Positivo' : 'Endividamento sob Controle'}</b></span>
             <span>•</span>
-            <span>Consistência de Ciclo: <b class="text-slate-900">${{!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'}}</b></span>
+            <span>Consistência de Ciclo: <b class="text-slate-900">${!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'}</b></span>
           </div>
         </div>
       `;
-    }}
+    }
 
     // Renderizar Gauges Analógicos Bloomberg Calibrados
-    function renderAnalogGauge(svgId, val, minVal, maxVal, label, options = {{}}) {{
+    function renderAnalogGauge(svgId, val, minVal, maxVal, label, options = {}) {
       const svg = document.getElementById(svgId);
       if (!svg) return;
 
-      if (options.isFinancial) {{
+      if (options.isFinancial) {
         svg.innerHTML = `
           <g transform="translate(80, 48)">
             <path d="M -40 0 A 40 40 0 0 1 40 0" fill="none" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round" />
@@ -1697,23 +1697,23 @@
             <text x="0" y="1" text-anchor="middle" fill="#64748B" font-size="8" font-family="Inter">Intermediação</text>
             <text x="0" y="15" text-anchor="middle" fill="#059669" font-size="9" font-family="JetBrains Mono" font-weight="bold">Basileia Ok</text>
           </g>
-          <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${{label.toUpperCase()}}</text>
+          <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${label.toUpperCase()}</text>
           <text x="80" y="99" text-anchor="middle" fill="#64748B" font-size="8.5" font-family="Inter" font-weight="500">Ref: Basileia &gt; 11%</text>
         `;
         return;
-      }}
+      }
 
-      if (val === null || val === undefined || isNaN(val)) {{
+      if (val === null || val === undefined || isNaN(val)) {
         svg.innerHTML = `
           <g transform="translate(80, 48)">
             <path d="M -40 0 A 40 40 0 0 1 40 0" fill="none" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round" />
             <text x="0" y="3" text-anchor="middle" fill="#94A3B8" font-size="11" font-family="JetBrains Mono" font-weight="bold">N/D</text>
           </g>
-          <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${{label.toUpperCase()}}</text>
-          <text x="80" y="99" text-anchor="middle" fill="#64748B" font-size="8.5" font-family="Inter" font-weight="500">${{options.refText || ''}}</text>
+          <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${label.toUpperCase()}</text>
+          <text x="80" y="99" text-anchor="middle" fill="#64748B" font-size="8.5" font-family="Inter" font-weight="500">${options.refText || ''}</text>
         `;
         return;
-      }}
+      }
 
       const norm = Math.max(0, Math.min(1, (val - minVal) / (maxVal - minVal)));
       const angleDeg = -180 + norm * 180;
@@ -1730,18 +1730,18 @@
 
       // Cor semântica do texto
       let fillColor = '#059669';
-      if (options.isDebt) {{
+      if (options.isDebt) {
         fillColor = val <= 1.0 ? '#059669' : (val <= 2.2 ? '#D97706' : '#DC2626');
-      }} else if (options.isSpread) {{
+      } else if (options.isSpread) {
         fillColor = val >= 2.0 ? '#059669' : (val >= 0 ? '#D97706' : '#DC2626');
-      }} else {{
+      } else {
         // ROIC / ROE: >= 15% é Verde Top, 10-15% Neutro, < 10% Alerta
         fillColor = val >= 0.15 ? '#059669' : (val >= 0.10 ? '#D97706' : '#DC2626');
-      }}
+      }
 
       // Referência visual no arco (Tick mark)
       let refTickHtml = '';
-      if (options.refVal !== undefined && options.refVal !== null) {{
+      if (options.refVal !== undefined && options.refVal !== null) {
         const refNorm = Math.max(0, Math.min(1, (options.refVal - minVal) / (maxVal - minVal)));
         const refDeg = -180 + refNorm * 180;
         const refRad = (refDeg * Math.PI) / 180;
@@ -1749,8 +1749,8 @@
         const ry1 = (r - 5) * Math.sin(refRad);
         const rx2 = (r + 5) * Math.cos(refRad);
         const ry2 = (r + 5) * Math.sin(refRad);
-        refTickHtml = `<line x1="${{rx1.toFixed(1)}}" y1="${{ry1.toFixed(1)}}" x2="${{rx2.toFixed(1)}}" y2="${{ry2.toFixed(1)}}" stroke="#334155" stroke-width="2" stroke-linecap="round" opacity="0.85" />`;
-      }}
+        refTickHtml = `<line x1="${rx1.toFixed(1)}" y1="${ry1.toFixed(1)}" x2="${rx2.toFixed(1)}" y2="${ry2.toFixed(1)}" stroke="#334155" stroke-width="2" stroke-linecap="round" opacity="0.85" />`;
+      }
 
       // Gradiente semântico: Se for Dívida, inverte! (Verde na esquerda/Caixa Líquido e Vermelho na direita/Dívida alta)
       const gradStops = options.isDebt ? `
@@ -1767,26 +1767,26 @@
 
       svg.innerHTML = `
         <defs>
-          <linearGradient id="gaugeGrad_${{svgId}}" x1="0" y1="0" x2="1" y2="0">
-            ${{gradStops}}
+          <linearGradient id="gaugeGrad_${svgId}" x1="0" y1="0" x2="1" y2="0">
+            ${gradStops}
           </linearGradient>
         </defs>
         <g transform="translate(80, 48)">
-          <path d="M -${{r}} 0 A ${{r}} ${{r}} 0 0 1 ${{r}} 0" fill="none" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round" />
-          <path d="M -${{r}} 0 A ${{r}} ${{r}} 0 0 1 ${{r}} 0" fill="none" stroke="url(#gaugeGrad_${{svgId}})" stroke-width="6" stroke-linecap="round" opacity="0.9" />
-          ${{refTickHtml}}
-          <line x1="0" y1="0" x2="${{nx.toFixed(1)}}" y2="${{ny.toFixed(1)}}" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M -${r} 0 A ${r} ${r} 0 0 1 ${r} 0" fill="none" stroke="#E2E8F0" stroke-width="6" stroke-linecap="round" />
+          <path d="M -${r} 0 A ${r} ${r} 0 0 1 ${r} 0" fill="none" stroke="url(#gaugeGrad_${svgId})" stroke-width="6" stroke-linecap="round" opacity="0.9" />
+          ${refTickHtml}
+          <line x1="0" y1="0" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round" />
           <circle cx="0" cy="0" r="3.5" fill="#0F172A" />
           <circle cx="0" cy="0" r="1.2" fill="#FFFFFF" />
-          <text x="0" y="16" text-anchor="middle" fill="${{fillColor}}" font-size="12" font-family="JetBrains Mono" font-weight="800">${{valText}}</text>
+          <text x="0" y="16" text-anchor="middle" fill="${fillColor}" font-size="12" font-family="JetBrains Mono" font-weight="800">${valText}</text>
         </g>
-        <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${{label.toUpperCase()}}</text>
-        <text x="80" y="99" text-anchor="middle" fill="#64748B" font-size="8.5" font-family="Inter" font-weight="500">${{options.refText || ''}}</text>
+        <text x="80" y="85" text-anchor="middle" fill="#334155" font-size="9.5" font-family="JetBrains Mono" font-weight="700" letter-spacing="0.5">${label.toUpperCase()}</text>
+        <text x="80" y="99" text-anchor="middle" fill="#64748B" font-size="8.5" font-family="Inter" font-weight="500">${options.refText || ''}</text>
       `;
-    }}
+    }
 
     // Renderizar Radar de 5 Pilares (Cálculo Idêntico e Unificado ao Dossiê 360°)
-    function renderRadar() {{
+    function renderRadar() {
       const s = currentStock;
       const svg = document.getElementById('heroRadarSvg');
       if (!svg) return;
@@ -1794,9 +1794,9 @@
       // 1. Cálculo Auditado dos 5 Pilares Munger (0 a 100)
       // Pilar 1: Valuation & Preço (Spread vs NTN-B, P/L, P/VP)
       let valScore = 50;
-      if (s.ey_spread !== null && s.ey_spread !== undefined) {{
+      if (s.ey_spread !== null && s.ey_spread !== undefined) {
         valScore = Math.max(15, Math.min(100, Math.round(50 + s.ey_spread * 7.5)));
-      }}
+      }
       if (s.pl && s.pl > 0 && s.pl < 8.0) valScore = Math.min(100, valScore + 10);
       if (s.pl && s.pl > 25.0) valScore = Math.max(15, valScore - 15);
 
@@ -1813,10 +1813,10 @@
       else if (dy > 0) divScore = 40;
       else divScore = 20;
 
-      if (pay !== null) {{
+      if (pay !== null) {
         if (pay >= 35 && pay <= 85) divScore = Math.min(100, divScore + 10);
         else if (pay > 100) divScore = Math.max(15, divScore - 25);
-      }}
+      }
 
       // Pilar 4: Saúde Financeira & Solvência (Dívida, Caixa Líquido, Basileia)
       const solScore = Math.max(10, Math.min(100, Math.round(s.pilar_solidez || 50)));
@@ -1842,72 +1842,72 @@
       const startAngle = -Math.PI / 2;
 
       let webLines = '';
-      [0.25, 0.5, 0.75, 1.0].forEach(level => {{
+      [0.25, 0.5, 0.75, 1.0].forEach(level => {
         const pts = [];
-        for (let i = 0; i < 5; i++) {{
+        for (let i = 0; i < 5; i++) {
           const a = startAngle + i * angleStep;
           pts.push((Math.cos(a) * r * level).toFixed(1) + ',' + (Math.sin(a) * r * level).toFixed(1));
-        }}
-        webLines += `<polygon points="${{pts.join(' ')}}" fill="none" stroke="#E2E8F0" stroke-width="1" />`;
-      }});
+        }
+        webLines += `<polygon points="${pts.join(' ')}" fill="none" stroke="#E2E8F0" stroke-width="1" />`;
+      });
 
       let spokes = '';
-      for (let i = 0; i < 5; i++) {{
+      for (let i = 0; i < 5; i++) {
         const a = startAngle + i * angleStep;
-        spokes += `<line x1="0" y1="0" x2="${{(Math.cos(a) * r).toFixed(1)}}" y2="${{(Math.sin(a) * r).toFixed(1)}}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" />`;
-      }}
+        spokes += `<line x1="0" y1="0" x2="${(Math.cos(a) * r).toFixed(1)}" y2="${(Math.sin(a) * r).toFixed(1)}" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="2,2" />`;
+      }
 
       // Helper de Hierarquia de Cores dos Pilares
-      function getPillarColorInfo(score) {{
-        if (score >= 70) {{
-          return {{
+      function getPillarColorInfo(score) {
+        if (score >= 70) {
+          return {
             hex: '#059669',
             textClass: 'text-emerald-950',
             bgClass: 'bg-emerald-50/90 border-emerald-300',
             badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-300',
             status: 'Forte'
-          }};
-        }} else if (score >= 50) {{
-          return {{
+          };
+        } else if (score >= 50) {
+          return {
             hex: '#D97706',
             textClass: 'text-amber-950',
             bgClass: 'bg-amber-50/90 border-amber-300',
             badgeClass: 'bg-amber-100 text-amber-950 border-amber-300',
             status: 'Neutro'
-          }};
-        }} else {{
-          return {{
+          };
+        } else {
+          return {
             hex: '#DC2626',
             textClass: 'text-rose-950',
             bgClass: 'bg-rose-50/90 border-rose-300',
             badgeClass: 'bg-rose-100 text-rose-950 border-rose-300',
             status: 'Atenção'
-          }};
-        }}
-      }}
+          };
+        }
+      }
 
-      const companyPts = scores.map((sc, i) => {{
+      const companyPts = scores.map((sc, i) => {
         const a = startAngle + i * angleStep;
         const dist = (sc / 100) * r;
         return (Math.cos(a) * dist).toFixed(1) + ',' + (Math.sin(a) * dist).toFixed(1);
-      }}).join(' ');
+      }).join(' ');
 
-      const companyPointsHtml = scores.map((sc, i) => {{
+      const companyPointsHtml = scores.map((sc, i) => {
         const info = getPillarColorInfo(sc);
         const a = startAngle + i * angleStep;
         const dist = (sc / 100) * r;
-        return `<circle cx="${{(Math.cos(a) * dist).toFixed(1)}}" cy="${{(Math.sin(a) * dist).toFixed(1)}}" r="4" fill="${{info.hex}}" stroke="#FFFFFF" stroke-width="1.8" />`;
-      }}).join('');
+        return `<circle cx="${(Math.cos(a) * dist).toFixed(1)}" cy="${(Math.sin(a) * dist).toFixed(1)}" r="4" fill="${info.hex}" stroke="#FFFFFF" stroke-width="1.8" />`;
+      }).join('');
 
-      const labelsHtml = labels.map((lbl, i) => {{
+      const labelsHtml = labels.map((lbl, i) => {
         const sc = scores[i];
         const info = getPillarColorInfo(sc);
         const a = startAngle + i * angleStep;
         const lx = Math.cos(a) * (r + 26);
         const ly = Math.sin(a) * (r + 14);
         const anchor = Math.abs(Math.cos(a)) < 0.25 ? 'middle' : (Math.cos(a) > 0 ? 'start' : 'end');
-        return `<text x="${{lx.toFixed(1)}}" y="${{ly.toFixed(1)}}" text-anchor="${{anchor}}" fill="#334155" font-size="10" font-family="Inter" font-weight="600">${{lbl}} <tspan fill="${{info.hex}}" font-family="JetBrains Mono" font-weight="bold">(${{sc}})</tspan></text>`;
-      }}).join('');
+        return `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" fill="#334155" font-size="10" font-family="Inter" font-weight="600">${lbl} <tspan fill="${info.hex}" font-family="JetBrains Mono" font-weight="bold">(${sc})</tspan></text>`;
+      }).join('');
 
       svg.innerHTML = `
         <defs>
@@ -1916,42 +1916,42 @@
             <stop offset="100%" stop-color="#059669" stop-opacity="0.1" />
           </linearGradient>
         </defs>
-        ${{webLines}}
-        ${{spokes}}
-        <polygon points="${{companyPts}}" fill="url(#heroRadarGrad)" stroke="#059669" stroke-width="2.5" stroke-linejoin="round" />
-        ${{companyPointsHtml}}
-        ${{labelsHtml}}
+        ${webLines}
+        ${spokes}
+        <polygon points="${companyPts}" fill="url(#heroRadarGrad)" stroke="#059669" stroke-width="2.5" stroke-linejoin="round" />
+        ${companyPointsHtml}
+        ${labelsHtml}
       `;
 
-      document.getElementById('heroRadarPillarsGrid').innerHTML = labels.map((l, i) => {{
+      document.getElementById('heroRadarPillarsGrid').innerHTML = labels.map((l, i) => {
         const sc = scores[i];
         const info = getPillarColorInfo(sc);
         const desc = pillarDescs[i];
         return `
-          <div class="border rounded-xl p-2 flex flex-col items-center justify-between text-center ${{info.bgClass}} shadow-2xs">
-            <div class="text-[9.5px] text-slate-600 font-sans font-semibold uppercase tracking-wider truncate w-full">${{l}}</div>
-            <div class="text-sm font-mono font-extrabold ${{info.textClass}} my-0.5">${{sc}}</div>
-            <span class="text-[8.5px] font-mono px-1.5 py-0.2 rounded-full font-bold ${{info.badgeClass}} mb-0.5">${{info.status}}</span>
-            <span class="text-[8.5px] font-sans text-slate-500 truncate w-full">${{desc}}</span>
+          <div class="border rounded-xl p-2 flex flex-col items-center justify-between text-center ${info.bgClass} shadow-2xs">
+            <div class="text-[9.5px] text-slate-600 font-sans font-semibold uppercase tracking-wider truncate w-full">${l}</div>
+            <div class="text-sm font-mono font-extrabold ${info.textClass} my-0.5">${sc}</div>
+            <span class="text-[8.5px] font-mono px-1.5 py-0.2 rounded-full font-bold ${info.badgeClass} mb-0.5">${info.status}</span>
+            <span class="text-[8.5px] font-sans text-slate-500 truncate w-full">${desc}</span>
           </div>
         `;
-      }}).join('');
-    }}
+      }).join('');
+    }
 
     // Busca de Ações no Header com Navegação por Teclado
     let companySearchHighlightedIndex = -1;
     let companySearchResults = [];
 
-    function handleCompanySearch(query) {{
+    function handleCompanySearch(query) {
       const dd = document.getElementById('searchResultsDropdown');
-      if (!query || query.trim().length === 0) {{
+      if (!query || query.trim().length === 0) {
         dd.classList.add('hidden');
         companySearchResults = [];
         companySearchHighlightedIndex = -1;
         return;
-      }}
+      }
       const q = query.trim().toLowerCase();
-      companySearchResults = APP_DATA.stocks.map(s => {{
+      companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).map(s => {
         const t = s.ticker.toLowerCase();
         const emp = (s.empresa || '').toLowerCase();
         const set = (s.setor || '').toLowerCase();
@@ -1964,32 +1964,32 @@
         else if (set.includes(q)) score = 50;
 
         if (score > 0) score += (s.quality_score || 0) / 10;
-        return {{ stock: s, score }};
-      }}).filter(item => item.score > 0)
+        return { stock: s, score };
+      }).filter(item => item.score > 0)
         .sort((a, b) => b.score - a.score)
         .map(item => item.stock)
         .slice(0, 8);
       
       companySearchHighlightedIndex = companySearchResults.length > 0 ? 0 : -1;
       renderCompanySearchResults();
-    }}
+    }
 
-    function renderCompanySearchResults() {{
+    function renderCompanySearchResults() {
       const dd = document.getElementById('searchResultsDropdown');
       if (!dd) return;
 
-      if (companySearchResults.length === 0) {{
+      if (companySearchResults.length === 0) {
         dd.innerHTML = `<div class="p-4 text-center text-xs font-mono text-slate-500">Nenhum ativo encontrado</div>`;
         dd.classList.remove('hidden');
         return;
-      }}
+      }
 
       dd.innerHTML = `
         <div class="p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>${{companySearchResults.length}} sugestões encontradas</span>
+          <span>${companySearchResults.length} sugestões encontradas</span>
           <span>Navegue com <b>↑</b> <b>↓</b> e <b>Enter</b></span>
         </div>
-        ${{companySearchResults.map((s, idx) => {{
+        ${companySearchResults.map((s, idx) => {
           const isHigh = idx === companySearchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
           const scoreClass = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
@@ -1997,218 +1997,218 @@
           const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
 
           return `
-            <a href="empresa.html?ticker=${{s.ticker}}" class="p-2.5 ${{bg}} transition cursor-pointer flex items-center justify-between select-none">
+            <a href="/acoes/${s.ticker.toLowerCase()}/" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
               <div class="flex items-center gap-2.5 min-w-0">
-                ${{getStockLogoHtml(s.ticker, s.empresa, 'w-7 h-7')}}
+                ${getStockLogoHtml(s.ticker, s.empresa, 'w-7 h-7')}
                 <div class="flex flex-col min-w-0">
                   <div class="flex items-center gap-1.5 leading-none">
-                    <span class="font-bold text-slate-900 font-mono text-xs">${{s.ticker}}</span>
-                    <span class="text-[9px] px-1 py-0.2 rounded font-mono font-bold ${{s.is_latest_balanco ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-600'}}">${{s.tri_balanco || '2T26'}}</span>
+                    <span class="font-bold text-slate-900 font-mono text-xs">${s.ticker}</span>
+                    <span class="text-[9px] px-1 py-0.2 rounded font-mono font-bold ${s.is_latest_balanco ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-600'}">${s.tri_balanco || '2T26'}</span>
                   </div>
-                  <div class="text-[11px] text-slate-700 font-sans font-medium truncate max-w-[150px] mt-0.5">${{s.empresa}}</div>
-                  <div class="text-[9px] text-slate-400 font-sans truncate max-w-[150px]">${{s.setor}}</div>
+                  <div class="text-[11px] text-slate-700 font-sans font-medium truncate max-w-[150px] mt-0.5">${s.empresa}</div>
+                  <div class="text-[9px] text-slate-400 font-sans truncate max-w-[150px]">${s.setor}</div>
                 </div>
               </div>
               <div class="flex flex-col items-end gap-1 flex-shrink-0">
                 <div class="flex items-center gap-1">
-                  <span class="text-xs font-mono font-bold text-slate-900">${{formatCurrency(s.cotacao)}}</span>
-                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${{scoreClass}}">${{s.quality_score.toFixed(0)}} pts</span>
+                  <span class="text-xs font-mono font-bold text-slate-900">${formatCurrency(s.cotacao)}</span>
+                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${scoreClass}">${s.quality_score.toFixed(0)} pts</span>
                 </div>
                 <div class="text-[10px] font-mono text-slate-500">
-                  P/L: <b class="text-slate-800">${{plStr}}</b> • DY: <b class="text-emerald-700">${{dyStr}}</b>
+                  P/L: <b class="text-slate-800">${plStr}</b> • DY: <b class="text-emerald-700">${dyStr}</b>
                 </div>
               </div>
             </a>
           `;
-        }}).join('')}}
+        }).join('')}
       `;
       dd.classList.remove('hidden');
-    }}
+    }
 
-    function handleCompanySearchKeydown(e) {{
+    function handleCompanySearchKeydown(e) {
       const dd = document.getElementById('searchResultsDropdown');
-      if (!dd || dd.classList.contains('hidden') || companySearchResults.length === 0) {{
-        if (e.key === 'Escape') {{
+      if (!dd || dd.classList.contains('hidden') || companySearchResults.length === 0) {
+        if (e.key === 'Escape') {
           if (dd) dd.classList.add('hidden');
-        }}
+        }
         return;
-      }}
+      }
 
-      if (e.key === 'ArrowDown') {{
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         companySearchHighlightedIndex = (companySearchHighlightedIndex + 1) % companySearchResults.length;
         renderCompanySearchResults();
-      }} else if (e.key === 'ArrowUp') {{
+      } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         companySearchHighlightedIndex = (companySearchHighlightedIndex - 1 + companySearchResults.length) % companySearchResults.length;
         renderCompanySearchResults();
-      }} else if (e.key === 'Enter') {{
+      } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (companySearchHighlightedIndex >= 0 && companySearchHighlightedIndex < companySearchResults.length) {{
+        if (companySearchHighlightedIndex >= 0 && companySearchHighlightedIndex < companySearchResults.length) {
           window.location.href = 'empresa.html?ticker=' + encodeURIComponent(companySearchResults[companySearchHighlightedIndex].ticker);
-        }}
-      }} else if (e.key === 'Escape') {{
+        }
+      } else if (e.key === 'Escape') {
         dd.classList.add('hidden');
-      }}
-    }}
+      }
+    }
 
-    function showSearchDropdown() {{
+    function showSearchDropdown() {
       const q = document.getElementById('companySearchInput').value;
       if (q && q.trim().length > 0) handleCompanySearch(q);
-    }}
+    }
 
-    document.addEventListener('click', (e) => {{
+    document.addEventListener('click', (e) => {
       const dd = document.getElementById('searchResultsDropdown');
       const input = document.getElementById('companySearchInput');
-      if (dd && !dd.contains(e.target) && e.target !== input) {{
+      if (dd && !dd.contains(e.target) && e.target !== input) {
         dd.classList.add('hidden');
-      }}
-    }});
+      }
+    });
 
     // Atalhos Globais na Página da Empresa (/ para buscar, Esc para fechar)
-    document.addEventListener('keydown', (e) => {{
-      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {{
-        if (e.key === 'Escape') {{
+    document.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {
+        if (e.key === 'Escape') {
           const dd = document.getElementById('searchResultsDropdown');
           if (dd) dd.classList.add('hidden');
           document.activeElement.blur();
-        }}
+        }
         return;
-      }}
+      }
 
-      if (e.key === '/') {{
+      if (e.key === '/') {
         e.preventDefault();
         const inp = document.getElementById('companySearchInput');
-        if (inp) {{
+        if (inp) {
           inp.focus();
           inp.select();
-        }}
-      }} else if (e.key === 'Escape') {{
+        }
+      } else if (e.key === 'Escape') {
         const dd = document.getElementById('searchResultsDropdown');
         if (dd) dd.classList.add('hidden');
-      }}
-    }});
+      }
+    });
 
     // Compartilhar Link
-    function copyAnalysisLink() {{
+    function copyAnalysisLink() {
       const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {{
+      navigator.clipboard.writeText(url).then(() => {
         const btnText = document.getElementById('copyLinkText');
         const orig = btnText.innerText;
         btnText.innerText = 'Copiado!';
         setTimeout(() => btnText.innerText = orig, 2000);
-      }});
-    }}
+      });
+    }
 
     // =========================================================================
     // DICIONÁRIO DE TOOLTIPS DIDÁTICOS (BALÕEZINHOS EXPLICATIVOS MUNGER)
     // =========================================================================
-    const METRIC_TOOLTIPS = {{
-      quality_score: {{
+    const METRIC_TOOLTIPS = {
+      quality_score: {
         title: '🏆 Moat & Quality Score Munger (0 a 100)',
         desc: 'Avalia a força e largura do fosso competitivo econômico. Combina rentabilidade sobre capital (ROIC/ROE 40%), solidez patrimonial anti-crise (35%) e consistência histórica de lucros (25%).',
         foot: 'Tier 1 (≥ 80) = Wide Moat • Tier 2 (≥ 65) = Narrow Moat'
-      }},
-      ey_spread: {{
+      },
+      ey_spread: {
         title: '📈 Spread Real vs NTN-B Soberana (IPCA+ 6,5% a.a.)',
         desc: 'Compara o rendimento em lucros da ação (Earnings Yield = Lucro/Preço) contra a taxa livre de risco do Tesouro IPCA+ 2035. Indica o prêmio de risco real para ser sócio da empresa.',
         foot: 'Spread > 0% = Ação compensa o risco soberano do Brasil'
-      }},
-      pl_ltm: {{
+      },
+      pl_ltm: {
         title: '📊 P/L Histórico (Preço sobre Lucro 12M)',
         desc: 'Número de anos necessários para reaver o capital investido se a empresa mantiver o lucro líquido médio dos últimos 4 trimestres reportados.',
         foot: 'P/L baixo + ROIC alto = Combinação clássica de Charlie Munger'
-      }},
-      pl_run_rate: {{
+      },
+      pl_run_rate: {
         title: '⏱️ P/L Run-Rate (Ritmo Anualizado 2T26)',
         desc: 'Anualiza o lucro do trimestre mais recente (4x 2T26). Se for menor que o P/L 12M (verde), indica que a operação recente está acelerando frente à média passada.',
         foot: 'Antecipa viradas de ciclo antes do mercado geral'
-      }},
-      graham: {{
+      },
+      graham: {
         title: '📐 Valor Intrínseco de Benjamin Graham (V.I.)',
         desc: 'Fórmula clássica de Benjamin Graham: V = √(22,5 × LPA × VPA). Estipula uma referência teórica ponderando lucros por ação e valor contábil.',
         foot: 'Cotação < Graham = Negociando abaixo do valor patrimonial ponderado'
-      }},
-      bazin: {{
+      },
+      bazin: {
         title: '🎯 Referência Décio Bazin (DY 6,0%)',
         desc: 'Modelo quantitativo de renda passiva: DPA / 0,06. Estima a cotação teórica em que o histórico de dividendos equivale a 6,0% ao ano em proventos.',
         foot: 'Cotação < Bazin = Yield implícito teórico superior a 6,0% a.a.'
-      }},
-      ev_ebitda: {{
+      },
+      ev_ebitda: {
         title: '🏢 EV / EBITDA (Múltiplo da Firma)',
         desc: 'Valor total da empresa (ações + dívidas líquidas) dividido pelo caixa operacional gerado. Excelente para indústrias e serviços; inaplicável a bancos.',
         foot: '< 6.0x = Múltiplo atrativo • > 12.0x = Exige forte crescimento'
-      }},
-      roic: {{
+      },
+      roic: {
         title: '🏭 ROIC (Retorno sobre Capital Investido)',
         desc: 'Mede o lucro estritamente operacional (NOPAT) gerado sobre todo o capital produtivo empatado. O indicador supremo de Charlie Munger para atestar fossos competitivos duradouros.',
         foot: '≥ 15% ao ano = Excelência operacional e barreira de entrada'
-      }},
-      roe: {{
+      },
+      roe: {
         title: '🏛️ ROE (Retorno sobre Patrimônio Líquido)',
         desc: 'Mede a velocidade com que o patrimônio dos sócios se multiplica a cada ano. Métrica soberana para bancos, seguradoras e holdings financeiras.',
         foot: '≥ 15% ao ano = Criação acelerada de valor para o acionista'
-      }},
-      mrg_liq: {{
+      },
+      mrg_liq: {
         title: '💧 Margem Líquida (% de Conversão)',
         desc: 'Percentual da receita líquida que sobra livre no bolso da empresa após deduzir custos, salários, fornecedores, juros e tributos.',
         foot: '≥ 15% = Elevado poder de precificação e margem de segurança'
-      }},
-      debt: {{
+      },
+      debt: {
         title: '🛡️ Dívida Líquida / EBITDA (Alavancagem)',
         desc: 'Quantos anos de caixa operacional seriam necessários para zerar o endividamento líquido. Valores negativos indicam Caixa Líquido (mais dinheiro em caixa que dívidas).',
         foot: '< 1.5x = Estrutura ultra-segura • > 3.0x = Risco em Selic alta'
-      }},
-      payout: {{
+      },
+      payout: {
         title: '💰 Dividend Yield & Payout Implícito',
         desc: 'Dividend Yield é a taxa anual de proventos em dinheiro. Payout Implícito indica a fração do lucro líquido que foi distribuída aos acionistas.',
         foot: 'Payout entre 35% e 85% = Equilíbrio entre dividendos e reinvestimento'
-      }},
-      acid_test: {{
+      },
+      acid_test: {
         title: '⚗️ Munger Acid Test (EBIT / EBITDA ≥ 75%)',
         desc: 'Mede quanto do EBITDA vira lucro antes de impostos após deduzir a depreciação. Negócios intensivos em capital pesado (Capex voraz) falham neste teste.',
         foot: 'Filtra empresas que corroem capital em manutenção constante'
-      }},
-      distortion: {{
+      },
+      distortion: {
         title: '🔍 Filtro de Distorções Contábeis & One-Offs',
         desc: 'Elimina empresas com lucros anormais causados por reversões fiscais extraordinárias, venda de ativos ou eventos isolados que não refletem a operação real.',
         foot: 'Garante que os múltiplos sejam baseados em lucros sustentáveis'
-      }},
-      liq: {{
+      },
+      liq: {
         title: '💧 Liquidez Média Diária (≥ R$ 1 Milhão/dia)',
         desc: 'Volume médio negociado em bolsa nos últimos 2 meses. Garante que você consiga entrar e sair da posição sem distorcer o preço de mercado.',
         foot: 'Padrão mínimo institucional para liquidez de carteira'
-      }},
-      recency: {{
+      },
+      recency: {
         title: '📅 Tempestividade do Balanço (2T26 Vigente)',
         desc: 'Filtra companhias que já reportaram o balanço mais recente auditado pela CVM (2T26), evitando avaliar ações com demonstrações defasadas.',
         foot: 'Garante 100% de precisão nos números correntes'
-      }},
-      tag_along: {{
+      },
+      tag_along: {
         title: '⚖️ Ações Ordinárias (ON - Tag Along 100%)',
         desc: 'Ações com final 3 (ON) que conferem direito de voto e garantem por lei 100% do valor pago por ação no caso de venda do controle da companhia.',
         foot: 'Proteção fundamental de governança corporativa Munger'
-      }},
-      giro: {{
+      },
+      giro: {
         title: '🔄 Giro do Ativo (Receita Líquida / Ativo Total)',
         desc: 'Mede a capacidade comercial de gerar vendas a partir de cada real em ativos. Parte integrante do desdobramento DuPont de rentabilidade.',
         foot: '> 1.0x = Alta eficiência na rotação dos ativos'
-      }},
-      alavancagem: {{
+      },
+      alavancagem: {
         title: '⚖️ Alavancagem Financeira (Ativo Total / Patrimônio)',
         desc: 'Fator multiplicador da análise DuPont: mostra em quanto o retorno aos sócios é amplificado por capital de terceiros.',
         foot: '< 2.5x = Alavancagem saudável e prudente'
-      }}
-    }};
+      }
+    };
 
-    function initGlobalTooltips() {{
+    function initGlobalTooltips() {
       const tooltip = document.getElementById('globalTooltip');
       const titleEl = document.getElementById('gtTitle');
       const descEl = document.getElementById('gtDesc');
       const footEl = document.getElementById('gtFoot');
       if (!tooltip || !titleEl || !descEl || !footEl) return;
 
-      function show(target) {{
+      function show(target) {
         const key = target.getAttribute('data-tooltip');
         const item = METRIC_TOOLTIPS[key];
         if (!item) return;
@@ -2219,13 +2219,13 @@
 
         tooltip.classList.remove('hidden');
         position(target);
-      }}
+      }
 
-      function hide() {{
+      function hide() {
         tooltip.classList.add('hidden');
-      }}
+      }
 
-      function position(target) {{
+      function position(target) {
         const rect = target.getBoundingClientRect();
         const tipRect = tooltip.getBoundingClientRect();
         const padding = 12;
@@ -2233,59 +2233,59 @@
         let top = rect.bottom + 8;
         let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
 
-        if (left + tipRect.width > window.innerWidth - padding) {{
+        if (left + tipRect.width > window.innerWidth - padding) {
           left = window.innerWidth - tipRect.width - padding;
-        }}
+        }
         if (left < padding) left = padding;
 
-        if (top + tipRect.height > window.innerHeight - padding) {{
+        if (top + tipRect.height > window.innerHeight - padding) {
           top = rect.top - tipRect.height - 8;
-        }}
+        }
         if (top < padding) top = padding;
 
         tooltip.style.top = top + 'px';
         tooltip.style.left = left + 'px';
-      }}
+      }
 
-      document.addEventListener('mouseover', (e) => {{
+      document.addEventListener('mouseover', (e) => {
         const target = e.target.closest('[data-tooltip]');
-        if (target) {{
+        if (target) {
           show(target);
-        }}
-      }});
+        }
+      });
 
-      document.addEventListener('mouseout', (e) => {{
+      document.addEventListener('mouseout', (e) => {
         const target = e.target.closest('[data-tooltip]');
-        if (target) {{
+        if (target) {
           if (e.relatedTarget && target.contains(e.relatedTarget)) return;
           hide();
-        }}
-      }});
+        }
+      });
 
-      document.addEventListener('click', (e) => {{
+      document.addEventListener('click', (e) => {
         const target = e.target.closest('[data-tooltip]');
-        if (target) {{
+        if (target) {
           e.stopPropagation();
-          if (tooltip.classList.contains('hidden')) {{
+          if (tooltip.classList.contains('hidden')) {
             show(target);
-          }} else {{
+          } else {
             hide();
-          }}
-        }} else {{
+          }
+        } else {
           hide();
-        }}
-      }});
+        }
+      });
 
-      window.addEventListener('scroll', () => {{
+      window.addEventListener('scroll', () => {
         if (!tooltip.classList.contains('hidden')) hide();
-      }}, {{ passive: true }});
-    }}
+      }, { passive: true });
+    }
 
     // Inicialização
     let isInitialized = false;
-    function init() {{
+    function init() {
       if (isInitialized) return;
-      try {{
+      try {
         renderHero();
         renderEssentialMultiples();
         renderValuationCalculators();
@@ -2297,38 +2297,38 @@
 
         // Gauges Calibrados
         const s = currentStock;
-        if (s) {{
+        if (s) {
           const roicOrRoe = s.roic || s.roe || 0;
-          renderAnalogGauge('heroGaugeRoe', roicOrRoe, 0.0, 0.30, s.is_financial ? 'ROE' : 'ROIC', {{
+          renderAnalogGauge('heroGaugeRoe', roicOrRoe, 0.0, 0.30, s.is_financial ? 'ROE' : 'ROIC', {
             isPercent: true,
             refVal: 0.15,
             refText: 'Ref: ≥ 15%'
-          }});
-          renderAnalogGauge('heroGaugeDebt', s.div_liq_ebitda, -1.0, 3.5, 'Dív. Líq./EBITDA', {{
+          });
+          renderAnalogGauge('heroGaugeDebt', s.div_liq_ebitda, -1.0, 3.5, 'Dív. Líq./EBITDA', {
             isDebt: true,
             isFinancial: s.is_financial,
             refVal: 2.0,
             refText: 'Teto: 2.0x • Caixa = Top'
-          }});
-          renderAnalogGauge('heroGaugeSpread', s.ey_spread, -4.0, 10.0, 'Spread NTN-B', {{
+          });
+          renderAnalogGauge('heroGaugeSpread', s.ey_spread, -4.0, 10.0, 'Spread NTN-B', {
             isSpread: true,
             refVal: 0.0,
             refText: 'Prêmio Real: > 0%'
-          }});
+          });
           renderRadar();
-        }}
+        }
         isInitialized = true;
-      }} catch (err) {{
+      } catch (err) {
         console.error('Erro na inicialização de empresa:', err);
-      }}
-    }}
+      }
+    }
 
     // Execução robusta e imediata (resolve race condition de DOMContentLoaded)
-    if (document.readyState === 'loading') {{
+    if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
-    }} else {{
+    } else {
       init();
-    }}
+    }
     window.addEventListener('load', init);
     setTimeout(init, 50);
   </script>

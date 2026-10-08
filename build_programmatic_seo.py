@@ -1,7 +1,6 @@
 import json
 import os
 import re
-import shutil
 from datetime import datetime
 
 def format_curr(val):
@@ -64,21 +63,11 @@ def build_programmatic_seo():
             "tri_balanco": s.get("tri_balanco", "2T26"),
             "is_latest_balanco": s.get("is_latest_balanco", True)
         })
-    search_index_json = json.dumps(search_index, ensure_ascii=False)
 
-    # Ler o template base de build_company_page.py
-    with open(os.path.join(base_dir, "build_company_page.py"), "r", encoding="utf-8") as f:
-        company_script_code = f.read()
-
-    start_token = '<!DOCTYPE html>'
-    end_token = '</html>'
-    start_idx = company_script_code.find(start_token)
-    end_idx = company_script_code.find(end_token, start_idx) + len(end_token)
-    
-    if start_idx == -1 or end_idx == -1:
-        raise ValueError("Não foi possível localizar o template HTML em build_company_page.py")
-        
-    raw_template = company_script_code[start_idx:end_idx]
+    # Ler empresa.html como base template (que já tem todas as chaves avaliadas pelo Python)
+    empresa_path = os.path.join(base_dir, "empresa.html")
+    with open(empresa_path, "r", encoding="utf-8") as f:
+        base_html_template = f.read()
 
     today_str = datetime.now().strftime("%Y-%m-%d")
     sitemap_urls = [
@@ -330,8 +319,8 @@ def build_programmatic_seo():
         }
         stock_page_json_str = json.dumps(stock_page_data, ensure_ascii=False)
 
-        # Montar a pagina HTML a partir do template bruto
-        page_html = raw_template
+        # Montar a pagina HTML a partir do template limpo de empresa.html
+        page_html = base_html_template
 
         # 1. Substituir tags de Head (title, meta desc, canonical, og, schema)
         page_html = page_html.replace(
@@ -367,16 +356,28 @@ def build_programmatic_seo():
             f'<meta name="twitter:description" content="{og_desc}">'
         )
 
-        # Substituir Schema.org JSON-LD de forma robusta via Regex
-        schema_pattern = r'<!-- Schema\.org JSON-LD -->\s*<script type="application/ld\+json">.*?</script>'
-        new_schema_tag = f'<!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->\n  <script type="application/ld+json">\n{schema_json_str}\n  </script>'
-        page_html = re.sub(schema_pattern, new_schema_tag, page_html, flags=re.DOTALL)
+        # 2. Substituir Schema.org JSON-LD de forma robusta
+        old_schema_str = """  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "Dossiê Fundamentalista B3",
+    "description": "Análise quantitativa e qualitativa de vantagens competitivas duradouras (Economic Moats) na B3",
+    "provider": {
+      "@type": "Organization",
+      "name": "MOAT TERMINAL",
+      "url": "https://moatterminal.com.br"
+    }
+  }
+  </script>"""
+        new_schema_str = f"""  <!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->
+  <script type="application/ld+json">
+{schema_json_str}
+  </script>"""
+        page_html = page_html.replace(old_schema_str, new_schema_str)
 
-        # Remover script de troca dinamica de canonical (pois a rota estatica já possui a URL canonica exata)
-        dyn_can_pattern = r'<script>\s*\(function\(\)\s*\{\s*try\s*\{\s*var params = new URLSearchParams.*?\}\)\(\);\s*</script>'
-        page_html = re.sub(dyn_can_pattern, '', page_html, flags=re.DOTALL)
-
-        # Inserir Breadcrumbs e Hero Pre-renderizado
+        # 3. Inserir Breadcrumbs e Hero Pre-renderizado
         old_hero_container = """    <!-- 1. HERO SECTION: CABEÇALHO DO ATIVO -->
     <div id="companyHeroCard" class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200">
       <!-- Renderizado via JS -->
@@ -389,28 +390,37 @@ def build_programmatic_seo():
     </div>"""
         page_html = page_html.replace(old_hero_container, new_hero_container)
 
-        # Inserir FAQ Accordion antes do footer
+        # 4. Inserir FAQ Accordion antes do footer
         page_html = page_html.replace(
             '</main>',
             f'{faq_section_html}\n  </main>'
         )
 
-        # Ajustar links relativos para raiz
+        # 5. Ajustar links relativos para raiz
         page_html = page_html.replace('href="index.html"', 'href="/index.html"')
         page_html = page_html.replace('href="termos.html"', 'href="/termos.html"')
         page_html = page_html.replace('href="privacidade.html"', 'href="/privacidade.html"')
 
-        # Injetar os dados e configurar o ticker padrao
-        page_html = page_html.replace(
-            'const APP_DATA = {json_data_str};',
-            f'const APP_DATA = {stock_page_json_str};'
+        # 6. Substituir a linha única de APP_DATA por regex
+        page_html = re.sub(
+            r'const APP_DATA = \{.*?\};',
+            f'const APP_DATA = {stock_page_json_str};',
+            page_html
         )
+
+        # 7. Configurar o ticker padrao deste arquivo
         page_html = page_html.replace(
             "let currentTicker = (urlParams.get('ticker') || 'WEGE3').toUpperCase().trim();",
             f"let currentTicker = (urlParams.get('ticker') || '{ticker}').toUpperCase().trim();"
         )
 
-        # Ajustar links nos resultados de busca para irem para a pagina estatica correspondente
+        # 8. Ajustar busca para utilizar searchIndex completo
+        page_html = page_html.replace(
+            'companySearchResults = APP_DATA.stocks.map(',
+            'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).map('
+        )
+
+        # 9. Ajustar links nos resultados de busca para irem para a pagina estatica correspondente
         page_html = page_html.replace(
             'href="empresa.html?ticker=${s.ticker}"',
             'href="/acoes/${s.ticker.toLowerCase()}/"'
@@ -449,12 +459,6 @@ def build_programmatic_seo():
     with open(sitemap_path, "w", encoding="utf-8") as f:
         f.write(sitemap_content)
     print(f"[pSEO] Atualizado sitemap.xml com {len(sitemap_urls)} URLs indexáveis!")
-
-    # Atualizar robots.txt garantindo apontamento do sitemap
-    robots_path = os.path.join(base_dir, "robots.txt")
-    with open(robots_path, "w", encoding="utf-8") as f:
-        f.write("User-agent: *\nAllow: /\n\nSitemap: https://moatterminal.com.br/sitemap.xml\n")
-    print(f"[pSEO] Confirmado robots.txt")
 
 if __name__ == "__main__":
     build_programmatic_seo()
