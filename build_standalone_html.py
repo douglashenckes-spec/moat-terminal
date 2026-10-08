@@ -87,10 +87,10 @@ html_template = f"""<!DOCTYPE html>
   }}
   </script>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Ccircle cx='16' cy='16' r='14' stroke='%2300A887' stroke-width='1.5'/%3E%3Cpath d='M16 4.6 L18.4 8.2 L22.4 7.6 L25.8 10.4 L24.2 14.4 L26.4 16 L24.2 17.6 L25.8 21.6 L22.4 24.4 L18.4 23.8 L16 27.4 L13.6 23.8 L9.6 24.4 L6.2 21.6 L7.8 17.6 L5.6 16 L7.8 14.4 L6.2 10.4 L9.6 7.6 L13.6 8.2 Z' stroke='%2300A887' stroke-width='1.5' fill='rgba(0,168,135,0.2)'/%3E%3Cpolygon points='16,10.6 19.6,16 16,21.4 12.4,16' fill='%2300A887'/%3E%3Cpolygon points='16,12.2 18.2,16 16,19.8 13.8,16' fill='%23FFFFFF'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- GOOGLE ADSENSE -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8661500874049196" crossorigin="anonymous"></script>
@@ -299,17 +299,28 @@ html_template = f"""<!DOCTYPE html>
   <header class="bg-[#003836] border-b border-[#004B49] text-white px-3 sm:px-6 py-2 sm:py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-3 z-30 flex-shrink-0 shadow-sm">
     
     <!-- Esquerda: Brand Institucional & Status Moat -->
+    <!-- Esquerda: Brand Institucional & Status Moat (Emblema Cidadela de Vauban 1A) -->
     <div onclick="goToHome()" class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group select-none transition" title="Ir para o Panorama Geral (Home)">
-      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#004B49] flex items-center justify-center text-white shadow-xs border border-emerald-500/30 flex-shrink-0 group-hover:scale-105 transition-transform" title="Moat Terminal • Vantagens Competitivas B3">
-        <svg class="w-4 h-4 text-[#00A887] stroke-[2.4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l2-6h12l2 6M9 4v3M15 4v3"/></svg>
+      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#004B49]/90 flex items-center justify-center text-white shadow-xs border border-[#00A887]/40 flex-shrink-0 group-hover:border-[#00A887] group-hover:scale-105 transition-all" title="Moat Terminal • Vantagens Competitivas B3">
+        <svg class="w-6 h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Fosso Externo Circular (Water Moat) -->
+          <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
+          <circle cx="16" cy="16" r="12.6" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.5 1.5" opacity="0.4" />
+          <!-- Estrela Baluarte de 6 Pontas (Vauban Star Citadel) -->
+          <path d="M16 4.6 L18.4 8.2 L22.4 7.6 L25.8 10.4 L24.2 14.4 L26.4 16 L24.2 17.6 L25.8 21.6 L22.4 24.4 L18.4 23.8 L16 27.4 L13.6 23.8 L9.6 24.4 L6.2 21.6 L7.8 17.6 L5.6 16 L7.8 14.4 L6.2 10.4 L9.6 7.6 L13.6 8.2 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="rgba(0, 168, 135, 0.12)" />
+          <!-- Fosso Interno e Núcleo em Diamante -->
+          <circle cx="16" cy="16" r="6.6" stroke="currentColor" stroke-width="1.1" opacity="0.85" />
+          <polygon points="16,10.6 19.6,16 16,21.4 12.4,16" fill="currentColor" />
+          <polygon points="16,12.2 18.2,16 16,19.8 13.8,16" fill="#FFFFFF" opacity="0.95" />
+        </svg>
       </div>
       <div class="flex flex-col">
-        <div class="flex items-center gap-1.5">
-          <span class="font-bold text-white text-xs sm:text-sm tracking-wider font-mono leading-none group-hover:text-emerald-300 transition">MOAT TERMINAL</span>
-          <span class="px-1.5 py-0.2 text-[8px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold font-mono rounded">STRATEGY</span>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-white text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#00A887] transition-colors">MOAT TERMINAL</span>
+          <span class="px-1.5 py-0.2 text-[8px] bg-[#00A887]/20 text-[#00A887] border border-[#00A887]/40 font-bold font-mono rounded tracking-wider">STRATEGY</span>
         </div>
-        <div class="flex items-center gap-1.5 sm:gap-2 text-[10px] text-emerald-100/70 font-mono mt-0.5">
-          <span class="text-emerald-100/90 font-medium hidden sm:inline">Economic Moats &amp; Capital Allocation</span>
+        <div class="flex items-center gap-1.5 sm:gap-2 text-[10px] text-emerald-100/70 font-mono mt-1">
+          <span class="text-emerald-100/90 font-medium hidden sm:inline tracking-wider uppercase text-[9px]">Economic Moats &amp; Capital Allocation</span>
           <span class="text-emerald-400/40 hidden sm:inline">•</span>
           <span class="text-emerald-300 font-bold flex items-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
