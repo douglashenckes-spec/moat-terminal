@@ -238,6 +238,9 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
 
 
 def compile_standalone_dataset(force_refresh: bool = False, force_details: bool = False) -> Dict[str, Any]:
+    is_ci = os.environ.get("GITHUB_ACTIONS") == "true" or os.environ.get("CI") == "true"
+    if is_ci:
+        force_refresh = True
     logger.info("Iniciando compilacao do dataset standalone (force_refresh=%s, force_details=%s)...", force_refresh, force_details)
     df, audit_timestamp = get_cached_universe(force_refresh=force_refresh)
 
@@ -432,7 +435,7 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    data = compile_standalone_dataset(force_refresh=False)
+    data = compile_standalone_dataset(force_refresh=True)
     print(f"Total: {data['total_stocks']} ativos.")
     print(f"Liquidez >= 1M: {data['total_liquid_1m']}")
     print(f"Ultimo Tri: {data['total_latest_balanco']}")

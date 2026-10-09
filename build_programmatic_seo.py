@@ -460,5 +460,21 @@ def build_programmatic_seo():
         f.write(sitemap_content)
     print(f"[pSEO] Atualizado sitemap.xml com {len(sitemap_urls)} URLs indexáveis!")
 
+    # Adicionar acoes/ ao Git stage para ser commitado pelo runner de CI
+    import shutil
+    import subprocess
+    git_bin = shutil.which("git")
+    if not git_bin and os.name == "nt":
+        for c in [r"C:\Users\dougl\AppData\Local\Programs\MinGit\cmd\git.exe", r"C:\Program Files\Git\cmd\git.exe"]:
+            if os.path.exists(c):
+                git_bin = c
+                break
+    if git_bin:
+        try:
+            subprocess.run([git_bin, "add", "acoes/"], cwd=base_dir, check=False)
+            print("[pSEO] Diretório acoes/ adicionado ao stage do Git.")
+        except Exception as e:
+            print(f"[pSEO] Nota: git add acoes/ ignorado: {e}")
+
 if __name__ == "__main__":
     build_programmatic_seo()

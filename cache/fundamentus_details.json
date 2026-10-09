@@ -11540,5 +11540,63 @@
         "Giro Ativos": "0.01"
       }
     }
+  },
+  "PTBL3": {
+    "cached_time": 1791549222.9721756,
+    "data": {
+      "ticker": "PTBL3",
+      "audit_timestamp": "09/10/2026 09:33:42",
+      "audit_source": "Fundamentus (detalhes.php?papel=PTBL3)",
+      "empresa": "PORTOBELLO S/A ON",
+      "setor": "Construção e Engenharia",
+      "subsetor": "Produtos para Construção",
+      "tipo": "ON",
+      "data_ult_cot": "08/10/2026",
+      "min_52sem": 1.36,
+      "max_52sem": 3.85,
+      "valor_mercado": 391944000.0,
+      "valor_firma": 1601570000.0,
+      "nro_acoes": 140987000.0,
+      "ult_balanco": "30/06/2026",
+      "ativo_total": 3499800000.0,
+      "disponibilidades": 162700000.0,
+      "ativo_circulante": 1213070000.0,
+      "divida_bruta": 1372320000.0,
+      "divida_liquida": 1209620000.0,
+      "patrimonio_liquido": -103947000.0,
+      "receita_liq_12m": 2575960000.0,
+      "ebit_12m": 82272000.0,
+      "lucro_liq_12m": -318689000.0,
+      "receita_liq_3m": 651277000.0,
+      "ebit_3m": 44316000.0,
+      "lucro_liq_3m": -62736000.0,
+      "lpa": -2.26,
+      "vpa": -0.74,
+      "raw_indicators": {
+        "Indicadores fundamentalistas": "Indicadores fundamentalistas",
+        "P/L": "-1.23",
+        "LPA": "-2.26",
+        "P/VP": "-3.77",
+        "VPA": "-0.74",
+        "P/EBIT": "4.76",
+        "Marg. Bruta": "35,0%",
+        "PSR": "0.15",
+        "Marg. EBIT": "3,2%",
+        "P/Ativos": "0.11",
+        "Marg. Líquida": "-12,4%",
+        "P/Cap. Giro": "-1.63",
+        "EBIT / Ativo": "2,4%",
+        "P/Ativ Circ Liq": "-0.16",
+        "ROIC": "3,0%",
+        "Div. Yield": "0,0%",
+        "ROE": "306,6%",
+        "EV / EBITDA": "5.43",
+        "Liquidez Corr": "0.83",
+        "EV / EBIT": "19.47",
+        "Dív Líq / Patrim": "-11.64",
+        "Cres. Rec (5a)": "5,8%",
+        "Giro Ativos": "0.74"
+      }
+    }
   }
 }

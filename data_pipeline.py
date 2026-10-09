@@ -251,18 +251,35 @@ def get_cached_universe(force_refresh: bool = False) -> Tuple[pd.DataFrame, str]
     """
     ensure_cache_dir()
 
+    # Detecta se está em CI (GitHub Actions) ou se foi forçado explicitamente
+    is_ci = os.environ.get("GITHUB_ACTIONS") == "true" or os.environ.get("CI") == "true"
+    if is_ci:
+        force_refresh = True
+
     if not force_refresh and os.path.exists(CACHE_FILE):
         try:
-            mtime = os.path.getmtime(CACHE_FILE)
-            age = time.time() - mtime
+            with open(CACHE_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            # Usa created_at do payload para validar TTL de 15 minutos em vez de mtime do arquivo (que reseta no checkout git)
+            created_at_str = data.get("created_at")
+            age = None
+            if created_at_str:
+                try:
+                    dt_created = datetime.fromisoformat(created_at_str)
+                    age = (datetime.now(timezone.utc) - dt_created).total_seconds()
+                except Exception:
+                    age = None
+            if age is None:
+                mtime = os.path.getmtime(CACHE_FILE)
+                age = time.time() - mtime
+
             if age < CACHE_TTL_SECONDS:
-                with open(CACHE_FILE, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    records = data.get("records", [])
-                    audit_timestamp = data.get("audit_timestamp", get_current_timestamp_brt())
-                    logger.info("Retornando dados do cache com TTL ativo (idade: %.1f min).", age / 60.0)
-                    df = pd.DataFrame(records)
-                    return df, audit_timestamp
+                records = data.get("records", [])
+                audit_timestamp = data.get("audit_timestamp", get_current_timestamp_brt())
+                logger.info("Retornando dados do cache com TTL ativo (idade: %.1f min).", age / 60.0)
+                df = pd.DataFrame(records)
+                return df, audit_timestamp
         except Exception as e:
             logger.warning("Falha ao ler cache local (%s), realizando nova coleta.", e)
 

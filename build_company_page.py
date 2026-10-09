@@ -2181,5 +2181,12 @@ def build_company_page():
         except Exception:
             pass
 
+    # Executa a geração programática de SEO para manter as 199 páginas em /acoes/{ticker}/ sincronizadas
+    try:
+        from build_programmatic_seo import build_programmatic_seo
+        build_programmatic_seo()
+    except Exception as e:
+        print(f"[pSEO] Aviso ao executar build_programmatic_seo: {e}")
+
 if __name__ == '__main__':
     build_company_page()

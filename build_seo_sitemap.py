@@ -78,5 +78,21 @@ Sitemap: https://moatterminal.com.br/sitemap.xml
     print(f"Generated {sitemap_path} with {len(stocks) + 4} URLs")
     print(f"Generated {robots_path}")
 
+    # Garante que todo o diretório acoes/ esteja no git stage para o commit do bot
+    import shutil
+    import subprocess
+    git_bin = shutil.which("git")
+    if not git_bin and os.name == "nt":
+        for c in [r"C:\Users\dougl\AppData\Local\Programs\MinGit\cmd\git.exe", r"C:\Program Files\Git\cmd\git.exe"]:
+            if os.path.exists(c):
+                git_bin = c
+                break
+    if git_bin:
+        try:
+            subprocess.run([git_bin, "add", "acoes/"], cwd=base_dir, check=False)
+            print("[Sitemap] Diretório acoes/ adicionado ao stage do Git.")
+        except Exception as e:
+            print(f"[Sitemap] Nota: git add acoes/ ignorado: {e}")
+
 if __name__ == "__main__":
     generate_seo_assets()
