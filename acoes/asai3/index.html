@@ -231,6 +231,14 @@
       border-color: #94A3B8;
       transform: scale(1.1);
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col custom-scrollbar bg-[#FBFBF9] text-[#1A202C]">
@@ -242,61 +250,58 @@
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL GLOBAL (OPÇÃO 1: EXECUTIVE LIGHT • PADRÃO BCG.COM) -->
+  <!-- TOPBAR INSTITUCIONAL GLOBAL (OPÇÃO 1: EXECUTIVE LIGHT RESPONSIVA MOBILE + DESKTOP) -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[68px] flex items-center justify-between gap-3 sm:gap-4">
+    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4 overflow-x-auto no-scrollbar touch-pan-x">
       
       <!-- Brand & Link Voltar -->
-      <div class="flex items-center gap-3">
-        <a href="/index.html" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs" title="Voltar ao Scanner e Panorama Geral">
+      <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+        <a href="/index.html" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs flex-shrink-0" title="Voltar ao Scanner e Panorama Geral">
           <svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          <span class="hidden sm:inline">Voltar ao Terminal</span>
+          <span class="hidden sm:inline">Voltar</span>
         </a>
         <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
-        <a href="/index.html" class="flex items-center gap-2.5 sm:gap-3.5 group cursor-pointer" title="Voltar ao Moat Terminal (Home)">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs border flex-shrink-0 group-hover:scale-105 transition-all">
-            <svg class="w-6 h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Fosso Externo Circular (Water Moat) -->
+        <a href="/index.html" class="flex items-center gap-2 sm:gap-3.5 group cursor-pointer flex-shrink-0" title="Voltar ao Moat Terminal (Home)">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs border flex-shrink-0 group-hover:scale-105 transition-all">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
               <circle cx="16" cy="16" r="12.6" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.5 1.5" opacity="0.4" />
-              <!-- Estrela Baluarte de 6 Pontas (Vauban Star Citadel) -->
               <path d="M16 4.6 L18.4 8.2 L22.4 7.6 L25.8 10.4 L24.2 14.4 L26.4 16 L24.2 17.6 L25.8 21.6 L22.4 24.4 L18.4 23.8 L16 27.4 L13.6 23.8 L9.6 24.4 L6.2 21.6 L7.8 17.6 L5.6 16 L7.8 14.4 L6.2 10.4 L9.6 7.6 L13.6 8.2 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="rgba(0, 168, 135, 0.12)" />
-              <!-- Fosso Interno e Núcleo em Diamante -->
               <circle cx="16" cy="16" r="6.6" stroke="currentColor" stroke-width="1.1" opacity="0.85" />
               <polygon points="16,10.6 19.6,16 16,21.4 12.4,16" fill="currentColor" />
               <polygon points="16,12.2 18.2,16 16,19.8 13.8,16" fill="#FFFFFF" opacity="0.95" />
             </svg>
           </div>
           <div class="flex flex-col">
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-slate-900 text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors">MOAT TERMINAL</span>
-              <span class="px-1.5 py-0.5 text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider">STRATEGY</span>
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-bold text-slate-900 text-xs sm:text-base tracking-[0.10em] sm:tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors whitespace-nowrap">MOAT TERMINAL</span>
+              <span class="px-1 py-0.2 sm:px-1.5 sm:py-0.5 text-[7.5px] sm:text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider flex-shrink-0">STRATEGY</span>
             </div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5 hidden sm:inline">Economic Moats &amp; Capital Allocation</span>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5 hidden md:inline">Economic Moats &amp; Capital Allocation</span>
           </div>
         </a>
       </div>
 
       <!-- Barra de Busca Rápida com Autocomplete -->
-      <div class="flex-1 max-w-md relative" id="companySearchWrapper">
+      <div class="flex-1 min-w-[120px] max-w-md relative flex-shrink-0" id="companySearchWrapper">
         <div class="relative flex items-center">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-            <svg class="w-4 h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+          <span class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
-          <input type="text" id="companySearchInput" placeholder="Buscar outra ação (ex: ITUB4, CURY3, VALE3)... (/)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-9 pr-8 py-1.5 sm:py-2 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
+          <input type="text" id="companySearchInput" placeholder="Buscar ação... (/)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-8 sm:pl-9 pr-2 sm:pr-8 py-1 sm:py-1.5 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
           <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
         <!-- Dropdown de Busca -->
-        <div id="searchResultsDropdown" class="absolute left-0 w-80 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans text-slate-800"></div>
+        <div id="searchResultsDropdown" class="absolute left-0 w-72 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans text-slate-800"></div>
       </div>
 
       <!-- Ações: Compartilhar & Atualização -->
-      <div class="flex items-center gap-2">
-        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition cursor-pointer shadow-xs" title="Copiar link direto para esta análise">
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <button onclick="copyAnalysisLink()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition cursor-pointer shadow-xs flex-shrink-0" title="Copiar link direto para esta análise">
           <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          <span id="copyLinkText" class="hidden sm:inline">Compartilhar Link</span>
+          <span id="copyLinkText" class="hidden sm:inline">Compartilhar</span>
         </button>
-        <span class="text-[11px] font-sans font-semibold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1.5 sm:py-2 rounded-xl hidden md:inline-flex items-center gap-1.5 shadow-xs">
+        <span class="text-[11px] font-sans font-semibold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1.5 sm:py-2 rounded-xl hidden md:inline-flex items-center gap-1.5 shadow-xs flex-shrink-0">
           <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse"></span>
           Base 2T26 CVM Auditada
         </span>

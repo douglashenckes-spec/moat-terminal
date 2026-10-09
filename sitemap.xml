@@ -13,6 +13,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://moatterminal.com.br/privacidade.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://moatterminal.com.br/termos.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://moatterminal.com.br/acoes/itub4/</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
@@ -1211,17 +1223,5 @@
     <lastmod>2026-10-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://moatterminal.com.br/privacidade.html</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://moatterminal.com.br/termos.html</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
 </urlset>

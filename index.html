@@ -260,6 +260,14 @@
       border-color: #94A3B8;
       transform: scale(1.15);
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
   </style>
 </head>
 <body class="h-screen text-[#1A202C] bg-[#FBFBF9] flex flex-col overflow-hidden font-sans antialiased selection:bg-[#00A887]/20 selection:text-[#003836]">
@@ -271,116 +279,137 @@
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
-  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (OPÇÃO 1: EXECUTIVE LIGHT • PADRÃO BCG.COM) -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 px-4 sm:px-6 h-16 sm:h-[68px] flex items-center justify-between gap-3 z-30 flex-shrink-0 shadow-xs">
+  <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (OPÇÃO 1: EXECUTIVE LIGHT RESPONSIVA MOBILE + DESKTOP) -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 z-30 flex-shrink-0 shadow-xs">
     
-    <!-- Esquerda: Brand Institucional & Status Moat (Emblema Cidadela de Vauban 1A) -->
-    <div onclick="goToHome()" class="flex items-center gap-3 cursor-pointer group select-none transition flex-shrink-0" title="Ir para o Panorama Geral (Home)">
-      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs flex-shrink-0 group-hover:scale-105 transition-all" title="Moat Terminal • Vantagens Competitivas B3">
-        <svg class="w-6 h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Fosso Externo Circular (Water Moat) -->
-          <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
-          <circle cx="16" cy="16" r="12.6" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.5 1.5" opacity="0.4" />
-          <!-- Estrela Baluarte de 6 Pontas (Vauban Star Citadel) -->
-          <path d="M16 4.6 L18.4 8.2 L22.4 7.6 L25.8 10.4 L24.2 14.4 L26.4 16 L24.2 17.6 L25.8 21.6 L22.4 24.4 L18.4 23.8 L16 27.4 L13.6 23.8 L9.6 24.4 L6.2 21.6 L7.8 17.6 L5.6 16 L7.8 14.4 L6.2 10.4 L9.6 7.6 L13.6 8.2 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="rgba(0, 168, 135, 0.12)" />
-          <!-- Fosso Interno e Núcleo em Diamante -->
-          <circle cx="16" cy="16" r="6.6" stroke="currentColor" stroke-width="1.1" opacity="0.85" />
-          <polygon points="16,10.6 19.6,16 16,21.4 12.4,16" fill="currentColor" />
-          <polygon points="16,12.2 18.2,16 16,19.8 13.8,16" fill="#FFFFFF" opacity="0.95" />
-        </svg>
+    <!-- Linha 1: Brand Institucional + Busca + Status + Guia (com touch scroll horizontal suave se a tela for muito estreita) -->
+    <div class="px-3 sm:px-6 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4 overflow-x-auto no-scrollbar touch-pan-x">
+      
+      <!-- Esquerda: Brand Institucional & Status Moat (Emblema Cidadela de Vauban 1A) -->
+      <div onclick="goToHome()" class="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none transition flex-shrink-0" title="Ir para o Panorama Geral (Home)">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs flex-shrink-0 group-hover:scale-105 transition-all" title="Moat Terminal • Vantagens Competitivas B3">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
+            <circle cx="16" cy="16" r="12.6" stroke="currentColor" stroke-width="0.75" stroke-dasharray="1.5 1.5" opacity="0.4" />
+            <path d="M16 4.6 L18.4 8.2 L22.4 7.6 L25.8 10.4 L24.2 14.4 L26.4 16 L24.2 17.6 L25.8 21.6 L22.4 24.4 L18.4 23.8 L16 27.4 L13.6 23.8 L9.6 24.4 L6.2 21.6 L7.8 17.6 L5.6 16 L7.8 14.4 L6.2 10.4 L9.6 7.6 L13.6 8.2 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="rgba(0, 168, 135, 0.12)" />
+            <circle cx="16" cy="16" r="6.6" stroke="currentColor" stroke-width="1.1" opacity="0.85" />
+            <polygon points="16,10.6 19.6,16 16,21.4 12.4,16" fill="currentColor" />
+            <polygon points="16,12.2 18.2,16 16,19.8 13.8,16" fill="#FFFFFF" opacity="0.95" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="font-bold text-slate-900 text-xs sm:text-base tracking-[0.10em] sm:tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors whitespace-nowrap">MOAT TERMINAL</span>
+            <span class="px-1 py-0.2 sm:px-1.5 sm:py-0.5 text-[7.5px] sm:text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider flex-shrink-0">STRATEGY</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-[9.5px] sm:text-[10px] text-slate-500 font-sans mt-0.5">
+            <span class="font-medium hidden sm:inline text-slate-600">Economic Moats &amp; Capital Allocation</span>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <span class="text-emerald-700 font-mono font-semibold flex items-center gap-1 whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <div class="flex items-center gap-2">
-          <span class="font-bold text-slate-900 text-sm sm:text-base tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors">MOAT TERMINAL</span>
-          <span class="px-1.5 py-0.5 text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider">STRATEGY</span>
+
+      <!-- Centro no Desktop: Segmented Navigation Pills (Oculto no mobile, onde fica na Linha 2) -->
+      <nav class="hidden md:flex items-center bg-[#F4F4F0] p-1 rounded-xl border border-[#E7E7E2] gap-1 font-sans text-xs flex-shrink-0">
+        <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+          <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <span class="hidden lg:inline">Panorama Geral</span>
+          <span class="lg:hidden">Home</span>
+        </button>
+        <button id="nav-matrix" onclick="switchWorkspace('matrix')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+          <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16M4 12h16M12 4v16"/></svg>
+          <span class="hidden lg:inline">Matriz Estratégica 2x2</span>
+          <span class="lg:hidden">Matriz</span>
+        </button>
+        <button id="nav-table" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+          <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+          <span>Scanner</span>
+          <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200 hidden md:inline-block" id="sidebarUniverseCount">--</span>
+        </button>
+      </nav>
+
+      <!-- Direita: Busca Universal, Status de Atualização & Guia (Flex-shrink-0) -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        
+        <!-- Input de Busca Universal -->
+        <div class="relative" id="searchWrapper">
+          <div class="relative flex items-center">
+            <span class="absolute left-2.5 text-slate-400 pointer-events-none">
+              <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+            </span>
+            <input type="text" id="searchInput" 
+                   oninput="handleSearchInput(this.value)" 
+                   onkeydown="handleSearchKeydown(event)" 
+                   onfocus="handleSearchFocus()" 
+                   placeholder="Buscar Ativo..." 
+                   autocomplete="off"
+                   class="w-24 xs:w-28 sm:w-44 md:w-56 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-7 py-1 sm:py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
+            <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+          </div>
+
+          <!-- Dropdown de Sugestões em Tempo Real -->
+          <div id="searchDropdown" class="hidden absolute right-0 w-72 sm:w-96 mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[99999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans text-slate-800">
+            <!-- Injetado dinamicamente via JS -->
+          </div>
         </div>
-        <div class="flex items-center gap-2 text-[10px] text-slate-500 font-sans mt-0.5">
-          <span class="font-medium hidden sm:inline text-slate-600">Economic Moats &amp; Capital Allocation</span>
-          <span class="text-slate-300 hidden sm:inline">•</span>
-          <span class="text-emerald-700 font-mono font-semibold flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
-          </span>
+
+        <!-- Elementos ocultos para manter compatibilidade JS sem poluir a barra -->
+        <span id="topSelectedTickerBadge" class="hidden">--</span>
+        <span id="displayedCount" class="hidden">--</span>
+        <span id="totalUniverseCount" class="hidden">--</span>
+
+        <!-- Selo 'Atualizado' com Balãozinho de Data e Hora no Hover/Touch -->
+        <div class="relative group cursor-pointer flex-shrink-0" id="lastUpdateBadgeWrapper" onclick="const p=this.querySelector('.update-tooltip-popup'); if(p) p.classList.toggle('!block');">
+          <div class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[#E6F4F1] hover:bg-[#DCF0EC] border border-[#BCE5DC] text-[#004B49] font-sans text-xs font-semibold shadow-xs transition select-none">
+            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00A887] animate-pulse flex-shrink-0"></span>
+            <span class="text-[10.5px] sm:text-xs whitespace-nowrap">Atualizado</span>
+          </div>
+
+          <!-- Balãozinho Suspenso no Hover (Data e Hora) -->
+          <div class="update-tooltip-popup absolute right-0 top-full mt-2 hidden group-hover:block z-[999999] w-64 p-3 bg-slate-900 text-white rounded-xl shadow-2xl border border-slate-700 text-xs font-sans transition-all duration-200">
+            <div class="font-mono font-bold text-emerald-400 text-[11.5px] flex items-center gap-1.5 border-b border-slate-700/80 pb-1.5 mb-1.5">
+              <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Última Atualização dos Dados</span>
+            </div>
+            <div class="text-slate-200 text-[11px] space-y-1">
+              <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:20</div>
+              <p class="text-slate-400 leading-tight text-[10.5px]">
+                Rotina processada diariamente na nuvem (07:20, 12:20 e 18:45 BRT).
+              </p>
+            </div>
+            <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
+              <span>Base CVM 2T26</span>
+              <span class="text-emerald-400 font-bold">200 Ações B3</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Botão Guia & Isenção -->
+        <button onclick="openWelcomeGuide()" class="px-2 sm:px-3 py-1 sm:py-1.5 bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 font-medium rounded-xl text-xs font-sans cursor-pointer transition flex items-center gap-1 shadow-xs flex-shrink-0" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
+          <svg class="w-3.5 h-3.5 text-[#004B49] stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+          <span class="hidden sm:inline">Guia</span>
+        </button>
+
       </div>
     </div>
 
-    <!-- Centro: Segmented Navigation Pills (3 Abas Diretas & Essenciais) -->
-    <nav class="flex items-center bg-[#F4F4F0] p-1 rounded-xl border border-[#E7E7E2] gap-1 font-sans text-xs">
-      <button id="nav-home" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+    <!-- Linha 2 Mobile: Navegação Touch com Scroll Lateral Fluido (visível apenas em telas < md) -->
+    <div class="md:hidden border-t border-[#E7E7E2] bg-[#FBFBF9] px-2.5 py-1.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar touch-pan-x select-none">
+      <button id="nav-home-m" onclick="switchWorkspace('home')" class="topbar-nav-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0 whitespace-nowrap">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        <span class="hidden sm:inline">Panorama Geral</span>
-        <span class="sm:hidden">Home</span>
+        <span>Panorama Geral</span>
       </button>
-      <button id="nav-matrix" onclick="switchWorkspace('matrix')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+      <button id="nav-matrix-m" onclick="switchWorkspace('matrix')" class="topbar-nav-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0 whitespace-nowrap">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16M4 12h16M12 4v16"/></svg>
-        <span class="hidden sm:inline">Matriz Estratégica 2x2</span>
-        <span class="sm:hidden">Matriz</span>
+        <span>Matriz Estratégica 2x2</span>
       </button>
-      <button id="nav-table" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0">
+      <button id="nav-table-m" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0 whitespace-nowrap">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
-        <span>Scanner</span>
-        <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200 hidden md:inline-block" id="sidebarUniverseCount">--</span>
-      </button>
-    </nav>
-
-    <!-- Direita: Busca Universal, Status de Atualização & Guia -->
-    <div class="flex items-center gap-2 sm:gap-2.5">
-      <div class="relative" id="searchWrapper">
-        <div class="relative flex items-center">
-          <span class="absolute left-2.5 text-slate-400 pointer-events-none">
-            <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
-          </span>
-          <input type="text" id="searchInput" 
-                 oninput="handleSearchInput(this.value)" 
-                 onkeydown="handleSearchKeydown(event)" 
-                 onfocus="handleSearchFocus()" 
-                 placeholder="Buscar Ativo..." 
-                 autocomplete="off"
-                 class="w-28 sm:w-48 md:w-60 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-7 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
-          <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
-        </div>
-
-        <!-- Dropdown de Sugestões em Tempo Real -->
-        <div id="searchDropdown" class="hidden absolute right-0 sm:left-0 w-80 sm:w-96 mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[99999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans text-slate-800">
-          <!-- Injetado dinamicamente via JS -->
-        </div>
-      </div>
-
-      <!-- Elementos ocultos para manter compatibilidade JS sem poluir a barra -->
-      <span id="topSelectedTickerBadge" class="hidden">--</span>
-      <span id="displayedCount" class="hidden">--</span>
-      <span id="totalUniverseCount" class="hidden">--</span>
-
-      <!-- Selo 'Atualizado' com Balãozinho de Data e Hora no Hover -->
-      <div class="relative group cursor-pointer" id="lastUpdateBadgeWrapper" onclick="const p=this.querySelector('.update-tooltip-popup'); if(p) p.classList.toggle('!block');">
-        <div class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#E6F4F1] hover:bg-[#DCF0EC] border border-[#BCE5DC] text-[#004B49] font-sans text-xs font-semibold shadow-xs transition select-none">
-          <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse flex-shrink-0"></span>
-          <span class="text-[11px] sm:text-xs">Atualizado</span>
-        </div>
-
-        <!-- Balãozinho Suspenso no Hover (Data e Hora) -->
-        <div class="update-tooltip-popup absolute right-0 top-full mt-2 hidden group-hover:block z-[999999] w-64 p-3 bg-slate-900 text-white rounded-xl shadow-2xl border border-slate-700 text-xs font-sans transition-all duration-200">
-          <div class="font-mono font-bold text-emerald-400 text-[11.5px] flex items-center gap-1.5 border-b border-slate-700/80 pb-1.5 mb-1.5">
-            <svg class="w-3.5 h-3.5 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <span>Última Atualização dos Dados</span>
-          </div>
-          <div class="text-slate-200 text-[11px] space-y-1">
-            <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:20</div>
-            <p class="text-slate-400 leading-tight text-[10.5px]">
-              Rotina processada diariamente na nuvem (07:20, 12:20 e 18:45 BRT).
-            </p>
-          </div>
-          <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
-            <span>Base CVM 2T26</span>
-            <span class="text-emerald-400 font-bold">194 Ações B3</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Botão Guia & Isenção -->
-      <button onclick="openWelcomeGuide()" class="px-2.5 sm:px-3 py-1.5 bg-white hover:bg-slate-50 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 font-medium rounded-xl text-xs font-sans cursor-pointer transition flex items-center gap-1.5 shadow-xs" title="Apresentação do Terminal, Guia e Termo de Responsabilidade CVM">
-        <svg class="w-3.5 h-3.5 text-[#004B49] stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-        <span class="hidden sm:inline">Guia &amp; Isenção</span>
+        <span>Scanner B3</span>
+        <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200" id="sidebarUniverseCountMobile">200</span>
       </button>
     </div>
 
@@ -1806,6 +1835,8 @@
 
       const sbUniv = document.getElementById('sidebarUniverseCount');
       if (sbUniv) sbUniv.innerText = basePool.length + ' ativos';
+      const sbUnivM = document.getElementById('sidebarUniverseCountMobile');
+      if (sbUnivM) sbUnivM.innerText = basePool.length;
 
       // Atualizar contadores da Matriz e Filtros Estratégicos
       const cntDiscount = basePool.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL').length;
@@ -2247,6 +2278,9 @@
       const btnPortfolios = document.getElementById('nav-portfolios');
       const btnMatrix = document.getElementById('nav-matrix');
       const btnTable = document.getElementById('nav-table');
+      const btnHomeM = document.getElementById('nav-home-m');
+      const btnMatrixM = document.getElementById('nav-matrix-m');
+      const btnTableM = document.getElementById('nav-table-m');
 
       // Reset de todas as visões e abas
       if (vHome) vHome.classList.add('hidden');
@@ -2257,6 +2291,9 @@
       if (btnPortfolios) btnPortfolios.classList.remove('active');
       if (btnMatrix) btnMatrix.classList.remove('active');
       if (btnTable) btnTable.classList.remove('active');
+      if (btnHomeM) btnHomeM.classList.remove('active');
+      if (btnMatrixM) btnMatrixM.classList.remove('active');
+      if (btnTableM) btnTableM.classList.remove('active');
 
       const wsContainer = document.getElementById('workspaceContainer');
       if (wsContainer) wsContainer.scrollTop = 0;
@@ -2267,6 +2304,7 @@
       if (ws === 'home') {
         if (vHome) vHome.classList.remove('hidden');
         if (btnHome) btnHome.classList.add('active');
+        if (btnHomeM) btnHomeM.classList.add('active');
         if (topTitle) topTitle.innerHTML = '<span><svg class="w-4 h-4 stroke-[1.75] inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></span> <span>PANORAMA GERAL</span>';
         if (topSub) topSub.innerText = 'Cockpit executivo e inteligência fundamentalista B3';
         renderHomePage();
@@ -2279,12 +2317,14 @@
       } else if (ws === 'matrix') {
         if (vMatrix) vMatrix.classList.remove('hidden');
         if (btnMatrix) btnMatrix.classList.add('active');
+        if (btnMatrixM) btnMatrixM.classList.add('active');
         if (topTitle) topTitle.innerHTML = '<span class="text-slate-700">' + APP_ICONS.matrix + '</span> <span>MATRIZ ESTRATÉGICA 2X2</span>';
         if (topSub) topSub.innerText = 'Score de Qualidade Fundamentalista vs. Valuation e dispersão do mercado';
         renderMatrix();
       } else {
         if (vTable) vTable.classList.remove('hidden');
         if (btnTable) btnTable.classList.add('active');
+        if (btnTableM) btnTableM.classList.add('active');
         if (topTitle) topTitle.innerHTML = '<span class="text-slate-700">' + APP_ICONS.search + '</span> <span>SCANNER B3 &amp; ATIVOS</span>';
         if (topSub) topSub.innerText = 'Triagem fundamentalista, múltiplos, solvência e dossiê 360°';
         renderTable();
