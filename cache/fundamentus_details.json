@@ -11598,5 +11598,63 @@
         "Giro Ativos": "0.74"
       }
     }
+  },
+  "ESPA3": {
+    "cached_time": 1791594899.6336303,
+    "data": {
+      "ticker": "ESPA3",
+      "audit_timestamp": "09/10/2026 22:14:59",
+      "audit_source": "Fundamentus (detalhes.php?papel=ESPA3)",
+      "empresa": "ESPACOLASER ON NM",
+      "setor": "Comércio",
+      "subsetor": "Produtos Diversos",
+      "tipo": "ON NM",
+      "data_ult_cot": "09/10/2026",
+      "min_52sem": 5.98,
+      "max_52sem": 12.69,
+      "valor_mercado": 286970000.0,
+      "valor_firma": 934059000.0,
+      "nro_acoes": 36142300.0,
+      "ult_balanco": "30/06/2026",
+      "ativo_total": 2192790000.0,
+      "disponibilidades": 166298000.0,
+      "ativo_circulante": 992261000.0,
+      "divida_bruta": 813387000.0,
+      "divida_liquida": 647089000.0,
+      "patrimonio_liquido": 865239000.0,
+      "receita_liq_12m": 1100040000.0,
+      "ebit_12m": 159676000.0,
+      "lucro_liq_12m": 7704000.0,
+      "receita_liq_3m": 257492000.0,
+      "ebit_3m": 28894000.0,
+      "lucro_liq_3m": -5642000.0,
+      "lpa": 0.21,
+      "vpa": 23.94,
+      "raw_indicators": {
+        "Indicadores fundamentalistas": "Indicadores fundamentalistas",
+        "P/L": "37.25",
+        "LPA": "0.21",
+        "P/VP": "0.33",
+        "VPA": "23.94",
+        "P/EBIT": "1.80",
+        "Marg. Bruta": "33,8%",
+        "PSR": "0.26",
+        "Marg. EBIT": "14,5%",
+        "P/Ativos": "0.13",
+        "Marg. Líquida": "0,4%",
+        "P/Cap. Giro": "0.82",
+        "EBIT / Ativo": "7,3%",
+        "P/Ativ Circ Liq": "-0.85",
+        "ROIC": "8,0%",
+        "Div. Yield": "4,8%",
+        "ROE": "0,9%",
+        "EV / EBITDA": "3.50",
+        "Liquidez Corr": "1.55",
+        "EV / EBIT": "5.85",
+        "Dív Líq / Patrim": "0.75",
+        "Cres. Rec (5a)": "9,9%",
+        "Giro Ativos": "0.50"
+      }
+    }
   }
 }
