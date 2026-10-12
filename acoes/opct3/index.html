@@ -949,7 +949,7 @@
       let catBadgesHtml = '';
       if (categories.length > 0) {
         catBadgesHtml = categories.map(c => `
-          <a href="index.html?filter=${c.id}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${c.bgClass} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${c.label}">
+          <a href="/index.html?filter=${c.id}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${c.bgClass} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${c.label}">
             <span>${c.icon}</span> <span>${c.shortLabel || c.label}</span>
           </a>
         `).join('');
@@ -1588,7 +1588,7 @@
       }
 
       tbody.innerHTML = peers.map(p => `
-        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='empresa.html?ticker=${p.ticker}'">
+        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='/acoes/${p.ticker.toLowerCase()}/'">
           <td class="py-2.5 px-3">
             <div class="flex items-center gap-2">
               ${getStockLogoHtml(p.ticker, p.empresa, 'w-6 h-6')}
@@ -1611,7 +1611,7 @@
           <td class="py-2.5 px-2 text-right font-mono text-slate-700">${p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? p.div_liq_ebitda.toFixed(1) + 'x' : 'N/D'))}</td>
           <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${formatPercent(p.div_yield)}</td>
           <td class="py-2.5 px-3 text-center">
-            <a href="empresa.html?ticker=${p.ticker}" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
+            <a href="/acoes/${p.ticker.toLowerCase()}/" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
               Analisar ➜
             </a>
           </td>
@@ -2050,7 +2050,7 @@
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (companySearchHighlightedIndex >= 0 && companySearchHighlightedIndex < companySearchResults.length) {
-          window.location.href = 'empresa.html?ticker=' + encodeURIComponent(companySearchResults[companySearchHighlightedIndex].ticker);
+          window.location.href = '/acoes/' + encodeURIComponent(companySearchResults[companySearchHighlightedIndex].ticker.toLowerCase()) + '/';
         }
       } else if (e.key === 'Escape') {
         dd.classList.add('hidden');

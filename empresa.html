@@ -179,12 +179,12 @@
       
       <!-- Brand & Link Voltar -->
       <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
-        <a href="index.html" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs flex-shrink-0" title="Voltar ao Scanner e Panorama Geral">
+        <a href="/index.html" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs flex-shrink-0" title="Voltar ao Scanner e Panorama Geral">
           <svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           <span class="hidden sm:inline">Voltar</span>
         </a>
         <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
-        <a href="index.html" class="flex items-center gap-2 sm:gap-3.5 group cursor-pointer flex-shrink-0" title="Voltar ao Moat Terminal (Home)">
+        <a href="/index.html" class="flex items-center gap-2 sm:gap-3.5 group cursor-pointer flex-shrink-0" title="Voltar ao Moat Terminal (Home)">
           <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs border flex-shrink-0 group-hover:scale-105 transition-all">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#00A887]" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="16" cy="16" r="14.2" stroke="currentColor" stroke-width="1.2" opacity="0.65" />
@@ -436,9 +436,9 @@
           <span>Economic Moats &amp; Capital Compounding</span>
         </div>
         <div class="flex items-center gap-3 text-[11px] font-mono">
-          <a href="termos.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Termos de Uso</a>
+          <a href="/termos.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Termos de Uso</a>
           <span>•</span>
-          <a href="privacidade.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Política de Privacidade</a>
+          <a href="/privacidade.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Política de Privacidade</a>
         </div>
       </div>
       <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 text-xs leading-relaxed space-y-1">
@@ -770,7 +770,7 @@
       let catBadgesHtml = '';
       if (categories.length > 0) {
         catBadgesHtml = categories.map(c => `
-          <a href="index.html?filter=${c.id}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${c.bgClass} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${c.label}">
+          <a href="/index.html?filter=${c.id}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${c.bgClass} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${c.label}">
             <span>${c.icon}</span> <span>${c.shortLabel || c.label}</span>
           </a>
         `).join('');
@@ -1409,7 +1409,7 @@
       }
 
       tbody.innerHTML = peers.map(p => `
-        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='empresa.html?ticker=${p.ticker}'">
+        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="window.location.href='/acoes/${p.ticker.toLowerCase()}/'">
           <td class="py-2.5 px-3">
             <div class="flex items-center gap-2">
               ${getStockLogoHtml(p.ticker, p.empresa, 'w-6 h-6')}
@@ -1432,7 +1432,7 @@
           <td class="py-2.5 px-2 text-right font-mono text-slate-700">${p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? p.div_liq_ebitda.toFixed(1) + 'x' : 'N/D'))}</td>
           <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${formatPercent(p.div_yield)}</td>
           <td class="py-2.5 px-3 text-center">
-            <a href="empresa.html?ticker=${p.ticker}" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
+            <a href="/acoes/${p.ticker.toLowerCase()}/" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
               Analisar ➜
             </a>
           </td>
@@ -1823,7 +1823,7 @@
           const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
 
           return `
-            <a href="empresa.html?ticker=${s.ticker}" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
+            <a href="/acoes/${s.ticker.toLowerCase()}/" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
               <div class="flex items-center gap-2.5 min-w-0">
                 ${getStockLogoHtml(s.ticker, s.empresa, 'w-7 h-7')}
                 <div class="flex flex-col min-w-0">
@@ -1871,7 +1871,7 @@
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (companySearchHighlightedIndex >= 0 && companySearchHighlightedIndex < companySearchResults.length) {
-          window.location.href = 'empresa.html?ticker=' + encodeURIComponent(companySearchResults[companySearchHighlightedIndex].ticker);
+          window.location.href = '/acoes/' + encodeURIComponent(companySearchResults[companySearchHighlightedIndex].ticker.toLowerCase()) + '/';
         }
       } else if (e.key === 'Escape') {
         dd.classList.add('hidden');

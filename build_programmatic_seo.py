@@ -420,12 +420,6 @@ def build_programmatic_seo():
             'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).map('
         )
 
-        # 9. Ajustar links nos resultados de busca para irem para a pagina estatica correspondente
-        page_html = page_html.replace(
-            'href="empresa.html?ticker=${s.ticker}"',
-            'href="/acoes/${s.ticker.toLowerCase()}/"'
-        )
-
         # Gravar arquivo estatico na pasta acoes/{ticker_lower}/index.html
         stock_dir = os.path.join(acoes_root, ticker_lower)
         os.makedirs(stock_dir, exist_ok=True)
