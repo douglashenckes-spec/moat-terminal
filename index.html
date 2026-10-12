@@ -280,10 +280,10 @@
   </div>
 
   <!-- TOPBAR INSTITUCIONAL FULL-WIDTH (OPÇÃO 1: EXECUTIVE LIGHT RESPONSIVA MOBILE + DESKTOP) -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 z-30 flex-shrink-0 shadow-xs">
+  <header class="bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 z-40 flex-shrink-0 shadow-xs">
     
-    <!-- Linha 1: Brand Institucional + Busca + Status + Guia (com touch scroll horizontal suave se a tela for muito estreita) -->
-    <div class="px-3 sm:px-6 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4 overflow-x-auto no-scrollbar touch-pan-x">
+    <!-- Linha 1: Brand Institucional + Busca + Status + Guia (sem overflow para nunca cortar dropdowns) -->
+    <div class="px-3 sm:px-6 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4 relative">
       
       <!-- Esquerda: Brand Institucional & Status Moat (Emblema Cidadela de Vauban 1A) -->
       <div onclick="goToHome()" class="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none transition flex-shrink-0" title="Ir para o Panorama Geral (Home)">
@@ -350,8 +350,8 @@
             <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
           </div>
 
-          <!-- Dropdown de Sugestões em Tempo Real -->
-          <div id="searchDropdown" class="hidden absolute right-0 w-72 sm:w-96 mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[99999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans text-slate-800">
+          <!-- Dropdown de Sugestões em Tempo Real (Fixo no mobile para ocupar a tela com perfeição, absoluto ancorado no desktop) -->
+          <div id="searchDropdown" class="hidden fixed left-3 right-3 top-16 sm:absolute sm:top-full sm:left-auto sm:right-0 sm:w-96 sm:mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl z-[999999] max-h-96 overflow-y-auto overflow-x-hidden divide-y divide-slate-100 font-sans text-slate-800">
             <!-- Injetado dinamicamente via JS -->
           </div>
         </div>

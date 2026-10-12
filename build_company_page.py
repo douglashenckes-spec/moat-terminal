@@ -188,7 +188,7 @@ def build_company_page():
 
   <!-- TOPBAR INSTITUCIONAL GLOBAL (OPÇÃO 1: EXECUTIVE LIGHT RESPONSIVA MOBILE + DESKTOP) -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E7E7E2] text-slate-900 shadow-xs">
-    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4 overflow-x-auto no-scrollbar touch-pan-x">
+    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-[68px] flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Brand & Link Voltar -->
       <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
@@ -228,7 +228,7 @@ def build_company_page():
           <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
         </div>
         <!-- Dropdown de Busca -->
-        <div id="searchResultsDropdown" class="absolute left-0 w-72 sm:w-96 top-full mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-50 hidden divide-y divide-slate-100 font-sans text-slate-800"></div>
+        <div id="searchResultsDropdown" class="hidden fixed left-3 right-3 top-16 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:w-96 sm:mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-[999999] divide-y divide-slate-100 font-sans text-slate-800"></div>
       </div>
 
       <!-- Ações: Compartilhar & Atualização -->
