@@ -1,7 +1,7 @@
 name: Atualização Diária B3 (Nuvem)
 
 on:
-   schedule:
+  schedule:
     # 07:20 Horário de Brasília (10:20 UTC) - Todos os dias (seg a dom)
     - cron: '20 10 * * *'
     # 13:20 Horário de Brasília (16:20 UTC) - Todos os dias (seg a dom)
@@ -44,5 +44,4 @@ jobs:
           git config --global user.name "Moat Terminal Cloud Bot"
           git config --global user.email "bot@moatterminal.com.br"
           git add index.html empresa.html sitemap.xml acoes/ cache/
-          git add index.html empresa.html sitemap.xml cache/
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): atualizacao automatica B3 na nuvem [$(date +'%d/%m/%Y')]" && git push)
