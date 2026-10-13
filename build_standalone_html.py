@@ -401,7 +401,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="text-slate-200 text-[11px] space-y-1">
               <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:20</div>
               <p class="text-slate-400 leading-tight text-[10.5px]">
-                Rotina processada diariamente na nuvem (07:20, 12:20 e 18:45 BRT).
+                Rotina processada diariamente na nuvem (07:20, 13:20 e 19:20 BRT).
               </p>
             </div>
             <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
@@ -1325,11 +1325,11 @@ html_template = f"""<!DOCTYPE html>
       if (ts) ts.innerText = 'Auditado em: ' + APP_DATA.audit_timestamp;
       const bdt = document.getElementById('badgeUpdateDateTime');
       if (bdt) {{
-        let dStr = '29/09/2026';
         if (APP_DATA.audit_timestamp) {{
-          dStr = APP_DATA.audit_timestamp.split(' ')[0];
+          bdt.innerText = APP_DATA.audit_timestamp + ' BRT';
+        }} else {{
+          bdt.innerText = 'Auditado recentemente';
         }}
-        bdt.innerText = dStr + ' às 07:00 BRT';
       }}
       const liq = document.getElementById('cnt-liq-badge');
       if (liq) liq.innerText = APP_DATA.stocks.filter(s => s.is_liquid_1m).length;
