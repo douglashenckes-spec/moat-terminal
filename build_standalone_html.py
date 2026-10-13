@@ -782,21 +782,71 @@ html_template = f"""<!DOCTYPE html>
           </div>
         </div>
 
+        <!-- SEÇÃO EDITORIAL E METODOLÓGICA (VALOR SUBSTANCIAL E EDUCAÇÃO FINANCEIRA) -->
+        <section class="bg-white border border-[#E7E7E2] rounded-2xl p-5 sm:p-7 shadow-2xs space-y-5 flex-shrink-0">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] text-[10.5px] font-mono font-bold uppercase">
+                <span>📚 Guia Editorial &amp; Metodologia</span>
+              </div>
+              <h2 class="text-base sm:text-lg font-bold font-serif text-slate-900 mt-1">
+                Fundamentos de Alocação de Capital e Análise de Fosso Econômico (Moats)
+              </h2>
+            </div>
+            <a href="/sobre.html" class="inline-flex items-center gap-1 text-xs font-sans font-semibold text-[#004B49] hover:underline self-start sm:self-auto">
+              <span>Ler metodologia completa</span> <span>➔</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-[#FBFBF9] border border-[#E7E7E2] space-y-2">
+              <h3 class="font-bold text-slate-900 font-serif text-sm flex items-center gap-1.5">
+                <span class="text-emerald-700">🏰</span> O que é um Economic Moat?
+              </h3>
+              <p class="text-slate-600 leading-relaxed font-sans">
+                Inspirado em Charlie Munger e Warren Buffett, o <b>Fosso Econômico</b> é a barreira estrutural que impede que concorrentes corroam a lucratividade de uma empresa. Negócios com alto ROIC sustentado por anos possuem vantagens de escala, custos de substituição elevados ou forte poder de precificação.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#FBFBF9] border border-[#E7E7E2] space-y-2">
+              <h3 class="font-bold text-slate-900 font-serif text-sm flex items-center gap-1.5">
+                <span class="text-emerald-700">⚖️</span> Valuation: Graham vs. Bazin
+              </h3>
+              <p class="text-slate-600 leading-relaxed font-sans">
+                O modelo combina a <b>Fórmula de Benjamin Graham</b> (avaliação de patrimônio e lucro com margem de segurança) com o <b>Método Décio Bazin</b> (preço teto para garantir rendimento mínimo de 6% em proventos), gerando faixas de assimetria favorável para o investidor de valor.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#FBFBF9] border border-[#E7E7E2] space-y-2">
+              <h3 class="font-bold text-slate-900 font-serif text-sm flex items-center gap-1.5">
+                <span class="text-emerald-700">📈</span> Prêmio de Risco vs. NTN-B
+              </h3>
+              <p class="text-slate-600 leading-relaxed font-sans">
+                No Brasil, o custo de oportunidade é o título soberano IPCA+ (NTN-B 2035). Calculamos o <b>Earnings Yield Spread</b> para identificar quais ações geram retorno operacional real substancialmente acima da taxa livre de risco da economia brasileira.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <!-- Rodapé Regulatório Legal CVM e Metodologia na Home -->
         <footer class="p-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 text-xs leading-relaxed space-y-2 flex-shrink-0">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-200/80 pb-1.5">
             <div class="font-mono font-bold text-slate-800 flex items-center gap-1.5 text-[11px]">
               <span>⚖️</span> CONFORMIDADE REGULATÓRIA &amp; AUDITORIA CONTÁBIL (RESOLUÇÃO CVM Nº 20/2021)
             </div>
-            <div class="flex items-center gap-3 text-[11px] font-mono">
-              <a href="termos.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Termos de Uso</a>
+            <div class="flex items-center gap-3 text-[11px] font-sans font-medium">
+              <a href="/sobre.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Sobre &amp; Metodologia</a>
               <span>•</span>
-              <a href="privacidade.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Política de Privacidade</a>
+              <a href="/contato.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Contato</a>
+              <span>•</span>
+              <a href="/termos.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Termos de Uso</a>
+              <span>•</span>
+              <a href="/privacidade.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Política de Privacidade</a>
             </div>
           </div>
           <p class="text-[11px] text-slate-500">
             O <b>MOAT TERMINAL</b> é uma ferramenta computacional independente para triagem quantitativa e análise fundamentalista. 
-            Todas as métricas, múltiplos e scores resultam exclusivamente de modelagem matemática sobre dados públicos divulgados pelas companhias abertas.
+            Todas as métricas, múltiplos e scores resultam exclusivamente de modelagem matemática sobre dados públicos divulgados pelas companhias abertas na CVM e B3.
             <b>Este conteúdo tem finalidade estritamente educacional e informativa, não constituindo consultoria, análise individualizada, oferta pública ou recomendação de compra e venda de valores mobiliários</b>. 
             Rentabilidade e lucros passados não garantem retornos futuros. A alocação de recursos deve respeitar seu perfil de risco e critérios próprios de investimento.
           </p>
@@ -1157,10 +1207,14 @@ html_template = f"""<!DOCTYPE html>
           <div class="font-mono font-bold text-slate-800 flex items-center gap-1.5 text-[11px]">
             <span>⚖️</span> AVISO DE CONFORMIDADE REGULATÓRIA (RESOLUÇÃO CVM Nº 20/2021)
           </div>
-          <div class="flex items-center gap-3 text-[11px] font-mono">
-            <a href="termos.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Termos de Uso</a>
+          <div class="flex items-center gap-3 text-[11px] font-sans font-medium">
+            <a href="/sobre.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Sobre &amp; Metodologia</a>
             <span>•</span>
-            <a href="privacidade.html" class="text-slate-600 hover:text-emerald-700 underline underline-offset-2">Política de Privacidade</a>
+            <a href="/contato.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Contato</a>
+            <span>•</span>
+            <a href="/termos.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Termos de Uso</a>
+            <span>•</span>
+            <a href="/privacidade.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Política de Privacidade</a>
           </div>
         </div>
         <p class="text-[11px] text-slate-500">
