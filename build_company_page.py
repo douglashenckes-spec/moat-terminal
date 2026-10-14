@@ -196,6 +196,10 @@ def build_company_page():
           <svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           <span class="hidden sm:inline">Voltar</span>
         </a>
+        <a href="/acoes/" class="hidden sm:flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#F4F4F0] hover:bg-slate-200/60 border border-[#E7E7E2] text-slate-700 hover:text-slate-900 text-xs font-sans font-medium transition shadow-xs flex-shrink-0" title="Diretório Completo de Empresas B3">
+          <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          <span>Empresas</span>
+        </a>
         <div class="h-5 w-px bg-slate-200 hidden sm:block"></div>
         <a href="/index.html" class="flex items-center gap-2 sm:gap-3.5 group cursor-pointer flex-shrink-0" title="Voltar ao Moat Terminal (Home)">
           <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-[#003836] border border-[#004B49] flex items-center justify-center text-white shadow-xs border flex-shrink-0 group-hover:scale-105 transition-all">
@@ -449,6 +453,8 @@ def build_company_page():
           <span>Economic Moats &amp; Capital Compounding</span>
         </div>
         <div class="flex items-center gap-3 text-[11px] font-sans font-medium">
+          <a href="/acoes/" class="text-slate-600 hover:text-[#004B49] underline underline-offset-2">Empresas</a>
+          <span>•</span>
           <a href="/sobre.html" class="text-slate-600 hover:text-[#004B49] underline underline-offset-2">Sobre &amp; Metodologia</a>
           <span>•</span>
           <a href="/contato.html" class="text-slate-600 hover:text-[#004B49] underline underline-offset-2">Contato</a>
