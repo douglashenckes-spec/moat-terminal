@@ -341,18 +341,18 @@ def generate_acoes_directory(stocks, base_dir, today_str):
         <div class="flex flex-col">
           <div class="flex items-center gap-1.5 sm:gap-2">
             <span class="font-bold text-slate-900 text-xs sm:text-base tracking-[0.10em] sm:tracking-[0.14em] font-['Cinzel',serif] leading-none group-hover:text-[#004B49] transition-colors whitespace-nowrap">MOAT TERMINAL</span>
-            <span class="px-1 py-0.2 sm:px-1.5 sm:py-0.5 text-[7.5px] sm:text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider flex-shrink-0">DIRETÓRIO</span>
+            <span class="px-1 py-0.2 sm:px-1.5 sm:py-0.5 text-[7.5px] sm:text-[8px] bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold font-mono rounded tracking-wider flex-shrink-0">EMPRESAS</span>
           </div>
-          <span class="text-[10px] text-slate-500 font-sans mt-0.5 hidden sm:inline">Lista Completa de Ações B3</span>
+          <span class="text-[10px] text-slate-500 font-sans mt-0.5 hidden sm:inline">Lista Completa de Empresas B3</span>
         </div>
       </a>
 
       <!-- Navegação Superior -->
       <nav class="flex items-center gap-2 text-xs font-sans">
         <a href="/index.html" class="px-3 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition font-medium">Panorama Geral</a>
-        <a href="/index.html" class="hidden sm:inline-block px-3 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition font-medium">Scanner B3</a>
+        <a href="/index.html" class="hidden sm:inline-block px-3 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition font-medium">Scanner</a>
         <a href="/sobre.html" class="hidden md:inline-block px-3 py-1.5 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition font-medium">Metodologia</a>
-        <a href="/acoes/" class="px-3 py-1.5 rounded-xl bg-[#004B49] text-white font-semibold shadow-xs">Ações B3</a>
+        <a href="/acoes/" class="px-3 py-1.5 rounded-xl bg-[#004B49] text-white font-semibold shadow-xs">Empresas</a>
       </nav>
 
     </div>
@@ -365,7 +365,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
     <nav aria-label="breadcrumb" class="flex items-center gap-1.5 text-xs font-sans text-slate-500">
       <a href="/index.html" class="hover:text-[#004B49] transition">Home</a>
       <span>›</span>
-      <span class="font-bold text-slate-900">Ações B3 (Diretório Completo)</span>
+      <span class="font-bold text-slate-900">Empresas B3 (Diretório Completo)</span>
     </nav>
 
     <!-- HERO HEADER DO DIRETÓRIO -->
@@ -503,7 +503,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
     <div class="flex items-center justify-center gap-4 sm:gap-6 flex-wrap text-xs">
       <a href="/index.html" class="hover:text-[#004B49] transition font-medium">Terminal Scanner</a>
       <span>•</span>
-      <a href="/acoes/" class="text-slate-900 font-bold">Ações B3 (Diretório)</a>
+      <a href="/acoes/" class="text-slate-900 font-bold">Empresas</a>
       <span>•</span>
       <a href="/sobre.html" class="hover:text-[#004B49] transition font-medium">Sobre &amp; Metodologia</a>
       <span>•</span>
@@ -770,7 +770,7 @@ def build_programmatic_seo():
     <nav aria-label="breadcrumb" class="flex items-center gap-1.5 text-[11px] font-sans text-slate-500 mb-2">
       <a href="/index.html" class="hover:text-[#004B49] transition">Home</a>
       <span>›</span>
-      <a href="/acoes/" class="hover:text-[#004B49] transition font-medium">Ações B3</a>
+      <a href="/acoes/" class="hover:text-[#004B49] transition font-medium">Empresas</a>
       <span>›</span>
       <a href="/acoes/#sector-{re.sub(r'[^a-zA-Z0-9]', '', setor).lower()}" class="hover:text-[#004B49] transition text-slate-500">{setor}</a>
       <span>›</span>
@@ -870,7 +870,7 @@ def build_programmatic_seo():
             </p>
           </div>
           <a href="/acoes/" class="text-xs font-mono font-bold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1.5 rounded-xl hover:bg-[#DCF0EC] transition flex items-center gap-1.5">
-            <span>← Ver Diretório Completo de Ações</span>
+            <span>← Ver Todas as Empresas</span>
           </a>
         </div>
 
@@ -1074,7 +1074,7 @@ def build_programmatic_seo():
         page_html = page_html.replace('href="privacidade.html"', 'href="/privacidade.html"')
         page_html = page_html.replace(
             '<a href="/sobre.html"',
-            '<a href="/acoes/" class="text-slate-600 hover:text-[#004B49] underline underline-offset-2">Ações B3</a>\n          <span>•</span>\n          <a href="/sobre.html"'
+            '<a href="/acoes/" class="text-slate-600 hover:text-[#004B49] underline underline-offset-2">Empresas</a>\n          <span>•</span>\n          <a href="/sobre.html"'
         )
 
         # 6. Substituir a linha única de APP_DATA por regex

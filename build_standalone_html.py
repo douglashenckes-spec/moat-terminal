@@ -353,9 +353,9 @@ html_template = f"""<!DOCTYPE html>
           <span>Scanner</span>
           <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200 hidden md:inline-block" id="sidebarUniverseCount">--</span>
         </button>
-        <a href="/acoes/" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0" title="Diretório Completo de Ações da B3">
+        <a href="/acoes/" class="topbar-nav-btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0" title="Diretório Completo de Empresas B3">
           <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-          <span>Ações B3</span>
+          <span>Empresas</span>
         </a>
       </nav>
 
@@ -436,12 +436,12 @@ html_template = f"""<!DOCTYPE html>
       </button>
       <button id="nav-table-m" onclick="switchWorkspace('table')" class="topbar-nav-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0 whitespace-nowrap">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
-        <span>Scanner B3</span>
+        <span>Scanner</span>
         <span class="text-[10px] text-slate-700 font-mono bg-white px-1.5 py-0.2 rounded font-bold border border-slate-200" id="sidebarUniverseCountMobile">200</span>
       </button>
       <a href="/acoes/" class="topbar-nav-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer flex-shrink-0 whitespace-nowrap">
         <svg class="w-3.5 h-3.5 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-        <span>Ações B3</span>
+        <span>Empresas</span>
       </a>
     </div>
 
@@ -843,7 +843,7 @@ html_template = f"""<!DOCTYPE html>
               <span>⚖️</span> CONFORMIDADE REGULATÓRIA &amp; AUDITORIA CONTÁBIL (RESOLUÇÃO CVM Nº 20/2021)
             </div>
             <div class="flex items-center gap-3 text-[11px] font-sans font-medium">
-              <a href="/acoes/" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Ações B3</a>
+              <a href="/acoes/" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Empresas</a>
               <span>•</span>
               <a href="/sobre.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Sobre &amp; Metodologia</a>
               <span>•</span>
@@ -1218,7 +1218,7 @@ html_template = f"""<!DOCTYPE html>
             <span>⚖️</span> AVISO DE CONFORMIDADE REGULATÓRIA (RESOLUÇÃO CVM Nº 20/2021)
           </div>
           <div class="flex items-center gap-3 text-[11px] font-sans font-medium">
-            <a href="/acoes/" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Ações B3</a>
+            <a href="/acoes/" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Empresas</a>
             <span>•</span>
             <a href="/sobre.html" class="text-slate-700 hover:text-[#004B49] underline underline-offset-2">Sobre &amp; Metodologia</a>
             <span>•</span>
