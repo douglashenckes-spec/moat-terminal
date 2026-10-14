@@ -28,7 +28,7 @@ html_template = f"""<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOAT TERMINAL • Inteligência Fundamentalista &amp; Qualidade B3</title>
-  <meta name="description" content="Terminal institucional de inteligência fundamentalista e análise de vantagens competitivas duradouras (Economic Moats), solidez patrimonial e alocação prudente de capital. Triagem completa de 196 ações da B3.">
+  <meta name="description" content="Terminal institucional de inteligência fundamentalista e análise de vantagens competitivas duradouras (Economic Moats), solidez patrimonial e alocação prudente de capital. Triagem completa de ações da B3 com liquidez diária.">
   <meta name="keywords" content="análise fundamentalista, ações B3, valuation, Graham, Bazin, ROIC, ROE, Economic Moats, fosso econômico, Ibovespa, dividend yield, múltiplos de mercado, terminal de investimentos">
   <meta name="author" content="MOAT TERMINAL">
   <meta name="robots" content="index, follow">
@@ -38,7 +38,7 @@ html_template = f"""<!DOCTYPE html>
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://moatterminal.com.br/">
   <meta property="og:title" content="MOAT TERMINAL • Inteligência Fundamentalista &amp; Qualidade B3">
-  <meta property="og:description" content="Terminal institucional de triagem fundamentalista de 196 ações da B3. Matriz 2x2 Valor vs Qualidade, Moat Score e múltiplos auditados CVM.">
+  <meta property="og:description" content="Terminal institucional de triagem fundamentalista de ações da B3 com liquidez diária. Matriz 2x2 Valor vs Qualidade, Moat Score e múltiplos auditados CVM.">
   <meta property="og:site_name" content="MOAT TERMINAL">
   <meta property="og:locale" content="pt_BR">
 
@@ -410,7 +410,7 @@ html_template = f"""<!DOCTYPE html>
             </div>
             <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
               <span>Base CVM 2T26</span>
-              <span class="text-emerald-400 font-bold">200 Ações B3</span>
+              <span class="text-emerald-400 font-bold">Liquidez &gt; R$ 1M</span>
             </div>
           </div>
         </div>
@@ -478,13 +478,13 @@ html_template = f"""<!DOCTYPE html>
             </h1>
             
             <p class="text-sm sm:text-lg text-slate-600 font-sans leading-relaxed max-w-3xl pt-1">
-              Terminal de alta convicção analítica inspirado em <b>Charlie Munger e Benjamin Graham</b>. Triagem fundamentalista de <b>194 ações brasileiras</b> com foco em vantagens competitivas duráveis (<i>Economic Moats</i>), retorno sobre capital (<i>ROIC &amp; ROE</i>) e prêmio real sobre o custo soberano.
+              Terminal de alta convicção analítica inspirado em <b>Charlie Munger e Benjamin Graham</b>. Triagem fundamentalista de <b>ações que possuem mais de R$ 1 milhão de liquidez diária</b> com foco em vantagens competitivas duráveis (<i>Economic Moats</i>), retorno sobre capital (<i>ROIC &amp; ROE</i>) e prêmio real sobre o custo soberano.
             </p>
 
             <!-- Ações Executivas Diretas -->
             <div class="flex flex-wrap items-center gap-3.5 pt-3">
               <button type="button" onclick="switchWorkspace('table')" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#003836] hover:bg-[#004B49] text-white font-mono text-xs font-bold shadow-md transition-all cursor-pointer hover:shadow-lg hover:-translate-y-0.5">
-                <span>Explorar Scanner B3 (194 Ativos)</span>
+                <span>Explorar Scanner B3</span>
                 <span class="text-emerald-300">➜</span>
               </button>
               <button type="button" onclick="switchWorkspace('matrix')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#F4F4F0] hover:bg-[#EAEAE4] border border-[#E7E7E2] text-slate-800 font-mono text-xs font-semibold transition cursor-pointer">
@@ -3605,7 +3605,7 @@ html_template = f"""<!DOCTYPE html>
                 <span class="font-bold text-slate-700">Nenhum ativo encontrado para os filtros selecionados.</span>
                 <span class="text-slate-400 text-[11px]">Tente desmarcar algum critério de liquidez ou selecionar "Todos os Setores".</span>
                 <button onclick="setFilter('ALL')" class="mt-2 px-3 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold rounded-lg text-xs border border-emerald-300 transition cursor-pointer">
-                  Mostrar Todos os 194 Ativos
+                  Mostrar Todos os Ativos
                 </button>
               </div>
             </td>
