@@ -374,10 +374,10 @@ html_template = f"""<!DOCTYPE html>
                    oninput="handleSearchInput(this.value)" 
                    onkeydown="handleSearchKeydown(event)" 
                    onfocus="handleSearchFocus()" 
-                   placeholder="Buscar Ativo..." 
+                   placeholder="Buscar ativo ou empresa... (Ctrl+K)" 
                    autocomplete="off"
-                   class="w-24 xs:w-28 sm:w-44 md:w-56 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-7 py-1 sm:py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
-            <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+                   class="w-24 xs:w-28 sm:w-44 md:w-56 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-14 py-1 sm:py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
+            <kbd class="hidden sm:inline-flex items-center gap-0.5 absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1.5 py-0.5 rounded shadow-3xs pointer-events-none select-none"><span>Ctrl</span><span>K</span></kbd>
           </div>
 
           <!-- Dropdown de Sugestões em Tempo Real (Fixo no mobile para ocupar a tela com perfeição, absoluto ancorado no desktop) -->
@@ -906,6 +906,36 @@ html_template = f"""<!DOCTYPE html>
             <span class="hidden sm:inline">Ver no Dossiê ➜</span>
             <span class="sm:hidden">Dossiê ➜</span>
           </button>
+        </div>
+      </div>
+
+      <!-- Barra de Filtros Rápidos de Quadrante & Setor (Anti-Poluição Visual) -->
+      <div class="px-3 sm:px-4 py-2 bg-slate-50/90 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs font-mono flex-shrink-0 z-10 shadow-3xs">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="text-[10.5px] font-bold text-slate-500 uppercase tracking-wider hidden sm:inline mr-1">Filtro Rápido:</span>
+          
+          <button id="mqf-ALL" onclick="setMatrixQuickFilter('ALL')" class="matrix-qbtn active px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-emerald-700 text-white border-emerald-800 shadow-2xs">
+            Todos
+          </button>
+          
+          <button id="mqf-COMPOUNDERS" onclick="setMatrixQuickFilter('COMPOUNDERS')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-emerald-950 border-emerald-300 hover:bg-emerald-50 shadow-2xs">
+            ⭐ Compounders Descontadas (Q1)
+          </button>
+          
+          <button id="mqf-TIER1" onclick="setMatrixQuickFilter('TIER1')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
+            🏆 Apenas Tier 1 (Score ≥ 80)
+          </button>
+          
+          <button id="mqf-BELOW_NTNB" onclick="setMatrixQuickFilter('BELOW_NTNB')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
+            📉 Abaixo da NTN-B (P/L ≤ 15,4x)
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 ml-auto">
+          <span class="text-[11px] text-slate-500 hidden md:inline">Setor:</span>
+          <select id="matrixSectorQuickSelect" onchange="setMatrixSectorFilter(this.value)" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1 text-xs text-slate-800 font-sans focus:outline-none focus:border-emerald-600 shadow-3xs">
+            <option value="ALL">Todos os Setores</option>
+          </select>
         </div>
       </div>
 
@@ -2071,9 +2101,12 @@ html_template = f"""<!DOCTYPE html>
       searchQuery = val.trim();
       const dd = document.getElementById('searchDropdown');
       if (!val || val.trim().length === 0) {{
-        if (dd) dd.classList.add('hidden');
-        currentSearchResults = [];
+        currentSearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
         searchHighlightedIndex = -1;
+        renderSearchDropdown();
         renderActiveFilterChips();
         render();
         return;
@@ -2111,8 +2144,16 @@ html_template = f"""<!DOCTYPE html>
 
     function handleSearchFocus() {{
       const inp = document.getElementById('searchInput');
-      if (inp && inp.value.trim().length > 0) {{
+      if (!inp) return;
+      if (inp.value.trim().length > 0) {{
         handleSearchInput(inp.value);
+      }} else {{
+        currentSearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
+        searchHighlightedIndex = -1;
+        renderSearchDropdown();
       }}
     }}
 
@@ -2130,17 +2171,25 @@ html_template = f"""<!DOCTYPE html>
         return;
       }}
 
+      const isDefaultHighlights = !searchQuery || searchQuery.trim().length === 0;
+
       dd.innerHTML = `
         <div class="p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>${{currentSearchResults.length}} sugestões encontradas</span>
+          <span>${{isDefaultHighlights ? '⭐ Destaques em Cobertura' : `${{currentSearchResults.length}} sugestões encontradas`}}</span>
           <span>Navegue com <b>↑</b> <b>↓</b> e <b>Enter</b></span>
         </div>
         ${{currentSearchResults.map((s, idx) => {{
           const isHigh = idx === searchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const scoreClass = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1) + 'x' : 'N/D';
-          const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tierClass = tier === 'Tier 1' 
+            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+          const scoreClass = s.quality_score >= 80 
+            ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
+            : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
+          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
+          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
 
           return `
             <div onclick="selectSearchStock('${{s.ticker}}')" class="p-2.5 ${{bg}} transition cursor-pointer flex items-center justify-between select-none">
@@ -2156,12 +2205,14 @@ html_template = f"""<!DOCTYPE html>
                 </div>
               </div>
               <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                <div class="flex items-center gap-1">
-                  <span class="text-xs font-mono font-bold text-slate-900">${{formatCurrency(s.cotacao)}}</span>
-                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${{scoreClass}}">${{s.quality_score.toFixed(0)}} pts</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${{tierClass}}">${{tier}}</span>
+                  <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${{scoreClass}} tabular-nums">${{scoreStr}} pts</span>
                 </div>
-                <div class="text-[10px] font-mono text-slate-500">
-                  P/L: <b class="text-slate-800">${{plStr}}</b> • DY: <b class="text-emerald-700">${{dyStr}}</b>
+                <div class="text-[10.5px] font-mono text-slate-500 flex items-center gap-2">
+                  <span>P/L: <b class="text-slate-900 font-bold tabular-nums">${{plStr}}</b></span>
+                  <span class="text-slate-300">•</span>
+                  <span class="font-bold text-slate-800 tabular-nums">${{formatCurrency(s.cotacao)}}</span>
                 </div>
               </div>
             </div>
@@ -3364,6 +3415,38 @@ html_template = f"""<!DOCTYPE html>
       renderMatrix();
     }}
 
+    let matrixQuickQuadrant = 'ALL';
+    let matrixQuickSector = 'ALL';
+
+    function setMatrixQuickFilter(q) {{
+      matrixQuickQuadrant = q;
+      document.querySelectorAll('.matrix-qbtn').forEach(btn => {{
+        btn.className = 'matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs';
+      }});
+      const activeBtn = document.getElementById('mqf-' + q);
+      if (activeBtn) {{
+        activeBtn.className = 'matrix-qbtn active px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-emerald-700 text-white border-emerald-800 shadow-2xs';
+      }}
+      renderMatrix();
+    }}
+
+    function setMatrixSectorFilter(sec) {{
+      matrixQuickSector = sec;
+      renderMatrix();
+    }}
+
+    function populateMatrixSectorSelect() {{
+      const sel = document.getElementById('matrixSectorQuickSelect');
+      if (!sel || sel.options.length > 1) return;
+      const sectors = Array.from(new Set(APP_DATA.stocks.map(s => s.setor).filter(Boolean))).sort();
+      sectors.forEach(sec => {{
+        const opt = document.createElement('option');
+        opt.value = sec;
+        opt.textContent = sec;
+        sel.appendChild(opt);
+      }});
+    }}
+
     function zoomMatrix(factor) {{
       const svg = document.getElementById('matrixSvg');
       if (!svg) return;
@@ -3747,8 +3830,24 @@ html_template = f"""<!DOCTYPE html>
       if (!svg) return;
       svg.innerHTML = '';
 
-      const stocks = getFilteredStocks().filter(s => s.pl !== null && s.pl > 0 && s.pl <= 35.0);
+      populateMatrixSectorSelect();
+
+      let stocks = getFilteredStocks().filter(s => s.pl !== null && s.pl > 0 && s.pl <= 35.0);
       const isPl = currentXMetric === 'pl';
+      const limiarQuality = 80.0;
+      const limiarValuation = isPl ? 15.38 : 6.5;
+
+      if (matrixQuickQuadrant === 'COMPOUNDERS') {{
+        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0 && (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
+      }} else if (matrixQuickQuadrant === 'TIER1') {{
+        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0);
+      }} else if (matrixQuickQuadrant === 'BELOW_NTNB') {{
+        stocks = stocks.filter(s => (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
+      }}
+
+      if (matrixQuickSector && matrixQuickSector !== 'ALL') {{
+        stocks = stocks.filter(s => (s.setor || '').trim().toLowerCase() === matrixQuickSector.trim().toLowerCase());
+      }}
 
       const padL = 70, padR = 30, padT = 35, padB = 55;
       const w = 1200, h = 700;
@@ -3791,9 +3890,7 @@ html_template = f"""<!DOCTYPE html>
         return 6.5;
       }}
 
-      // Limiares dos 4 Quadrantes Estratégicos 2x2
-      const limiarQuality = 75.0;
-      const limiarValuation = isPl ? 14.0 : 7.14;
+      // Limiares dos 4 Quadrantes Estratégicos 2x2 (Tier 1: 80 pts | NTN-B: 6,5% a.a. / 15,38x)
       const yCross = scaleY(limiarQuality);
       const xCross = scaleX(limiarValuation);
 
@@ -3810,27 +3907,36 @@ html_template = f"""<!DOCTYPE html>
           <!-- Fundo Branco Base Clean -->
           <rect x="${{padL - 3000}}" y="${{padT - 3000}}" width="6000" height="6000" fill="#FFFFFF" />
 
-          <!-- Linhas Divisórias dos 4 Quadrantes 2x2 -->
-          <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#10B981" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.45" />
-          <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#64748B" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.4" />
+          <!-- Linhas Divisórias dos 4 Quadrantes 2x2 com Cortes NTN-B & Tier 1 -->
+          <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
+          <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="2" stroke-dasharray="6,4" opacity="0.75" />
+
+          <!-- Badges Visuais nos Cortes NTN-B e Tier 1 -->
+          <g class="pointer-events-none select-none">
+            <rect x="${{padL + 12}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11))}}" width="180" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+            <text x="${{padL + 18}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11)) + 15}}" fill="#065F46" font-size="11" font-family="JetBrains Mono" font-weight="800">Corte Tier 1: Moat ≥ 80 pts</text>
+
+            <rect x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97))}}" y="${{padT + innerH - 26}}" width="195" height="22" rx="4" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
+            <text x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97)) + 97}}" y="${{padT + innerH - 11}}" text-anchor="middle" fill="#0369A1" font-size="10.5" font-family="JetBrains Mono" font-weight="800">Corte NTN-B: 6,5% | P/L 15,4x</text>
+          </g>
 
           <!-- Rótulos dos Quadrantes 2x2 (Watermarks Institucionais) -->
           <g class="pointer-events-none select-none">
             <!-- Q1: Superior Esquerdo -->
-            <text x="${{padL + 18}}" y="${{padT + 24}}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: ALTA QUALIDADE &amp; VALUATION ATRATIVO</text>
-            <text x="${{padL + 18}}" y="${{padT + 40}}" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &ge; 75 | ${{isPl ? 'P/L &le; 14x' : 'EY &ge; 7.1%'}}</text>
+            <text x="${{padL + 18}}" y="${{padT + 24}}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q1: COMPOUNDERS DESCONTADAS</text>
+            <text x="${{padL + 18}}" y="${{padT + 40}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Acima da NTN-B)' : 'EY ≥ 6,5% (Acima da NTN-B)'}}</text>
 
             <!-- Q2: Superior Direito -->
-            <text x="${{padL + innerW - 18}}" y="${{padT + 24}}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: QUALIDADE COM PRÊMIO DE CRESCIMENTO</text>
-            <text x="${{padL + innerW - 18}}" y="${{padT + 40}}" text-anchor="end" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &ge; 75 | ${{isPl ? 'P/L &gt; 14x' : 'EY &lt; 7.1%'}}</text>
+            <text x="${{padL + innerW - 18}}" y="${{padT + 24}}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q2: QUALIDADE COM PRÊMIO</text>
+            <text x="${{padL + innerW - 18}}" y="${{padT + 40}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L > 15,4x (Abaixo da NTN-B)' : 'EY < 6,5%'}}</text>
 
             <!-- Q3: Inferior Esquerdo -->
-            <text x="${{padL + 18}}" y="${{padT + innerH - 30}}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: MÚLTIPLOS BAIXOS (ATENÇÃO A MOAT)</text>
-            <text x="${{padL + 18}}" y="${{padT + innerH - 14}}" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &lt; 75 | ${{isPl ? 'P/L &le; 14x' : 'EY &ge; 7.1%'}}</text>
+            <text x="${{padL + 18}}" y="${{padT + innerH - 34}}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q3: MÚLTIPLOS ATRATIVOS / RETORNO CÍCLICO</text>
+            <text x="${{padL + 18}}" y="${{padT + innerH - 18}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Atenção a Value Trap)' : 'EY ≥ 6,5%'}}</text>
 
             <!-- Q4: Inferior Direito -->
-            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 30}}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: MÚLTIPLOS ELEVADOS &amp; BAIXO MOAT</text>
-            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 14}}" text-anchor="end" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &lt; 75 | ${{isPl ? 'P/L &gt; 14x' : 'EY &lt; 7.1%'}}</text>
+            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 34}}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q4: VALUATION ELEVADO / BAIXA PROTEÇÃO</text>
+            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 18}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L > 15,4x' : 'EY < 6,5%'}}</text>
           </g>
         </g>
       `;
@@ -3852,11 +3958,11 @@ html_template = f"""<!DOCTYPE html>
 
       // Gerar Grid Ticks dinâmicos
       // Y Ticks (Quality Score: 20 a 100)
-      const yTickVals = [20, 30, 40, 50, 60, 70, 75, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
+      const yTickVals = [20, 30, 40, 50, 60, 70, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
       yTickVals.forEach(v => {{
         const ty = scaleY(v);
         if (ty >= padT && ty <= padT + innerH) {{
-          const isLimiar = (v === 75);
+          const isLimiar = (v === 80);
           svgHtml += `
             <line x1="${{padL}}" y1="${{ty}}" x2="${{padL + innerW}}" y2="${{ty}}" stroke="${{isLimiar ? '#A7F3D0' : '#E2E8F0'}}" stroke-width="${{isLimiar ? 1.5 : 1}}" stroke-dasharray="${{isLimiar ? '4,4' : '2,2'}}" />
             <text x="${{padL - 10}}" y="${{ty + 5}}" text-anchor="end" fill="${{isLimiar ? '#059669' : '#475569'}}" font-size="14" font-family="JetBrains Mono" font-weight="${{isLimiar ? '900' : '700'}}">${{v}}</text>
@@ -3947,11 +4053,11 @@ html_template = f"""<!DOCTYPE html>
 
         // Modo 4: Quadrantes Estratégicos 2x2 (quadrant)
         if (matrixColorMode === 'quadrant') {{
-          const isHighQuality = (s.quality_score || 0) >= 75;
-          const isLowPl = isPl ? (s.pl <= 14.0) : (s.earnings_yield_pct >= 7.14);
-          if (isHighQuality && isLowPl) return {{ fill: '#10B981', stroke: '#6EE7B7' }}; // Q1 Verde Esmeralda (Alta Qualidade + Múltiplos Baixos)
-          if (isHighQuality && !isLowPl) return {{ fill: '#0284C7', stroke: '#7DD3FC' }}; // Q2 Azul Celeste (Alta Qualidade + Múltiplos Altos)
-          if (!isHighQuality && isLowPl) return {{ fill: '#F59E0B', stroke: '#FDE68A' }}; // Q3 Âmbar (Baixo Moat + Múltiplos Baixos)
+          const isHighQuality = (s.quality_score || 0) >= 80.0;
+          const isLowPl = isPl ? (s.pl <= 15.38) : (s.earnings_yield_pct >= 6.5);
+          if (isHighQuality && isLowPl) return {{ fill: '#10B981', stroke: '#6EE7B7' }}; // Q1 Verde Esmeralda (Compounders Descontadas)
+          if (isHighQuality && !isLowPl) return {{ fill: '#0284C7', stroke: '#7DD3FC' }}; // Q2 Azul Celeste (Qualidade com Prêmio)
+          if (!isHighQuality && isLowPl) return {{ fill: '#F59E0B', stroke: '#FDE68A' }}; // Q3 Âmbar (Múltiplos Baixos / Value Trap)
           return {{ fill: '#EF4444', stroke: '#FCA5A5' }}; // Q4 Vermelho (Baixo Moat + Múltiplos Altos)
         }}
       }}
@@ -5628,8 +5734,20 @@ html_template = f"""<!DOCTYPE html>
       setTimeout(triggerDataRefresh, 300);
     }}
 
-    // Atalhos Globais de Teclado (Power-User Hotkeys)
+    // Atalhos Globais de Teclado (Power-User Hotkeys: Ctrl+K, /, 1, 2, 3, Esc)
     document.addEventListener('keydown', (e) => {{
+      // Ctrl+K ou Cmd+K abre a busca instantânea de qualquer lugar
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {{
+        e.preventDefault();
+        const inp = document.getElementById('searchInput');
+        if (inp) {{
+          inp.focus();
+          inp.select();
+          handleSearchFocus();
+        }}
+        return;
+      }}
+
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {{
         if (e.key === 'Escape') {{
           const dd = document.getElementById('searchDropdown');
@@ -5645,6 +5763,7 @@ html_template = f"""<!DOCTYPE html>
         if (inp) {{
           inp.focus();
           inp.select();
+          handleSearchFocus();
         }}
       }} else if (e.key === 'Escape') {{
         const dd = document.getElementById('searchDropdown');

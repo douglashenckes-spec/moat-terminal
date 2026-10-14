@@ -393,6 +393,168 @@ def generate_stock_badges_html(s):
         </div>
     """
 
+def generate_prerendered_mini_matrix_html(s, all_stocks):
+    if not s:
+        return None
+    
+    valid_peers = [p for p in all_stocks if p.get("pl") is not None and float(p.get("pl") or 0) > 0 and float(p.get("pl") or 0) <= 35.0]
+    peer_count = len(valid_peers)
+    
+    padL = 40
+    padR = 15
+    padT = 18
+    padB = 26
+    w = 400
+    h = 220
+    innerW = w - padL - padR
+    innerH = h - padT - padB
+    
+    minX = 0.0
+    maxX = 30.0
+    minY = 20.0
+    maxY = 100.0
+    
+    def scaleX(x):
+        return padL + (min(max(float(x) - minX, 0.0), maxX - minX) / (maxX - minX)) * innerW
+        
+    def scaleY(y):
+        return padT + innerH - (min(max(float(y) - minY, 0.0), maxY - minY) / (maxY - minY)) * innerH
+        
+    limiarQuality = 80.0
+    limiarValuation = 15.38
+    yCross = scaleY(limiarQuality)
+    xCross = scaleX(limiarValuation)
+    
+    try:
+        raw_pl = float(s.get("pl") or (s.get("details", {}) or {}).get("pl") or 15.0)
+    except Exception:
+        raw_pl = 15.0
+    sPl = raw_pl if raw_pl > 0 else 15.0
+    
+    try:
+        sScore = float(s.get("quality_score") or 50.0)
+    except Exception:
+        sScore = 50.0
+        
+    isHighQuality = (sScore >= limiarQuality)
+    isLowPl = (sPl <= limiarValuation)
+    
+    sScoreStr = f"{sScore:.1f}".replace(".", ",")
+    sPlStr = f"{sPl:.1f}".replace(".", ",")
+    sEyStr = f"{(100.0 / sPl):.1f}%".replace(".", ",") if sPl > 0 else "N/D"
+    ticker = s.get("ticker", "ATV3")
+    
+    if isHighQuality and isLowPl:
+        quadName = "Q1: Compounder Descontada"
+        badgeStyle = "bg-emerald-50 text-emerald-900 border-emerald-300"
+        quadExplanation = f"A <b>{ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de {sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de {sPlStr}x</b>, implicando Earnings Yield de {sEyStr}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco."
+    elif isHighQuality and not isLowPl:
+        quadName = "Q2: Qualidade com Prêmio"
+        badgeStyle = "bg-sky-50 text-sky-900 border-sky-300"
+        quadExplanation = f"A <b>{ticker}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de {sScoreStr} pts</b>, Tier 1), porém negocia com prêmio de valuation de mercado (<b>P/L de {sPlStr}x</b>, implicando Earnings Yield de {sEyStr}, inferior ao corte de 6,5% da NTN-B real)."
+    elif not isHighQuality and isLowPl:
+        quadName = "Q3: Múltiplos Baixos / Cíclica"
+        badgeStyle = "bg-amber-50 text-amber-900 border-amber-300"
+        quadExplanation = f"A <b>{ticker}</b> transaciona a múltiplos atrativos (<b>P/L de {sPlStr}x</b>, Earnings Yield de {sEyStr} acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de {sScoreStr} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>)."
+    else:
+        quadName = "Q4: Valuation Elevado / Baixo Moat"
+        badgeStyle = "bg-rose-50 text-rose-900 border-rose-300"
+        quadExplanation = f"A <b>{ticker}</b> reúne múltiplos esticados (<b>P/L de {sPlStr}x</b>) e limitada proteção competitiva (<b>Moat Score de {sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às {peer_count} empresas cobertas no universo B3."
+        
+    targetCx = scaleX(sPl)
+    targetCy = scaleY(sScore)
+    isNearTop = (targetCy - 22 < padT)
+    pillY = targetCy + 9 if isNearTop else targetCy - 22
+    textY = targetCy + 20 if isNearTop else targetCy - 11
+    
+    peer_circles = []
+    for p in valid_peers:
+        if p.get("ticker") == ticker:
+            continue
+        try:
+            ppl = float(p.get("pl") or 0)
+            pqs = float(p.get("quality_score") or 50)
+            px = scaleX(ppl)
+            py = scaleY(pqs)
+            peer_circles.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>{p.get("ticker")}: P/L {ppl:.1f}x | Score {pqs:.0f}</title></circle>')
+        except Exception:
+            pass
+    peers_svg_str = "".join(peer_circles)
+    
+    svg_html = f'''<svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
+        <defs>
+          <clipPath id="miniMatrixClip">
+            <rect x="{padL}" y="{padT}" width="{innerW}" height="{innerH}" rx="3" />
+          </clipPath>
+        </defs>
+
+        <!-- Fundo e Cortes -->
+        <g clip-path="url(#miniMatrixClip)">
+          <rect x="{padL}" y="{padT}" width="{innerW}" height="{innerH}" fill="#FAFAF8" />
+
+          <!-- Quadrantes com Tonalidades Suaves -->
+          <rect x="{padL}" y="{padT}" width="{xCross - padL:.1f}" height="{yCross - padT:.1f}" fill="#10B981" fill-opacity="0.08" />
+          <rect x="{xCross:.1f}" y="{padT}" width="{padL + innerW - xCross:.1f}" height="{yCross - padT:.1f}" fill="#0284C7" fill-opacity="0.04" />
+          <rect x="{padL}" y="{yCross:.1f}" width="{xCross - padL:.1f}" height="{padT + innerH - yCross:.1f}" fill="#F59E0B" fill-opacity="0.04" />
+          <rect x="{xCross:.1f}" y="{yCross:.1f}" width="{padL + innerW - xCross:.1f}" height="{padT + innerH - yCross:.1f}" fill="#EF4444" fill-opacity="0.04" />
+
+          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
+          <line x1="{padL}" y1="{yCross:.1f}" x2="{padL + innerW}" y2="{yCross:.1f}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+          <line x1="{xCross:.1f}" y1="{padT}" x2="{xCross:.1f}" y2="{padT + innerH}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+
+          <!-- Rótulos Sutis de Quadrantes -->
+          <text x="{padL + 6}" y="{padT + 12}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
+          <text x="{padL + innerW - 6}" y="{padT + 12}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
+          <text x="{padL + 6}" y="{padT + innerH - 6}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
+          <text x="{padL + innerW - 6}" y="{padT + innerH - 6}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
+
+          <!-- Pontos de Background dos Pares do Universo Coberto -->
+          <g>
+            {peers_svg_str}
+          </g>
+
+          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
+          <g class="cursor-pointer">
+            <!-- Anel Externo com Efeito Ripple Pulsante -->
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
+              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
+            <!-- Ponto Central -->
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
+            <!-- Callout do Ticker -->
+            <rect x="{targetCx - 20:.1f}" y="{pillY:.1f}" width="40" height="13" rx="3" fill="#004B49" />
+            <text x="{targetCx:.1f}" y="{textY:.1f}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">{ticker}</text>
+          </g>
+        </g>
+
+        <!-- Eixos Principais e Legendas -->
+        <line x1="{padL}" y1="{padT + innerH}" x2="{padL + innerW}" y2="{padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+        <line x1="{padL}" y1="{padT}" x2="{padL}" y2="{padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+
+        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
+        <text x="{padL - 4}" y="{scaleY(100) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
+        <text x="{padL - 4}" y="{yCross + 3:.1f}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
+        <text x="{padL - 4}" y="{scaleY(50) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
+        <text x="{padL - 4}" y="{scaleY(20) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
+
+        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
+        <text x="{padL}" y="{padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
+        <text x="{xCross:.1f}" y="{padT + innerH + 12}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
+        <text x="{padL + innerW}" y="{padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
+
+        <!-- Legenda Inferior do Eixo X -->
+        <text x="{padL + innerW / 2}" y="{h - 4}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
+      </svg>'''
+      
+    return {
+        "svg": svg_html,
+        "badge": f'<span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border {badgeStyle}">{quadName}</span>',
+        "rationale": f'<div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">{quadExplanation}</div>',
+        "peer_count": f'{peer_count} empresas líquidas'
+    }
+
 def generate_acoes_directory(stocks, base_dir, today_str):
     """
     Gera a página central de diretório /acoes/index.html
@@ -1469,6 +1631,30 @@ def build_programmatic_seo():
             'companySearchResults = APP_DATA.stocks.map(',
             'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).map('
         )
+        page_html = page_html.replace(
+            'companySearchResults = APP_DATA.stocks.filter(',
+            'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).filter('
+        )
+
+        # 9. Pré-renderizar Mini-Matriz Estratégica 2x2
+        mini_matrix_info = generate_prerendered_mini_matrix_html(s, stocks)
+        if mini_matrix_info:
+            page_html = page_html.replace(
+                '<span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-900 border-emerald-200">--</span>',
+                mini_matrix_info["badge"]
+            )
+            page_html = page_html.replace(
+                '<svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">\n              <!-- Injetado dinamicamente via JS / Pre-renderizado SSR -->\n            </svg>',
+                mini_matrix_info["svg"]
+            )
+            page_html = page_html.replace(
+                '<div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">\n            <!-- Texto dinâmico de explicação institucional -->\n          </div>',
+                mini_matrix_info["rationale"]
+            )
+            page_html = page_html.replace(
+                '<b class="text-slate-800" id="miniMatrixPeerCount">75+ empresas</b>',
+                f'<b class="text-slate-800" id="miniMatrixPeerCount">{mini_matrix_info["peer_count"]}</b>'
+            )
 
         # Gravar arquivo estatico na pasta acoes/{ticker_lower}/index.html
         stock_dir = os.path.join(acoes_root, ticker_lower)

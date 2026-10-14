@@ -285,8 +285,8 @@
           <span class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none text-slate-400">
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
-          <input type="text" id="companySearchInput" placeholder="Buscar ação... (/)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-8 sm:pl-9 pr-2 sm:pr-8 py-1 sm:py-1.5 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
-          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+          <input type="text" id="companySearchInput" placeholder="Buscar ativo ou empresa... (Ctrl+K)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-8 sm:pl-9 pr-2 sm:pr-14 py-1 sm:py-1.5 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
+          <kbd class="hidden sm:inline-flex items-center gap-0.5 absolute right-2.5 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1.5 py-0.5 rounded shadow-3xs pointer-events-none select-none"><span>Ctrl</span><span>K</span></kbd>
         </div>
         <!-- Dropdown de Busca -->
         <div id="searchResultsDropdown" class="hidden fixed left-3 right-3 top-16 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:w-96 sm:mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-[999999] divide-y divide-slate-100 font-sans text-slate-800"></div>
@@ -554,6 +554,100 @@
           </div>
           <div id="valuationCalculatorsContainer" class="space-y-3">
             <!-- Renderizado via JS -->
+          </div>
+        </div>
+
+        <!-- Card: Mini-Matriz Estratégica 2x2 (Posicionamento Relativo no Universo B3) -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3.5" id="cardMiniMatrix">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 stroke-[1.75] text-[#004B49]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16M4 12h16M12 4v16"/></svg>
+                Matriz Estratégica 2x2 • Posição B3
+              </span>
+              <p class="text-[10px] text-slate-500 font-sans mt-0.5">Mapeamento de Valor vs Qualidade frente ao universo coberto</p>
+            </div>
+            <span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-amber-50 text-amber-900 border-amber-300">Q3: Múltiplos Baixos / Cíclica</span>
+          </div>
+
+          <!-- SVG Container da Mini Matriz -->
+          <div class="relative w-full h-56 bg-slate-50/70 rounded-xl border border-slate-200/80 p-2 overflow-hidden flex items-center justify-center">
+            <svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
+        <defs>
+          <clipPath id="miniMatrixClip">
+            <rect x="40" y="18" width="345" height="176" rx="3" />
+          </clipPath>
+        </defs>
+
+        <!-- Fundo e Cortes -->
+        <g clip-path="url(#miniMatrixClip)">
+          <rect x="40" y="18" width="345" height="176" fill="#FAFAF8" />
+
+          <!-- Quadrantes com Tonalidades Suaves -->
+          <rect x="40" y="18" width="176.9" height="44.0" fill="#10B981" fill-opacity="0.08" />
+          <rect x="216.9" y="18" width="168.1" height="44.0" fill="#0284C7" fill-opacity="0.04" />
+          <rect x="40" y="62.0" width="176.9" height="132.0" fill="#F59E0B" fill-opacity="0.04" />
+          <rect x="216.9" y="62.0" width="168.1" height="132.0" fill="#EF4444" fill-opacity="0.04" />
+
+          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
+          <line x1="40" y1="62.0" x2="385" y2="62.0" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+          <line x1="216.9" y1="18" x2="216.9" y2="194" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+
+          <!-- Rótulos Sutis de Quadrantes -->
+          <text x="46" y="30" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
+          <text x="379" y="30" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
+          <text x="46" y="188" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
+          <text x="379" y="188" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
+
+          <!-- Pontos de Background dos Pares do Universo Coberto -->
+          <g>
+            <circle cx="177.3" cy="45.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITUB4: P/L 11.9x | Score 88</title></circle><circle cx="187.5" cy="45.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITUB3: P/L 12.8x | Score 88</title></circle><circle cx="240.3" cy="46.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BPAC11: P/L 17.4x | Score 87</title></circle><circle cx="105.0" cy="48.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VULC3: P/L 5.7x | Score 86</title></circle><circle cx="225.6" cy="48.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TFCO4: P/L 16.1x | Score 86</title></circle><circle cx="294.3" cy="49.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>B3SA3: P/L 22.1x | Score 86</title></circle><circle cx="176.5" cy="50.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VIVA3: P/L 11.9x | Score 85</title></circle><circle cx="147.3" cy="50.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PSSA3: P/L 9.3x | Score 85</title></circle><circle cx="385.0" cy="50.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>WEGE3: P/L 34.5x | Score 85</title></circle><circle cx="175.0" cy="51.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TGMA3: P/L 11.7x | Score 85</title></circle><circle cx="137.1" cy="52.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MILS3: P/L 8.4x | Score 84</title></circle><circle cx="237.2" cy="53.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TOTS3: P/L 17.1x | Score 84</title></circle><circle cx="139.1" cy="55.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBSE3: P/L 8.6x | Score 83</title></circle><circle cx="199.2" cy="55.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CXSE3: P/L 13.8x | Score 83</title></circle><circle cx="71.6" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VTRU3: P/L 2.8x | Score 83</title></circle><circle cx="95.3" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>POMO3: P/L 4.8x | Score 83</title></circle><circle cx="99.1" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>POMO4: P/L 5.1x | Score 83</title></circle><circle cx="155.7" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITSA3: P/L 10.1x | Score 83</title></circle><circle cx="155.8" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITSA4: P/L 10.1x | Score 83</title></circle><circle cx="164.9" cy="56.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>INTB3: P/L 10.9x | Score 83</title></circle><circle cx="262.3" cy="56.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALOS3: P/L 19.3x | Score 83</title></circle><circle cx="167.2" cy="56.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FIQE3: P/L 11.1x | Score 82</title></circle><circle cx="284.4" cy="58.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RDOR3: P/L 21.2x | Score 82</title></circle><circle cx="123.9" cy="58.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LEVE3: P/L 7.3x | Score 82</title></circle><circle cx="124.2" cy="58.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GRND3: P/L 7.3x | Score 82</title></circle><circle cx="119.8" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB4: P/L 6.9x | Score 81</title></circle><circle cx="120.0" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB3: P/L 7.0x | Score 81</title></circle><circle cx="120.3" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB11: P/L 7.0x | Score 81</title></circle><circle cx="153.7" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>KEPL3: P/L 9.9x | Score 81</title></circle><circle cx="184.7" cy="59.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BLAU3: P/L 12.6x | Score 81</title></circle><circle cx="205.6" cy="59.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MULT3: P/L 14.4x | Score 81</title></circle><circle cx="138.9" cy="60.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBDC3: P/L 8.6x | Score 81</title></circle><circle cx="152.4" cy="60.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBDC4: P/L 9.8x | Score 81</title></circle><circle cx="156.7" cy="60.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LREN3: P/L 10.2x | Score 81</title></circle><circle cx="151.3" cy="62.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CURY3: P/L 9.7x | Score 80</title></circle><circle cx="253.0" cy="62.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMOB3: P/L 18.5x | Score 80</title></circle><circle cx="109.8" cy="63.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EUCA4: P/L 6.1x | Score 79</title></circle><circle cx="171.9" cy="63.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMEB4: P/L 11.5x | Score 79</title></circle><circle cx="208.2" cy="63.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GGPS3: P/L 14.6x | Score 79</title></circle><circle cx="122.7" cy="64.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VLID3: P/L 7.2x | Score 79</title></circle><circle cx="134.8" cy="64.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CSED3: P/L 8.2x | Score 79</title></circle><circle cx="115.4" cy="64.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PINE4: P/L 6.6x | Score 79</title></circle><circle cx="347.3" cy="64.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FRAS3: P/L 26.7x | Score 79</title></circle><circle cx="217.8" cy="65.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>IGTI11: P/L 15.5x | Score 78</title></circle><circle cx="123.7" cy="65.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SHUL4: P/L 7.3x | Score 78</title></circle><circle cx="132.9" cy="66.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GMAT3: P/L 8.1x | Score 78</title></circle><circle cx="126.8" cy="66.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ABCB4: P/L 7.5x | Score 78</title></circle><circle cx="108.9" cy="67.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PLPL3: P/L 6.0x | Score 78</title></circle><circle cx="126.0" cy="67.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>DIRR3: P/L 7.5x | Score 78</title></circle><circle cx="152.1" cy="67.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBAS3: P/L 9.8x | Score 77</title></circle><circle cx="215.3" cy="67.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ABEV3: P/L 15.2x | Score 77</title></circle><circle cx="125.6" cy="68.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CEAB3: P/L 7.4x | Score 77</title></circle><circle cx="209.4" cy="68.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SBSP3: P/L 14.7x | Score 77</title></circle><circle cx="287.7" cy="68.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FLRY3: P/L 21.5x | Score 77</title></circle><circle cx="98.0" cy="69.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRSR6: P/L 5.0x | Score 77</title></circle><circle cx="80.6" cy="69.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RIAA3: P/L 3.5x | Score 76</title></circle><circle cx="362.1" cy="69.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RADL3: P/L 28.0x | Score 76</title></circle><circle cx="225.3" cy="70.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MATD3: P/L 16.1x | Score 76</title></circle><circle cx="163.7" cy="70.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MDIA3: P/L 10.8x | Score 76</title></circle><circle cx="110.1" cy="70.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MDNE3: P/L 6.1x | Score 76</title></circle><circle cx="164.9" cy="71.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>HYPE3: P/L 10.9x | Score 76</title></circle><circle cx="226.8" cy="71.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALPA4: P/L 16.2x | Score 76</title></circle><circle cx="211.6" cy="71.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RANI3: P/L 14.9x | Score 76</title></circle><circle cx="384.1" cy="71.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR11: P/L 29.9x | Score 76</title></circle><circle cx="370.2" cy="72.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR4: P/L 28.7x | Score 75</title></circle><circle cx="385.0" cy="72.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR3: P/L 34.4x | Score 75</title></circle><circle cx="58.9" cy="72.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALLD3: P/L 1.6x | Score 75</title></circle><circle cx="93.8" cy="72.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>JHSF3: P/L 4.7x | Score 75</title></circle><circle cx="179.4" cy="73.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PGMN3: P/L 12.1x | Score 75</title></circle><circle cx="148.6" cy="74.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALUP11: P/L 9.4x | Score 74</title></circle><circle cx="135.1" cy="74.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SEER3: P/L 8.3x | Score 74</title></circle><circle cx="140.2" cy="75.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LAVV3: P/L 8.7x | Score 74</title></circle><circle cx="231.9" cy="75.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AZZA3: P/L 16.7x | Score 74</title></circle><circle cx="137.5" cy="76.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SMTO3: P/L 8.5x | Score 74</title></circle><circle cx="124.5" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>WIZC3: P/L 7.3x | Score 73</title></circle><circle cx="151.9" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE3: P/L 9.7x | Score 73</title></circle><circle cx="153.2" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE11: P/L 9.8x | Score 73</title></circle><circle cx="153.3" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE4: P/L 9.8x | Score 73</title></circle><circle cx="338.8" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>UNIP6: P/L 26.0x | Score 73</title></circle><circle cx="124.2" cy="76.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ISAE4: P/L 7.3x | Score 73</title></circle><circle cx="366.1" cy="76.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EMBJ3: P/L 28.4x | Score 73</title></circle><circle cx="158.7" cy="78.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EZTC3: P/L 10.3x | Score 73</title></circle><circle cx="258.4" cy="78.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CSMG3: P/L 19.0x | Score 72</title></circle><circle cx="162.8" cy="79.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MOTV3: P/L 10.7x | Score 72</title></circle><circle cx="302.0" cy="80.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SMFT3: P/L 22.8x | Score 72</title></circle><circle cx="156.2" cy="81.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CPFE3: P/L 10.1x | Score 71</title></circle><circle cx="112.1" cy="81.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SBFG3: P/L 6.3x | Score 71</title></circle><circle cx="174.1" cy="81.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIN3: P/L 11.7x | Score 71</title></circle><circle cx="254.1" cy="81.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ASAI3: P/L 18.6x | Score 71</title></circle><circle cx="123.5" cy="82.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMGB4: P/L 7.3x | Score 71</title></circle><circle cx="242.1" cy="83.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PNVL3: P/L 17.6x | Score 70</title></circle><circle cx="345.2" cy="83.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VAMO3: P/L 26.5x | Score 70</title></circle><circle cx="123.1" cy="83.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PFRM3: P/L 7.2x | Score 70</title></circle><circle cx="170.5" cy="83.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EGIE3: P/L 11.3x | Score 70</title></circle><circle cx="152.9" cy="84.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BEEF3: P/L 9.8x | Score 70</title></circle><circle cx="122.6" cy="84.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RECV3: P/L 7.2x | Score 70</title></circle><circle cx="210.7" cy="84.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VIVT3: P/L 14.8x | Score 70</title></circle><circle cx="126.8" cy="84.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIG4: P/L 7.5x | Score 70</title></circle><circle cx="171.9" cy="84.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIG3: P/L 11.5x | Score 70</title></circle><circle cx="289.3" cy="84.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AURA33: P/L 21.7x | Score 70</title></circle><circle cx="295.6" cy="86.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AUAU3: P/L 22.2x | Score 69</title></circle><circle cx="115.9" cy="86.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SUZB3: P/L 6.6x | Score 69</title></circle><circle cx="245.8" cy="86.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RENT3: P/L 17.9x | Score 69</title></circle><circle cx="256.3" cy="86.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ECOR3: P/L 18.8x | Score 69</title></circle><circle cx="125.8" cy="86.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CYRE4: P/L 7.5x | Score 69</title></circle><circle cx="130.0" cy="86.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CYRE3: P/L 7.8x | Score 69</title></circle><circle cx="137.6" cy="87.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TRIS3: P/L 8.5x | Score 68</title></circle><circle cx="207.1" cy="87.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PRIO3: P/L 14.5x | Score 68</title></circle><circle cx="147.5" cy="88.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>COGN3: P/L 9.3x | Score 68</title></circle><circle cx="378.0" cy="88.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PRNR3: P/L 29.4x | Score 68</title></circle><circle cx="115.2" cy="88.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TEND3: P/L 6.5x | Score 68</title></circle><circle cx="171.8" cy="89.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SYNE3: P/L 11.5x | Score 68</title></circle><circle cx="368.3" cy="89.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RAIL3: P/L 28.6x | Score 67</title></circle><circle cx="302.4" cy="89.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ENGI11: P/L 22.8x | Score 67</title></circle><circle cx="201.5" cy="90.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AXIA3: P/L 14.0x | Score 67</title></circle><circle cx="233.2" cy="90.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CPLE3: P/L 16.8x | Score 67</title></circle><circle cx="186.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRBI11: P/L 12.7x | Score 66</title></circle><circle cx="102.2" cy="93.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PETR4: P/L 5.4x | Score 66</title></circle><circle cx="110.0" cy="93.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PETR3: P/L 6.1x | Score 66</title></circle><circle cx="140.5" cy="94.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VBBR3: P/L 8.7x | Score 65</title></circle><circle cx="185.1" cy="94.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>UGPA3: P/L 12.6x | Score 65</title></circle><circle cx="221.7" cy="96.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FESA4: P/L 15.8x | Score 64</title></circle><circle cx="374.3" cy="98.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VALE3: P/L 29.1x | Score 64</title></circle><circle cx="301.3" cy="99.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GGBR4: P/L 22.7x | Score 63</title></circle><circle cx="247.7" cy="99.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PASS3: P/L 18.1x | Score 63</title></circle><circle cx="261.7" cy="99.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GOAU4: P/L 19.3x | Score 63</title></circle><circle cx="199.7" cy="99.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ANIM3: P/L 13.9x | Score 63</title></circle><circle cx="249.0" cy="101.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MYPK3: P/L 18.2x | Score 62</title></circle><circle cx="385.0" cy="102.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>OPCT3: P/L 30.8x | Score 62</title></circle><circle cx="299.9" cy="105.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SLCE3: P/L 22.6x | Score 60</title></circle><circle cx="114.4" cy="105.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MLAS3: P/L 6.5x | Score 60</title></circle><circle cx="112.7" cy="106.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MELK3: P/L 6.3x | Score 60</title></circle><circle cx="124.6" cy="107.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LOGG3: P/L 7.4x | Score 60</title></circle><circle cx="199.5" cy="108.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRAP4: P/L 13.9x | Score 59</title></circle><circle cx="112.1" cy="108.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EVEN3: P/L 6.3x | Score 59</title></circle><circle cx="115.8" cy="108.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MTRE3: P/L 6.6x | Score 59</title></circle><circle cx="254.1" cy="111.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MOVI3: P/L 18.6x | Score 58</title></circle><circle cx="344.3" cy="111.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>QUAL3: P/L 26.5x | Score 57</title></circle><circle cx="152.2" cy="112.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ROMI3: P/L 9.8x | Score 57</title></circle><circle cx="149.9" cy="113.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>HBRE3: P/L 9.6x | Score 57</title></circle><circle cx="180.8" cy="115.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CBAV3: P/L 12.2x | Score 56</title></circle><circle cx="385.0" cy="117.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CAML3: P/L 34.7x | Score 55</title></circle><circle cx="172.7" cy="124.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TTEN3: P/L 11.5x | Score 52</title></circle><circle cx="70.2" cy="139.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LIGT3: P/L 2.6x | Score 45</title></circle><circle cx="87.4" cy="163.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AZUL3: P/L 4.1x | Score 34</title></circle>
+          </g>
+
+          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
+          <g class="cursor-pointer">
+            <!-- Anel Externo com Efeito Ripple Pulsante -->
+            <circle cx="212.5" cy="152.0" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
+              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="212.5" cy="152.0" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
+            <!-- Ponto Central -->
+            <circle cx="212.5" cy="152.0" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
+            <!-- Callout do Ticker -->
+            <rect x="192.5" y="130.0" width="40" height="13" rx="3" fill="#004B49" />
+            <text x="212.5" y="141.0" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">TUPY3</text>
+          </g>
+        </g>
+
+        <!-- Eixos Principais e Legendas -->
+        <line x1="40" y1="194" x2="385" y2="194" stroke="#94A3B8" stroke-width="1.5" />
+        <line x1="40" y1="18" x2="40" y2="194" stroke="#94A3B8" stroke-width="1.5" />
+
+        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
+        <text x="36" y="21.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
+        <text x="36" y="65.0" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
+        <text x="36" y="131.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
+        <text x="36" y="197.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
+
+        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
+        <text x="40" y="206" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
+        <text x="216.9" y="206" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
+        <text x="385" y="206" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
+
+        <!-- Legenda Inferior do Eixo X -->
+        <text x="212.5" y="216" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
+      </svg>
+          </div>
+
+          <!-- Diagnóstico e Rationale do Quadrante -->
+          <div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">A <b>TUPY3</b> transaciona a múltiplos atrativos (<b>P/L de 15,0x</b>, Earnings Yield de 6,7% acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de 39,1 pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>).</div>
+
+          <div class="flex items-center justify-between pt-1 text-[11px] font-mono border-t border-slate-100">
+            <span class="text-slate-500">Universo: <b class="text-slate-800" id="miniMatrixPeerCount">145 empresas líquidas</b></span>
+            <a href="/?view=matrix" target="_blank" class="text-[#004B49] hover:text-emerald-800 font-bold hover:underline inline-flex items-center gap-1">
+              Explorar Matriz Completa ➜
+            </a>
           </div>
         </div>
 
@@ -2493,6 +2587,163 @@
       }).join('');
     }
 
+    // =========================================================================
+    // 📊 MINI-MATRIZ ESTRATÉGICA 2X2 (POSICIONAMENTO RELATIVO NO UNIVERSO B3)
+    // =========================================================================
+    function renderMiniMatrix() {
+      const svg = document.getElementById('miniMatrixSvg');
+      const badge = document.getElementById('miniMatrixQuadrantBadge');
+      const rationale = document.getElementById('miniMatrixRationale');
+      const peerCountSpan = document.getElementById('miniMatrixPeerCount');
+      const s = currentStock;
+      if (!svg || !s) return;
+
+      const allStocks = APP_DATA.stocks || [];
+      const validPeers = allStocks.filter(item => item.pl !== null && item.pl > 0 && item.pl <= 35.0);
+
+      if (peerCountSpan) {
+        peerCountSpan.innerText = `${validPeers.length} empresas líquidas`;
+      }
+
+      const padL = 40, padR = 15, padT = 18, padB = 26;
+      const w = 400, h = 220;
+      const innerW = w - padL - padR;
+      const innerH = h - padT - padB;
+
+      const minX = 0, maxX = 30.0;
+      const minY = 20.0, maxY = 100.0;
+
+      const scaleX = (x) => padL + (Math.min(Math.max(x - minX, 0), maxX - minX) / (maxX - minX)) * innerW;
+      const scaleY = (y) => padT + innerH - (Math.min(Math.max(y - minY, 0), maxY - minY) / (maxY - minY)) * innerH;
+
+      const limiarQuality = 80.0;
+      const limiarValuation = 15.38; // NTN-B 6,5% a.a. real
+      const yCross = scaleY(limiarQuality);
+      const xCross = scaleX(limiarValuation);
+
+      const sPl = (s.pl && s.pl > 0) ? s.pl : ((s.details && s.details.pl) || 15.0);
+      const sScore = s.quality_score || 50.0;
+
+      const isHighQuality = sScore >= limiarQuality;
+      const isLowPl = sPl <= limiarValuation;
+
+      let quadName = '';
+      let badgeStyle = '';
+      let quadExplanation = '';
+
+      const sScoreStr = sScore.toFixed(1).replace('.', ',');
+      const sPlStr = sPl.toFixed(1).replace('.', ',');
+      const sEyStr = (sPl > 0 ? (100.0 / sPl).toFixed(1).replace('.', ',') : 'N/D') + '%';
+
+      if (isHighQuality && isLowPl) {
+        quadName = 'Q1: Compounder Descontada';
+        badgeStyle = 'bg-emerald-50 text-emerald-900 border-emerald-300';
+        quadExplanation = `A <b>${s.ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de ${sPlStr}x</b>, implicando Earnings Yield de ${sEyStr}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco.`;
+      } else if (isHighQuality && !isLowPl) {
+        quadName = 'Q2: Qualidade com Prêmio';
+        badgeStyle = 'bg-sky-50 text-sky-900 border-sky-300';
+        quadExplanation = `A <b>${s.ticker}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1), porém negocia com prêmio de valuation de mercado (<b>P/L de ${sPlStr}x</b>, implicando Earnings Yield de ${sEyStr}, inferior ao corte de 6,5% da NTN-B real).`;
+      } else if (!isHighQuality && isLowPl) {
+        quadName = 'Q3: Múltiplos Baixos / Cíclica';
+        badgeStyle = 'bg-amber-50 text-amber-900 border-amber-300';
+        quadExplanation = `A <b>${s.ticker}</b> transaciona a múltiplos atrativos (<b>P/L de ${sPlStr}x</b>, Earnings Yield de ${sEyStr} acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de ${sScoreStr} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>).`;
+      } else {
+        quadName = 'Q4: Valuation Elevado / Baixo Moat';
+        badgeStyle = 'bg-rose-50 text-rose-900 border-rose-300';
+        quadExplanation = `A <b>${s.ticker}</b> reúne múltiplos esticados (<b>P/L de ${sPlStr}x</b>) e limitada proteção competitiva (<b>Moat Score de ${sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às ${validPeers.length} empresas cobertas no universo B3.`;
+      }
+
+      if (badge) {
+        badge.innerText = quadName;
+        badge.className = `text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border ${badgeStyle}`;
+      }
+      if (rationale) {
+        rationale.innerHTML = quadExplanation;
+      }
+
+      // Renderizar o SVG
+      const targetCx = scaleX(sPl);
+      const targetCy = scaleY(sScore);
+      const isNearTop = (targetCy - 22 < padT);
+      const pillY = isNearTop ? targetCy + 9 : targetCy - 22;
+      const textY = isNearTop ? targetCy + 20 : targetCy - 11;
+
+      let svgHtml = `
+        <defs>
+          <clipPath id="miniMatrixClip">
+            <rect x="${padL}" y="${padT}" width="${innerW}" height="${innerH}" rx="3" />
+          </clipPath>
+        </defs>
+
+        <!-- Fundo e Cortes -->
+        <g clip-path="url(#miniMatrixClip)">
+          <rect x="${padL}" y="${padT}" width="${innerW}" height="${innerH}" fill="#FAFAF8" />
+
+          <!-- Quadrantes com Tonalidades Suaves -->
+          <rect x="${padL}" y="${padT}" width="${xCross - padL}" height="${yCross - padT}" fill="#10B981" fill-opacity="0.08" />
+          <rect x="${xCross}" y="${padT}" width="${padL + innerW - xCross}" height="${yCross - padT}" fill="#0284C7" fill-opacity="0.04" />
+          <rect x="${padL}" y="${yCross}" width="${xCross - padL}" height="${padT + innerH - yCross}" fill="#F59E0B" fill-opacity="0.04" />
+          <rect x="${xCross}" y="${yCross}" width="${padL + innerW - xCross}" height="${padT + innerH - yCross}" fill="#EF4444" fill-opacity="0.04" />
+
+          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
+          <line x1="${padL}" y1="${yCross}" x2="${padL + innerW}" y2="${yCross}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+          <line x1="${xCross}" y1="${padT}" x2="${xCross}" y2="${padT + innerH}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+
+          <!-- Rótulos Sutis de Quadrantes -->
+          <text x="${padL + 6}" y="${padT + 12}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
+          <text x="${padL + innerW - 6}" y="${padT + 12}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
+          <text x="${padL + 6}" y="${padT + innerH - 6}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
+          <text x="${padL + innerW - 6}" y="${padT + innerH - 6}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
+
+          <!-- Pontos de Background dos Pares do Universo Coberto -->
+          <g>
+            ${validPeers.filter(p => p.ticker !== s.ticker).map(p => {
+              const px = scaleX(p.pl);
+              const py = scaleY(p.quality_score || 50);
+              const titlePl = (p.pl && p.pl > 0) ? p.pl.toFixed(1).replace('.', ',') : 'N/D';
+              const titleScore = (p.quality_score || 0).toFixed(0);
+              return `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>${p.ticker}: P/L ${titlePl}x | Score ${titleScore}</title></circle>`;
+            }).join('')}
+          </g>
+
+          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
+          <g class="cursor-pointer">
+            <!-- Anel Externo com Efeito Ripple Pulsante -->
+            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
+              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
+            <!-- Ponto Central -->
+            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
+            <!-- Callout do Ticker -->
+            <rect x="${(targetCx - 20).toFixed(1)}" y="${pillY.toFixed(1)}" width="40" height="13" rx="3" fill="#004B49" />
+            <text x="${targetCx.toFixed(1)}" y="${textY.toFixed(1)}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">${s.ticker}</text>
+          </g>
+        </g>
+
+        <!-- Eixos Principais e Legendas -->
+        <line x1="${padL}" y1="${padT + innerH}" x2="${padL + innerW}" y2="${padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+
+        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
+        <text x="${padL - 4}" y="${scaleY(100) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
+        <text x="${padL - 4}" y="${yCross + 3}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
+        <text x="${padL - 4}" y="${scaleY(50) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
+        <text x="${padL - 4}" y="${scaleY(20) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
+
+        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
+        <text x="${padL}" y="${padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
+        <text x="${xCross.toFixed(1)}" y="${padT + innerH + 12}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
+        <text x="${padL + innerW}" y="${padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
+
+        <!-- Legenda Inferior do Eixo X -->
+        <text x="${padL + innerW / 2}" y="${h - 4}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
+      `;
+
+      svg.innerHTML = svgHtml;
+    }
+
     // Busca de Ações no Header com Navegação por Teclado
     let companySearchHighlightedIndex = -1;
     let companySearchResults = [];
@@ -2500,9 +2751,12 @@
     function handleCompanySearch(query) {
       const dd = document.getElementById('searchResultsDropdown');
       if (!query || query.trim().length === 0) {
-        dd.classList.add('hidden');
-        companySearchResults = [];
+        companySearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
         companySearchHighlightedIndex = -1;
+        renderCompanySearchResults();
         return;
       }
       const q = query.trim().toLowerCase();
@@ -2539,17 +2793,26 @@
         return;
       }
 
+      const inp = document.getElementById('companySearchInput');
+      const isDefault = !inp || !inp.value || inp.value.trim().length === 0;
+
       dd.innerHTML = `
         <div class="p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>${companySearchResults.length} sugestões encontradas</span>
+          <span>${isDefault ? '⭐ Destaques em Cobertura' : `${companySearchResults.length} sugestões encontradas`}</span>
           <span>Navegue com <b>↑</b> <b>↓</b> e <b>Enter</b></span>
         </div>
         ${companySearchResults.map((s, idx) => {
           const isHigh = idx === companySearchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const scoreClass = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1) + 'x' : 'N/D';
-          const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tierClass = tier === 'Tier 1' 
+            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+          const scoreClass = s.quality_score >= 80 
+            ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
+            : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
+          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
+          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
 
           return `
             <a href="/acoes/${s.ticker.toLowerCase()}/" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
@@ -2565,12 +2828,14 @@
                 </div>
               </div>
               <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                <div class="flex items-center gap-1">
-                  <span class="text-xs font-mono font-bold text-slate-900">${formatCurrency(s.cotacao)}</span>
-                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${scoreClass}">${s.quality_score.toFixed(0)} pts</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${tierClass}">${tier}</span>
+                  <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${scoreClass} tabular-nums">${scoreStr} pts</span>
                 </div>
-                <div class="text-[10px] font-mono text-slate-500">
-                  P/L: <b class="text-slate-800">${plStr}</b> • DY: <b class="text-emerald-700">${dyStr}</b>
+                <div class="text-[10.5px] font-mono text-slate-500 flex items-center gap-2">
+                  <span>P/L: <b class="text-slate-900 font-bold tabular-nums">${plStr}</b></span>
+                  <span class="text-slate-300">•</span>
+                  <span class="font-bold text-slate-800 tabular-nums">${formatCurrency(s.cotacao)}</span>
                 </div>
               </div>
             </a>
@@ -2608,8 +2873,9 @@
     }
 
     function showSearchDropdown() {
-      const q = document.getElementById('companySearchInput').value;
-      if (q && q.trim().length > 0) handleCompanySearch(q);
+      const inp = document.getElementById('companySearchInput');
+      const q = inp ? inp.value : '';
+      handleCompanySearch(q);
     }
 
     document.addEventListener('click', (e) => {
@@ -2620,8 +2886,20 @@
       }
     });
 
-    // Atalhos Globais na Página da Empresa (/ para buscar, Esc para fechar)
+    // Atalhos Globais na Página da Empresa (Ctrl+K, / para buscar, Esc para fechar)
     document.addEventListener('keydown', (e) => {
+      // Ctrl+K ou Cmd+K abre a busca instantânea
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        const inp = document.getElementById('companySearchInput');
+        if (inp) {
+          inp.focus();
+          inp.select();
+          showSearchDropdown();
+        }
+        return;
+      }
+
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {
         if (e.key === 'Escape') {
           const dd = document.getElementById('searchResultsDropdown');
@@ -2637,6 +2915,7 @@
         if (inp) {
           inp.focus();
           inp.select();
+          showSearchDropdown();
         }
       } else if (e.key === 'Escape') {
         const dd = document.getElementById('searchResultsDropdown');
@@ -2969,6 +3248,7 @@
         renderHero();
         renderEssentialMultiples();
         renderValuationCalculators();
+        renderMiniMatrix();
         renderHistoryChart();
         renderDupont();
         renderSectorPeers();
