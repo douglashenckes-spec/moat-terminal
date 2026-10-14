@@ -41,6 +41,520 @@ def format_billions(val):
     except Exception:
         return "R$ --"
 
+def generate_moat_decomposition_html(s):
+    if not s:
+        return ""
+    qs = float(s.get("quality_score") or 50.0)
+    is_fin = bool(s.get("is_financial"))
+    subs = s.get("sub_scores", {}) or {}
+
+    s_ret = float(subs.get("roe" if is_fin else "roic", s.get("pilar_rentabilidade", 50)))
+    s_mrg = float(subs.get("mrg_liq", 50)) if is_fin else (float(subs.get("mrg_bruta", 50)) * 0.5 + float(subs.get("mrg_liq", 50)) * 0.5)
+    s_cons = float(s.get("pilar_consistencia", 50))
+    s_sol = float(s.get("pilar_solidez", 50))
+
+    raw_p1 = (s_ret / 100.0) * 30.0
+    raw_p2 = (s_mrg / 100.0) * 25.0
+    raw_p3 = (s_cons / 100.0) * 25.0
+    raw_p4 = (s_sol / 100.0) * 20.0
+
+    raw_sum = raw_p1 + raw_p2 + raw_p3 + raw_p4
+    scale = (qs / raw_sum) if raw_sum > 0 else 1.0
+
+    p1 = round(min(30.0, max(1.0, raw_p1 * scale)), 1)
+    p2 = round(min(25.0, max(1.0, raw_p2 * scale)), 1)
+    p3 = round(min(25.0, max(1.0, raw_p3 * scale)), 1)
+    p4 = round(qs - (p1 + p2 + p3), 1)
+    if p4 < 0:
+        p4 = 0.5
+        p1 = round(qs - (p2 + p3 + p4), 1)
+
+    pct1 = min(100, max(5, (p1 / 30.0) * 100))
+    pct2 = min(100, max(5, (p2 / 25.0) * 100))
+    pct3 = min(100, max(5, (p3 / 25.0) * 100))
+    pct4 = min(100, max(5, (p4 / 20.0) * 100))
+
+    def get_style(pct):
+        if pct >= 75:
+            return "bg-emerald-500", "text-emerald-700", "bg-[#00A887]"
+        if pct >= 55:
+            return "bg-teal-500", "text-teal-700", "bg-teal-600"
+        if pct >= 40:
+            return "bg-amber-500", "text-amber-700", "bg-amber-500"
+        return "bg-rose-500", "text-rose-700", "bg-rose-500"
+
+    dot1, txt1, bar1 = get_style(pct1)
+    dot2, txt2, bar2 = get_style(pct2)
+    dot3, txt3, bar3 = get_style(pct3)
+    dot4, txt4, bar4 = get_style(pct4)
+
+    if is_fin:
+        sector_badge_html = """
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-50 text-indigo-900 border border-indigo-200 shadow-2xs">
+            <span>⚖️</span> Metodologia Ajustada: Setor Financeiro/Seguros
+          </span>"""
+        title1 = "Retorno Patrimonial (Spread ROE vs NTN-B)"
+        title2 = "Eficiência Operacional &amp; Margem de Conversão"
+        title3 = "Consistência de Resultados &amp; Payout (5 Anos)"
+        title4 = "Escala &amp; Solvência Institucional (Patrimônio Líquido)"
+
+        roe = float(s.get("roe") or 0)
+        roe_str = format_pct(roe)
+        if roe >= 0.20:
+            desc1 = f"ROE de {roe_str} comprova rentabilidade patrimonial excepcional e forte capacidade de composição de lucros dos sócios."
+        elif roe >= 0.14:
+            desc1 = f"ROE de {roe_str} reflete rentabilidade sólida e resiliente para os padrões de exigência de capital regulatório."
+        elif roe >= 0.08:
+            desc1 = f"ROE de {roe_str} situa-se em nível mediano frente ao custo de oportunidade da economia brasileira."
+        else:
+            desc1 = f"ROE de {roe_str} é modesto frente aos riscos de crédito e mercado, reduzindo a criação de valor econômico."
+
+        if p2 >= 20.0:
+            desc2 = "Estrutura operacional de ponta com captação a custo controlado e excelente geração de receitas de serviços e tarifas."
+        elif p2 >= 15.0:
+            desc2 = "Eficiência operacional e conversão dentro dos padrões auditados de bancos múltiplos e seguradoras líderes da B3."
+        else:
+            desc2 = "Custos operacionais e despesas de intermediação/sinistros pressionam a margem líquida final da operação."
+
+        if p3 >= 20.0:
+            desc3 = "Histórico auditado de 5 anos de lucros contínuos (2022-2026), sem distorções graves, prejuízos ou one-offs artificiais."
+        elif p3 >= 15.0:
+            desc3 = "Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos dividendos."
+        else:
+            desc3 = "Oscilações relevantes de resultados históricos ou quebra recente de lucratividade penalizam a previsibilidade."
+
+        if p4 >= 17.0:
+            desc4 = "Escala patrimonial de grande porte com sólida folga sobre os limites regulatórios de Basileia/Susep e captação competitiva."
+        elif p4 >= 13.0:
+            desc4 = "Estrutura patrimonial suficiente e aderente com segurança às métricas de solvência e liquidez regulamentares."
+        else:
+            desc4 = "Porte patrimonial menor impõe custo de captação relativamente superior frente aos grandes conglomerados."
+    else:
+        sector_badge_html = """
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+            <span>🛡️</span> Modelo Munger de Fosso Econômico
+          </span>"""
+        title1 = "Retorno sobre Capital (Spread ROIC vs NTN-B)"
+        title2 = "Poder de Precificação &amp; Margens (Proteção Moat)"
+        title3 = "Consistência Histórica &amp; Lucro Limpo (5 Anos)"
+        title4 = "Solidez Financeira &amp; Desalavancagem (Anti-Crise)"
+
+        roic = float(s.get("roic") or 0)
+        roic_str = format_pct(roic)
+        if roic >= 0.20:
+            desc1 = f"ROIC auditado de {roic_str} supera amplamente o juro real soberano (NTN-B 6,5%), gerando alto valor econômico (EVA)."
+        elif roic >= 0.12:
+            desc1 = f"ROIC de {roic_str} entrega retorno saudável e consistente acima do custo de oportunidade da economia brasileira."
+        elif roic >= 0.06:
+            desc1 = f"ROIC de {roic_str} opera em patamar moderado, com spread estreito sobre os títulos soberanos da NTN-B."
+        else:
+            desc1 = f"ROIC de {roic_str} fica abaixo do custo de oportunidade soberano (NTN-B 6,5%), consumindo valor econômico dos acionistas."
+
+        mrg = float(s.get("mrg_liq") or 0)
+        mrg_str = format_pct(mrg)
+        if mrg >= 0.15:
+            desc2 = f"Margem líquida de {mrg_str} comprova forte poder de precificação contra pressões inflacionárias de custos."
+        elif mrg >= 0.07:
+            desc2 = f"Margem líquida de {mrg_str} preserva conversão operacional equilibrada dentro da média do setor."
+        else:
+            desc2 = f"Margem líquida comprimida ({mrg_str}) expõe a operação a variações de insumos e competição predatória."
+
+        if p3 >= 20.0:
+            desc3 = "Histórico ininterrupto de lucros no quinquênio (2022-2026), sem distorções contábeis graves ou prejuízos recentes."
+        elif p3 >= 15.0:
+            desc3 = "Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos fluxos operacionais."
+        else:
+            desc3 = "Oscilações relevantes de resultados históricos ou quebra recente de lucratividade reduzem a previsibilidade projetada."
+
+        dl = s.get("div_liq_ebitda")
+        if dl is not None and float(dl) <= 0:
+            desc4 = "Empresa opera com caixa líquido positivo (sem endividamento líquido), conferindo blindagem máxima com Selic alta."
+        elif dl is not None and float(dl) <= 1.5:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem prudente de {dl_f}x EBITDA mantém o balanço confortável e imune a choques de liquidez."
+        elif dl is not None and float(dl) <= 2.5:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem moderada de {dl_f}x EBITDA exige acompanhamento da cobertura de juros."
+        elif dl is not None:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem elevada de {dl_f}x EBITDA onera o fluxo de caixa com serviço da dívida sob juros altos."
+        else:
+            desc4 = "Estrutura patrimonial sem passivos financeiros onerosos que comprometam a continuidade dos negócios."
+
+    p1_str = f"{p1:.1f}".replace(".", ",")
+    p2_str = f"{p2:.1f}".replace(".", ",")
+    p3_str = f"{p3:.1f}".replace(".", ",")
+    p4_str = f"{p4:.1f}".replace(".", ",")
+    qs_str = f"{qs:.1f}".replace(".", ",")
+    tier_str = s.get("quality_tier", "Tier de Qualidade")
+
+    return f"""
+        <!-- DECOMPOSIÇÃO DO MOAT SCORE (RAIO-X DE QUALIDADE INSTITUCIONAL) -->
+        <div class="mt-5 p-5 sm:p-6 bg-slate-50/70 border border-slate-200/90 rounded-2xl space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-[#004B49] text-white flex items-center justify-center font-mono text-xs font-bold shadow-2xs">
+                RX
+              </div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-bold font-mono text-slate-900 uppercase tracking-wider">
+                  Decomposição do Moat Score • Raio-X de Qualidade
+                </h3>
+                <p class="text-[11px] text-slate-500 font-sans mt-0.5">
+                  Auditoria transparente dos 4 pilares quantitativos que formam a nota final de 0 a 100
+                </p>
+              </div>
+            </div>
+            {sector_badge_html}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+            <!-- Pilar 1 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot1}"></span>
+                  {title1}
+                </span>
+                <span class="font-bold {txt1}">{p1_str} / 30 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar1} rounded-full transition-all duration-500" style="width: {pct1:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc1}
+              </p>
+            </div>
+
+            <!-- Pilar 2 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot2}"></span>
+                  {title2}
+                </span>
+                <span class="font-bold {txt2}">{p2_str} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar2} rounded-full transition-all duration-500" style="width: {pct2:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc2}
+              </p>
+            </div>
+
+            <!-- Pilar 3 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot3}"></span>
+                  {title3}
+                </span>
+                <span class="font-bold {txt3}">{p3_str} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar3} rounded-full transition-all duration-500" style="width: {pct3:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc3}
+              </p>
+            </div>
+
+            <!-- Pilar 4 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot4}"></span>
+                  {title4}
+                </span>
+                <span class="font-bold {txt4}">{p4_str} / 20 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar4} rounded-full transition-all duration-500" style="width: {pct4:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc4}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-500">
+            <span>Soma dos Pilares: <b class="text-slate-900">{qs_str} / 100 pts</b> ({tier_str})</span>
+            <span class="text-slate-400">Metodologia Auditada CVM 2T26 • Sem Caixa-Preta</span>
+          </div>
+        </div>
+    """
+
+def generate_stock_badges_html(s):
+    if not s:
+        return ""
+    quality_pills = []
+    valuation_pills = []
+
+    is_fin = bool(s.get("is_financial"))
+    details = s.get("details", {}) or {}
+
+    # Grupo 1: Qualidade & Balanço
+    if is_fin:
+        quality_pills.append(('Bancos / Finanças', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_FINANCIAL'))
+    else:
+        dl = details.get("divida_liquida")
+        dle = s.get("div_liq_ebitda")
+        if (dl is not None and float(dl) <= 0) or (dle is not None and float(dle) < 0):
+            quality_pills.append(('Caixa Líquido', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH'))
+        elif dle is not None and float(dle) > 2.5:
+            quality_pills.append(('Alavancagem Alta', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_HIGH_DEBT'))
+        elif dle is not None and float(dle) <= 1.8:
+            quality_pills.append(('Dívida Equilibrada', 'bg-slate-400', 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium', 'CAT_BALANCED_DEBT'))
+
+    qs = float(s.get("quality_score") or 0)
+    roic_or_roe = float(s.get("roic") or s.get("roe") or 0)
+    if qs >= 80 and roic_or_roe >= 0.15:
+        quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
+    elif not is_fin and float(s.get("roic") or 0) >= 0.18:
+        quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
+
+    h5 = s.get("historical_5y") or {}
+    if not s.get("is_distorted") and h5.get("is_all_profitable"):
+        quality_pills.append(('Lucro Limpo 5A', 'bg-teal-500', 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium', 'CAT_CLEAN_EARNINGS'))
+
+    if s.get("is_distorted"):
+        quality_pills.append(('Distorção One-off', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DISTORTION'))
+
+    # Grupo 2: Valuation & Momento
+    lpa = float(details.get("lpa") or 0)
+    vpa = float(details.get("vpa") or 0)
+    cot = float(s.get("cotacao") or 0)
+    if lpa > 0 and vpa > 0 and cot > 0:
+        graham = math.sqrt(22.5 * lpa * vpa)
+        if graham > cot * 1.15:
+            valuation_pills.append(('Desconto Graham', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_GRAHAM'))
+
+    dy = float(s.get("div_yield") or 0)
+    if dy >= 0.06 and cot > 0:
+        bazin = (cot * dy) / 0.06
+        if bazin > cot * 1.15:
+            valuation_pills.append(('Ref. Bazin (DY 6%)', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_BAZIN'))
+
+    ey = s.get("ey_spread")
+    pl = s.get("pl")
+    if ey is not None and float(ey) >= 2.0 and (pl is None or float(pl) <= 15.0):
+        valuation_pills.append(('Prêmio Real NTN-B', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_SPREAD_NTNB'))
+
+    pl_rr = s.get("pl_run_rate")
+    rr_div = s.get("run_rate_div_pct")
+    if pl and pl_rr and rr_div is not None:
+        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl) * 0.88:
+            valuation_pills.append(('Lucro Acelerando', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_EXPANSION'))
+        elif float(rr_div) <= -20.0 and float(pl_rr) > float(pl) * 1.25:
+            valuation_pills.append(('Lucro em Retração', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DECELERATION'))
+
+    payout = s.get("payout_implicito")
+    if dy >= 0.05 and payout is not None and 30 <= float(payout) <= 88:
+        valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
+    elif payout is not None and float(payout) > 105:
+        valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
+
+    if s.get("is_commodity_peak"):
+        valuation_pills.append(('Pico de Ciclo', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_COMMODITY_PEAK'))
+
+    def render_pills_html(pills, empty_msg):
+        if not pills:
+            return f'<span class="text-[11px] font-mono text-slate-400 italic">{empty_msg}</span>'
+        items = []
+        for label, led, bg, cat_id in pills[:4]:
+            items.append(f'''<a href="/index.html?filter={cat_id}" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium {bg} shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full {led} inline-block"></span><span>{label}</span></a>''')
+        return "".join(items)
+
+    q_html = render_pills_html(quality_pills, 'Padrão setorial de solvência')
+    v_html = render_pills_html(valuation_pills, 'Sem assimetria acentuada de preço')
+
+    return f"""
+        <!-- Rótulos de Enquadramento Estratégico & Momento (Status Pills Divididos em 2 Grupos) -->
+        <div class="mt-4 pt-3.5 border-t border-slate-100 space-y-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+              QUALIDADE &amp; BALANÇO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              {q_html}
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block"></span>
+              VALUATION &amp; MOMENTO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              {v_html}
+            </div>
+          </div>
+        </div>
+    """
+
+def generate_prerendered_mini_matrix_html(s, all_stocks):
+    if not s:
+        return None
+    
+    valid_peers = [p for p in all_stocks if p.get("pl") is not None and float(p.get("pl") or 0) > 0 and float(p.get("pl") or 0) <= 35.0]
+    peer_count = len(valid_peers)
+    
+    padL = 40
+    padR = 15
+    padT = 18
+    padB = 26
+    w = 400
+    h = 220
+    innerW = w - padL - padR
+    innerH = h - padT - padB
+    
+    minX = 0.0
+    maxX = 30.0
+    minY = 20.0
+    maxY = 100.0
+    
+    def scaleX(x):
+        return padL + (min(max(float(x) - minX, 0.0), maxX - minX) / (maxX - minX)) * innerW
+        
+    def scaleY(y):
+        return padT + innerH - (min(max(float(y) - minY, 0.0), maxY - minY) / (maxY - minY)) * innerH
+        
+    limiarQuality = 80.0
+    limiarValuation = 15.38
+    yCross = scaleY(limiarQuality)
+    xCross = scaleX(limiarValuation)
+    
+    try:
+        raw_pl = float(s.get("pl") or (s.get("details", {}) or {}).get("pl") or 15.0)
+    except Exception:
+        raw_pl = 15.0
+    sPl = raw_pl if raw_pl > 0 else 15.0
+    
+    try:
+        sScore = float(s.get("quality_score") or 50.0)
+    except Exception:
+        sScore = 50.0
+        
+    isHighQuality = (sScore >= limiarQuality)
+    isLowPl = (sPl <= limiarValuation)
+    
+    sScoreStr = f"{sScore:.1f}".replace(".", ",")
+    sPlStr = f"{sPl:.1f}".replace(".", ",")
+    sEyStr = f"{(100.0 / sPl):.1f}%".replace(".", ",") if sPl > 0 else "N/D"
+    ticker = s.get("ticker", "ATV3")
+    
+    if isHighQuality and isLowPl:
+        quadName = "Q1: Compounder Descontada"
+        badgeStyle = "bg-emerald-50 text-emerald-900 border-emerald-300"
+        quadExplanation = f"A <b>{ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de {sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de {sPlStr}x</b>, implicando Earnings Yield de {sEyStr}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco."
+    elif isHighQuality and not isLowPl:
+        quadName = "Q2: Qualidade com Prêmio"
+        badgeStyle = "bg-sky-50 text-sky-900 border-sky-300"
+        quadExplanation = f"A <b>{ticker}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de {sScoreStr} pts</b>, Tier 1), porém negocia com prêmio de valuation de mercado (<b>P/L de {sPlStr}x</b>, implicando Earnings Yield de {sEyStr}, inferior ao corte de 6,5% da NTN-B real)."
+    elif not isHighQuality and isLowPl:
+        quadName = "Q3: Múltiplos Baixos / Cíclica"
+        badgeStyle = "bg-amber-50 text-amber-900 border-amber-300"
+        quadExplanation = f"A <b>{ticker}</b> transaciona a múltiplos atrativos (<b>P/L de {sPlStr}x</b>, Earnings Yield de {sEyStr} acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de {sScoreStr} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>)."
+    else:
+        quadName = "Q4: Valuation Elevado / Baixo Moat"
+        badgeStyle = "bg-rose-50 text-rose-900 border-rose-300"
+        quadExplanation = f"A <b>{ticker}</b> reúne múltiplos esticados (<b>P/L de {sPlStr}x</b>) e limitada proteção competitiva (<b>Moat Score de {sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às {peer_count} empresas cobertas no universo B3."
+        
+    targetCx = scaleX(sPl)
+    targetCy = scaleY(sScore)
+    isNearTop = (targetCy - 22 < padT)
+    pillY = targetCy + 9 if isNearTop else targetCy - 22
+    textY = targetCy + 20 if isNearTop else targetCy - 11
+    
+    peer_circles = []
+    for p in valid_peers:
+        if p.get("ticker") == ticker:
+            continue
+        try:
+            ppl = float(p.get("pl") or 0)
+            pqs = float(p.get("quality_score") or 50)
+            px = scaleX(ppl)
+            py = scaleY(pqs)
+            peer_circles.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>{p.get("ticker")}: P/L {ppl:.1f}x | Score {pqs:.0f}</title></circle>')
+        except Exception:
+            pass
+    peers_svg_str = "".join(peer_circles)
+    
+    svg_html = f'''<svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
+        <defs>
+          <clipPath id="miniMatrixClip">
+            <rect x="{padL}" y="{padT}" width="{innerW}" height="{innerH}" rx="3" />
+          </clipPath>
+        </defs>
+
+        <!-- Fundo e Cortes -->
+        <g clip-path="url(#miniMatrixClip)">
+          <rect x="{padL}" y="{padT}" width="{innerW}" height="{innerH}" fill="#FAFAF8" />
+
+          <!-- Quadrantes com Tonalidades Suaves -->
+          <rect x="{padL}" y="{padT}" width="{xCross - padL:.1f}" height="{yCross - padT:.1f}" fill="#10B981" fill-opacity="0.08" />
+          <rect x="{xCross:.1f}" y="{padT}" width="{padL + innerW - xCross:.1f}" height="{yCross - padT:.1f}" fill="#0284C7" fill-opacity="0.04" />
+          <rect x="{padL}" y="{yCross:.1f}" width="{xCross - padL:.1f}" height="{padT + innerH - yCross:.1f}" fill="#F59E0B" fill-opacity="0.04" />
+          <rect x="{xCross:.1f}" y="{yCross:.1f}" width="{padL + innerW - xCross:.1f}" height="{padT + innerH - yCross:.1f}" fill="#EF4444" fill-opacity="0.04" />
+
+          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
+          <line x1="{padL}" y1="{yCross:.1f}" x2="{padL + innerW}" y2="{yCross:.1f}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+          <line x1="{xCross:.1f}" y1="{padT}" x2="{xCross:.1f}" y2="{padT + innerH}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+
+          <!-- Rótulos Sutis de Quadrantes -->
+          <text x="{padL + 6}" y="{padT + 12}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
+          <text x="{padL + innerW - 6}" y="{padT + 12}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
+          <text x="{padL + 6}" y="{padT + innerH - 6}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
+          <text x="{padL + innerW - 6}" y="{padT + innerH - 6}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
+
+          <!-- Pontos de Background dos Pares do Universo Coberto -->
+          <g>
+            {peers_svg_str}
+          </g>
+
+          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
+          <g class="cursor-pointer">
+            <!-- Anel Externo com Efeito Ripple Pulsante -->
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
+              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
+            <!-- Ponto Central -->
+            <circle cx="{targetCx:.1f}" cy="{targetCy:.1f}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
+            <!-- Callout do Ticker -->
+            <rect x="{targetCx - 20:.1f}" y="{pillY:.1f}" width="40" height="13" rx="3" fill="#004B49" />
+            <text x="{targetCx:.1f}" y="{textY:.1f}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">{ticker}</text>
+          </g>
+        </g>
+
+        <!-- Eixos Principais e Legendas -->
+        <line x1="{padL}" y1="{padT + innerH}" x2="{padL + innerW}" y2="{padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+        <line x1="{padL}" y1="{padT}" x2="{padL}" y2="{padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
+
+        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
+        <text x="{padL - 4}" y="{scaleY(100) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
+        <text x="{padL - 4}" y="{yCross + 3:.1f}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
+        <text x="{padL - 4}" y="{scaleY(50) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
+        <text x="{padL - 4}" y="{scaleY(20) + 3:.1f}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
+
+        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
+        <text x="{padL}" y="{padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
+        <text x="{xCross:.1f}" y="{padT + innerH + 12}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
+        <text x="{padL + innerW}" y="{padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
+
+        <!-- Legenda Inferior do Eixo X -->
+        <text x="{padL + innerW / 2}" y="{h - 4}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
+      </svg>'''
+      
+    return {
+        "svg": svg_html,
+        "badge": f'<span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border {badgeStyle}">{quadName}</span>',
+        "rationale": f'<div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">{quadExplanation}</div>',
+        "peer_count": f'{peer_count} empresas líquidas'
+    }
+
 def generate_acoes_directory(stocks, base_dir, today_str):
     """
     Gera a página central de diretório /acoes/index.html
@@ -130,7 +644,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
                     </div>
                   </div>
                   <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold border {tier_badge} flex-shrink-0">
-                    Moat {score:.1f}
+                    Moat {f"{score:.1f}".replace(".", ",")}
                   </span>
                 </div>
 
@@ -612,7 +1126,6 @@ def build_programmatic_seo():
     sitemap_urls = [
         ('https://moatterminal.com.br/', today_str, 'daily', '1.0'),
         ('https://moatterminal.com.br/acoes/', today_str, 'daily', '0.9'),
-        ('https://moatterminal.com.br/empresa.html', today_str, 'daily', '0.5'),
         ('https://moatterminal.com.br/sobre.html', today_str, 'weekly', '0.7'),
         ('https://moatterminal.com.br/contato.html', today_str, 'monthly', '0.5'),
         ('https://moatterminal.com.br/privacidade.html', today_str, 'monthly', '0.3'),
@@ -677,8 +1190,10 @@ def build_programmatic_seo():
 
         graham_str = format_curr(graham_price) if graham_price else "N/D"
         bazin_str = format_curr(bazin_price) if bazin_price else "N/D"
-        graham_badge = f"{graham_margin:+.1f}% vs cotação" if graham_margin is not None else "LPA/VPA Inválido"
-        bazin_badge = f"{bazin_margin:+.1f}% vs cotação" if bazin_margin is not None else "Sem Proventos"
+        score_str = f"{quality_score:.1f}".replace(".", ",")
+        graham_badge = f"{graham_margin:+.1f}%".replace(".", ",") + " vs cotação" if graham_margin is not None else "LPA/VPA Inválido"
+        bazin_badge = f"{bazin_margin:+.1f}%".replace(".", ",") + " vs cotação" if bazin_margin is not None else "Sem Proventos"
+        ey_spread_str = f"{ey_spread:+.1f}%".replace(".", ",")
 
         # Pares setoriais para o gráfico comparativo e interlinking SEO (top 6 do mesmo setor)
         peers = [p for p in stocks if p.get("setor") == setor and p.get("ticker") != ticker and p.get("is_liquid_1m")]
@@ -688,13 +1203,13 @@ def build_programmatic_seo():
         # Meta tags ricas de SEO focadas em alta intenção de busca (High-CTR)
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
         page_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin, Graham e Indicadores • Moat Terminal"
-        meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {quality_score:.1f}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
+        meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
         og_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin & Graham • Moat Terminal"
-        og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {quality_score:.1f}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
+        og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"
-        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {quality_score:.1f}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
+        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {score_str}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
 
         faq_q2 = f"Qual é a rentabilidade e o ROIC de {ticker}?"
         faq_a2 = f"{ticker} entrega atualmente um ROIC de {roic_str} e um ROE de {roe_str}. No Moat Terminal, o Retorno sobre Capital Investido avalia a capacidade da diretoria de compor valor econômico acima do custo de capital da economia."
@@ -703,7 +1218,7 @@ def build_programmatic_seo():
         faq_a3 = f"Atualmente, {ticker} apresenta um Dividend Yield de {dy_str}. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de {bazin_str} (margem de {bazin_badge}). A distribuição de proventos depende da geração de caixa livre e política de payout."
 
         faq_q4 = f"Qual é o Valor Intrínseco de Graham de {ticker} hoje?"
-        faq_a4 = f"Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para {ticker} é de {graham_str} ({graham_badge}). Negociada a P/L {pl_str} e P/VP {pvp_str}, a ação oferece Spread de Earnings Yield de {ey_spread:+.1f}% sobre o juro real da NTN-B."
+        faq_a4 = f"Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para {ticker} é de {graham_str} ({graham_badge}). Negociada a P/L {pl_str} e P/VP {pvp_str}, a ação oferece Spread de Earnings Yield de {ey_spread_str} a.a. sobre o juro real da NTN-B."
 
         # Schema.org JSON-LD estruturado
         schema_data = {
@@ -781,6 +1296,9 @@ def build_programmatic_seo():
         entry_badge_bg = "bg-emerald-600 text-white" if entry_tag == "ASSIMETRIA_FAVORAVEL" else ("bg-amber-500 text-white" if entry_tag == "PRECO_JUSTO" else "bg-slate-700 text-white")
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else "Tier 3 (No Moat)")
 
+        decomposition_html = generate_moat_decomposition_html(s)
+        badges_html = generate_stock_badges_html(s)
+
         prerendered_hero_html = f"""
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         <div class="flex items-center gap-4 min-w-0">
@@ -800,7 +1318,7 @@ def build_programmatic_seo():
               <span>•</span>
               <span>Segmento: <b class="text-slate-800">{subsetor}</b></span>
               <span>•</span>
-              <span>Liquidez: <b class="text-slate-800">{format_billions(s.get('liq_2m'))}/dia</b></span>
+              <span>Liquidez: <b class="text-slate-800 font-mono">{format_billions(s.get('liq_2m'))}/dia</b></span>
             </div>
           </div>
         </div>
@@ -808,23 +1326,27 @@ def build_programmatic_seo():
         <div class="flex flex-wrap items-center gap-4 sm:gap-6 self-stretch lg:self-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100">
           <div class="flex flex-col text-left lg:text-right">
             <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Cotação Atual</span>
-            <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5">{cot_str}</span>
+            <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5 tabular-nums">{cot_str}</span>
             <span class="text-[10px] text-slate-500 font-sans">Mercado B3 à vista</span>
           </div>
 
           <div class="flex flex-col text-left lg:text-right">
             <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Valor de Mercado</span>
-            <span class="text-lg font-bold font-mono text-slate-800 mt-0.5">{val_merc_str}</span>
+            <span class="text-lg font-bold font-mono text-slate-800 mt-0.5 tabular-nums">{val_merc_str}</span>
             <span class="text-[10px] text-slate-500 font-sans">EV: {val_firma_str}</span>
           </div>
 
           <div class="flex flex-col items-center justify-center p-3 rounded-2xl border bg-white border-slate-300 min-w-[95px] shadow-2xs">
             <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900">{quality_score:.1f}</span>
+            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900 tabular-nums">{score_str}</span>
             <span class="text-[9px] font-mono font-semibold text-slate-700">{tier_label}</span>
           </div>
         </div>
       </div>
+
+      {decomposition_html}
+
+      {badges_html}
 """
 
         # Pre-rendered Editorial Valuation & Sector Peers Section (100% visível para o Googlebot e usuários)
@@ -836,11 +1358,12 @@ def build_programmatic_seo():
             p_pl = format_mult(p.get("pl")) if p.get("pl") is not None else "N/D"
             p_dy = format_pct(p.get("div_yield"))
             p_sc = float(p.get("quality_score", 0) or 0)
+            p_sc_str = f"{p_sc:.1f}".replace(".", ",")
             peers_cards_html.append(f"""
             <a href="/acoes/{p_tick.lower()}/" class="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-[#004B49] hover:shadow-xs transition flex flex-col justify-between group">
               <div class="flex items-center justify-between">
                 <span class="font-mono font-bold text-sm text-slate-900 group-hover:text-[#004B49]">{p_tick}</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">Moat {p_sc:.1f}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">Moat {p_sc_str}</span>
               </div>
               <div class="text-xs text-slate-600 truncate mt-1">{p_emp}</div>
               <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
@@ -852,7 +1375,8 @@ def build_programmatic_seo():
             """)
         peers_cards_joined = "\n".join(peers_cards_html) if peers_cards_html else '<p class="text-xs text-slate-500 font-sans">Nenhum concorrente com liquidez suficiente no mesmo setor.</p>'
 
-        graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin:.1f}% segundo o método clássico de Benjamin Graham." if (graham_margin and graham_margin > 0) else f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
+        graham_margin_val_str = f"{graham_margin:.1f}%".replace(".", ",") if graham_margin is not None else ""
+        graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin_val_str} segundo o método clássico de Benjamin Graham." if (graham_margin and graham_margin > 0) else f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
         bazin_interpretation = f"Com dividendo atual de {dy_str}, o preço teto de Bazin (exigência de 6% a.a.) fica em {bazin_str}, proporcionando margem favorável de proventos frente à cotação atual." if (bazin_margin and bazin_margin > 0) else f"Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de {bazin_str}. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto."
 
         editorial_section_html = f"""
@@ -912,7 +1436,7 @@ def build_programmatic_seo():
                 { 'Prêmio Positivo' if ey_spread > 0 else 'Abaixo do IPCA+' }
               </span>
             </div>
-            <div class="text-xl font-bold font-mono text-slate-900">{ey_spread:+.1f}% a.a.</div>
+            <div class="text-xl font-bold font-mono text-slate-900">{ey_spread_str} a.a.</div>
             <p class="text-xs text-slate-600 font-sans leading-relaxed">
               Earnings Yield da companhia contra a taxa real da NTN-B 2035 do Tesouro Direto (~6,5% a.a. acima do IPCA).
             </p>
@@ -1003,10 +1527,21 @@ def build_programmatic_seo():
             '<meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">',
             f'<meta name="description" content="{meta_desc}">'
         )
-        page_html = page_html.replace(
-            '<link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/empresa.html">',
-            f'<link rel="canonical" id="canonicalTag" href="{canonical_url}">'
+        
+        # Ensure robots is index, follow on individual stock pages
+        page_html = re.sub(r'<meta\s+name="robots"\s+content="[^"]*">', '<meta name="robots" content="index, follow">', page_html)
+
+        # Ensure canonical tag is exact, self-referential, lowercase, with trailing slash and without mutation id
+        page_html = re.sub(r'<link\s+rel="canonical"[^>]*>', f'<link rel="canonical" href="{canonical_url}">', page_html)
+
+        # Strip out any client-side canonical mutation script from programmatic pages
+        page_html = re.sub(
+            r'<script>\s*\(function\(\)\s*\{.*?canonicalTag.*?\}\)\(\);\s*</script>\s*',
+            '',
+            page_html,
+            flags=re.DOTALL
         )
+
         page_html = page_html.replace(
             '<meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/empresa.html">',
             f'<meta property="og:url" id="ogUrl" content="{canonical_url}">'
@@ -1028,8 +1563,13 @@ def build_programmatic_seo():
             f'<meta name="twitter:description" content="{og_desc}">'
         )
 
-        # 2. Substituir Schema.org JSON-LD de forma robusta
-        old_schema_str = """  <!-- Schema.org JSON-LD -->
+        # 2. Substituir Schema.org JSON-LD de forma robusta no <head>
+        new_schema_block = f"""<!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->\n  <script type="application/ld+json">\n{schema_json_str}\n  </script>"""
+        schema_pattern = r'<!-- Schema\.org JSON-LD -->\s*<script type="application/ld\+json">.*?</script>'
+        if re.search(schema_pattern, page_html, flags=re.DOTALL):
+            page_html = re.sub(schema_pattern, new_schema_block, page_html, count=1, flags=re.DOTALL)
+        else:
+            old_schema_str = """  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1043,11 +1583,7 @@ def build_programmatic_seo():
     }
   }
   </script>"""
-        new_schema_str = f"""  <!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->
-  <script type="application/ld+json">
-{schema_json_str}
-  </script>"""
-        page_html = page_html.replace(old_schema_str, new_schema_str)
+            page_html = page_html.replace(old_schema_str, new_schema_block)
 
         # 3. Inserir Breadcrumbs e Hero Pre-renderizado
         old_hero_container = """    <!-- 1. HERO SECTION: CABEÇALHO DO ATIVO -->
@@ -1095,6 +1631,30 @@ def build_programmatic_seo():
             'companySearchResults = APP_DATA.stocks.map(',
             'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).map('
         )
+        page_html = page_html.replace(
+            'companySearchResults = APP_DATA.stocks.filter(',
+            'companySearchResults = (APP_DATA.searchIndex || APP_DATA.stocks).filter('
+        )
+
+        # 9. Pré-renderizar Mini-Matriz Estratégica 2x2
+        mini_matrix_info = generate_prerendered_mini_matrix_html(s, stocks)
+        if mini_matrix_info:
+            page_html = page_html.replace(
+                '<span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-900 border-emerald-200">--</span>',
+                mini_matrix_info["badge"]
+            )
+            page_html = page_html.replace(
+                '<svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">\n              <!-- Injetado dinamicamente via JS / Pre-renderizado SSR -->\n            </svg>',
+                mini_matrix_info["svg"]
+            )
+            page_html = page_html.replace(
+                '<div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">\n            <!-- Texto dinâmico de explicação institucional -->\n          </div>',
+                mini_matrix_info["rationale"]
+            )
+            page_html = page_html.replace(
+                '<b class="text-slate-800" id="miniMatrixPeerCount">75+ empresas</b>',
+                f'<b class="text-slate-800" id="miniMatrixPeerCount">{mini_matrix_info["peer_count"]}</b>'
+            )
 
         # Gravar arquivo estatico na pasta acoes/{ticker_lower}/index.html
         stock_dir = os.path.join(acoes_root, ticker_lower)

@@ -146,8 +146,10 @@
       background: #EAEAE4;
       color: #0F172A;
     }
-    .mono-num {
+    .mono-num, .font-mono, [data-num], table td, .tabular-nums {
       font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
     }
     ::-webkit-scrollbar {
       width: 6px;
@@ -348,10 +350,10 @@
                    oninput="handleSearchInput(this.value)" 
                    onkeydown="handleSearchKeydown(event)" 
                    onfocus="handleSearchFocus()" 
-                   placeholder="Buscar Ativo..." 
+                   placeholder="Buscar ativo ou empresa... (Ctrl+K)" 
                    autocomplete="off"
-                   class="w-24 xs:w-28 sm:w-44 md:w-56 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-7 py-1 sm:py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
-            <kbd class="hidden sm:inline-block absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+                   class="w-24 xs:w-28 sm:w-44 md:w-56 bg-[#F4F4F0] border border-[#E7E7E2] rounded-xl pl-8 pr-2 sm:pr-14 py-1 sm:py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-[#004B49] focus:ring-1 focus:ring-[#004B49]/20 font-sans transition shadow-xs">
+            <kbd class="hidden sm:inline-flex items-center gap-0.5 absolute right-2 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1.5 py-0.5 rounded shadow-3xs pointer-events-none select-none"><span>Ctrl</span><span>K</span></kbd>
           </div>
 
           <!-- Dropdown de Sugestões em Tempo Real (Fixo no mobile para ocupar a tela com perfeição, absoluto ancorado no desktop) -->
@@ -880,6 +882,36 @@
             <span class="hidden sm:inline">Ver no Dossiê ➜</span>
             <span class="sm:hidden">Dossiê ➜</span>
           </button>
+        </div>
+      </div>
+
+      <!-- Barra de Filtros Rápidos de Quadrante & Setor (Anti-Poluição Visual) -->
+      <div class="px-3 sm:px-4 py-2 bg-slate-50/90 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs font-mono flex-shrink-0 z-10 shadow-3xs">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="text-[10.5px] font-bold text-slate-500 uppercase tracking-wider hidden sm:inline mr-1">Filtro Rápido:</span>
+          
+          <button id="mqf-ALL" onclick="setMatrixQuickFilter('ALL')" class="matrix-qbtn active px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-emerald-700 text-white border-emerald-800 shadow-2xs">
+            Todos
+          </button>
+          
+          <button id="mqf-COMPOUNDERS" onclick="setMatrixQuickFilter('COMPOUNDERS')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-emerald-950 border-emerald-300 hover:bg-emerald-50 shadow-2xs">
+            ⭐ Compounders Descontadas (Q1)
+          </button>
+          
+          <button id="mqf-TIER1" onclick="setMatrixQuickFilter('TIER1')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
+            🏆 Apenas Tier 1 (Score ≥ 80)
+          </button>
+          
+          <button id="mqf-BELOW_NTNB" onclick="setMatrixQuickFilter('BELOW_NTNB')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
+            📉 Abaixo da NTN-B (P/L ≤ 15,4x)
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 ml-auto">
+          <span class="text-[11px] text-slate-500 hidden md:inline">Setor:</span>
+          <select id="matrixSectorQuickSelect" onchange="setMatrixSectorFilter(this.value)" class="bg-white border border-slate-200 rounded-lg px-2.5 py-1 text-xs text-slate-800 font-sans focus:outline-none focus:border-emerald-600 shadow-3xs">
+            <option value="ALL">Todos os Setores</option>
+          </select>
         </div>
       </div>
 
@@ -1449,7 +1481,7 @@
 
     function formatMultiple(v) {
       if (v === null || v === undefined) return 'N/D';
-      return Number(v).toFixed(2) + 'x';
+      return Number(v).toFixed(2).replace('.', ',') + 'x';
     }
 
     // HIERARQUIA UNIVERSAL DE CORES SEMÂNTICAS (VERDE, VERMELHO, AMARELO, AZUL)
@@ -1645,19 +1677,20 @@
       });
     }
 
-    // Rótulos e Categorias Institucionais Munger da Ação (Até 5 por ativo)
+    // Rótulos e Categorias Institucionais Munger da Ação (Status Pills Minimalistas)
     function getStockCategories(s) {
       const cats = [];
       if (!s) return cats;
 
-      // 1. DIMENSÃO SOLVÊNCIA & BALANÇO (Prioridade)
+      // 1. GRUPO: QUALIDADE & BALANÇO
       if (s.is_financial) {
         cats.push({
           id: 'CAT_FINANCIAL',
-          label: 'Intermediação Financeira (Bancos)',
-          shortLabel: 'Bancos',
-          icon: '🏛️',
-          bgClass: 'bg-indigo-50 text-indigo-950 border border-indigo-200 font-semibold'
+          group: 'QUALIDADE',
+          label: 'Intermediação Financeira (Bancos & Seguros)',
+          shortLabel: 'Bancos / Finanças',
+          ledClass: 'bg-indigo-500',
+          bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
         });
       } else {
         const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
@@ -1665,101 +1698,78 @@
         if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {
           cats.push({
             id: 'CAT_NET_CASH',
-            label: 'Caixa Líquido Positivo',
-            shortLabel: 'Caixa Líq.',
-            icon: '🛡️',
-            bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
+            group: 'QUALIDADE',
+            label: 'Caixa Líquido (Dívida Zero)',
+            shortLabel: 'Caixa Líquido',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           });
         } else if (dle !== null && dle > 2.5) {
           cats.push({
             id: 'CAT_HIGH_DEBT',
-            label: 'Alavancagem Alta (Crítica > 2.5x)',
+            group: 'QUALIDADE',
+            label: 'Alavancagem Alta (> 2,5x EBITDA)',
             shortLabel: 'Alavancagem Alta',
-            icon: '🚨',
-            bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
+            ledClass: 'bg-rose-500',
+            bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
           });
         } else if (dle !== null && dle <= 1.8) {
           cats.push({
             id: 'CAT_BALANCED_DEBT',
-            label: 'Dívida Equilibrada',
-            shortLabel: 'Dívida Ok',
-            icon: '⚖️',
-            bgClass: 'bg-slate-100 text-slate-800 border border-slate-300 font-semibold'
+            group: 'QUALIDADE',
+            label: 'Dívida Equilibrada (≤ 1,8x EBITDA)',
+            shortLabel: 'Dívida Equilibrada',
+            ledClass: 'bg-slate-400',
+            bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
           });
         }
       }
 
-      // 2. DIMENSÃO MOMENTO DOS RESULTADOS & RECORRÊNCIA
-      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {
-        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {
-          cats.push({
-            id: 'CAT_EXPANSION',
-            label: 'Lucro Acelerando (Expansão 2T26)',
-            shortLabel: 'Lucro Acelerando',
-            icon: '⚡',
-            bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-          });
-        } else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {
-          cats.push({
-            id: 'CAT_DECELERATION',
-            label: 'Lucro em Retração (Desaceleração 2T26)',
-            shortLabel: 'Lucro em Retração',
-            icon: '⚠️',
-            bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-          });
-        }
+      // Qualidade: Tier 1 & Super ROIC
+      const roicOrRoe = s.roic || s.roe || 0;
+      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {
+        cats.push({
+          id: 'CAT_TIER1',
+          group: 'QUALIDADE',
+          label: 'Wide Moat (Tier 1)',
+          shortLabel: 'Tier 1 (Wide Moat)',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        });
+      } else if (!s.is_financial && s.roic >= 0.18) {
+        cats.push({
+          id: 'CAT_HIGH_ROIC',
+          group: 'QUALIDADE',
+          label: 'Super ROIC (≥ 18%)',
+          shortLabel: 'Super ROIC ≥ 18%',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        });
       }
 
       if (!s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {
         cats.push({
           id: 'CAT_CLEAN_EARNINGS',
-          label: 'Lucro Limpo & Recorrente',
-          shortLabel: 'Lucro Limpo',
-          icon: '💎',
-          bgClass: 'bg-teal-50 text-teal-950 border border-teal-300 font-semibold'
+          group: 'QUALIDADE',
+          label: 'Lucro Limpo & Recorrente (5 Anos)',
+          shortLabel: 'Lucro Limpo 5A',
+          ledClass: 'bg-teal-500',
+          bgClass: 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium'
         });
       }
 
-      // 3. DIMENSÃO QUALIDADE & EFICIÊNCIA DE CAPITAL
-      const roicOrRoe = s.roic || s.roe || 0;
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {
+      if (s.is_distorted) {
         cats.push({
-          id: 'CAT_TIER1',
-          label: 'Wide Moat (Tier 1)',
-          shortLabel: 'Wide Moat (Tier 1)',
-          icon: '🏆',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        });
-      } else if (!s.is_financial && s.roic >= 0.18) {
-        cats.push({
-          id: 'CAT_HIGH_ROIC',
-          label: 'Super ROIC (≥ 18%)',
-          shortLabel: 'Super ROIC',
-          icon: '🏰',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
+          id: 'CAT_DISTORTION',
+          group: 'QUALIDADE',
+          label: 'Distorção Contábil / One-Off',
+          shortLabel: 'Distorção One-off',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
         });
       }
 
-      // 4. DIMENSÃO DIVIDENDOS & PROVENTOS
-      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
-        cats.push({
-          id: 'CAT_DIVIDENDS',
-          label: 'Dividendos Consistentes (> 6%)',
-          shortLabel: 'Dividendos > 6%',
-          icon: '💰',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        });
-      } else if (s.payout_implicito !== null && s.payout_implicito > 105) {
-        cats.push({
-          id: 'CAT_PAYOUT_RISK',
-          label: 'Payout Excessivo (> 100%)',
-          shortLabel: 'Payout Alto',
-          icon: '⚠️',
-          bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
-        });
-      }
-
-      // 5. DIMENSÃO VALUATION & MARGEM DE SEGURANÇA
+      // 2. GRUPO: VALUATION & MOMENTO
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
@@ -1768,10 +1778,11 @@
         if (graham > cot * 1.15) {
           cats.push({
             id: 'CAT_GRAHAM',
-            label: 'Desconto Graham',
-            shortLabel: 'Graham',
-            icon: '📐',
-            bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+            group: 'VALUATION',
+            label: 'Desconto Graham (Margem > 15%)',
+            shortLabel: 'Desconto Graham',
+            ledClass: 'bg-cyan-500',
+            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
           });
         }
       }
@@ -1780,45 +1791,82 @@
         if (bazin > cot * 1.15) {
           cats.push({
             id: 'CAT_BAZIN',
+            group: 'VALUATION',
             label: 'Referência Décio Bazin (DY 6%)',
-            shortLabel: 'Ref. Bazin',
-            icon: '🎯',
-            bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+            shortLabel: 'Ref. Bazin (DY 6%)',
+            ledClass: 'bg-cyan-500',
+            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
           });
         }
       }
       if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {
         cats.push({
           id: 'CAT_SPREAD_NTNB',
-          label: 'Prêmio Real sobre NTN-B',
-          shortLabel: 'Prêmio Real',
-          icon: '📈',
-          bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+          group: 'VALUATION',
+          label: 'Prêmio Real sobre NTN-B (+2% IPCA)',
+          shortLabel: 'Prêmio Real NTN-B',
+          ledClass: 'bg-cyan-500',
+          bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
         });
       }
 
-      // 6. RISCOS DE CICLO & CONTÁBEIS
+      // Momento de Resultados
+      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {
+        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {
+          cats.push({
+            id: 'CAT_EXPANSION',
+            group: 'VALUATION',
+            label: 'Lucro Acelerando (Expansão 2T26)',
+            shortLabel: 'Lucro Acelerando',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          });
+        } else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {
+          cats.push({
+            id: 'CAT_DECELERATION',
+            group: 'VALUATION',
+            label: 'Lucro em Retração (Desaceleração 2T26)',
+            shortLabel: 'Lucro em Retração',
+            ledClass: 'bg-amber-500',
+            bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+          });
+        }
+      }
+
+      // Proventos & Payout
+      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
+        cats.push({
+          id: 'CAT_DIVIDENDS',
+          group: 'VALUATION',
+          label: 'Dividendos Consistentes (> 6%)',
+          shortLabel: 'Dividendos Consistentes',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        });
+      } else if (s.payout_implicito !== null && s.payout_implicito > 105) {
+        cats.push({
+          id: 'CAT_PAYOUT_RISK',
+          group: 'VALUATION',
+          label: 'Payout Excessivo (> 100%)',
+          shortLabel: 'Payout Elevado',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+        });
+      }
+
+      // Risco de Ciclo
       if (s.is_commodity_peak) {
         cats.push({
           id: 'CAT_COMMODITY_PEAK',
+          group: 'VALUATION',
           label: 'Risco de Ciclo Commodities',
-          shortLabel: 'Pico Ciclo',
-          icon: '⚠️',
-          bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-        });
-      }
-      if (s.is_distorted) {
-        cats.push({
-          id: 'CAT_DISTORTION',
-          label: 'Distorção Contábil / One-Off',
-          shortLabel: 'One-off',
-          icon: '🔍',
-          bgClass: 'bg-purple-50 text-purple-950 border border-purple-300 font-semibold'
+          shortLabel: 'Pico de Ciclo',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
         });
       }
 
-      // Retorna no máximo 5 etiquetas por empresa para não poluir
-      return cats.slice(0, 5);
+      return cats;
     }
 
     function updateFilterCounts() {
@@ -2029,9 +2077,12 @@
       searchQuery = val.trim();
       const dd = document.getElementById('searchDropdown');
       if (!val || val.trim().length === 0) {
-        if (dd) dd.classList.add('hidden');
-        currentSearchResults = [];
+        currentSearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
         searchHighlightedIndex = -1;
+        renderSearchDropdown();
         renderActiveFilterChips();
         render();
         return;
@@ -2069,8 +2120,16 @@
 
     function handleSearchFocus() {
       const inp = document.getElementById('searchInput');
-      if (inp && inp.value.trim().length > 0) {
+      if (!inp) return;
+      if (inp.value.trim().length > 0) {
         handleSearchInput(inp.value);
+      } else {
+        currentSearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
+        searchHighlightedIndex = -1;
+        renderSearchDropdown();
       }
     }
 
@@ -2088,17 +2147,25 @@
         return;
       }
 
+      const isDefaultHighlights = !searchQuery || searchQuery.trim().length === 0;
+
       dd.innerHTML = `
         <div class="p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>${currentSearchResults.length} sugestões encontradas</span>
+          <span>${isDefaultHighlights ? '⭐ Destaques em Cobertura' : `${currentSearchResults.length} sugestões encontradas`}</span>
           <span>Navegue com <b>↑</b> <b>↓</b> e <b>Enter</b></span>
         </div>
         ${currentSearchResults.map((s, idx) => {
           const isHigh = idx === searchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const scoreClass = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1) + 'x' : 'N/D';
-          const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tierClass = tier === 'Tier 1' 
+            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+          const scoreClass = s.quality_score >= 80 
+            ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
+            : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
+          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
+          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
 
           return `
             <div onclick="selectSearchStock('${s.ticker}')" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
@@ -2114,12 +2181,14 @@
                 </div>
               </div>
               <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                <div class="flex items-center gap-1">
-                  <span class="text-xs font-mono font-bold text-slate-900">${formatCurrency(s.cotacao)}</span>
-                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${scoreClass}">${s.quality_score.toFixed(0)} pts</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${tierClass}">${tier}</span>
+                  <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${scoreClass} tabular-nums">${scoreStr} pts</span>
                 </div>
-                <div class="text-[10px] font-mono text-slate-500">
-                  P/L: <b class="text-slate-800">${plStr}</b> • DY: <b class="text-emerald-700">${dyStr}</b>
+                <div class="text-[10.5px] font-mono text-slate-500 flex items-center gap-2">
+                  <span>P/L: <b class="text-slate-900 font-bold tabular-nums">${plStr}</b></span>
+                  <span class="text-slate-300">•</span>
+                  <span class="font-bold text-slate-800 tabular-nums">${formatCurrency(s.cotacao)}</span>
                 </div>
               </div>
             </div>
@@ -3322,6 +3391,38 @@
       renderMatrix();
     }
 
+    let matrixQuickQuadrant = 'ALL';
+    let matrixQuickSector = 'ALL';
+
+    function setMatrixQuickFilter(q) {
+      matrixQuickQuadrant = q;
+      document.querySelectorAll('.matrix-qbtn').forEach(btn => {
+        btn.className = 'matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs';
+      });
+      const activeBtn = document.getElementById('mqf-' + q);
+      if (activeBtn) {
+        activeBtn.className = 'matrix-qbtn active px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-emerald-700 text-white border-emerald-800 shadow-2xs';
+      }
+      renderMatrix();
+    }
+
+    function setMatrixSectorFilter(sec) {
+      matrixQuickSector = sec;
+      renderMatrix();
+    }
+
+    function populateMatrixSectorSelect() {
+      const sel = document.getElementById('matrixSectorQuickSelect');
+      if (!sel || sel.options.length > 1) return;
+      const sectors = Array.from(new Set(APP_DATA.stocks.map(s => s.setor).filter(Boolean))).sort();
+      sectors.forEach(sec => {
+        const opt = document.createElement('option');
+        opt.value = sec;
+        opt.textContent = sec;
+        sel.appendChild(opt);
+      });
+    }
+
     function zoomMatrix(factor) {
       const svg = document.getElementById('matrixSvg');
       if (!svg) return;
@@ -3536,31 +3637,31 @@
 
       const elPl = document.getElementById('kp-cat-pl');
       if (elPl) {
-        elPl.innerText = avgPl > 0 ? avgPl.toFixed(1) + 'x' : 'N/D';
+        elPl.innerText = avgPl > 0 ? avgPl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
         elPl.className = 'text-base font-bold font-mono ' + getColorPl(avgPl);
       }
 
       const elRoic = document.getElementById('kp-cat-roic');
       if (elRoic) {
-        elRoic.innerText = avgRoic > 0 ? (avgRoic * 100).toFixed(1) + '%' : 'N/D';
+        elRoic.innerText = avgRoic > 0 ? (avgRoic * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
         elRoic.className = 'text-base font-bold font-mono ' + getColorRoe(avgRoic);
       }
 
       const elDy = document.getElementById('kp-cat-dy');
       if (elDy) {
-        elDy.innerText = avgDy > 0 ? (avgDy * 100).toFixed(1) + '%' : 'N/D';
+        elDy.innerText = avgDy > 0 ? (avgDy * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
         elDy.className = 'text-base font-bold font-mono ' + getColorDy(avgDy);
       }
 
       const elSpread = document.getElementById('kp-cat-spread');
       if (elSpread) {
-        elSpread.innerText = countSpread > 0 ? (avgSpread > 0 ? '+' : '') + avgSpread.toFixed(1) + '%' : 'N/D';
+        elSpread.innerText = countSpread > 0 ? (avgSpread > 0 ? '+' : '') + avgSpread.toFixed(1).replace('.', ',') + '%' : 'N/D';
         elSpread.className = 'text-base font-bold font-mono ' + getColorSpread(avgSpread);
       }
 
       const elScore = document.getElementById('kp-cat-score');
       if (elScore) {
-        elScore.innerText = avgScore > 0 ? avgScore.toFixed(1) + ' pts' : 'N/D';
+        elScore.innerText = avgScore > 0 ? avgScore.toFixed(1).replace('.', ',') + ' pts' : 'N/D';
         elScore.className = 'text-base font-bold font-mono ' + (avgScore >= 80 ? 'text-emerald-700' : (avgScore >= 65 ? 'text-indigo-800' : 'text-slate-800'));
       }
 
@@ -3605,7 +3706,7 @@
         let rrStr = '';
         let rrColor = 'text-slate-500';
         if (s.pl_run_rate !== null && s.pl_run_rate !== undefined) {
-          rrStr = 'RR: ' + Number(s.pl_run_rate).toFixed(1) + 'x';
+          rrStr = 'RR: ' + Number(s.pl_run_rate).toFixed(1).replace('.', ',') + 'x';
           if (s.pl !== null && s.pl > 0) {
             if (s.pl_run_rate < s.pl * 0.85) rrColor = 'text-[#004B49] font-bold';
             else if (s.pl_run_rate > s.pl * 1.25) rrColor = 'text-amber-700 font-bold';
@@ -3624,9 +3725,9 @@
         if (s.is_financial) {
           debtDisplay = '<span class="text-[10px] text-[#004B49] font-semibold">Banco (Basileia)</span>';
         } else if ((s.details && s.details.divida_liquida !== null && s.details.divida_liquida <= 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0)) {
-          debtDisplay = '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Caixa Líq. 🛡️</span>';
+          debtDisplay = '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Caixa Líq.</span>';
         } else if (s.div_liq_ebitda !== null) {
-          debtDisplay = Number(s.div_liq_ebitda).toFixed(1) + 'x';
+          debtDisplay = Number(s.div_liq_ebitda).toFixed(1).replace('.', ',') + 'x';
         }
 
         // Score Badge
@@ -3634,11 +3735,12 @@
           ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold' 
           : (s.quality_score >= 65 ? 'bg-amber-50 text-amber-900 border border-amber-300 font-bold' : 'bg-slate-50 text-slate-700 border border-slate-200');
 
-        // Categorias atribuídas (máximo 5)
+        // Categorias atribuídas (Status Pills Minimalistas)
         const categories = getStockCategories(s);
-        const tagsHtml = categories.map(c => `
-          <button onclick="event.stopPropagation(); setFilter('${c.id}')" class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold ${c.bgClass} hover:brightness-110 transition cursor-pointer" title="Filtrar por ${c.label}">
-            <span>${c.icon}</span> <span>${c.shortLabel || c.label}</span>
+        const tagsHtml = categories.slice(0, 4).map(c => `
+          <button onclick="event.stopPropagation(); setFilter('${c.id}')" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9.5px] font-mono font-medium ${c.bgClass} hover:brightness-95 transition cursor-pointer" title="Filtrar por ${c.label}">
+            <span class="w-1.5 h-1.5 rounded-full ${c.ledClass} inline-block"></span>
+            <span>${c.shortLabel || c.label}</span>
           </button>
         `).join('');
 
@@ -3647,7 +3749,7 @@
           : ((s.ev_ebitda !== null && s.ev_ebitda !== undefined && s.ev_ebitda > 0) ? formatMultiple(s.ev_ebitda) : 'N/D');
 
         const spreadStr = (s.ey_spread !== null && s.ey_spread !== undefined) 
-          ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '%' 
+          ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1).replace('.', ',') + '%' 
           : 'N/D';
         const spreadClass = getColorSpread(s.ey_spread);
 
@@ -3668,28 +3770,28 @@
               </div>
             </div>
           </td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-[#E7E7E2]">${formatCurrency(s.cotacao)}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-[#E7E7E2] tabular-nums">${formatCurrency(s.cotacao)}</td>
           <td class="py-3.5 px-2 text-center border-b border-[#E7E7E2]">
-            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] ${scoreBadgeClass}" title="Moat Score: ${s.quality_score.toFixed(1)} / 92.5">
-              ${s.quality_score.toFixed(1)}
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] tabular-nums ${scoreBadgeClass}" title="Moat Score: ${s.quality_score.toFixed(1).replace('.', ',')} / 92.5">
+              ${s.quality_score.toFixed(1).replace('.', ',')}
             </span>
           </td>
-          <td class="py-3.5 px-2.5 text-right font-mono border-b border-[#E7E7E2]">
+          <td class="py-3.5 px-2.5 text-right font-mono border-b border-[#E7E7E2] tabular-nums">
             <div class="text-xs font-semibold ${getColorPl(s.pl)} leading-tight">${formatMultiple(s.pl)}</div>
             ${rrStr ? '<div class="text-[9px] ' + rrColor + ' leading-none mt-0.5" title="P/L Run-Rate">' + rrStr + '</div>' : ''}
           </td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] text-slate-800 font-medium">
+          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] text-slate-800 font-medium tabular-nums">
             ${evDisplay}
           </td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] ${roicColor}">${roicDisplay}</td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] ${roeColor}">${roeDisplay}</td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] ${getColorDy(s.div_yield)}">${formatPercent(s.div_yield)}</td>
-          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] ${debtClass}">${debtDisplay}</td>
-          <td class="py-3.5 px-2.5 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] ${spreadClass}">
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] tabular-nums ${roicColor}">${roicDisplay}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-semibold border-b border-[#E7E7E2] tabular-nums ${roeColor}">${roeDisplay}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] tabular-nums ${getColorDy(s.div_yield)}">${formatPercent(s.div_yield)}</td>
+          <td class="py-3.5 px-2 text-xs text-right font-mono border-b border-[#E7E7E2] tabular-nums ${debtClass}">${debtDisplay}</td>
+          <td class="py-3.5 px-2.5 text-xs text-right font-mono font-bold border-b border-[#E7E7E2] tabular-nums ${spreadClass}">
             ${spreadStr}
           </td>
           <td class="py-3.5 px-3 border-b border-[#E7E7E2]">
-            <div class="flex flex-wrap items-center gap-1 max-w-[280px]">
+            <div class="flex flex-wrap items-center gap-1.5 max-w-[280px]">
               ${tagsHtml}
             </div>
           </td>
@@ -3704,8 +3806,24 @@
       if (!svg) return;
       svg.innerHTML = '';
 
-      const stocks = getFilteredStocks().filter(s => s.pl !== null && s.pl > 0 && s.pl <= 35.0);
+      populateMatrixSectorSelect();
+
+      let stocks = getFilteredStocks().filter(s => s.pl !== null && s.pl > 0 && s.pl <= 35.0);
       const isPl = currentXMetric === 'pl';
+      const limiarQuality = 80.0;
+      const limiarValuation = isPl ? 15.38 : 6.5;
+
+      if (matrixQuickQuadrant === 'COMPOUNDERS') {
+        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0 && (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
+      } else if (matrixQuickQuadrant === 'TIER1') {
+        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0);
+      } else if (matrixQuickQuadrant === 'BELOW_NTNB') {
+        stocks = stocks.filter(s => (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
+      }
+
+      if (matrixQuickSector && matrixQuickSector !== 'ALL') {
+        stocks = stocks.filter(s => (s.setor || '').trim().toLowerCase() === matrixQuickSector.trim().toLowerCase());
+      }
 
       const padL = 70, padR = 30, padT = 35, padB = 55;
       const w = 1200, h = 700;
@@ -3748,9 +3866,7 @@
         return 6.5;
       }
 
-      // Limiares dos 4 Quadrantes Estratégicos 2x2
-      const limiarQuality = 75.0;
-      const limiarValuation = isPl ? 14.0 : 7.14;
+      // Limiares dos 4 Quadrantes Estratégicos 2x2 (Tier 1: 80 pts | NTN-B: 6,5% a.a. / 15,38x)
       const yCross = scaleY(limiarQuality);
       const xCross = scaleX(limiarValuation);
 
@@ -3767,27 +3883,36 @@
           <!-- Fundo Branco Base Clean -->
           <rect x="${padL - 3000}" y="${padT - 3000}" width="6000" height="6000" fill="#FFFFFF" />
 
-          <!-- Linhas Divisórias dos 4 Quadrantes 2x2 -->
-          <line x1="${padL}" y1="${yCross}" x2="${padL + innerW}" y2="${yCross}" stroke="#10B981" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.45" />
-          <line x1="${xCross}" y1="${padT}" x2="${xCross}" y2="${padT + innerH}" stroke="#64748B" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.4" />
+          <!-- Linhas Divisórias dos 4 Quadrantes 2x2 com Cortes NTN-B & Tier 1 -->
+          <line x1="${padL}" y1="${yCross}" x2="${padL + innerW}" y2="${yCross}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
+          <line x1="${xCross}" y1="${padT}" x2="${xCross}" y2="${padT + innerH}" stroke="#0284C7" stroke-width="2" stroke-dasharray="6,4" opacity="0.75" />
+
+          <!-- Badges Visuais nos Cortes NTN-B e Tier 1 -->
+          <g class="pointer-events-none select-none">
+            <rect x="${padL + 12}" y="${Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11))}" width="180" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+            <text x="${padL + 18}" y="${Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11)) + 15}" fill="#065F46" font-size="11" font-family="JetBrains Mono" font-weight="800">Corte Tier 1: Moat ≥ 80 pts</text>
+
+            <rect x="${Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97))}" y="${padT + innerH - 26}" width="195" height="22" rx="4" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
+            <text x="${Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97)) + 97}" y="${padT + innerH - 11}" text-anchor="middle" fill="#0369A1" font-size="10.5" font-family="JetBrains Mono" font-weight="800">Corte NTN-B: 6,5% | P/L 15,4x</text>
+          </g>
 
           <!-- Rótulos dos Quadrantes 2x2 (Watermarks Institucionais) -->
           <g class="pointer-events-none select-none">
             <!-- Q1: Superior Esquerdo -->
-            <text x="${padL + 18}" y="${padT + 24}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: ALTA QUALIDADE &amp; VALUATION ATRATIVO</text>
-            <text x="${padL + 18}" y="${padT + 40}" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &ge; 75 | ${isPl ? 'P/L &le; 14x' : 'EY &ge; 7.1%'}</text>
+            <text x="${padL + 18}" y="${padT + 24}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q1: COMPOUNDERS DESCONTADAS</text>
+            <text x="${padL + 18}" y="${padT + 40}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${isPl ? 'P/L ≤ 15,4x (Acima da NTN-B)' : 'EY ≥ 6,5% (Acima da NTN-B)'}</text>
 
             <!-- Q2: Superior Direito -->
-            <text x="${padL + innerW - 18}" y="${padT + 24}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: QUALIDADE COM PRÊMIO DE CRESCIMENTO</text>
-            <text x="${padL + innerW - 18}" y="${padT + 40}" text-anchor="end" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &ge; 75 | ${isPl ? 'P/L &gt; 14x' : 'EY &lt; 7.1%'}</text>
+            <text x="${padL + innerW - 18}" y="${padT + 24}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q2: QUALIDADE COM PRÊMIO</text>
+            <text x="${padL + innerW - 18}" y="${padT + 40}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${isPl ? 'P/L > 15,4x (Abaixo da NTN-B)' : 'EY < 6,5%'}</text>
 
             <!-- Q3: Inferior Esquerdo -->
-            <text x="${padL + 18}" y="${padT + innerH - 30}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: MÚLTIPLOS BAIXOS (ATENÇÃO A MOAT)</text>
-            <text x="${padL + 18}" y="${padT + innerH - 14}" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &lt; 75 | ${isPl ? 'P/L &le; 14x' : 'EY &ge; 7.1%'}</text>
+            <text x="${padL + 18}" y="${padT + innerH - 34}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q3: MÚLTIPLOS ATRATIVOS / RETORNO CÍCLICO</text>
+            <text x="${padL + 18}" y="${padT + innerH - 18}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${isPl ? 'P/L ≤ 15,4x (Atenção a Value Trap)' : 'EY ≥ 6,5%'}</text>
 
             <!-- Q4: Inferior Direito -->
-            <text x="${padL + innerW - 18}" y="${padT + innerH - 30}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: MÚLTIPLOS ELEVADOS &amp; BAIXO MOAT</text>
-            <text x="${padL + innerW - 18}" y="${padT + innerH - 14}" text-anchor="end" fill="#64748B" font-size="11" font-family="Inter" font-weight="600" opacity="0.7">Score &lt; 75 | ${isPl ? 'P/L &gt; 14x' : 'EY &lt; 7.1%'}</text>
+            <text x="${padL + innerW - 18}" y="${padT + innerH - 34}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q4: VALUATION ELEVADO / BAIXA PROTEÇÃO</text>
+            <text x="${padL + innerW - 18}" y="${padT + innerH - 18}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${isPl ? 'P/L > 15,4x' : 'EY < 6,5%'}</text>
           </g>
         </g>
       `;
@@ -3809,11 +3934,11 @@
 
       // Gerar Grid Ticks dinâmicos
       // Y Ticks (Quality Score: 20 a 100)
-      const yTickVals = [20, 30, 40, 50, 60, 70, 75, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
+      const yTickVals = [20, 30, 40, 50, 60, 70, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
       yTickVals.forEach(v => {
         const ty = scaleY(v);
         if (ty >= padT && ty <= padT + innerH) {
-          const isLimiar = (v === 75);
+          const isLimiar = (v === 80);
           svgHtml += `
             <line x1="${padL}" y1="${ty}" x2="${padL + innerW}" y2="${ty}" stroke="${isLimiar ? '#A7F3D0' : '#E2E8F0'}" stroke-width="${isLimiar ? 1.5 : 1}" stroke-dasharray="${isLimiar ? '4,4' : '2,2'}" />
             <text x="${padL - 10}" y="${ty + 5}" text-anchor="end" fill="${isLimiar ? '#059669' : '#475569'}" font-size="14" font-family="JetBrains Mono" font-weight="${isLimiar ? '900' : '700'}">${v}</text>
@@ -3904,11 +4029,11 @@
 
         // Modo 4: Quadrantes Estratégicos 2x2 (quadrant)
         if (matrixColorMode === 'quadrant') {
-          const isHighQuality = (s.quality_score || 0) >= 75;
-          const isLowPl = isPl ? (s.pl <= 14.0) : (s.earnings_yield_pct >= 7.14);
-          if (isHighQuality && isLowPl) return { fill: '#10B981', stroke: '#6EE7B7' }; // Q1 Verde Esmeralda (Alta Qualidade + Múltiplos Baixos)
-          if (isHighQuality && !isLowPl) return { fill: '#0284C7', stroke: '#7DD3FC' }; // Q2 Azul Celeste (Alta Qualidade + Múltiplos Altos)
-          if (!isHighQuality && isLowPl) return { fill: '#F59E0B', stroke: '#FDE68A' }; // Q3 Âmbar (Baixo Moat + Múltiplos Baixos)
+          const isHighQuality = (s.quality_score || 0) >= 80.0;
+          const isLowPl = isPl ? (s.pl <= 15.38) : (s.earnings_yield_pct >= 6.5);
+          if (isHighQuality && isLowPl) return { fill: '#10B981', stroke: '#6EE7B7' }; // Q1 Verde Esmeralda (Compounders Descontadas)
+          if (isHighQuality && !isLowPl) return { fill: '#0284C7', stroke: '#7DD3FC' }; // Q2 Azul Celeste (Qualidade com Prêmio)
+          if (!isHighQuality && isLowPl) return { fill: '#F59E0B', stroke: '#FDE68A' }; // Q3 Âmbar (Múltiplos Baixos / Value Trap)
           return { fill: '#EF4444', stroke: '#FCA5A5' }; // Q4 Vermelho (Baixo Moat + Múltiplos Altos)
         }
       }
@@ -4465,16 +4590,20 @@
 
       const volStr = formatBillions(s.liq_2m);
       const categories = getStockCategories(s);
-      let catBadgesHtml = '';
-      if (categories.length > 0) {
-        catBadgesHtml = categories.map(c => `
-          <button onclick="filterByCategory('${c.id}')" class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${c.bgClass} hover:brightness-125 transition cursor-pointer" title="Filtrar tabela para ver todas as empresas em ${c.label}">
-            <span>${c.icon}</span> <span>${c.shortLabel || c.label}</span>
+      const qualityCats = categories.filter(c => c.group === 'QUALIDADE').slice(0, 4);
+      const valuationCats = categories.filter(c => c.group === 'VALUATION').slice(0, 4);
+
+      const renderDrawerPills = (list, emptyText) => {
+        if (!list || list.length === 0) {
+          return '<span class="text-[10px] font-mono text-slate-400 italic">' + emptyText + '</span>';
+        }
+        return list.map(c => `
+          <button onclick="filterByCategory('${c.id}')" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium ${c.bgClass} hover:brightness-95 transition cursor-pointer" title="Filtrar tabela para ver todas as empresas em ${c.label}">
+            <span class="w-1.5 h-1.5 rounded-full ${c.ledClass} inline-block"></span>
+            <span>${c.shortLabel || c.label}</span>
           </button>
         `).join('');
-      } else {
-        catBadgesHtml = `<span class="text-[10px] font-mono text-slate-500 italic">Nenhum enquadramento especial nos filtros Munger</span>`;
-      }
+      };
 
       // Card Cabeçalho estilo Glassmorphic Fintech
       const headScoreColor = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-900 border-emerald-300 font-bold' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-900 border-amber-300 font-bold' : (s.quality_score < 50 ? 'bg-rose-100 text-rose-900 border-rose-300 font-bold' : 'bg-slate-100 text-slate-800 border-slate-300 font-bold'));
@@ -4491,24 +4620,38 @@
                 </span>
               </div>
               <div class="text-sm font-bold text-slate-900 truncate max-w-[280px] mt-0.5">${s.empresa}</div>
-              <div class="text-xs text-slate-600 font-sans mt-0.5 font-medium">${s.is_financial ? 'Setor Financeiro' : (s.setor || 'Geral')} • Cotação: <b class="text-slate-900 font-mono font-bold">${formatCurrency(s.cotacao)}</b> • Liq: ${volStr}/d</div>
+              <div class="text-xs text-slate-600 font-sans mt-0.5 font-medium">${s.is_financial ? 'Setor Financeiro' : (s.setor || 'Geral')} • Cotação: <b class="text-slate-900 font-mono font-bold tabular-nums">${formatCurrency(s.cotacao)}</b> • Liq: ${volStr}/d</div>
             </div>
           </div>
           <div class="flex flex-col items-end gap-1.5">
             <span class="px-3 py-1 rounded-full font-mono font-bold text-xs sm:text-sm border ${headScoreColor} shadow-2xs flex items-center gap-1.5">
-              <span>SCORE ${s.quality_score.toFixed(1)}</span>
+              <span>SCORE ${s.quality_score.toFixed(1).replace('.', ',')}</span>
               <span class="text-[10px] font-mono opacity-85">• ${s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}</span>
             </span>
             <div class="text-[11px] font-mono text-slate-600 font-medium mt-0.5">
-              P/L Teórico: <b class="text-slate-900 font-bold">${formatMultiple(calcFairPL(s.quality_score))}</b>
+              P/L Teórico: <b class="text-slate-900 font-bold tabular-nums">${formatMultiple(calcFairPL(s.quality_score))}</b>
             </div>
           </div>
         </div>
 
-        <!-- Rótulos de Categorias Institucionais Munger (Multi-Enquadramento) -->
-        <div class="mt-3 pt-2.5 border-t border-slate-200 flex flex-wrap items-center gap-1.5">
-          <span class="text-[11px] font-mono text-slate-600 uppercase tracking-wider font-semibold mr-0.5">Enquadramentos:</span>
-          ${catBadgesHtml}
+        <!-- Rótulos de Categorias Divididos por Grupo (Status Pills) -->
+        <div class="mt-3 pt-2.5 border-t border-slate-200 space-y-1.5">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-[9.5px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1 min-w-[140px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> QUALIDADE &amp; BALANÇO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1">
+              ${renderDrawerPills(qualityCats, 'Padrão setorial')}
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-[9.5px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1 min-w-[140px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block"></span> VALUATION &amp; MOMENTO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1">
+              ${renderDrawerPills(valuationCats, 'Neutro')}
+            </div>
+          </div>
         </div>
       `;
 
@@ -5567,8 +5710,20 @@
       setTimeout(triggerDataRefresh, 300);
     }
 
-    // Atalhos Globais de Teclado (Power-User Hotkeys)
+    // Atalhos Globais de Teclado (Power-User Hotkeys: Ctrl+K, /, 1, 2, 3, Esc)
     document.addEventListener('keydown', (e) => {
+      // Ctrl+K ou Cmd+K abre a busca instantânea de qualquer lugar
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        const inp = document.getElementById('searchInput');
+        if (inp) {
+          inp.focus();
+          inp.select();
+          handleSearchFocus();
+        }
+        return;
+      }
+
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {
         if (e.key === 'Escape') {
           const dd = document.getElementById('searchDropdown');
@@ -5584,6 +5739,7 @@
         if (inp) {
           inp.focus();
           inp.select();
+          handleSearchFocus();
         }
       } else if (e.key === 'Escape') {
         const dd = document.getElementById('searchDropdown');

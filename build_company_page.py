@@ -20,17 +20,17 @@ def build_company_page():
   <meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/empresa.html">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/acoes/">
   <script>
     (function() {{
       try {{
         var params = new URLSearchParams(window.location.search);
         var t = params.get('ticker');
         if (t) {{
-          t = t.toUpperCase().trim();
+          t = t.toLowerCase().trim();
           var can = document.getElementById('canonicalTag');
-          if (can) can.href = 'https://moatterminal.com.br/empresa.html?ticker=' + encodeURIComponent(t);
+          if (can) can.href = 'https://moatterminal.com.br/acoes/' + encodeURIComponent(t) + '/';
         }}
       }} catch(e) {{}}
     }})();
@@ -175,6 +175,11 @@ def build_company_page():
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }}
+    .font-mono, [data-num], table td, .tabular-nums, .mono-num {{
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
+    }}
   </style>
 </head>
 <body class="min-h-screen flex flex-col custom-scrollbar bg-[#FBFBF9] text-[#1A202C]">
@@ -183,6 +188,8 @@ def build_company_page():
   <div id="globalTooltip" class="fixed hidden z-[999999] max-w-xs sm:max-w-sm bg-slate-900 text-white p-3.5 rounded-2xl shadow-2xl border border-slate-700 pointer-events-none transition-opacity duration-150 text-xs font-sans">
     <div class="font-bold text-emerald-400 font-mono text-xs flex items-center gap-1.5 border-b border-slate-700/80 pb-1.5 mb-1.5" id="gtTitle"></div>
     <div class="text-slate-200 text-[11.5px] leading-relaxed font-sans" id="gtDesc"></div>
+    <!-- BLOCO DE AUDITORIA ABERTA (CONTA ABERTA DO ATIVO) -->
+    <div id="gtAudit" class="hidden mt-2 p-2.5 rounded-xl bg-slate-950/90 border border-emerald-500/30 font-mono text-[11px] text-emerald-300 leading-snug space-y-1"></div>
     <div class="text-slate-400 text-[10px] font-mono mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between" id="gtFoot"></div>
   </div>
 
@@ -228,8 +235,8 @@ def build_company_page():
           <span class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center pointer-events-none text-slate-400">
             <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[1.75]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
           </span>
-          <input type="text" id="companySearchInput" placeholder="Buscar ação... (/)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-8 sm:pl-9 pr-2 sm:pr-8 py-1 sm:py-1.5 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
-          <kbd class="hidden sm:inline-block absolute right-3 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1 rounded shadow-3xs pointer-events-none select-none">/</kbd>
+          <input type="text" id="companySearchInput" placeholder="Buscar ativo ou empresa... (Ctrl+K)" autocomplete="off" class="w-full bg-[#F4F4F0] border border-[#E7E7E2] focus:border-[#004B49] focus:bg-white focus:text-slate-900 focus:ring-1 focus:ring-[#004B49]/20 rounded-xl pl-8 sm:pl-9 pr-2 sm:pr-14 py-1 sm:py-1.5 text-xs font-sans text-slate-900 placeholder-slate-400 focus:outline-none transition shadow-xs" oninput="handleCompanySearch(this.value)" onkeydown="handleCompanySearchKeydown(event)" onfocus="showSearchDropdown()" />
+          <kbd class="hidden sm:inline-flex items-center gap-0.5 absolute right-2.5 text-[10px] font-mono text-slate-400 bg-white border border-[#E7E7E2] px-1.5 py-0.5 rounded shadow-3xs pointer-events-none select-none"><span>Ctrl</span><span>K</span></kbd>
         </div>
         <!-- Dropdown de Busca -->
         <div id="searchResultsDropdown" class="hidden fixed left-3 right-3 top-16 sm:absolute sm:top-full sm:left-0 sm:right-auto sm:w-96 sm:mt-1.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xl max-h-80 overflow-y-auto overflow-x-hidden z-[999999] divide-y divide-slate-100 font-sans text-slate-800"></div>
@@ -317,6 +324,39 @@ def build_company_page():
           </div>
           <div id="valuationCalculatorsContainer" class="space-y-3">
             <!-- Renderizado via JS -->
+          </div>
+        </div>
+
+        <!-- Card: Mini-Matriz Estratégica 2x2 (Posicionamento Relativo no Universo B3) -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-3.5" id="cardMiniMatrix">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <div>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 stroke-[1.75] text-[#004B49]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v16h16M4 12h16M12 4v16"/></svg>
+                Matriz Estratégica 2x2 • Posição B3
+              </span>
+              <p class="text-[10px] text-slate-500 font-sans mt-0.5">Mapeamento de Valor vs Qualidade frente ao universo coberto</p>
+            </div>
+            <span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-900 border-emerald-200">--</span>
+          </div>
+
+          <!-- SVG Container da Mini Matriz -->
+          <div class="relative w-full h-56 bg-slate-50/70 rounded-xl border border-slate-200/80 p-2 overflow-hidden flex items-center justify-center">
+            <svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
+              <!-- Injetado dinamicamente via JS / Pre-renderizado SSR -->
+            </svg>
+          </div>
+
+          <!-- Diagnóstico e Rationale do Quadrante -->
+          <div id="miniMatrixRationale" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-sans text-slate-700 leading-relaxed shadow-3xs">
+            <!-- Texto dinâmico de explicação institucional -->
+          </div>
+
+          <div class="flex items-center justify-between pt-1 text-[11px] font-mono border-t border-slate-100">
+            <span class="text-slate-500">Universo: <b class="text-slate-800" id="miniMatrixPeerCount">75+ empresas</b></span>
+            <a href="/?view=matrix" target="_blank" class="text-[#004B49] hover:text-emerald-800 font-bold hover:underline inline-flex items-center gap-1">
+              Explorar Matriz Completa ➜
+            </a>
           </div>
         </div>
 
@@ -517,12 +557,12 @@ def build_company_page():
 
     function formatPercent(val) {{
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
-      return (Number(val) * 100).toFixed(1) + '%';
+      return (Number(val) * 100).toFixed(1).replace('.', ',') + '%';
     }}
 
     function formatMultiple(val) {{
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
-      return Number(val).toFixed(2) + 'x';
+      return Number(val).toFixed(2).replace('.', ',') + 'x';
     }}
 
     function formatBillions(val) {{
@@ -539,19 +579,20 @@ def build_company_page():
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
     }}
 
-    // Rótulos e Categorias Institucionais Munger da Ação (Até 5 por ativo)
+    // Rótulos e Categorias Institucionais Munger da Ação (Status Pills Minimalistas)
     function getStockCategories(s) {{
       const cats = [];
       if (!s) return cats;
 
-      // 1. DIMENSÃO SOLVÊNCIA & BALANÇO (Prioridade)
+      // 1. GRUPO: QUALIDADE & BALANÇO
       if (s.is_financial) {{
         cats.push({{
           id: 'CAT_FINANCIAL',
-          label: 'Intermediação Financeira (Bancos)',
-          shortLabel: 'Bancos',
-          icon: '🏛️',
-          bgClass: 'bg-indigo-50 text-indigo-950 border border-indigo-200 font-semibold'
+          group: 'QUALIDADE',
+          label: 'Intermediação Financeira (Bancos & Seguros)',
+          shortLabel: 'Bancos / Finanças',
+          ledClass: 'bg-indigo-500',
+          bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
         }});
       }} else {{
         const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
@@ -559,101 +600,78 @@ def build_company_page():
         if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {{
           cats.push({{
             id: 'CAT_NET_CASH',
+            group: 'QUALIDADE',
             label: 'Caixa Líquido (Dívida Zero)',
-            shortLabel: 'Caixa Líq.',
-            icon: '🛡️',
-            bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
+            shortLabel: 'Caixa Líquido',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
         }} else if (dle !== null && dle > 2.5) {{
           cats.push({{
             id: 'CAT_HIGH_DEBT',
-            label: 'Alavancagem Alta (Crítica > 2.5x)',
+            group: 'QUALIDADE',
+            label: 'Alavancagem Alta (> 2,5x EBITDA)',
             shortLabel: 'Alavancagem Alta',
-            icon: '🚨',
-            bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
+            ledClass: 'bg-rose-500',
+            bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
           }});
         }} else if (dle !== null && dle <= 1.8) {{
           cats.push({{
             id: 'CAT_BALANCED_DEBT',
-            label: 'Dívida Equilibrada',
-            shortLabel: 'Dívida Ok',
-            icon: '⚖️',
-            bgClass: 'bg-slate-100 text-slate-800 border border-slate-300 font-semibold'
+            group: 'QUALIDADE',
+            label: 'Dívida Equilibrada (≤ 1,8x EBITDA)',
+            shortLabel: 'Dívida Equilibrada',
+            ledClass: 'bg-slate-400',
+            bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
           }});
         }}
       }}
 
-      // 2. DIMENSÃO MOMENTO DOS RESULTADOS & RECORRÊNCIA
-      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
-        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
-          cats.push({{
-            id: 'CAT_EXPANSION',
-            label: 'Lucro Acelerando (Expansão 2T26)',
-            shortLabel: 'Lucro Acelerando',
-            icon: '⚡',
-            bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-          }});
-        }} else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {{
-          cats.push({{
-            id: 'CAT_DECELERATION',
-            label: 'Lucro em Retração (Desaceleração 2T26)',
-            shortLabel: 'Lucro em Retração',
-            icon: '⚠️',
-            bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-          }});
-        }}
+      // Qualidade: Tier 1 & Super ROIC
+      const roicOrRoe = s.roic || s.roe || 0;
+      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {{
+        cats.push({{
+          id: 'CAT_TIER1',
+          group: 'QUALIDADE',
+          label: 'Wide Moat (Tier 1)',
+          shortLabel: 'Tier 1 (Wide Moat)',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
+      }} else if (!s.is_financial && s.roic >= 0.18) {{
+        cats.push({{
+          id: 'CAT_HIGH_ROIC',
+          group: 'QUALIDADE',
+          label: 'Super ROIC (≥ 18%)',
+          shortLabel: 'Super ROIC ≥ 18%',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
       }}
 
       if (!s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {{
         cats.push({{
           id: 'CAT_CLEAN_EARNINGS',
-          label: 'Lucro Limpo & Recorrente',
-          shortLabel: 'Lucro Limpo',
-          icon: '💎',
-          bgClass: 'bg-teal-50 text-teal-950 border border-teal-300 font-semibold'
+          group: 'QUALIDADE',
+          label: 'Lucro Limpo & Recorrente (5 Anos)',
+          shortLabel: 'Lucro Limpo 5A',
+          ledClass: 'bg-teal-500',
+          bgClass: 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium'
         }});
       }}
 
-      // 3. DIMENSÃO QUALIDADE & EFICIÊNCIA DE CAPITAL
-      const roicOrRoe = s.roic || s.roe || 0;
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {{
+      if (s.is_distorted) {{
         cats.push({{
-          id: 'CAT_TIER1',
-          label: 'Wide Moat (Tier 1)',
-          shortLabel: 'Wide Moat (Tier 1)',
-          icon: '🏆',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        }});
-      }} else if (!s.is_financial && s.roic >= 0.18) {{
-        cats.push({{
-          id: 'CAT_HIGH_ROIC',
-          label: 'Super ROIC (≥ 18%)',
-          shortLabel: 'Super ROIC',
-          icon: '🏰',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
+          id: 'CAT_DISTORTION',
+          group: 'QUALIDADE',
+          label: 'Distorção Contábil / One-Off',
+          shortLabel: 'Distorção One-off',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
         }});
       }}
 
-      // 4. DIMENSÃO DIVIDENDOS & PROVENTOS
-      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
-        cats.push({{
-          id: 'CAT_DIVIDENDS',
-          label: 'Dividendos Consistentes (> 6%)',
-          shortLabel: 'Dividendos > 6%',
-          icon: '💰',
-          bgClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-semibold'
-        }});
-      }} else if (s.payout_implicito !== null && s.payout_implicito > 105) {{
-        cats.push({{
-          id: 'CAT_PAYOUT_RISK',
-          label: 'Payout Excessivo (> 100%)',
-          shortLabel: 'Payout Alto',
-          icon: '⚠️',
-          bgClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-semibold'
-        }});
-      }}
-
-      // 5. DIMENSÃO VALUATION & MARGEM DE SEGURANÇA
+      // 2. GRUPO: VALUATION & MOMENTO
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
@@ -662,10 +680,11 @@ def build_company_page():
         if (graham > cot * 1.15) {{
           cats.push({{
             id: 'CAT_GRAHAM',
-            label: 'Desconto Graham',
-            shortLabel: 'Graham',
-            icon: '📐',
-            bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+            group: 'VALUATION',
+            label: 'Desconto Graham (Margem > 15%)',
+            shortLabel: 'Desconto Graham',
+            ledClass: 'bg-cyan-500',
+            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
           }});
         }}
       }}
@@ -674,53 +693,90 @@ def build_company_page():
         if (bazin > cot * 1.15) {{
           cats.push({{
             id: 'CAT_BAZIN',
+            group: 'VALUATION',
             label: 'Referência Décio Bazin (DY 6%)',
-            shortLabel: 'Ref. Bazin',
-            icon: '🎯',
-            bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+            shortLabel: 'Ref. Bazin (DY 6%)',
+            ledClass: 'bg-cyan-500',
+            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
           }});
         }}
       }}
       if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {{
         cats.push({{
           id: 'CAT_SPREAD_NTNB',
-          label: 'Prêmio Real sobre NTN-B',
-          shortLabel: 'Prêmio Real',
-          icon: '📈',
-          bgClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-semibold'
+          group: 'VALUATION',
+          label: 'Prêmio Real sobre NTN-B (+2% IPCA)',
+          shortLabel: 'Prêmio Real NTN-B',
+          ledClass: 'bg-cyan-500',
+          bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
         }});
       }}
 
-      // 6. RISCOS DE CICLO & CONTÁBEIS
+      // Momento de Resultados
+      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
+        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
+          cats.push({{
+            id: 'CAT_EXPANSION',
+            group: 'VALUATION',
+            label: 'Lucro Acelerando (Expansão 2T26)',
+            shortLabel: 'Lucro Acelerando',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          }});
+        }} else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {{
+          cats.push({{
+            id: 'CAT_DECELERATION',
+            group: 'VALUATION',
+            label: 'Lucro em Retração (Desaceleração 2T26)',
+            shortLabel: 'Lucro em Retração',
+            ledClass: 'bg-amber-500',
+            bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+          }});
+        }}
+      }}
+
+      // Proventos & Payout
+      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
+        cats.push({{
+          id: 'CAT_DIVIDENDS',
+          group: 'VALUATION',
+          label: 'Dividendos Consistentes (> 6%)',
+          shortLabel: 'Dividendos Consistentes',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
+      }} else if (s.payout_implicito !== null && s.payout_implicito > 105) {{
+        cats.push({{
+          id: 'CAT_PAYOUT_RISK',
+          group: 'VALUATION',
+          label: 'Payout Excessivo (> 100%)',
+          shortLabel: 'Payout Elevado',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+        }});
+      }}
+
+      // Risco de Ciclo
       if (s.is_commodity_peak) {{
         cats.push({{
           id: 'CAT_COMMODITY_PEAK',
+          group: 'VALUATION',
           label: 'Risco de Ciclo Commodities',
-          shortLabel: 'Pico Ciclo',
-          icon: '⚠️',
-          bgClass: 'bg-amber-50 text-amber-950 border border-amber-300 font-semibold'
-        }});
-      }}
-      if (s.is_distorted) {{
-        cats.push({{
-          id: 'CAT_DISTORTION',
-          label: 'Distorção Contábil / One-Off',
-          shortLabel: 'One-off',
-          icon: '🔍',
-          bgClass: 'bg-purple-50 text-purple-950 border border-purple-300 font-semibold'
+          shortLabel: 'Pico de Ciclo',
+          ledClass: 'bg-amber-500',
+          bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
         }});
       }}
 
-      // Retorna no máximo 5 etiquetas por empresa para manter alinhado com o Dossiê 360°
-      return cats.slice(0, 5);
+      return cats;
     }}
 
     // Diagnóstico Executivo Didático em Linguagem Humana
     function generateHumanExecutiveSummary(s) {{
       if (!s) return '';
       const isFin = s.is_financial;
-      const roePct = s.roe ? (s.roe * 100).toFixed(1) + '%' : 'N/D';
-      const roicPct = s.roic ? (s.roic * 100).toFixed(1) + '%' : null;
+      const roePct = s.roe ? (s.roe * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
+      const roicPct = s.roic ? (s.roic * 100).toFixed(1).replace('.', ',') + '%' : null;
       const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0.0%';
       const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : 'No Moat (Tier 3)');
 
@@ -734,6 +790,225 @@ def build_company_page():
       return `<b>${{s.empresa}} (${{s.ticker}})</b> atua no setor de <b>${{s.setor || 'Atividade Geral'}}</b>, classificada no <b>${{tierShort}}</b> com Score de <b>${{s.quality_score.toFixed(1)}}/100</b>. Apresenta ${{returnDesc}}, ${{debtStatus}} e remuneração em proventos de <b>${{dyPct}}</b> a.a., posicionando-se em <b>${{s.entry_status}}</b>.`;
     }}
 
+    // Decomposição Analítica do Moat Score (Raio-X de Qualidade)
+    function generateMoatScoreDecomposition(s) {{
+      if (!s) return '';
+      const qs = Number(s.quality_score || 50.0);
+      const isFin = Boolean(s.is_financial);
+      const subs = s.sub_scores || {{}};
+
+      const sRet = Number(subs[isFin ? 'roe' : 'roic'] || (s.pilar_rentabilidade || 50));
+      const sMrg = isFin ? Number(subs.mrg_liq || 50) : (Number(subs.mrg_bruta || 50) * 0.5 + Number(subs.mrg_liq || 50) * 0.5);
+      const sCons = Number(s.pilar_consistencia || 50);
+      const sSol = Number(s.pilar_solidez || 50);
+
+      const rawP1 = (sRet / 100.0) * 30.0;
+      const rawP2 = (sMrg / 100.0) * 25.0;
+      const rawP3 = (sCons / 100.0) * 25.0;
+      const rawP4 = (sSol / 100.0) * 20.0;
+
+      const rawSum = rawP1 + rawP2 + rawP3 + rawP4;
+      const scale = rawSum > 0 ? (qs / rawSum) : 1.0;
+
+      let p1 = Math.round(Math.min(30.0, Math.max(1.0, rawP1 * scale)) * 10) / 10;
+      let p2 = Math.round(Math.min(25.0, Math.max(1.0, rawP2 * scale)) * 10) / 10;
+      let p3 = Math.round(Math.min(25.0, Math.max(1.0, rawP3 * scale)) * 10) / 10;
+      let p4 = Math.round((qs - (p1 + p2 + p3)) * 10) / 10;
+      if (p4 < 0) {{
+        p4 = 0.5;
+        p1 = Math.round((qs - (p2 + p3 + p4)) * 10) / 10;
+      }}
+
+      const pct1 = Math.min(100, Math.max(5, (p1 / 30.0) * 100));
+      const pct2 = Math.min(100, Math.max(5, (p2 / 25.0) * 100));
+      const pct3 = Math.min(100, Math.max(5, (p3 / 25.0) * 100));
+      const pct4 = Math.min(100, Math.max(5, (p4 / 20.0) * 100));
+
+      function getPillarStyle(pct) {{
+        if (pct >= 75) return {{ dot: 'bg-emerald-500', text: 'text-emerald-700', bar: 'bg-[#00A887]' }};
+        if (pct >= 55) return {{ dot: 'bg-teal-500', text: 'text-teal-700', bar: 'bg-teal-600' }};
+        if (pct >= 40) return {{ dot: 'bg-amber-500', text: 'text-amber-700', bar: 'bg-amber-500' }};
+        return {{ dot: 'bg-rose-500', text: 'text-rose-700', bar: 'bg-rose-500' }};
+      }}
+
+      const st1 = getPillarStyle(pct1);
+      const st2 = getPillarStyle(pct2);
+      const st3 = getPillarStyle(pct3);
+      const st4 = getPillarStyle(pct4);
+
+      let title1, title2, title3, title4;
+      let desc1, desc2, desc3, desc4;
+      let sectorBadgeHtml = '';
+
+      if (isFin) {{
+        sectorBadgeHtml = `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-50 text-indigo-900 border border-indigo-200 shadow-2xs">
+            <span>⚖️</span> Metodologia Ajustada: Setor Financeiro/Seguros
+          </span>
+        `;
+        title1 = 'Retorno Patrimonial (Spread ROE vs NTN-B)';
+        title2 = 'Eficiência Operacional & Margem de Conversão';
+        title3 = 'Consistência de Resultados & Payout (5 Anos)';
+        title4 = 'Escala & Solvência Institucional (Patrimônio Líquido)';
+
+        const roe = Number(s.roe || 0);
+        const roeStr = (roe * 100).toFixed(1).replace('.', ',') + '%';
+        if (roe >= 0.20) desc1 = `ROE de ${{roeStr}} comprova rentabilidade patrimonial excepcional e forte capacidade de composição de lucros dos sócios.`;
+        else if (roe >= 0.14) desc1 = `ROE de ${{roeStr}} reflete rentabilidade sólida e resiliente para os padrões de exigência de capital regulatório.`;
+        else if (roe >= 0.08) desc1 = `ROE de ${{roeStr}} situa-se em nível mediano frente ao custo de oportunidade da economia brasileira.`;
+        else desc1 = `ROE de ${{roeStr}} é modesto frente aos riscos de crédito e mercado, reduzindo a criação de valor econômico.`;
+
+        if (p2 >= 20.0) desc2 = 'Estrutura operacional de ponta com captação a custo controlado e excelente geração de receitas de serviços e tarifas.';
+        else if (p2 >= 15.0) desc2 = 'Eficiência operacional e conversão dentro dos padrões auditados de bancos múltiplos e seguradoras líderes da B3.';
+        else desc2 = 'Custos operacionais e despesas de intermediação/sinistros pressionam a margem líquida final da operação.';
+
+        if (p3 >= 20.0) desc3 = 'Histórico auditado de 5 anos de lucros contínuos (2022-2026), sem distorções graves, prejuízos ou one-offs artificiais.';
+        else if (p3 >= 15.0) desc3 = 'Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos dividendos.';
+        else desc3 = 'Oscilações relevantes de resultados históricos ou quebra recente de lucratividade penalizam a previsibilidade.';
+
+        if (p4 >= 17.0) desc4 = 'Escala patrimonial de grande porte com sólida folga sobre os limites regulatórios de Basileia/Susep e captação competitiva.';
+        else if (p4 >= 13.0) desc4 = 'Estrutura patrimonial suficiente e aderente com segurança às métricas de solvência e liquidez regulamentares.';
+        else desc4 = 'Porte patrimonial menor impõe custo de captação relativamente superior frente aos grandes conglomerados.';
+      }} else {{
+        sectorBadgeHtml = `
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+            <span>🛡️</span> Modelo Munger de Fosso Econômico
+          </span>
+        `;
+        title1 = 'Retorno sobre Capital (Spread ROIC vs NTN-B)';
+        title2 = 'Poder de Precificação & Margens (Proteção Moat)';
+        title3 = 'Consistência Histórica & Lucro Limpo (5 Anos)';
+        title4 = 'Solidez Financeira & Desalavancagem (Anti-Crise)';
+
+        const roic = Number(s.roic || 0);
+        const roicStr = (roic * 100).toFixed(1).replace('.', ',') + '%';
+        if (roic >= 0.20) desc1 = `ROIC auditado de ${{roicStr}} supera amplamente o juro real soberano (NTN-B 6,5%), gerando alto valor econômico (EVA).`;
+        else if (roic >= 0.12) desc1 = `ROIC de ${{roicStr}} entrega retorno saudável e consistente acima do custo de oportunidade da economia brasileira.`;
+        else if (roic >= 0.06) desc1 = `ROIC de ${{roicStr}} opera em patamar moderado, com spread estreito sobre os títulos soberanos da NTN-B.`;
+        else desc1 = `ROIC de ${{roicStr}} fica abaixo do custo de oportunidade soberano (NTN-B 6,5%), consumindo valor econômico dos acionistas.`;
+
+        const mrg = Number(s.mrg_liq || 0);
+        const mrgStr = (mrg * 100).toFixed(1).replace('.', ',') + '%';
+        if (mrg >= 0.15) desc2 = `Margem líquida de ${{mrgStr}} comprova forte poder de precificação contra pressões inflacionárias de custos.`;
+        else if (mrg >= 0.07) desc2 = `Margem líquida de ${{mrgStr}} preserva conversão operacional equilibrada dentro da média do setor.`;
+        else desc2 = `Margem líquida comprimida (${{mrgStr}}) expõe a operação a variações de insumos e competição predatória.`;
+
+        if (p3 >= 20.0) desc3 = 'Histórico ininterrupto de lucros no quinquênio (2022-2026), sem distorções contábeis graves ou prejuízos recentes.';
+        else if (p3 >= 15.0) desc3 = 'Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos fluxos operacionais.';
+        else desc3 = 'Oscilações relevantes de resultados históricos ou quebra recente de lucratividade reduzem a previsibilidade projetada.';
+
+        const dl = s.div_liq_ebitda;
+        if (dl !== null && dl !== undefined && Number(dl) <= 0) desc4 = 'Empresa opera com caixa líquido positivo (sem endividamento líquido), conferindo blindagem máxima com Selic alta.';
+        else if (dl !== null && dl !== undefined && Number(dl) <= 1.5) desc4 = `Alavancagem prudente de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA mantém o balanço confortável e imune a choques de liquidez.`;
+        else if (dl !== null && dl !== undefined && Number(dl) <= 2.5) desc4 = `Alavancagem moderada de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA exige acompanhamento da cobertura de juros.`;
+        else if (dl !== null && dl !== undefined) desc4 = `Alavancagem elevada de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA onera o fluxo de caixa com serviço da dívida sob juros altos.`;
+        else desc4 = 'Estrutura patrimonial sem passivos financeiros onerosos que comprometam a continuidade dos negócios.';
+      }}
+
+      const p1Str = p1.toFixed(1).replace('.', ',');
+      const p2Str = p2.toFixed(1).replace('.', ',');
+      const p3Str = p3.toFixed(1).replace('.', ',');
+      const p4Str = p4.toFixed(1).replace('.', ',');
+      const qsStr = qs.toFixed(1).replace('.', ',');
+
+      return `
+        <!-- DECOMPOSIÇÃO DO MOAT SCORE (RAIO-X DE QUALIDADE INSTITUCIONAL) -->
+        <div class="mt-5 p-5 sm:p-6 bg-slate-50/70 border border-slate-200/90 rounded-2xl space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-[#004B49] text-white flex items-center justify-center font-mono text-xs font-bold shadow-2xs">
+                RX
+              </div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-bold font-mono text-slate-900 uppercase tracking-wider">
+                  Decomposição do Moat Score • Raio-X de Qualidade
+                </h3>
+                <p class="text-[11px] text-slate-500 font-sans mt-0.5">
+                  Auditoria transparente dos 4 pilares quantitativos que formam a nota final de 0 a 100
+                </p>
+              </div>
+            </div>
+            ${{sectorBadgeHtml}}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+            <!-- Pilar 1 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${{st1.dot}}"></span>
+                  ${{title1}}
+                </span>
+                <span class="font-bold ${{st1.text}}">${{p1Str}} / 30 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full ${{st1.bar}} rounded-full transition-all duration-500" style="width: ${{pct1.toFixed(0)}}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                ${{desc1}}
+              </p>
+            </div>
+
+            <!-- Pilar 2 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${{st2.dot}}"></span>
+                  ${{title2}}
+                </span>
+                <span class="font-bold ${{st2.text}}">${{p2Str}} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full ${{st2.bar}} rounded-full transition-all duration-500" style="width: ${{pct2.toFixed(0)}}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                ${{desc2}}
+              </p>
+            </div>
+
+            <!-- Pilar 3 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${{st3.dot}}"></span>
+                  ${{title3}}
+                </span>
+                <span class="font-bold ${{st3.text}}">${{p3Str}} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full ${{st3.bar}} rounded-full transition-all duration-500" style="width: ${{pct3.toFixed(0)}}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                ${{desc3}}
+              </p>
+            </div>
+
+            <!-- Pilar 4 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${{st4.dot}}"></span>
+                  ${{title4}}
+                </span>
+                <span class="font-bold ${{st4.text}}">${{p4Str}} / 20 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full ${{st4.bar}} rounded-full transition-all duration-500" style="width: ${{pct4.toFixed(0)}}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                ${{desc4}}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-500">
+            <span>Soma dos Pilares: <b class="text-slate-900">${{qsStr}} / 100 pts</b> (${{s.quality_tier || 'Tier de Qualidade'}})</span>
+            <span class="text-slate-400">Metodologia Auditada CVM 2T26 • Sem Caixa-Preta</span>
+          </div>
+        </div>
+      `;
+    }}
+
     // Renderizar Hero Card
     function renderHero() {{
       const s = currentStock;
@@ -741,7 +1016,7 @@ def build_company_page():
       if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
       document.title = `${{s.ticker}} • ${{s.empresa}} • Moat Terminal`;
 
-      const fullCanonical = `https://moatterminal.com.br/empresa.html?ticker=${{s.ticker}}`;
+      const fullCanonical = `https://moatterminal.com.br/acoes/${{s.ticker.toLowerCase()}}/`;
       const canEl = document.getElementById('canonicalTag') || document.querySelector('link[rel="canonical"]');
       if (canEl) canEl.href = fullCanonical;
       const ogUrlEl = document.getElementById('ogUrl') || document.querySelector('meta[property="og:url"]');
@@ -790,16 +1065,20 @@ def build_company_page():
       const scoreBadgeClass = 'bg-white/95 text-slate-900 border-slate-300 shadow-2xs';
 
       const categories = getStockCategories(s);
-      let catBadgesHtml = '';
-      if (categories.length > 0) {{
-        catBadgesHtml = categories.map(c => `
-          <a href="/index.html?filter=${{c.id}}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold ${{c.bgClass}} shadow-2xs hover:brightness-110 transition cursor-pointer" title="Ver empresas em ${{c.label}}">
-            <span>${{c.icon}}</span> <span>${{c.shortLabel || c.label}}</span>
+      const qualityCats = categories.filter(c => c.group === 'QUALIDADE').slice(0, 4);
+      const valuationCats = categories.filter(c => c.group === 'VALUATION').slice(0, 4);
+
+      const renderPills = (list, emptyText) => {{
+        if (!list || list.length === 0) {{
+          return '<span class="text-[11px] font-mono text-slate-400 italic">' + emptyText + '</span>';
+        }}
+        return list.map(c => `
+          <a href="/index.html?filter=${{c.id}}" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium ${{c.bgClass}} shadow-3xs hover:brightness-95 transition cursor-pointer" title="Ver empresas em ${{c.label}}">
+            <span class="w-1.5 h-1.5 rounded-full ${{c.ledClass}} inline-block"></span>
+            <span>${{c.shortLabel || c.label}}</span>
           </a>
         `).join('');
-      }} else {{
-        catBadgesHtml = `<span class="text-xs font-mono text-slate-500 italic">Nenhum enquadramento especial nos filtros</span>`;
-      }}
+      }};
 
       heroEl.innerHTML = `
         <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -819,7 +1098,7 @@ def build_company_page():
                 <span>•</span>
                 <span>Segmento: <b class="text-slate-800">${{s.sub_setor || s.tipo || 'B3'}}</b></span>
                 <span>•</span>
-                <span>Liquidez Diária: <b class="text-slate-800">${{formatBillions(s.liq_2m)}}/dia</b></span>
+                <span>Liquidez Diária: <b class="text-slate-800 font-mono">${{formatBillions(s.liq_2m)}}/dia</b></span>
               </div>
             </div>
           </div>
@@ -827,19 +1106,19 @@ def build_company_page():
           <div class="flex flex-wrap items-center gap-4 sm:gap-6 self-stretch lg:self-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100">
             <div class="flex flex-col text-left lg:text-right">
               <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Cotação Atual</span>
-              <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5">${{formatCurrency(s.cotacao)}}</span>
+              <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5 tabular-nums">${{formatCurrency(s.cotacao)}}</span>
               <span class="text-[10px] text-slate-500 font-sans">Mercado B3 à vista</span>
             </div>
 
             <div class="flex flex-col text-left lg:text-right">
               <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Valor de Mercado</span>
-              <span class="text-lg font-bold font-mono text-slate-800 mt-0.5">${{s.details && s.details.valor_mercado ? formatBillions(s.details.valor_mercado) : 'N/D'}}</span>
+              <span class="text-lg font-bold font-mono text-slate-800 mt-0.5 tabular-nums">${{s.details && s.details.valor_mercado ? formatBillions(s.details.valor_mercado) : 'N/D'}}</span>
               <span class="text-[10px] text-slate-500 font-sans">EV: ${{s.details && s.details.valor_firma ? formatBillions(s.details.valor_firma) : 'N/D'}}</span>
             </div>
 
             <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${{scoreBadgeClass}} min-w-[95px]">
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-              <span class="text-2xl font-bold font-mono leading-none my-0.5">${{s.quality_score.toFixed(1)}}</span>
+              <span class="text-2xl font-bold font-mono leading-none my-0.5 tabular-nums">${{s.quality_score.toFixed(1).replace('.', ',')}}</span>
               <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}}</span>
             </div>
           </div>
@@ -859,13 +1138,31 @@ def build_company_page():
           </div>
         </div>
 
-        <!-- Rótulos de Enquadramento Estratégico & Momento -->
-        <div class="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
-          <span class="text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 mr-1 flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 stroke-[1.75] text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
-            Enquadramentos &amp; Momento:
-          </span>
-          ${{catBadgesHtml}}
+        <!-- Componente Visual de Decomposição do Moat Score (Raio-X de Qualidade) -->
+        ${{generateMoatScoreDecomposition(s)}}
+
+        <!-- Rótulos de Enquadramento Estratégico & Momento (Status Pills Divididos em 2 Grupos) -->
+        <div class="mt-4 pt-3.5 border-t border-slate-100 space-y-2">
+          <!-- Grupo 1: Qualidade & Balanço -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+              QUALIDADE &amp; BALANÇO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${{renderPills(qualityCats, 'Padrão setorial de solvência')}}
+            </div>
+          </div>
+          <!-- Grupo 2: Valuation & Momento -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block"></span>
+              VALUATION &amp; MOMENTO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${{renderPills(valuationCats, 'Sem assimetria acentuada de preço')}}
+            </div>
+          </div>
         </div>
       `;
     }}
@@ -877,13 +1174,13 @@ def build_company_page():
       const dlVal = s.details ? s.details.divida_liquida : null;
       let debtText = 'N/D';
       if (s.is_financial) debtText = 'Bancos (Bacen)';
-      else if (dlVal !== null && dlVal <= 0) debtText = 'Caixa Líquido 🛡️';
-      else if (s.div_liq_ebitda !== null) debtText = s.div_liq_ebitda.toFixed(2) + 'x EBITDA';
+      else if (dlVal !== null && dlVal <= 0) debtText = 'Caixa Líquido';
+      else if (s.div_liq_ebitda !== null) debtText = s.div_liq_ebitda.toFixed(2).replace('.', ',') + 'x EBITDA';
 
       const items = [
         {{ label: 'P/L Histórico', val: formatMultiple(s.pl), desc: 'Preço sobre Lucro LTM', color: 'text-slate-900', tip: 'pl_ltm' }},
         {{ label: 'P/L Run-Rate', val: s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D', desc: 'Ritmo anualizado 2T26', color: s.pl_run_rate && s.pl && s.pl_run_rate < s.pl ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'pl_run_rate' }},
-        {{ label: 'P / VP', val: formatMultiple(s.pvp), desc: 'Preço sobre Patrimônio', color: 'text-slate-900', tip: 'graham' }},
+        {{ label: 'P / VP', val: formatMultiple(s.pvp), desc: 'Preço sobre Patrimônio', color: 'text-slate-900', tip: 'pvp' }},
         {{ label: 'EV / EBITDA', val: s.is_financial ? 'N/A' : (s.ev_ebitda !== null ? formatMultiple(s.ev_ebitda) : 'N/D'), desc: 'Múltiplo da Firma', color: 'text-slate-900', tip: 'ev_ebitda' }},
         {{ label: 'ROIC Operacional', val: s.is_financial ? 'N/A (Bancos)' : formatPercent(s.roic), desc: 'Retorno Capital Investido (NOPAT/CI)', color: (!s.is_financial && s.roic >= 0.15) ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roic' }},
         {{ label: 'ROE do Acionista', val: formatPercent(s.roe), desc: 'Retorno s/ Patrimônio Líquido', color: s.roe >= 0.15 ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roe' }},
@@ -1787,6 +2084,163 @@ def build_company_page():
       }}).join('');
     }}
 
+    // =========================================================================
+    // 📊 MINI-MATRIZ ESTRATÉGICA 2X2 (POSICIONAMENTO RELATIVO NO UNIVERSO B3)
+    // =========================================================================
+    function renderMiniMatrix() {{
+      const svg = document.getElementById('miniMatrixSvg');
+      const badge = document.getElementById('miniMatrixQuadrantBadge');
+      const rationale = document.getElementById('miniMatrixRationale');
+      const peerCountSpan = document.getElementById('miniMatrixPeerCount');
+      const s = currentStock;
+      if (!svg || !s) return;
+
+      const allStocks = APP_DATA.stocks || [];
+      const validPeers = allStocks.filter(item => item.pl !== null && item.pl > 0 && item.pl <= 35.0);
+
+      if (peerCountSpan) {{
+        peerCountSpan.innerText = `${{validPeers.length}} empresas líquidas`;
+      }}
+
+      const padL = 40, padR = 15, padT = 18, padB = 26;
+      const w = 400, h = 220;
+      const innerW = w - padL - padR;
+      const innerH = h - padT - padB;
+
+      const minX = 0, maxX = 30.0;
+      const minY = 20.0, maxY = 100.0;
+
+      const scaleX = (x) => padL + (Math.min(Math.max(x - minX, 0), maxX - minX) / (maxX - minX)) * innerW;
+      const scaleY = (y) => padT + innerH - (Math.min(Math.max(y - minY, 0), maxY - minY) / (maxY - minY)) * innerH;
+
+      const limiarQuality = 80.0;
+      const limiarValuation = 15.38; // NTN-B 6,5% a.a. real
+      const yCross = scaleY(limiarQuality);
+      const xCross = scaleX(limiarValuation);
+
+      const sPl = (s.pl && s.pl > 0) ? s.pl : ((s.details && s.details.pl) || 15.0);
+      const sScore = s.quality_score || 50.0;
+
+      const isHighQuality = sScore >= limiarQuality;
+      const isLowPl = sPl <= limiarValuation;
+
+      let quadName = '';
+      let badgeStyle = '';
+      let quadExplanation = '';
+
+      const sScoreStr = sScore.toFixed(1).replace('.', ',');
+      const sPlStr = sPl.toFixed(1).replace('.', ',');
+      const sEyStr = (sPl > 0 ? (100.0 / sPl).toFixed(1).replace('.', ',') : 'N/D') + '%';
+
+      if (isHighQuality && isLowPl) {{
+        quadName = 'Q1: Compounder Descontada';
+        badgeStyle = 'bg-emerald-50 text-emerald-900 border-emerald-300';
+        quadExplanation = `A <b>${{s.ticker}}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de ${{sScoreStr}} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de ${{sPlStr}}x</b>, implicando Earnings Yield de ${{sEyStr}}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco.`;
+      }} else if (isHighQuality && !isLowPl) {{
+        quadName = 'Q2: Qualidade com Prêmio';
+        badgeStyle = 'bg-sky-50 text-sky-900 border-sky-300';
+        quadExplanation = `A <b>${{s.ticker}}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de ${{sScoreStr}} pts</b>, Tier 1), porém negocia com prêmio de valuation de mercado (<b>P/L de ${{sPlStr}}x</b>, implicando Earnings Yield de ${{sEyStr}}, inferior ao corte de 6,5% da NTN-B real).`;
+      }} else if (!isHighQuality && isLowPl) {{
+        quadName = 'Q3: Múltiplos Baixos / Cíclica';
+        badgeStyle = 'bg-amber-50 text-amber-900 border-amber-300';
+        quadExplanation = `A <b>${{s.ticker}}</b> transaciona a múltiplos atrativos (<b>P/L de ${{sPlStr}}x</b>, Earnings Yield de ${{sEyStr}} acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de ${{sScoreStr}} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>).`;
+      }} else {{
+        quadName = 'Q4: Valuation Elevado / Baixo Moat';
+        badgeStyle = 'bg-rose-50 text-rose-900 border-rose-300';
+        quadExplanation = `A <b>${{s.ticker}}</b> reúne múltiplos esticados (<b>P/L de ${{sPlStr}}x</b>) e limitada proteção competitiva (<b>Moat Score de ${{sScoreStr}} pts</b>), situando-se no quadrante de menor margem de segurança frente às ${{validPeers.length}} empresas cobertas no universo B3.`;
+      }}
+
+      if (badge) {{
+        badge.innerText = quadName;
+        badge.className = `text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border ${{badgeStyle}}`;
+      }}
+      if (rationale) {{
+        rationale.innerHTML = quadExplanation;
+      }}
+
+      // Renderizar o SVG
+      const targetCx = scaleX(sPl);
+      const targetCy = scaleY(sScore);
+      const isNearTop = (targetCy - 22 < padT);
+      const pillY = isNearTop ? targetCy + 9 : targetCy - 22;
+      const textY = isNearTop ? targetCy + 20 : targetCy - 11;
+
+      let svgHtml = `
+        <defs>
+          <clipPath id="miniMatrixClip">
+            <rect x="${{padL}}" y="${{padT}}" width="${{innerW}}" height="${{innerH}}" rx="3" />
+          </clipPath>
+        </defs>
+
+        <!-- Fundo e Cortes -->
+        <g clip-path="url(#miniMatrixClip)">
+          <rect x="${{padL}}" y="${{padT}}" width="${{innerW}}" height="${{innerH}}" fill="#FAFAF8" />
+
+          <!-- Quadrantes com Tonalidades Suaves -->
+          <rect x="${{padL}}" y="${{padT}}" width="${{xCross - padL}}" height="${{yCross - padT}}" fill="#10B981" fill-opacity="0.08" />
+          <rect x="${{xCross}}" y="${{padT}}" width="${{padL + innerW - xCross}}" height="${{yCross - padT}}" fill="#0284C7" fill-opacity="0.04" />
+          <rect x="${{padL}}" y="${{yCross}}" width="${{xCross - padL}}" height="${{padT + innerH - yCross}}" fill="#F59E0B" fill-opacity="0.04" />
+          <rect x="${{xCross}}" y="${{yCross}}" width="${{padL + innerW - xCross}}" height="${{padT + innerH - yCross}}" fill="#EF4444" fill-opacity="0.04" />
+
+          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
+          <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+          <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
+
+          <!-- Rótulos Sutis de Quadrantes -->
+          <text x="${{padL + 6}}" y="${{padT + 12}}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
+          <text x="${{padL + innerW - 6}}" y="${{padT + 12}}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
+          <text x="${{padL + 6}}" y="${{padT + innerH - 6}}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
+          <text x="${{padL + innerW - 6}}" y="${{padT + innerH - 6}}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
+
+          <!-- Pontos de Background dos Pares do Universo Coberto -->
+          <g>
+            ${{validPeers.filter(p => p.ticker !== s.ticker).map(p => {{
+              const px = scaleX(p.pl);
+              const py = scaleY(p.quality_score || 50);
+              const titlePl = (p.pl && p.pl > 0) ? p.pl.toFixed(1).replace('.', ',') : 'N/D';
+              const titleScore = (p.quality_score || 0).toFixed(0);
+              return `<circle cx="${{px.toFixed(1)}}" cy="${{py.toFixed(1)}}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>${{p.ticker}}: P/L ${{titlePl}}x | Score ${{titleScore}}</title></circle>`;
+            }}).join('')}}
+          </g>
+
+          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
+          <g class="cursor-pointer">
+            <!-- Anel Externo com Efeito Ripple Pulsante -->
+            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
+              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
+            <!-- Ponto Central -->
+            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
+            <!-- Callout do Ticker -->
+            <rect x="${{(targetCx - 20).toFixed(1)}}" y="${{pillY.toFixed(1)}}" width="40" height="13" rx="3" fill="#004B49" />
+            <text x="${{targetCx.toFixed(1)}}" y="${{textY.toFixed(1)}}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">${{s.ticker}}</text>
+          </g>
+        </g>
+
+        <!-- Eixos Principais e Legendas -->
+        <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{padL + innerW}}" y2="${{padT + innerH}}" stroke="#94A3B8" stroke-width="1.5" />
+        <line x1="${{padL}}" y1="${{padT}}" x2="${{padL}}" y2="${{padT + innerH}}" stroke="#94A3B8" stroke-width="1.5" />
+
+        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
+        <text x="${{padL - 4}}" y="${{scaleY(100) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
+        <text x="${{padL - 4}}" y="${{yCross + 3}}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
+        <text x="${{padL - 4}}" y="${{scaleY(50) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
+        <text x="${{padL - 4}}" y="${{scaleY(20) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
+
+        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
+        <text x="${{padL}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
+        <text x="${{xCross.toFixed(1)}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
+        <text x="${{padL + innerW}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
+
+        <!-- Legenda Inferior do Eixo X -->
+        <text x="${{padL + innerW / 2}}" y="${{h - 4}}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
+      `;
+
+      svg.innerHTML = svgHtml;
+    }}
+
     // Busca de Ações no Header com Navegação por Teclado
     let companySearchHighlightedIndex = -1;
     let companySearchResults = [];
@@ -1794,9 +2248,12 @@ def build_company_page():
     function handleCompanySearch(query) {{
       const dd = document.getElementById('searchResultsDropdown');
       if (!query || query.trim().length === 0) {{
-        dd.classList.add('hidden');
-        companySearchResults = [];
+        companySearchResults = APP_DATA.stocks
+          .filter(s => (s.quality_score || 0) >= 75)
+          .sort((a, b) => (b.liq_2m || 0) - (a.liq_2m || 0))
+          .slice(0, 8);
         companySearchHighlightedIndex = -1;
+        renderCompanySearchResults();
         return;
       }}
       const q = query.trim().toLowerCase();
@@ -1833,17 +2290,26 @@ def build_company_page():
         return;
       }}
 
+      const inp = document.getElementById('companySearchInput');
+      const isDefault = !inp || !inp.value || inp.value.trim().length === 0;
+
       dd.innerHTML = `
         <div class="p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between text-[10px] font-mono text-slate-500">
-          <span>${{companySearchResults.length}} sugestões encontradas</span>
+          <span>${{isDefault ? '⭐ Destaques em Cobertura' : `${{companySearchResults.length}} sugestões encontradas`}}</span>
           <span>Navegue com <b>↑</b> <b>↓</b> e <b>Enter</b></span>
         </div>
         ${{companySearchResults.map((s, idx) => {{
           const isHigh = idx === companySearchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const scoreClass = s.quality_score >= 80 ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1) + 'x' : 'N/D';
-          const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0%';
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tierClass = tier === 'Tier 1' 
+            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+          const scoreClass = s.quality_score >= 80 
+            ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
+            : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
+          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
+          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
 
           return `
             <a href="/acoes/${{s.ticker.toLowerCase()}}/" class="p-2.5 ${{bg}} transition cursor-pointer flex items-center justify-between select-none">
@@ -1859,12 +2325,14 @@ def build_company_page():
                 </div>
               </div>
               <div class="flex flex-col items-end gap-1 flex-shrink-0">
-                <div class="flex items-center gap-1">
-                  <span class="text-xs font-mono font-bold text-slate-900">${{formatCurrency(s.cotacao)}}</span>
-                  <span class="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded-full ${{scoreClass}}">${{s.quality_score.toFixed(0)}} pts</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${{tierClass}}">${{tier}}</span>
+                  <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${{scoreClass}} tabular-nums">${{scoreStr}} pts</span>
                 </div>
-                <div class="text-[10px] font-mono text-slate-500">
-                  P/L: <b class="text-slate-800">${{plStr}}</b> • DY: <b class="text-emerald-700">${{dyStr}}</b>
+                <div class="text-[10.5px] font-mono text-slate-500 flex items-center gap-2">
+                  <span>P/L: <b class="text-slate-900 font-bold tabular-nums">${{plStr}}</b></span>
+                  <span class="text-slate-300">•</span>
+                  <span class="font-bold text-slate-800 tabular-nums">${{formatCurrency(s.cotacao)}}</span>
                 </div>
               </div>
             </a>
@@ -1902,8 +2370,9 @@ def build_company_page():
     }}
 
     function showSearchDropdown() {{
-      const q = document.getElementById('companySearchInput').value;
-      if (q && q.trim().length > 0) handleCompanySearch(q);
+      const inp = document.getElementById('companySearchInput');
+      const q = inp ? inp.value : '';
+      handleCompanySearch(q);
     }}
 
     document.addEventListener('click', (e) => {{
@@ -1914,8 +2383,20 @@ def build_company_page():
       }}
     }});
 
-    // Atalhos Globais na Página da Empresa (/ para buscar, Esc para fechar)
+    // Atalhos Globais na Página da Empresa (Ctrl+K, / para buscar, Esc para fechar)
     document.addEventListener('keydown', (e) => {{
+      // Ctrl+K ou Cmd+K abre a busca instantânea
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {{
+        e.preventDefault();
+        const inp = document.getElementById('companySearchInput');
+        if (inp) {{
+          inp.focus();
+          inp.select();
+          showSearchDropdown();
+        }}
+        return;
+      }}
+
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) {{
         if (e.key === 'Escape') {{
           const dd = document.getElementById('searchResultsDropdown');
@@ -1931,6 +2412,7 @@ def build_company_page():
         if (inp) {{
           inp.focus();
           inp.select();
+          showSearchDropdown();
         }}
       }} else if (e.key === 'Escape') {{
         const dd = document.getElementById('searchResultsDropdown');
@@ -1977,6 +2459,11 @@ def build_company_page():
         title: '📐 Valor Intrínseco de Benjamin Graham (V.I.)',
         desc: 'Fórmula clássica de Benjamin Graham: V = √(22,5 × LPA × VPA). Estipula uma referência teórica ponderando lucros por ação e valor contábil.',
         foot: 'Cotação < Graham = Negociando abaixo do valor patrimonial ponderado'
+      }},
+      pvp: {{
+        title: '📊 P/VP (Preço sobre Valor Patrimonial por Ação)',
+        desc: 'Relação entre o valor de mercado e o patrimônio líquido contábil. Indica quanto o investidor paga por cada real registrado no balanço patrimonial.',
+        foot: '< 1,5x = Desconto patrimonial • > 3,0x = Exige ROE consistente'
       }},
       bazin: {{
         title: '🎯 Referência Décio Bazin (DY 6,0%)',
@@ -2055,7 +2542,116 @@ def build_company_page():
       const titleEl = document.getElementById('gtTitle');
       const descEl = document.getElementById('gtDesc');
       const footEl = document.getElementById('gtFoot');
+      const auditEl = document.getElementById('gtAudit');
       if (!tooltip || !titleEl || !descEl || !footEl) return;
+
+      function getAuditHtml(key, s) {{
+        if (!s) return null;
+        const d = s.details || {{}};
+        const cot = Number(s.cotacao);
+        const lpa = d.lpa ? Number(d.lpa) : null;
+        const vpa = d.vpa ? Number(d.vpa) : null;
+        const mcap = d.valor_mercado ? Number(d.valor_mercado) : null;
+        const ev = d.valor_firma ? Number(d.valor_firma) : null;
+        const l12m = d.lucro_liq_12m ? Number(d.lucro_liq_12m) : null;
+        const l3m = d.lucro_liq_3m ? Number(d.lucro_liq_3m) : null;
+        const pl = s.pl !== null ? Number(s.pl) : null;
+        const pl_rr = s.pl_run_rate !== null ? Number(s.pl_run_rate) : null;
+        const pvp = s.pvp !== null ? Number(s.pvp) : null;
+        const ev_ebitda = s.ev_ebitda !== null ? Number(s.ev_ebitda) : null;
+
+        if (key === 'pl_ltm') {{
+          let mathLines = [];
+          if (cot && lpa) {{
+            mathLines.push(`• Cotação ÷ LPA: R$ ${{cot.toFixed(2).replace('.', ',')}} ÷ R$ ${{lpa.toFixed(2).replace('.', ',')}} = <b class="text-emerald-300 font-bold">${{pl ? pl.toFixed(2).replace('.', ',') : (cot/lpa).toFixed(2).replace('.', ',')}}x</b>`);
+          }}
+          if (mcap && l12m) {{
+            mathLines.push(`• M.Cap ÷ Lucro LTM: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l12m)}}`);
+          }}
+          if (mathLines.length === 0) return null;
+          return `
+            <div class="font-bold text-[10px] text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> AUDITORIA ABERTA (${{s.ticker}}):
+            </div>
+            <div class="space-y-0.5 text-slate-200">${{mathLines.map(l => `<div>${{l}}</div>`).join('')}}</div>
+          `;
+        }}
+
+        if (key === 'pl_run_rate') {{
+          let mathLines = [];
+          const l_anual = l3m ? l3m * 4 : null;
+          if (l3m && l_anual) {{
+            mathLines.push(`• Lucro 2T26 Anualizado: 4 × ${{formatBillions(l3m)}} = <b class="text-emerald-300">${{formatBillions(l_anual)}}</b>`);
+          }}
+          if (mcap && l_anual) {{
+            mathLines.push(`• M.Cap ÷ Lucro Run-Rate: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l_anual)}} = <b class="text-emerald-300 font-bold">${{pl_rr ? pl_rr.toFixed(2).replace('.', ',') : (mcap/l_anual).toFixed(2).replace('.', ',')}}x</b>`);
+          }} else if (pl_rr) {{
+            mathLines.push(`• Ritmo 2T26: <b class="text-emerald-300 font-bold">${{pl_rr.toFixed(2).replace('.', ',')}}x</b> (vs P/L LTM de ${{pl ? pl.toFixed(2).replace('.', ',') + 'x' : 'N/D'}})`);
+          }}
+          if (s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
+            const divPct = Number(s.run_rate_div_pct);
+            const sign = divPct > 0 ? '+' : '';
+            mathLines.push(`• Divergência vs 12M: <span class="${{divPct >= 0 ? 'text-emerald-300 font-bold' : 'text-amber-300 font-bold'}}">${{sign}}${{divPct.toFixed(1).replace('.', ',')}}%</span> (${{divPct >= 0 ? 'Acelerando' : 'Desacelerando'}})`);
+          }}
+          if (mathLines.length === 0) return null;
+          return `
+            <div class="font-bold text-[10px] text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> AUDITORIA RUN-RATE (${{s.ticker}}):
+            </div>
+            <div class="space-y-0.5 text-slate-200">${{mathLines.map(l => `<div>${{l}}</div>`).join('')}}</div>
+          `;
+        }}
+
+        if (key === 'pvp' || key === 'graham') {{
+          let mathLines = [];
+          if (cot && vpa) {{
+            mathLines.push(`• Cotação ÷ VPA: R$ ${{cot.toFixed(2).replace('.', ',')}} ÷ R$ ${{vpa.toFixed(2).replace('.', ',')}} = <b class="text-emerald-300 font-bold">${{pvp ? pvp.toFixed(2).replace('.', ',') : (cot/vpa).toFixed(2).replace('.', ',')}}x</b>`);
+          }}
+          if (mcap && d.patrimonio_liquido) {{
+            mathLines.push(`• M.Cap ÷ Patr. Líquido: ${{formatBillions(mcap)}} ÷ ${{formatBillions(d.patrimonio_liquido)}}`);
+          }}
+          if (lpa && vpa && lpa > 0 && vpa > 0) {{
+            const vi = Math.sqrt(22.5 * lpa * vpa);
+            mathLines.push(`• V.I. Graham: √(22,5 × ${{lpa.toFixed(2).replace('.', ',')}} × ${{vpa.toFixed(2).replace('.', ',')}}) = <b class="text-cyan-300 font-bold">R$ ${{vi.toFixed(2).replace('.', ',')}}</b>`);
+          }}
+          if (mathLines.length === 0) return null;
+          return `
+            <div class="font-bold text-[10px] text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> AUDITORIA PATRIMONIAL (${{s.ticker}}):
+            </div>
+            <div class="space-y-0.5 text-slate-200">${{mathLines.map(l => `<div>${{l}}</div>`).join('')}}</div>
+          `;
+        }}
+
+        if (key === 'ev_ebitda') {{
+          if (s.is_financial) {{
+            return `
+              <div class="font-bold text-[10px] text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span> EXCEÇÃO SETORIAL (${{s.ticker}}):
+              </div>
+              <div class="text-slate-300 text-[10.5px] leading-tight">Inaplicável para Instituições Financeiras. Bancos e seguradoras não utilizam EBITDA devido à natureza da intermediação de crédito e funding contábil.</div>
+            `;
+          }}
+          let mathLines = [];
+          if (ev && ev_ebitda && ev_ebitda > 0) {{
+            const ebitdaEst = ev / ev_ebitda;
+            mathLines.push(`• Valor da Firma (EV): ${{formatBillions(ev)}}`);
+            mathLines.push(`• EBITDA LTM Calculado: ~${{formatBillions(ebitdaEst)}}`);
+            mathLines.push(`• EV ÷ EBITDA: ${{formatBillions(ev)}} ÷ ${{formatBillions(ebitdaEst)}} = <b class="text-emerald-300 font-bold">${{ev_ebitda.toFixed(2).replace('.', ',')}}x</b>`);
+          }} else if (ev_ebitda) {{
+            mathLines.push(`• Múltiplo EV/EBITDA Auditado: <b class="text-emerald-300 font-bold">${{ev_ebitda.toFixed(2).replace('.', ',')}}x</b>`);
+          }}
+          if (mathLines.length === 0) return null;
+          return `
+            <div class="font-bold text-[10px] text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> AUDITORIA DA FIRMA (${{s.ticker}}):
+            </div>
+            <div class="space-y-0.5 text-slate-200">${{mathLines.map(l => `<div>${{l}}</div>`).join('')}}</div>
+          `;
+        }}
+
+        return null;
+      }}
 
       function show(target) {{
         const key = target.getAttribute('data-tooltip');
@@ -2065,6 +2661,17 @@ def build_company_page():
         titleEl.textContent = item.title;
         descEl.textContent = item.desc;
         footEl.textContent = item.foot || '';
+
+        const auditHtml = getAuditHtml(key, typeof currentStock !== 'undefined' ? currentStock : null);
+        if (auditEl) {{
+          if (auditHtml) {{
+            auditEl.innerHTML = auditHtml;
+            auditEl.classList.remove('hidden');
+          }} else {{
+            auditEl.innerHTML = '';
+            auditEl.classList.add('hidden');
+          }}
+        }}
 
         tooltip.classList.remove('hidden');
         position(target);
@@ -2138,6 +2745,7 @@ def build_company_page():
         renderHero();
         renderEssentialMultiples();
         renderValuationCalculators();
+        renderMiniMatrix();
         renderHistoryChart();
         renderDupont();
         renderSectorPeers();

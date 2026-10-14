@@ -29,12 +29,6 @@ def generate_seo_assets():
         f'    <lastmod>{today_str}</lastmod>',
         '    <changefreq>daily</changefreq>',
         '    <priority>0.9</priority>',
-        '  </url>',
-        '  <url>',
-        '    <loc>https://moatterminal.com.br/empresa.html</loc>',
-        f'    <lastmod>{today_str}</lastmod>',
-        '    <changefreq>daily</changefreq>',
-        '    <priority>0.5</priority>',
         '  </url>'
     ])
     
