@@ -25,6 +25,12 @@ def generate_seo_assets():
     
     sitemap_lines.extend([
         '  <url>',
+        '    <loc>https://moatterminal.com.br/acoes/</loc>',
+        f'    <lastmod>{today_str}</lastmod>',
+        '    <changefreq>daily</changefreq>',
+        '    <priority>0.9</priority>',
+        '  </url>',
+        '  <url>',
         '    <loc>https://moatterminal.com.br/empresa.html</loc>',
         f'    <lastmod>{today_str}</lastmod>',
         '    <changefreq>daily</changefreq>',
