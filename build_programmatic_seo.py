@@ -285,6 +285,114 @@ def generate_moat_decomposition_html(s):
         </div>
     """
 
+def generate_stock_badges_html(s):
+    if not s:
+        return ""
+    quality_pills = []
+    valuation_pills = []
+
+    is_fin = bool(s.get("is_financial"))
+    details = s.get("details", {}) or {}
+
+    # Grupo 1: Qualidade & Balanço
+    if is_fin:
+        quality_pills.append(('Bancos / Finanças', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_FINANCIAL'))
+    else:
+        dl = details.get("divida_liquida")
+        dle = s.get("div_liq_ebitda")
+        if (dl is not None and float(dl) <= 0) or (dle is not None and float(dle) < 0):
+            quality_pills.append(('Caixa Líquido', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH'))
+        elif dle is not None and float(dle) > 2.5:
+            quality_pills.append(('Alavancagem Alta', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_HIGH_DEBT'))
+        elif dle is not None and float(dle) <= 1.8:
+            quality_pills.append(('Dívida Equilibrada', 'bg-slate-400', 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium', 'CAT_BALANCED_DEBT'))
+
+    qs = float(s.get("quality_score") or 0)
+    roic_or_roe = float(s.get("roic") or s.get("roe") or 0)
+    if qs >= 80 and roic_or_roe >= 0.15:
+        quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
+    elif not is_fin and float(s.get("roic") or 0) >= 0.18:
+        quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
+
+    h5 = s.get("historical_5y") or {}
+    if not s.get("is_distorted") and h5.get("is_all_profitable"):
+        quality_pills.append(('Lucro Limpo 5A', 'bg-teal-500', 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium', 'CAT_CLEAN_EARNINGS'))
+
+    if s.get("is_distorted"):
+        quality_pills.append(('Distorção One-off', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DISTORTION'))
+
+    # Grupo 2: Valuation & Momento
+    lpa = float(details.get("lpa") or 0)
+    vpa = float(details.get("vpa") or 0)
+    cot = float(s.get("cotacao") or 0)
+    if lpa > 0 and vpa > 0 and cot > 0:
+        graham = math.sqrt(22.5 * lpa * vpa)
+        if graham > cot * 1.15:
+            valuation_pills.append(('Desconto Graham', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_GRAHAM'))
+
+    dy = float(s.get("div_yield") or 0)
+    if dy >= 0.06 and cot > 0:
+        bazin = (cot * dy) / 0.06
+        if bazin > cot * 1.15:
+            valuation_pills.append(('Ref. Bazin (DY 6%)', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_BAZIN'))
+
+    ey = s.get("ey_spread")
+    pl = s.get("pl")
+    if ey is not None and float(ey) >= 2.0 and (pl is None or float(pl) <= 15.0):
+        valuation_pills.append(('Prêmio Real NTN-B', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_SPREAD_NTNB'))
+
+    pl_rr = s.get("pl_run_rate")
+    rr_div = s.get("run_rate_div_pct")
+    if pl and pl_rr and rr_div is not None:
+        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl) * 0.88:
+            valuation_pills.append(('Lucro Acelerando', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_EXPANSION'))
+        elif float(rr_div) <= -20.0 and float(pl_rr) > float(pl) * 1.25:
+            valuation_pills.append(('Lucro em Retração', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DECELERATION'))
+
+    payout = s.get("payout_implicito")
+    if dy >= 0.05 and payout is not None and 30 <= float(payout) <= 88:
+        valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
+    elif payout is not None and float(payout) > 105:
+        valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
+
+    if s.get("is_commodity_peak"):
+        valuation_pills.append(('Pico de Ciclo', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_COMMODITY_PEAK'))
+
+    def render_pills_html(pills, empty_msg):
+        if not pills:
+            return f'<span class="text-[11px] font-mono text-slate-400 italic">{empty_msg}</span>'
+        items = []
+        for label, led, bg, cat_id in pills[:4]:
+            items.append(f'''<a href="/index.html?filter={cat_id}" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium {bg} shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full {led} inline-block"></span><span>{label}</span></a>''')
+        return "".join(items)
+
+    q_html = render_pills_html(quality_pills, 'Padrão setorial de solvência')
+    v_html = render_pills_html(valuation_pills, 'Sem assimetria acentuada de preço')
+
+    return f"""
+        <!-- Rótulos de Enquadramento Estratégico & Momento (Status Pills Divididos em 2 Grupos) -->
+        <div class="mt-4 pt-3.5 border-t border-slate-100 space-y-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+              QUALIDADE &amp; BALANÇO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              {q_html}
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5 sm:min-w-[170px]">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block"></span>
+              VALUATION &amp; MOMENTO:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5">
+              {v_html}
+            </div>
+          </div>
+        </div>
+    """
+
 def generate_acoes_directory(stocks, base_dir, today_str):
     """
     Gera a página central de diretório /acoes/index.html
@@ -1027,6 +1135,7 @@ def build_programmatic_seo():
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else "Tier 3 (No Moat)")
 
         decomposition_html = generate_moat_decomposition_html(s)
+        badges_html = generate_stock_badges_html(s)
 
         prerendered_hero_html = f"""
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -1047,7 +1156,7 @@ def build_programmatic_seo():
               <span>•</span>
               <span>Segmento: <b class="text-slate-800">{subsetor}</b></span>
               <span>•</span>
-              <span>Liquidez: <b class="text-slate-800">{format_billions(s.get('liq_2m'))}/dia</b></span>
+              <span>Liquidez: <b class="text-slate-800 font-mono">{format_billions(s.get('liq_2m'))}/dia</b></span>
             </div>
           </div>
         </div>
@@ -1055,25 +1164,27 @@ def build_programmatic_seo():
         <div class="flex flex-wrap items-center gap-4 sm:gap-6 self-stretch lg:self-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100">
           <div class="flex flex-col text-left lg:text-right">
             <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Cotação Atual</span>
-            <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5">{cot_str}</span>
+            <span class="text-2xl font-bold font-mono text-slate-900 mt-0.5 tabular-nums">{cot_str}</span>
             <span class="text-[10px] text-slate-500 font-sans">Mercado B3 à vista</span>
           </div>
 
           <div class="flex flex-col text-left lg:text-right">
             <span class="text-[11px] text-slate-500 uppercase font-mono font-semibold">Valor de Mercado</span>
-            <span class="text-lg font-bold font-mono text-slate-800 mt-0.5">{val_merc_str}</span>
+            <span class="text-lg font-bold font-mono text-slate-800 mt-0.5 tabular-nums">{val_merc_str}</span>
             <span class="text-[10px] text-slate-500 font-sans">EV: {val_firma_str}</span>
           </div>
 
           <div class="flex flex-col items-center justify-center p-3 rounded-2xl border bg-white border-slate-300 min-w-[95px] shadow-2xs">
             <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900">{score_str}</span>
+            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900 tabular-nums">{score_str}</span>
             <span class="text-[9px] font-mono font-semibold text-slate-700">{tier_label}</span>
           </div>
         </div>
       </div>
 
       {decomposition_html}
+
+      {badges_html}
 """
 
         # Pre-rendered Editorial Valuation & Sector Peers Section (100% visível para o Googlebot e usuários)
