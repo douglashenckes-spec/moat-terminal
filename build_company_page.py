@@ -20,17 +20,17 @@ def build_company_page():
   <meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/empresa.html">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/acoes/">
   <script>
     (function() {{
       try {{
         var params = new URLSearchParams(window.location.search);
         var t = params.get('ticker');
         if (t) {{
-          t = t.toUpperCase().trim();
+          t = t.toLowerCase().trim();
           var can = document.getElementById('canonicalTag');
-          if (can) can.href = 'https://moatterminal.com.br/empresa.html?ticker=' + encodeURIComponent(t);
+          if (can) can.href = 'https://moatterminal.com.br/acoes/' + encodeURIComponent(t) + '/';
         }}
       }} catch(e) {{}}
     }})();

@@ -130,7 +130,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
                     </div>
                   </div>
                   <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold border {tier_badge} flex-shrink-0">
-                    Moat {score:.1f}
+                    Moat {f"{score:.1f}".replace(".", ",")}
                   </span>
                 </div>
 
@@ -612,7 +612,6 @@ def build_programmatic_seo():
     sitemap_urls = [
         ('https://moatterminal.com.br/', today_str, 'daily', '1.0'),
         ('https://moatterminal.com.br/acoes/', today_str, 'daily', '0.9'),
-        ('https://moatterminal.com.br/empresa.html', today_str, 'daily', '0.5'),
         ('https://moatterminal.com.br/sobre.html', today_str, 'weekly', '0.7'),
         ('https://moatterminal.com.br/contato.html', today_str, 'monthly', '0.5'),
         ('https://moatterminal.com.br/privacidade.html', today_str, 'monthly', '0.3'),
@@ -677,8 +676,10 @@ def build_programmatic_seo():
 
         graham_str = format_curr(graham_price) if graham_price else "N/D"
         bazin_str = format_curr(bazin_price) if bazin_price else "N/D"
-        graham_badge = f"{graham_margin:+.1f}% vs cotação" if graham_margin is not None else "LPA/VPA Inválido"
-        bazin_badge = f"{bazin_margin:+.1f}% vs cotação" if bazin_margin is not None else "Sem Proventos"
+        score_str = f"{quality_score:.1f}".replace(".", ",")
+        graham_badge = f"{graham_margin:+.1f}%".replace(".", ",") + " vs cotação" if graham_margin is not None else "LPA/VPA Inválido"
+        bazin_badge = f"{bazin_margin:+.1f}%".replace(".", ",") + " vs cotação" if bazin_margin is not None else "Sem Proventos"
+        ey_spread_str = f"{ey_spread:+.1f}%".replace(".", ",")
 
         # Pares setoriais para o gráfico comparativo e interlinking SEO (top 6 do mesmo setor)
         peers = [p for p in stocks if p.get("setor") == setor and p.get("ticker") != ticker and p.get("is_liquid_1m")]
@@ -688,13 +689,13 @@ def build_programmatic_seo():
         # Meta tags ricas de SEO focadas em alta intenção de busca (High-CTR)
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
         page_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin, Graham e Indicadores • Moat Terminal"
-        meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {quality_score:.1f}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
+        meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
         og_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin & Graham • Moat Terminal"
-        og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {quality_score:.1f}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
+        og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"
-        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {quality_score:.1f}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
+        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {score_str}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
 
         faq_q2 = f"Qual é a rentabilidade e o ROIC de {ticker}?"
         faq_a2 = f"{ticker} entrega atualmente um ROIC de {roic_str} e um ROE de {roe_str}. No Moat Terminal, o Retorno sobre Capital Investido avalia a capacidade da diretoria de compor valor econômico acima do custo de capital da economia."
@@ -703,7 +704,7 @@ def build_programmatic_seo():
         faq_a3 = f"Atualmente, {ticker} apresenta um Dividend Yield de {dy_str}. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de {bazin_str} (margem de {bazin_badge}). A distribuição de proventos depende da geração de caixa livre e política de payout."
 
         faq_q4 = f"Qual é o Valor Intrínseco de Graham de {ticker} hoje?"
-        faq_a4 = f"Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para {ticker} é de {graham_str} ({graham_badge}). Negociada a P/L {pl_str} e P/VP {pvp_str}, a ação oferece Spread de Earnings Yield de {ey_spread:+.1f}% sobre o juro real da NTN-B."
+        faq_a4 = f"Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para {ticker} é de {graham_str} ({graham_badge}). Negociada a P/L {pl_str} e P/VP {pvp_str}, a ação oferece Spread de Earnings Yield de {ey_spread_str} a.a. sobre o juro real da NTN-B."
 
         # Schema.org JSON-LD estruturado
         schema_data = {
@@ -820,7 +821,7 @@ def build_programmatic_seo():
 
           <div class="flex flex-col items-center justify-center p-3 rounded-2xl border bg-white border-slate-300 min-w-[95px] shadow-2xs">
             <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900">{quality_score:.1f}</span>
+            <span class="text-2xl font-bold font-mono leading-none my-0.5 text-slate-900">{score_str}</span>
             <span class="text-[9px] font-mono font-semibold text-slate-700">{tier_label}</span>
           </div>
         </div>
@@ -836,11 +837,12 @@ def build_programmatic_seo():
             p_pl = format_mult(p.get("pl")) if p.get("pl") is not None else "N/D"
             p_dy = format_pct(p.get("div_yield"))
             p_sc = float(p.get("quality_score", 0) or 0)
+            p_sc_str = f"{p_sc:.1f}".replace(".", ",")
             peers_cards_html.append(f"""
             <a href="/acoes/{p_tick.lower()}/" class="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-[#004B49] hover:shadow-xs transition flex flex-col justify-between group">
               <div class="flex items-center justify-between">
                 <span class="font-mono font-bold text-sm text-slate-900 group-hover:text-[#004B49]">{p_tick}</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">Moat {p_sc:.1f}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-bold">Moat {p_sc_str}</span>
               </div>
               <div class="text-xs text-slate-600 truncate mt-1">{p_emp}</div>
               <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
@@ -852,7 +854,8 @@ def build_programmatic_seo():
             """)
         peers_cards_joined = "\n".join(peers_cards_html) if peers_cards_html else '<p class="text-xs text-slate-500 font-sans">Nenhum concorrente com liquidez suficiente no mesmo setor.</p>'
 
-        graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin:.1f}% segundo o método clássico de Benjamin Graham." if (graham_margin and graham_margin > 0) else f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
+        graham_margin_val_str = f"{graham_margin:.1f}%".replace(".", ",") if graham_margin is not None else ""
+        graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin_val_str} segundo o método clássico de Benjamin Graham." if (graham_margin and graham_margin > 0) else f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
         bazin_interpretation = f"Com dividendo atual de {dy_str}, o preço teto de Bazin (exigência de 6% a.a.) fica em {bazin_str}, proporcionando margem favorável de proventos frente à cotação atual." if (bazin_margin and bazin_margin > 0) else f"Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de {bazin_str}. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto."
 
         editorial_section_html = f"""
@@ -912,7 +915,7 @@ def build_programmatic_seo():
                 { 'Prêmio Positivo' if ey_spread > 0 else 'Abaixo do IPCA+' }
               </span>
             </div>
-            <div class="text-xl font-bold font-mono text-slate-900">{ey_spread:+.1f}% a.a.</div>
+            <div class="text-xl font-bold font-mono text-slate-900">{ey_spread_str} a.a.</div>
             <p class="text-xs text-slate-600 font-sans leading-relaxed">
               Earnings Yield da companhia contra a taxa real da NTN-B 2035 do Tesouro Direto (~6,5% a.a. acima do IPCA).
             </p>
@@ -1003,10 +1006,21 @@ def build_programmatic_seo():
             '<meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">',
             f'<meta name="description" content="{meta_desc}">'
         )
-        page_html = page_html.replace(
-            '<link rel="canonical" id="canonicalTag" href="https://moatterminal.com.br/empresa.html">',
-            f'<link rel="canonical" id="canonicalTag" href="{canonical_url}">'
+        
+        # Ensure robots is index, follow on individual stock pages
+        page_html = re.sub(r'<meta\s+name="robots"\s+content="[^"]*">', '<meta name="robots" content="index, follow">', page_html)
+
+        # Ensure canonical tag is exact, self-referential, lowercase, with trailing slash and without mutation id
+        page_html = re.sub(r'<link\s+rel="canonical"[^>]*>', f'<link rel="canonical" href="{canonical_url}">', page_html)
+
+        # Strip out any client-side canonical mutation script from programmatic pages
+        page_html = re.sub(
+            r'<script>\s*\(function\(\)\s*\{.*?canonicalTag.*?\}\)\(\);\s*</script>\s*',
+            '',
+            page_html,
+            flags=re.DOTALL
         )
+
         page_html = page_html.replace(
             '<meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/empresa.html">',
             f'<meta property="og:url" id="ogUrl" content="{canonical_url}">'
@@ -1028,8 +1042,13 @@ def build_programmatic_seo():
             f'<meta name="twitter:description" content="{og_desc}">'
         )
 
-        # 2. Substituir Schema.org JSON-LD de forma robusta
-        old_schema_str = """  <!-- Schema.org JSON-LD -->
+        # 2. Substituir Schema.org JSON-LD de forma robusta no <head>
+        new_schema_block = f"""<!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->\n  <script type="application/ld+json">\n{schema_json_str}\n  </script>"""
+        schema_pattern = r'<!-- Schema\.org JSON-LD -->\s*<script type="application/ld\+json">.*?</script>'
+        if re.search(schema_pattern, page_html, flags=re.DOTALL):
+            page_html = re.sub(schema_pattern, new_schema_block, page_html, count=1, flags=re.DOTALL)
+        else:
+            old_schema_str = """  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1043,11 +1062,7 @@ def build_programmatic_seo():
     }
   }
   </script>"""
-        new_schema_str = f"""  <!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->
-  <script type="application/ld+json">
-{schema_json_str}
-  </script>"""
-        page_html = page_html.replace(old_schema_str, new_schema_str)
+            page_html = page_html.replace(old_schema_str, new_schema_block)
 
         # 3. Inserir Breadcrumbs e Hero Pre-renderizado
         old_hero_container = """    <!-- 1. HERO SECTION: CABEÇALHO DO ATIVO -->
