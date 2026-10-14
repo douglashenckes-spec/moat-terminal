@@ -41,6 +41,250 @@ def format_billions(val):
     except Exception:
         return "R$ --"
 
+def generate_moat_decomposition_html(s):
+    if not s:
+        return ""
+    qs = float(s.get("quality_score") or 50.0)
+    is_fin = bool(s.get("is_financial"))
+    subs = s.get("sub_scores", {}) or {}
+
+    s_ret = float(subs.get("roe" if is_fin else "roic", s.get("pilar_rentabilidade", 50)))
+    s_mrg = float(subs.get("mrg_liq", 50)) if is_fin else (float(subs.get("mrg_bruta", 50)) * 0.5 + float(subs.get("mrg_liq", 50)) * 0.5)
+    s_cons = float(s.get("pilar_consistencia", 50))
+    s_sol = float(s.get("pilar_solidez", 50))
+
+    raw_p1 = (s_ret / 100.0) * 30.0
+    raw_p2 = (s_mrg / 100.0) * 25.0
+    raw_p3 = (s_cons / 100.0) * 25.0
+    raw_p4 = (s_sol / 100.0) * 20.0
+
+    raw_sum = raw_p1 + raw_p2 + raw_p3 + raw_p4
+    scale = (qs / raw_sum) if raw_sum > 0 else 1.0
+
+    p1 = round(min(30.0, max(1.0, raw_p1 * scale)), 1)
+    p2 = round(min(25.0, max(1.0, raw_p2 * scale)), 1)
+    p3 = round(min(25.0, max(1.0, raw_p3 * scale)), 1)
+    p4 = round(qs - (p1 + p2 + p3), 1)
+    if p4 < 0:
+        p4 = 0.5
+        p1 = round(qs - (p2 + p3 + p4), 1)
+
+    pct1 = min(100, max(5, (p1 / 30.0) * 100))
+    pct2 = min(100, max(5, (p2 / 25.0) * 100))
+    pct3 = min(100, max(5, (p3 / 25.0) * 100))
+    pct4 = min(100, max(5, (p4 / 20.0) * 100))
+
+    def get_style(pct):
+        if pct >= 75:
+            return "bg-emerald-500", "text-emerald-700", "bg-[#00A887]"
+        if pct >= 55:
+            return "bg-teal-500", "text-teal-700", "bg-teal-600"
+        if pct >= 40:
+            return "bg-amber-500", "text-amber-700", "bg-amber-500"
+        return "bg-rose-500", "text-rose-700", "bg-rose-500"
+
+    dot1, txt1, bar1 = get_style(pct1)
+    dot2, txt2, bar2 = get_style(pct2)
+    dot3, txt3, bar3 = get_style(pct3)
+    dot4, txt4, bar4 = get_style(pct4)
+
+    if is_fin:
+        sector_badge_html = """
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-indigo-50 text-indigo-900 border border-indigo-200 shadow-2xs">
+            <span>⚖️</span> Metodologia Ajustada: Setor Financeiro/Seguros
+          </span>"""
+        title1 = "Retorno Patrimonial (Spread ROE vs NTN-B)"
+        title2 = "Eficiência Operacional &amp; Margem de Conversão"
+        title3 = "Consistência de Resultados &amp; Payout (5 Anos)"
+        title4 = "Escala &amp; Solvência Institucional (Patrimônio Líquido)"
+
+        roe = float(s.get("roe") or 0)
+        roe_str = format_pct(roe)
+        if roe >= 0.20:
+            desc1 = f"ROE de {roe_str} comprova rentabilidade patrimonial excepcional e forte capacidade de composição de lucros dos sócios."
+        elif roe >= 0.14:
+            desc1 = f"ROE de {roe_str} reflete rentabilidade sólida e resiliente para os padrões de exigência de capital regulatório."
+        elif roe >= 0.08:
+            desc1 = f"ROE de {roe_str} situa-se em nível mediano frente ao custo de oportunidade da economia brasileira."
+        else:
+            desc1 = f"ROE de {roe_str} é modesto frente aos riscos de crédito e mercado, reduzindo a criação de valor econômico."
+
+        if p2 >= 20.0:
+            desc2 = "Estrutura operacional de ponta com captação a custo controlado e excelente geração de receitas de serviços e tarifas."
+        elif p2 >= 15.0:
+            desc2 = "Eficiência operacional e conversão dentro dos padrões auditados de bancos múltiplos e seguradoras líderes da B3."
+        else:
+            desc2 = "Custos operacionais e despesas de intermediação/sinistros pressionam a margem líquida final da operação."
+
+        if p3 >= 20.0:
+            desc3 = "Histórico auditado de 5 anos de lucros contínuos (2022-2026), sem distorções graves, prejuízos ou one-offs artificiais."
+        elif p3 >= 15.0:
+            desc3 = "Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos dividendos."
+        else:
+            desc3 = "Oscilações relevantes de resultados históricos ou quebra recente de lucratividade penalizam a previsibilidade."
+
+        if p4 >= 17.0:
+            desc4 = "Escala patrimonial de grande porte com sólida folga sobre os limites regulatórios de Basileia/Susep e captação competitiva."
+        elif p4 >= 13.0:
+            desc4 = "Estrutura patrimonial suficiente e aderente com segurança às métricas de solvência e liquidez regulamentares."
+        else:
+            desc4 = "Porte patrimonial menor impõe custo de captação relativamente superior frente aos grandes conglomerados."
+    else:
+        sector_badge_html = """
+          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+            <span>🛡️</span> Modelo Munger de Fosso Econômico
+          </span>"""
+        title1 = "Retorno sobre Capital (Spread ROIC vs NTN-B)"
+        title2 = "Poder de Precificação &amp; Margens (Proteção Moat)"
+        title3 = "Consistência Histórica &amp; Lucro Limpo (5 Anos)"
+        title4 = "Solidez Financeira &amp; Desalavancagem (Anti-Crise)"
+
+        roic = float(s.get("roic") or 0)
+        roic_str = format_pct(roic)
+        if roic >= 0.20:
+            desc1 = f"ROIC auditado de {roic_str} supera amplamente o juro real soberano (NTN-B 6,5%), gerando alto valor econômico (EVA)."
+        elif roic >= 0.12:
+            desc1 = f"ROIC de {roic_str} entrega retorno saudável e consistente acima do custo de oportunidade da economia brasileira."
+        elif roic >= 0.06:
+            desc1 = f"ROIC de {roic_str} opera em patamar moderado, com spread estreito sobre os títulos soberanos da NTN-B."
+        else:
+            desc1 = f"ROIC de {roic_str} fica abaixo do custo de oportunidade soberano (NTN-B 6,5%), consumindo valor econômico dos acionistas."
+
+        mrg = float(s.get("mrg_liq") or 0)
+        mrg_str = format_pct(mrg)
+        if mrg >= 0.15:
+            desc2 = f"Margem líquida de {mrg_str} comprova forte poder de precificação contra pressões inflacionárias de custos."
+        elif mrg >= 0.07:
+            desc2 = f"Margem líquida de {mrg_str} preserva conversão operacional equilibrada dentro da média do setor."
+        else:
+            desc2 = f"Margem líquida comprimida ({mrg_str}) expõe a operação a variações de insumos e competição predatória."
+
+        if p3 >= 20.0:
+            desc3 = "Histórico ininterrupto de lucros no quinquênio (2022-2026), sem distorções contábeis graves ou prejuízos recentes."
+        elif p3 >= 15.0:
+            desc3 = "Geração de resultados estável na maior parte do quinquênio, assegurando boa previsibilidade aos fluxos operacionais."
+        else:
+            desc3 = "Oscilações relevantes de resultados históricos ou quebra recente de lucratividade reduzem a previsibilidade projetada."
+
+        dl = s.get("div_liq_ebitda")
+        if dl is not None and float(dl) <= 0:
+            desc4 = "Empresa opera com caixa líquido positivo (sem endividamento líquido), conferindo blindagem máxima com Selic alta."
+        elif dl is not None and float(dl) <= 1.5:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem prudente de {dl_f}x EBITDA mantém o balanço confortável e imune a choques de liquidez."
+        elif dl is not None and float(dl) <= 2.5:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem moderada de {dl_f}x EBITDA exige acompanhamento da cobertura de juros."
+        elif dl is not None:
+            dl_f = f"{float(dl):.1f}".replace(".", ",")
+            desc4 = f"Alavancagem elevada de {dl_f}x EBITDA onera o fluxo de caixa com serviço da dívida sob juros altos."
+        else:
+            desc4 = "Estrutura patrimonial sem passivos financeiros onerosos que comprometam a continuidade dos negócios."
+
+    p1_str = f"{p1:.1f}".replace(".", ",")
+    p2_str = f"{p2:.1f}".replace(".", ",")
+    p3_str = f"{p3:.1f}".replace(".", ",")
+    p4_str = f"{p4:.1f}".replace(".", ",")
+    qs_str = f"{qs:.1f}".replace(".", ",")
+    tier_str = s.get("quality_tier", "Tier de Qualidade")
+
+    return f"""
+        <!-- DECOMPOSIÇÃO DO MOAT SCORE (RAIO-X DE QUALIDADE INSTITUCIONAL) -->
+        <div class="mt-5 p-5 sm:p-6 bg-slate-50/70 border border-slate-200/90 rounded-2xl space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-[#004B49] text-white flex items-center justify-center font-mono text-xs font-bold shadow-2xs">
+                RX
+              </div>
+              <div>
+                <h3 class="text-xs sm:text-sm font-bold font-mono text-slate-900 uppercase tracking-wider">
+                  Decomposição do Moat Score • Raio-X de Qualidade
+                </h3>
+                <p class="text-[11px] text-slate-500 font-sans mt-0.5">
+                  Auditoria transparente dos 4 pilares quantitativos que formam a nota final de 0 a 100
+                </p>
+              </div>
+            </div>
+            {sector_badge_html}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+            <!-- Pilar 1 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot1}"></span>
+                  {title1}
+                </span>
+                <span class="font-bold {txt1}">{p1_str} / 30 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar1} rounded-full transition-all duration-500" style="width: {pct1:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc1}
+              </p>
+            </div>
+
+            <!-- Pilar 2 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot2}"></span>
+                  {title2}
+                </span>
+                <span class="font-bold {txt2}">{p2_str} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar2} rounded-full transition-all duration-500" style="width: {pct2:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc2}
+              </p>
+            </div>
+
+            <!-- Pilar 3 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot3}"></span>
+                  {title3}
+                </span>
+                <span class="font-bold {txt3}">{p3_str} / 25 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar3} rounded-full transition-all duration-500" style="width: {pct3:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc3}
+              </p>
+            </div>
+
+            <!-- Pilar 4 -->
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-3xs space-y-2">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full {dot4}"></span>
+                  {title4}
+                </span>
+                <span class="font-bold {txt4}">{p4_str} / 20 pts</span>
+              </div>
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full {bar4} rounded-full transition-all duration-500" style="width: {pct4:.0f}%"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 font-sans leading-relaxed">
+                {desc4}
+              </p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-500">
+            <span>Soma dos Pilares: <b class="text-slate-900">{qs_str} / 100 pts</b> ({tier_str})</span>
+            <span class="text-slate-400">Metodologia Auditada CVM 2T26 • Sem Caixa-Preta</span>
+          </div>
+        </div>
+    """
+
 def generate_acoes_directory(stocks, base_dir, today_str):
     """
     Gera a página central de diretório /acoes/index.html
@@ -782,6 +1026,8 @@ def build_programmatic_seo():
         entry_badge_bg = "bg-emerald-600 text-white" if entry_tag == "ASSIMETRIA_FAVORAVEL" else ("bg-amber-500 text-white" if entry_tag == "PRECO_JUSTO" else "bg-slate-700 text-white")
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else "Tier 3 (No Moat)")
 
+        decomposition_html = generate_moat_decomposition_html(s)
+
         prerendered_hero_html = f"""
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         <div class="flex items-center gap-4 min-w-0">
@@ -826,6 +1072,8 @@ def build_programmatic_seo():
           </div>
         </div>
       </div>
+
+      {decomposition_html}
 """
 
         # Pre-rendered Editorial Valuation & Sector Peers Section (100% visível para o Googlebot e usuários)
