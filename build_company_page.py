@@ -16,7 +16,7 @@ def build_company_page():
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">Dossiê de Empresa • Moat Terminal</title>
+  <title id="pageTitle">Dossiê de Empresa | Moat Terminal</title>
   <meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
@@ -39,14 +39,14 @@ def build_company_page():
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/empresa.html">
-  <meta property="og:title" id="ogTitle" content="Dossiê de Empresa • Moat Terminal">
+  <meta property="og:title" id="ogTitle" content="Dossiê de Empresa | Moat Terminal">
   <meta property="og:description" content="Análise fundamentalista institucional e vantagens competitivas (Moats) da B3.">
   <meta property="og:site_name" content="MOAT TERMINAL">
   <meta property="og:locale" content="pt_BR">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twTitle" content="Dossiê de Empresa • Moat Terminal">
+  <meta name="twitter:title" id="twTitle" content="Dossiê de Empresa | Moat Terminal">
   <meta name="twitter:description" content="Análise fundamentalista completa e vantagens competitivas (Moats) da B3.">
 
   <!-- Schema.org JSON-LD -->
@@ -550,6 +550,13 @@ def build_company_page():
       `;
     }}
 
+    function formatNumberBR(value, decimals = 1, suffix = '') {{
+      if (value === null || value === undefined || value === '' || value === 'N/D' || value === 'N/A') return 'N/D';
+      const num = Number(value);
+      if (isNaN(num)) return 'N/D';
+      return num.toFixed(decimals).replace('.', ',') + suffix;
+    }}
+
     function formatCurrency(val) {{
       if (val === null || val === undefined || isNaN(val)) return 'R$ --';
       return 'R$ ' + Number(val).toLocaleString('pt-BR', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
@@ -557,12 +564,13 @@ def build_company_page():
 
     function formatPercent(val) {{
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
-      return (Number(val) * 100).toFixed(1).replace('.', ',') + '%';
+      const num = Math.abs(val) < 2.0 ? val * 100 : val;
+      return formatNumberBR(num, 1, '%');
     }}
 
     function formatMultiple(val) {{
       if (val === null || val === undefined || isNaN(val)) return 'N/D';
-      return Number(val).toFixed(2).replace('.', ',') + 'x';
+      return formatNumberBR(val, 2, 'x');
     }}
 
     function formatBillions(val) {{
@@ -899,17 +907,17 @@ def build_company_page():
 
         const dl = s.div_liq_ebitda;
         if (dl !== null && dl !== undefined && Number(dl) <= 0) desc4 = 'Empresa opera com caixa líquido positivo (sem endividamento líquido), conferindo blindagem máxima com Selic alta.';
-        else if (dl !== null && dl !== undefined && Number(dl) <= 1.5) desc4 = `Alavancagem prudente de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA mantém o balanço confortável e imune a choques de liquidez.`;
-        else if (dl !== null && dl !== undefined && Number(dl) <= 2.5) desc4 = `Alavancagem moderada de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA exige acompanhamento da cobertura de juros.`;
-        else if (dl !== null && dl !== undefined) desc4 = `Alavancagem elevada de ${{Number(dl).toFixed(1).replace('.', ',')}}x EBITDA onera o fluxo de caixa com serviço da dívida sob juros altos.`;
+        else if (dl !== null && dl !== undefined && Number(dl) <= 1.5) desc4 = `Alavancagem prudente de ${{formatNumberBR(dl, 1, 'x')}} EBITDA mantém o balanço confortável e imune a choques de liquidez.`;
+        else if (dl !== null && dl !== undefined && Number(dl) <= 2.5) desc4 = `Alavancagem moderada de ${{formatNumberBR(dl, 1, 'x')}} EBITDA exige acompanhamento da cobertura de juros.`;
+        else if (dl !== null && dl !== undefined) desc4 = `Alavancagem elevada de ${{formatNumberBR(dl, 1, 'x')}} EBITDA onera o fluxo de caixa com serviço da dívida sob juros altos.`;
         else desc4 = 'Estrutura patrimonial sem passivos financeiros onerosos que comprometam a continuidade dos negócios.';
       }}
 
-      const p1Str = p1.toFixed(1).replace('.', ',');
-      const p2Str = p2.toFixed(1).replace('.', ',');
-      const p3Str = p3.toFixed(1).replace('.', ',');
-      const p4Str = p4.toFixed(1).replace('.', ',');
-      const qsStr = qs.toFixed(1).replace('.', ',');
+      const p1Str = formatNumberBR(p1, 1);
+      const p2Str = formatNumberBR(p2, 1);
+      const p3Str = formatNumberBR(p3, 1);
+      const p4Str = formatNumberBR(p4, 1);
+      const qsStr = formatNumberBR(qs, 1);
 
       return `
         <!-- DECOMPOSIÇÃO DO MOAT SCORE (RAIO-X DE QUALIDADE INSTITUCIONAL) -->
@@ -1013,8 +1021,8 @@ def build_company_page():
     function renderHero() {{
       const s = currentStock;
       const pt = document.getElementById('pageTitle');
-      if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} • Leitura dos Números`;
-      document.title = `${{s.ticker}} • ${{s.empresa}} • Moat Terminal`;
+      if (pt) pt.innerText = `${{s.ticker}} • ${{s.empresa}} | Moat Terminal`;
+      document.title = `${{s.ticker}} • ${{s.empresa}} | Moat Terminal`;
 
       const fullCanonical = `https://moatterminal.com.br/acoes/${{s.ticker.toLowerCase()}}/`;
       const canEl = document.getElementById('canonicalTag') || document.querySelector('link[rel="canonical"]');
@@ -1022,9 +1030,9 @@ def build_company_page():
       const ogUrlEl = document.getElementById('ogUrl') || document.querySelector('meta[property="og:url"]');
       if (ogUrlEl) ogUrlEl.content = fullCanonical;
       const ogTitleEl = document.getElementById('ogTitle');
-      if (ogTitleEl) ogTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
+      if (ogTitleEl) ogTitleEl.content = `${{s.ticker}} • ${{s.empresa}} | Moat Terminal`;
       const twTitleEl = document.getElementById('twTitle');
-      if (twTitleEl) twTitleEl.content = `${{s.ticker}} • ${{s.empresa}} • Dossiê Moat Terminal`;
+      if (twTitleEl) twTitleEl.content = `${{s.ticker}} • ${{s.empresa}} | Moat Terminal`;
 
       // Coloração Dinâmica do Hero Card conforme a Classificação de Entrada (3 Alternativas)
       let heroBgClass = 'bg-white border-slate-200';
@@ -1118,7 +1126,7 @@ def build_company_page():
 
             <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${{scoreBadgeClass}} min-w-[95px]">
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
-              <span class="text-2xl font-bold font-mono leading-none my-0.5 tabular-nums">${{s.quality_score.toFixed(1).replace('.', ',')}}</span>
+              <span class="text-2xl font-bold font-mono leading-none my-0.5 tabular-nums">${{formatNumberBR(s.quality_score, 1)}}</span>
               <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}}</span>
             </div>
           </div>
@@ -1175,7 +1183,7 @@ def build_company_page():
       let debtText = 'N/D';
       if (s.is_financial) debtText = 'Bancos (Bacen)';
       else if (dlVal !== null && dlVal <= 0) debtText = 'Caixa Líquido';
-      else if (s.div_liq_ebitda !== null) debtText = s.div_liq_ebitda.toFixed(2).replace('.', ',') + 'x EBITDA';
+      else if (s.div_liq_ebitda !== null) debtText = formatNumberBR(s.div_liq_ebitda, 2, 'x') + ' EBITDA';
 
       const items = [
         {{ label: 'P/L Histórico', val: formatMultiple(s.pl), desc: 'Preço sobre Lucro LTM', color: 'text-slate-900', tip: 'pl_ltm' }},
@@ -1443,7 +1451,7 @@ def build_company_page():
 
         const dotsHtml = pts.map((p, i) => `
           <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#047857" font-size="10" font-family="JetBrains Mono" font-weight="800">${{(vals[i] * 100).toFixed(1).replace('.', ',')}}%</text>
+          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#047857" font-size="10" font-family="JetBrains Mono" font-weight="800">${{formatNumberBR(vals[i] * 100, 1, '%')}}</text>
         `).join('');
 
         container.innerHTML = `
@@ -1476,17 +1484,17 @@ def build_company_page():
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Média 5 Anos (${{s.is_financial ? 'ROE' : 'ROIC'}})</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{avgRent.toFixed(1).replace('.', ',')}}%</div>
+            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{formatNumberBR(avgRent, 1, '%')}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{avgRent >= 15 ? 'Rentabilidade Classe Mundial' : 'Acima da Renda Fixa'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Pior Ano (Fundo de Ciclo)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{minRent.toFixed(1).replace('.', ',')}}%</div>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{formatNumberBR(minRent, 1, '%')}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{minRent >= 10 ? 'Resiliente mesmo em crise' : 'Sensível ao ciclo'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Melhor Ano (Pico)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{maxRent.toFixed(1).replace('.', ',')}}%</div>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{formatNumberBR(maxRent, 1, '%')}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">Potencial máximo comprovado</span>
           </div>
         `;
@@ -1512,7 +1520,7 @@ def build_company_page():
 
         const dotsHtml = pts.map((p, i) => `
           <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2" />
-          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#B45309" font-size="10" font-family="JetBrains Mono" font-weight="800">${{(vals[i] * 100).toFixed(1).replace('.', ',')}}%</text>
+          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="#B45309" font-size="10" font-family="JetBrains Mono" font-weight="800">${{formatNumberBR(vals[i] * 100, 1, '%')}}</text>
         `).join('');
 
         container.innerHTML = `
@@ -1544,7 +1552,7 @@ def build_company_page():
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">DY Médio 5 Anos</span>
-            <div class="text-base font-bold font-mono text-amber-800 mt-1">${{avgDiv.toFixed(1).replace('.', ',')}}%</div>
+            <div class="text-base font-bold font-mono text-amber-800 mt-1">${{formatNumberBR(avgDiv, 1, '%')}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{avgDiv >= 6.0 ? 'Paga acima de 6% consistentemente' : 'Yield complementar'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
@@ -1554,8 +1562,8 @@ def build_company_page():
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">DY Atual 12M</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%'}}</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${{s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{s.div_yield ? formatNumberBR(s.div_yield * 100, 1, '%') : '0,0%'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${{s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}}</span>
           </div>
         `;
       }}
@@ -1591,7 +1599,7 @@ def build_company_page():
                   <span>1. ROA (Retorno Ativo)</span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Lucro / Ativos</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{(roa * 100).toFixed(2).replace('.', ',')}}%</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${{formatNumberBR(roa * 100, 2, '%')}}</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Eficiência da carteira de crédito.</div>
               </div>
 
@@ -1603,7 +1611,7 @@ def build_company_page():
                   <span>2. Alavancagem de Balanço</span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Ativo / PL</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{alav.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${{formatNumberBR(alav, 2, 'x')}}</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Alavancagem regulatória prudencial.</div>
               </div>
             </div>
@@ -1615,7 +1623,7 @@ def build_company_page():
                 <span class="text-xs font-mono text-indigo-950 font-bold uppercase tracking-wider">ROE Resultante:</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-lg font-mono font-black text-indigo-900">${{(roeVal * 100).toFixed(1).replace('.', ',')}}% a.a.</span>
+                <span class="text-lg font-mono font-black text-indigo-900">${{formatNumberBR(roeVal * 100, 1, '%')}} a.a.</span>
                 <span class="text-[11px] font-sans text-indigo-700 font-medium hidden sm:inline">(Retorno s/ Patrimônio Líquido)</span>
               </div>
             </div>
@@ -1627,7 +1635,7 @@ def build_company_page():
             <span class="text-indigo-600 font-bold mt-0.5 text-base">ℹ️</span>
             <div>
               <b class="text-slate-900">Leitura Institucional DuPont (Setor Financeiro):</b>
-              O banco entrega um ROE de <b>${{(roeVal * 100).toFixed(1).replace('.', ',')}}%</b> combinando uma margem sobre ativos totais (ROA) de <b>${{(roa * 100).toFixed(2).replace('.', ',')}}%</b> com alavancagem de <b>${{alav.toFixed(1).replace('.', ',')}}x</b>. 
+              O banco entrega um ROE de <b>${{formatNumberBR(roeVal * 100, 1, '%')}}</b> combinando uma margem sobre ativos totais (ROA) de <b>${{formatNumberBR(roa * 100, 2, '%')}}</b> com alavancagem de <b>${{formatNumberBR(alav, 1, 'x')}}</b>. 
               ${{alav <= 12 ? 'Estrutura de capital prudente e bem capitalizada segundo as regras de Basileia.' : 'Alavancagem requer acompanhamento dos índices de inadimplência.'}}
             </div>
           </div>
@@ -1640,13 +1648,13 @@ def build_company_page():
 
         let engine = '';
         if (mrg >= 0.15 && alav <= 2.5) {{
-          engine = '<b>Motor Saudável & Moat:</b> A rentabilidade é gerada majoritariamente por <b>forte margem líquida (' + (mrg*100).toFixed(1).replace('.', ',') + '%)</b> e poder de precificação, sem dependência arriscada de endividamento (alavancagem moderada de ' + alav.toFixed(1).replace('.', ',') + 'x). Padrão Charlie Munger.';
+          engine = '<b>Motor Saudável & Moat:</b> A rentabilidade é gerada majoritariamente por <b>forte margem líquida (' + formatNumberBR(mrg*100, 1, '%') + ')</b> e poder de precificação, sem dependência arriscada de endividamento (alavancagem moderada de ' + formatNumberBR(alav, 1, 'x') + '). Padrão Charlie Munger.';
         }} else if (giro >= 1.0 && alav <= 2.8) {{
-          engine = '<b>Motor de Giro Operacional:</b> A empresa compensa margens mais enxutas com <b>alto giro de ativos (' + giro.toFixed(2).replace('.', ',') + 'x)</b>, mostrando excelência na rotação de capital e eficiência comercial.';
+          engine = '<b>Motor de Giro Operacional:</b> A empresa compensa margens mais enxutas com <b>alto giro de ativos (' + formatNumberBR(giro, 2, 'x') + ')</b>, mostrando excelência na rotação de capital e eficiência comercial.';
         }} else if (alav > 3.0) {{
-          engine = '<b>Atenção à Alavancagem:</b> Uma fração relevante do ROE decorre da <b>alavancagem financeira (' + alav.toFixed(1).replace('.', ',') + 'x)</b>. O retorno aos sócios é amplificado por capital de terceiros, tornando o lucro mais sensível às oscilações da Selic.';
+          engine = '<b>Atenção à Alavancagem:</b> Uma fração relevante do ROE decorre da <b>alavancagem financeira (' + formatNumberBR(alav, 1, 'x') + ')</b>. O retorno aos sócios é amplificado por capital de terceiros, tornando o lucro mais sensível às oscilações da Selic.';
         }} else {{
-          engine = '<b>Estrutura Equilibrada:</b> O retorno é distribuído com equilíbrio entre margem de vendas (' + (mrg*100).toFixed(1).replace('.', ',') + '%), rotação dos ativos (' + giro.toFixed(2).replace('.', ',') + 'x) e alavancagem de ' + alav.toFixed(1).replace('.', ',') + 'x.';
+          engine = '<b>Estrutura Equilibrada:</b> O retorno é distribuído com equilíbrio entre margem de vendas (' + formatNumberBR(mrg*100, 1, '%') + '), rotação dos ativos (' + formatNumberBR(giro, 2, 'x') + ') e alavancagem de ' + formatNumberBR(alav, 1, 'x') + '.';
         }}
 
         container.innerHTML = `
@@ -1658,7 +1666,7 @@ def build_company_page():
                   <span class="flex items-center gap-1">1. Margem Líquida <span class="info-badge cursor-pointer" data-tooltip="mrg_liq">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Poder Preço</span>
                 </div>
-                <div class="text-xl font-bold ${{mrg >= 0.12 ? 'text-emerald-700' : 'text-slate-900'}} mt-2">${{(mrg * 100).toFixed(1).replace('.', ',')}}%</div>
+                <div class="text-xl font-bold ${{mrg >= 0.12 ? 'text-emerald-700' : 'text-slate-900'}} mt-2">${{formatNumberBR(mrg * 100, 1, '%')}}</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Lucro Líq. / Receita</div>
               </div>
 
@@ -1670,7 +1678,7 @@ def build_company_page():
                   <span class="flex items-center gap-1">2. Giro do Ativo <span class="info-badge cursor-pointer" data-tooltip="giro">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Eficiência</span>
                 </div>
-                <div class="text-xl font-bold text-slate-900 mt-2">${{giro.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold text-slate-900 mt-2">${{formatNumberBR(giro, 2, 'x')}}</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Receita / Ativo Total</div>
               </div>
 
@@ -1682,7 +1690,7 @@ def build_company_page():
                   <span class="flex items-center gap-1">3. Alavancagem <span class="info-badge cursor-pointer" data-tooltip="alavancagem">ⓘ</span></span>
                   <span class="text-[10px] bg-slate-100 px-1.5 py-0.2 rounded font-bold">Balanço</span>
                 </div>
-                <div class="text-xl font-bold ${{alav > 3.0 ? 'text-amber-700' : 'text-slate-900'}} mt-2">${{alav.toFixed(2).replace('.', ',')}}x</div>
+                <div class="text-xl font-bold ${{alav > 3.0 ? 'text-amber-700' : 'text-slate-900'}} mt-2">${{formatNumberBR(alav, 2, 'x')}}</div>
                 <div class="text-[10px] text-slate-400 font-sans mt-1">Ativo Total / PL</div>
               </div>
             </div>
@@ -1694,7 +1702,7 @@ def build_company_page():
                 <span class="text-xs font-mono text-indigo-950 font-bold uppercase tracking-wider">ROE DuPont Calculado:</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-lg font-mono font-black text-indigo-900">${{(roeVal * 100).toFixed(1).replace('.', ',')}}% a.a.</span>
+                <span class="text-lg font-mono font-black text-indigo-900">${{formatNumberBR(roeVal * 100, 1, '%')}} a.a.</span>
                 <span class="text-[11px] font-sans text-indigo-700 font-medium hidden sm:inline">(Retorno s/ Patrimônio Líquido)</span>
               </div>
             </div>
@@ -1741,7 +1749,7 @@ def build_company_page():
           </td>
           <td class="py-2.5 px-2 text-center">
             <span class="px-2 py-0.5 rounded-full font-mono font-bold text-[11px] bg-slate-100 text-slate-900 border border-slate-200">
-              ${{p.quality_score.toFixed(1)}}
+              ${{formatNumberBR(p.quality_score, 1)}}
             </span>
           </td>
           <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${{formatCurrency(p.cotacao)}}</td>
@@ -1749,7 +1757,7 @@ def build_company_page():
           <td class="py-2.5 px-2 text-right font-mono font-semibold text-slate-800">${{p.is_financial ? 'N/A' : formatPercent(p.roic)}}</td>
           <td class="py-2.5 px-2 text-right font-mono font-semibold text-emerald-800">${{formatPercent(p.roe)}}</td>
           <td class="py-2.5 px-2 text-right font-mono text-slate-700">${{formatPercent(p.mrg_liq)}}</td>
-          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${{p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? p.div_liq_ebitda.toFixed(1) + 'x' : 'N/D'))}}</td>
+          <td class="py-2.5 px-2 text-right font-mono text-slate-700">${{p.is_financial ? 'Bancos' : (p.div_liq_ebitda < 0 ? 'Caixa Líq.' : (p.div_liq_ebitda ? formatNumberBR(p.div_liq_ebitda, 1, 'x') : 'N/D'))}}</td>
           <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-900">${{formatPercent(p.div_yield)}}</td>
           <td class="py-2.5 px-3 text-center">
             <a href="/acoes/${{p.ticker.toLowerCase()}}/" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 hover:bg-emerald-600 hover:text-white transition">
@@ -1776,7 +1784,7 @@ def build_company_page():
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Bruta:</span> <b>${{formatBillions(d.divida_bruta)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Dívida Líquida:</span> <b class="${{d.divida_liquida <= 0 ? 'text-emerald-800 font-bold' : 'text-slate-900'}}">${{formatBillions(d.divida_liquida)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Patrimônio Líquido:</span> <b>${{formatBillions(d.patrimonio_liquido)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">VPA (Valor Patrimonial/Ação):</span> <b>R$ ${{d.vpa || 'N/D'}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">VPA (Valor Patrimonial/Ação):</span> <b>${{d.vpa ? formatCurrency(d.vpa) : 'N/D'}}</b></div>
         </div>
 
         <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 font-mono text-xs space-y-1.5">
@@ -1788,8 +1796,8 @@ def build_company_page():
           <div class="flex justify-between"><span class="text-slate-600 font-sans">EBIT Operacional:</span> <b>${{formatBillions(d.ebit_12m)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Líquido (12m):</span> <b class="text-emerald-800 font-bold">${{formatBillions(d.lucro_liq_12m)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Trimestre (2T26):</span> <b>${{formatBillions(d.lucro_liq_3m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">LPA (Lucro por Ação):</span> <b>R$ ${{d.lpa || 'N/D'}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Payout Médio Implícito:</span> <b>${{s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">LPA (Lucro por Ação):</span> <b>${{d.lpa ? formatCurrency(d.lpa) : 'N/D'}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Payout Médio Implícito:</span> <b>${{s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}}</b></div>
         </div>
       `;
 
@@ -1870,8 +1878,8 @@ def build_company_page():
       const nx = needleLen * Math.cos(angleRad);
       const ny = needleLen * Math.sin(angleRad);
 
-      let valText = options.isPercent ? (val * 100).toFixed(1) + '%' : (options.isMultiple ? val.toFixed(1) + 'x' : val.toFixed(1));
-      if (options.isSpread) valText = (val > 0 ? '+' : '') + val.toFixed(1) + '%';
+      let valText = options.isPercent ? formatNumberBR(val * 100, 1, '%') : (options.isMultiple ? formatNumberBR(val, 1, 'x') : formatNumberBR(val, 1));
+      if (options.isSpread) valText = (val > 0 ? '+' : '') + formatNumberBR(val, 1, '%');
       if (options.isDebt && val < 0) valText = 'Caixa Líq.';
 
       // Cor semântica do texto
@@ -1977,10 +1985,10 @@ def build_company_page():
       const scores = [valScore, rentScore, divScore, solScore, consScore];
       const labels = ['Valuation', 'Rentabilidade', 'Dividendos', 'Saúde Fin.', 'Consistência'];
       const pillarDescs = [
-        s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '% Real' : (s.pl ? 'P/L ' + formatMultiple(s.pl) : 'N/D'),
+        s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '% Real') : (s.pl ? 'P/L ' + formatMultiple(s.pl) : 'N/D'),
         formatPercent(s.roic || s.roe),
         formatPercent(s.div_yield),
-        s.is_financial ? 'Basileia Ok' : (s.details && s.details.divida_liquida <= 0 ? 'Caixa Líq.' : (s.div_liq_ebitda !== null ? s.div_liq_ebitda.toFixed(1) + 'x' : 'N/D')),
+        s.is_financial ? 'Basileia Ok' : (s.details && s.details.divida_liquida <= 0 ? 'Caixa Líq.' : (s.div_liq_ebitda !== null ? formatNumberBR(s.div_liq_ebitda, 1, 'x') : 'N/D')),
         s.is_distorted ? 'Distorção' : 'Lucro 2T26 Ok'
       ];
       const r = 90;
@@ -2128,9 +2136,9 @@ def build_company_page():
       let badgeStyle = '';
       let quadExplanation = '';
 
-      const sScoreStr = sScore.toFixed(1).replace('.', ',');
-      const sPlStr = sPl.toFixed(1).replace('.', ',');
-      const sEyStr = (sPl > 0 ? (100.0 / sPl).toFixed(1).replace('.', ',') : 'N/D') + '%';
+      const sScoreStr = formatNumberBR(sScore, 1);
+      const sPlStr = formatNumberBR(sPl, 1);
+      const sEyStr = (sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'N/D');
 
       if (isHighQuality && isLowPl) {{
         quadName = 'Q1: Compounder Descontada';
@@ -2197,8 +2205,8 @@ def build_company_page():
             ${{validPeers.filter(p => p.ticker !== s.ticker).map(p => {{
               const px = scaleX(p.pl);
               const py = scaleY(p.quality_score || 50);
-              const titlePl = (p.pl && p.pl > 0) ? p.pl.toFixed(1).replace('.', ',') : 'N/D';
-              const titleScore = (p.quality_score || 0).toFixed(0);
+              const titlePl = (p.pl && p.pl > 0) ? formatNumberBR(p.pl, 1) : 'N/D';
+              const titleScore = formatNumberBR(p.quality_score || 0, 0);
               return `<circle cx="${{px.toFixed(1)}}" cy="${{py.toFixed(1)}}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>${{p.ticker}}: P/L ${{titlePl}}x | Score ${{titleScore}}</title></circle>`;
             }}).join('')}}
           </g>
@@ -2308,8 +2316,8 @@ def build_company_page():
           const scoreClass = s.quality_score >= 80 
             ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
             : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
-          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
+          const plStr = (s.pl && s.pl > 0) ? formatNumberBR(s.pl, 1, 'x') : 'N/D';
+          const scoreStr = formatNumberBR(s.quality_score || 0, 1);
 
           return `
             <a href="/acoes/${{s.ticker.toLowerCase()}}/" class="p-2.5 ${{bg}} transition cursor-pointer flex items-center justify-between select-none">
@@ -2563,7 +2571,7 @@ def build_company_page():
         if (key === 'pl_ltm') {{
           let mathLines = [];
           if (cot && lpa) {{
-            mathLines.push(`• Cotação ÷ LPA: R$ ${{cot.toFixed(2).replace('.', ',')}} ÷ R$ ${{lpa.toFixed(2).replace('.', ',')}} = <b class="text-emerald-300 font-bold">${{pl ? pl.toFixed(2).replace('.', ',') : (cot/lpa).toFixed(2).replace('.', ',')}}x</b>`);
+            mathLines.push(`• Cotação ÷ LPA: R$ ${{formatNumberBR(cot, 2)}} ÷ R$ ${{formatNumberBR(lpa, 2)}} = <b class="text-emerald-300 font-bold">${{formatNumberBR(pl ? pl : (cot/lpa), 2, 'x')}}</b>`);
           }}
           if (mcap && l12m) {{
             mathLines.push(`• M.Cap ÷ Lucro LTM: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l12m)}}`);
@@ -2584,14 +2592,14 @@ def build_company_page():
             mathLines.push(`• Lucro 2T26 Anualizado: 4 × ${{formatBillions(l3m)}} = <b class="text-emerald-300">${{formatBillions(l_anual)}}</b>`);
           }}
           if (mcap && l_anual) {{
-            mathLines.push(`• M.Cap ÷ Lucro Run-Rate: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l_anual)}} = <b class="text-emerald-300 font-bold">${{pl_rr ? pl_rr.toFixed(2).replace('.', ',') : (mcap/l_anual).toFixed(2).replace('.', ',')}}x</b>`);
+            mathLines.push(`• M.Cap ÷ Lucro Run-Rate: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l_anual)}} = <b class="text-emerald-300 font-bold">${{formatNumberBR(pl_rr ? pl_rr : (mcap/l_anual), 2, 'x')}}</b>`);
           }} else if (pl_rr) {{
-            mathLines.push(`• Ritmo 2T26: <b class="text-emerald-300 font-bold">${{pl_rr.toFixed(2).replace('.', ',')}}x</b> (vs P/L LTM de ${{pl ? pl.toFixed(2).replace('.', ',') + 'x' : 'N/D'}})`);
+            mathLines.push(`• Ritmo 2T26: <b class="text-emerald-300 font-bold">${{formatNumberBR(pl_rr, 2, 'x')}}</b> (vs P/L LTM de ${{pl ? formatNumberBR(pl, 2, 'x') : 'N/D'}})`);
           }}
           if (s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
             const divPct = Number(s.run_rate_div_pct);
             const sign = divPct > 0 ? '+' : '';
-            mathLines.push(`• Divergência vs 12M: <span class="${{divPct >= 0 ? 'text-emerald-300 font-bold' : 'text-amber-300 font-bold'}}">${{sign}}${{divPct.toFixed(1).replace('.', ',')}}%</span> (${{divPct >= 0 ? 'Acelerando' : 'Desacelerando'}})`);
+            mathLines.push(`• Divergência vs 12M: <span class="${{divPct >= 0 ? 'text-emerald-300 font-bold' : 'text-amber-300 font-bold'}}">${{sign}}${{formatNumberBR(divPct, 1, '%')}}</span> (${{divPct >= 0 ? 'Acelerando' : 'Desacelerando'}})`);
           }}
           if (mathLines.length === 0) return null;
           return `
@@ -2605,14 +2613,14 @@ def build_company_page():
         if (key === 'pvp' || key === 'graham') {{
           let mathLines = [];
           if (cot && vpa) {{
-            mathLines.push(`• Cotação ÷ VPA: R$ ${{cot.toFixed(2).replace('.', ',')}} ÷ R$ ${{vpa.toFixed(2).replace('.', ',')}} = <b class="text-emerald-300 font-bold">${{pvp ? pvp.toFixed(2).replace('.', ',') : (cot/vpa).toFixed(2).replace('.', ',')}}x</b>`);
+            mathLines.push(`• Cotação ÷ VPA: R$ ${{formatNumberBR(cot, 2)}} ÷ R$ ${{formatNumberBR(vpa, 2)}} = <b class="text-emerald-300 font-bold">${{formatNumberBR(pvp ? pvp : (cot/vpa), 2, 'x')}}</b>`);
           }}
           if (mcap && d.patrimonio_liquido) {{
             mathLines.push(`• M.Cap ÷ Patr. Líquido: ${{formatBillions(mcap)}} ÷ ${{formatBillions(d.patrimonio_liquido)}}`);
           }}
           if (lpa && vpa && lpa > 0 && vpa > 0) {{
             const vi = Math.sqrt(22.5 * lpa * vpa);
-            mathLines.push(`• V.I. Graham: √(22,5 × ${{lpa.toFixed(2).replace('.', ',')}} × ${{vpa.toFixed(2).replace('.', ',')}}) = <b class="text-cyan-300 font-bold">R$ ${{vi.toFixed(2).replace('.', ',')}}</b>`);
+            mathLines.push(`• V.I. Graham: √(22,5 × ${{formatNumberBR(lpa, 2)}} × ${{formatNumberBR(vpa, 2)}}) = <b class="text-cyan-300 font-bold">R$ ${{formatNumberBR(vi, 2)}}</b>`);
           }}
           if (mathLines.length === 0) return null;
           return `
@@ -2637,9 +2645,9 @@ def build_company_page():
             const ebitdaEst = ev / ev_ebitda;
             mathLines.push(`• Valor da Firma (EV): ${{formatBillions(ev)}}`);
             mathLines.push(`• EBITDA LTM Calculado: ~${{formatBillions(ebitdaEst)}}`);
-            mathLines.push(`• EV ÷ EBITDA: ${{formatBillions(ev)}} ÷ ${{formatBillions(ebitdaEst)}} = <b class="text-emerald-300 font-bold">${{ev_ebitda.toFixed(2).replace('.', ',')}}x</b>`);
+            mathLines.push(`• EV ÷ EBITDA: ${{formatBillions(ev)}} ÷ ${{formatBillions(ebitdaEst)}} = <b class="text-emerald-300 font-bold">${{formatNumberBR(ev_ebitda, 2, 'x')}}</b>`);
           }} else if (ev_ebitda) {{
-            mathLines.push(`• Múltiplo EV/EBITDA Auditado: <b class="text-emerald-300 font-bold">${{ev_ebitda.toFixed(2).replace('.', ',')}}x</b>`);
+            mathLines.push(`• Múltiplo EV/EBITDA Auditado: <b class="text-emerald-300 font-bold">${{formatNumberBR(ev_ebitda, 2, 'x')}}</b>`);
           }}
           if (mathLines.length === 0) return null;
           return `

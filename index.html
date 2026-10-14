@@ -1415,6 +1415,13 @@
       if (total) total.innerText = APP_DATA.stocks.length;
     }
 
+    function formatNumberBR(value, decimals = 1, suffix = '') {
+      if (value === null || value === undefined || value === '' || value === 'N/D' || value === 'N/A') return 'N/D';
+      const num = Number(value);
+      if (isNaN(num)) return 'N/D';
+      return num.toFixed(decimals).replace('.', ',') + suffix;
+    }
+
     function formatCurrency(v) {
       if (v === null || v === undefined) return 'N/D';
       return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -1431,7 +1438,7 @@
     function formatPercent(v) {
       if (v === null || v === undefined) return 'N/D';
       const num = Math.abs(v) < 2.0 ? v * 100 : v;
-      return num.toFixed(1).replace('.', ',') + '%';
+      return formatNumberBR(num, 1, '%');
     }
 
     
@@ -1481,7 +1488,7 @@
 
     function formatMultiple(v) {
       if (v === null || v === undefined) return 'N/D';
-      return Number(v).toFixed(2).replace('.', ',') + 'x';
+      return formatNumberBR(v, 2, 'x');
     }
 
     // HIERARQUIA UNIVERSAL DE CORES SEMÂNTICAS (VERDE, VERMELHO, AMARELO, AZUL)
@@ -2164,8 +2171,8 @@
           const scoreClass = s.quality_score >= 80 
             ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
             : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
-          const plStr = (s.pl && s.pl > 0) ? s.pl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
-          const scoreStr = (s.quality_score || 0).toFixed(1).replace('.', ',');
+          const plStr = (s.pl && s.pl > 0) ? formatNumberBR(s.pl, 1, 'x') : 'N/D';
+          const scoreStr = formatNumberBR(s.quality_score || 0, 1);
 
           return `
             <div onclick="selectSearchStock('${s.ticker}')" class="p-2.5 ${bg} transition cursor-pointer flex items-center justify-between select-none">
@@ -3637,31 +3644,31 @@
 
       const elPl = document.getElementById('kp-cat-pl');
       if (elPl) {
-        elPl.innerText = avgPl > 0 ? avgPl.toFixed(1).replace('.', ',') + 'x' : 'N/D';
+        elPl.innerText = avgPl > 0 ? formatNumberBR(avgPl, 1, 'x') : 'N/D';
         elPl.className = 'text-base font-bold font-mono ' + getColorPl(avgPl);
       }
 
       const elRoic = document.getElementById('kp-cat-roic');
       if (elRoic) {
-        elRoic.innerText = avgRoic > 0 ? (avgRoic * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
+        elRoic.innerText = avgRoic > 0 ? formatNumberBR(avgRoic * 100, 1, '%') : 'N/D';
         elRoic.className = 'text-base font-bold font-mono ' + getColorRoe(avgRoic);
       }
 
       const elDy = document.getElementById('kp-cat-dy');
       if (elDy) {
-        elDy.innerText = avgDy > 0 ? (avgDy * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
+        elDy.innerText = avgDy > 0 ? formatNumberBR(avgDy * 100, 1, '%') : 'N/D';
         elDy.className = 'text-base font-bold font-mono ' + getColorDy(avgDy);
       }
 
       const elSpread = document.getElementById('kp-cat-spread');
       if (elSpread) {
-        elSpread.innerText = countSpread > 0 ? (avgSpread > 0 ? '+' : '') + avgSpread.toFixed(1).replace('.', ',') + '%' : 'N/D';
+        elSpread.innerText = countSpread > 0 ? (avgSpread > 0 ? '+' : '') + formatNumberBR(avgSpread, 1, '%') : 'N/D';
         elSpread.className = 'text-base font-bold font-mono ' + getColorSpread(avgSpread);
       }
 
       const elScore = document.getElementById('kp-cat-score');
       if (elScore) {
-        elScore.innerText = avgScore > 0 ? avgScore.toFixed(1).replace('.', ',') + ' pts' : 'N/D';
+        elScore.innerText = avgScore > 0 ? formatNumberBR(avgScore, 1, ' pts') : 'N/D';
         elScore.className = 'text-base font-bold font-mono ' + (avgScore >= 80 ? 'text-emerald-700' : (avgScore >= 65 ? 'text-indigo-800' : 'text-slate-800'));
       }
 
@@ -3706,7 +3713,7 @@
         let rrStr = '';
         let rrColor = 'text-slate-500';
         if (s.pl_run_rate !== null && s.pl_run_rate !== undefined) {
-          rrStr = 'RR: ' + Number(s.pl_run_rate).toFixed(1).replace('.', ',') + 'x';
+          rrStr = 'RR: ' + formatNumberBR(s.pl_run_rate, 1, 'x');
           if (s.pl !== null && s.pl > 0) {
             if (s.pl_run_rate < s.pl * 0.85) rrColor = 'text-[#004B49] font-bold';
             else if (s.pl_run_rate > s.pl * 1.25) rrColor = 'text-amber-700 font-bold';
@@ -3727,7 +3734,7 @@
         } else if ((s.details && s.details.divida_liquida !== null && s.details.divida_liquida <= 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0)) {
           debtDisplay = '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Caixa Líq.</span>';
         } else if (s.div_liq_ebitda !== null) {
-          debtDisplay = Number(s.div_liq_ebitda).toFixed(1).replace('.', ',') + 'x';
+          debtDisplay = formatNumberBR(s.div_liq_ebitda, 1, 'x');
         }
 
         // Score Badge
@@ -3749,7 +3756,7 @@
           : ((s.ev_ebitda !== null && s.ev_ebitda !== undefined && s.ev_ebitda > 0) ? formatMultiple(s.ev_ebitda) : 'N/D');
 
         const spreadStr = (s.ey_spread !== null && s.ey_spread !== undefined) 
-          ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1).replace('.', ',') + '%' 
+          ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '%') 
           : 'N/D';
         const spreadClass = getColorSpread(s.ey_spread);
 
@@ -3772,8 +3779,8 @@
           </td>
           <td class="py-3.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-[#E7E7E2] tabular-nums">${formatCurrency(s.cotacao)}</td>
           <td class="py-3.5 px-2 text-center border-b border-[#E7E7E2]">
-            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] tabular-nums ${scoreBadgeClass}" title="Moat Score: ${s.quality_score.toFixed(1).replace('.', ',')} / 92.5">
-              ${s.quality_score.toFixed(1).replace('.', ',')}
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] tabular-nums ${scoreBadgeClass}" title="Moat Score: ${formatNumberBR(s.quality_score, 1)} / 92,5">
+              ${formatNumberBR(s.quality_score, 1)}
             </span>
           </td>
           <td class="py-3.5 px-2.5 text-right font-mono border-b border-[#E7E7E2] tabular-nums">
@@ -4283,7 +4290,7 @@
     function showMatrixTooltip(e, s) {
       const tt = document.getElementById('matrixTooltip');
       if (!tt) return;
-      const spreadStr = s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '%' : 'N/D';
+      const spreadStr = s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '%') : 'N/D';
       const volStr = formatBillions(s.liq_2m).replace('R$ ', '');
       const mcapStr = s.details && s.details.valor_mercado ? formatBillions(s.details.valor_mercado) : 'N/D';
 
@@ -4306,9 +4313,9 @@
       // Tag de Momento
       let momTag = '';
       if (s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {
-        if (s.run_rate_div_pct >= 15.0) momTag = `<span class="text-emerald-800 font-bold">⚡ Lucro Acelerando (+${s.run_rate_div_pct.toFixed(0)}%)</span>`;
-        else if (s.run_rate_div_pct <= -20.0) momTag = `<span class="text-amber-800 font-bold">⚠️ Lucro Comprimindo (${s.run_rate_div_pct.toFixed(0)}%)</span>`;
-        else momTag = `<span class="text-slate-600 font-medium">Estável (${s.run_rate_div_pct > 0 ? '+' : ''}${s.run_rate_div_pct.toFixed(0)}%)</span>`;
+        if (s.run_rate_div_pct >= 15.0) momTag = `<span class="text-emerald-800 font-bold">⚡ Lucro Acelerando (+${formatNumberBR(s.run_rate_div_pct, 0, '%')})</span>`;
+        else if (s.run_rate_div_pct <= -20.0) momTag = `<span class="text-amber-800 font-bold">⚠️ Lucro Comprimindo (${formatNumberBR(s.run_rate_div_pct, 0, '%')})</span>`;
+        else momTag = `<span class="text-slate-600 font-medium">Estável (${s.run_rate_div_pct > 0 ? '+' : ''}${formatNumberBR(s.run_rate_div_pct, 0, '%')})</span>`;
       }
 
       let warningBanner = '';
@@ -4333,8 +4340,8 @@
         <div class="text-[11px] text-slate-600 font-sans my-1 border-b border-slate-200 pb-1">
           Cap: <b class="text-slate-900 font-bold">${mcapStr}</b> • Vol: <b class="text-slate-900 font-bold">R$ ${volStr}/d</b> • Bal: <b class="text-slate-800 font-semibold">${s.ult_balanco}</b>
         </div>
-        <div class="text-slate-700">• Quality Score: <b class="text-slate-900 font-bold">${s.quality_score.toFixed(1)}/100</b> (${s.quality_tier.split(':')[0]})</div>
-        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${formatMultiple(s.pl)}</b> (P/L Teórico: <b class="text-emerald-800 font-bold">${expPL.toFixed(1)}x</b>)</div>
+        <div class="text-slate-700">• Quality Score: <b class="text-slate-900 font-bold">${formatNumberBR(s.quality_score, 1)}/100</b> (${s.quality_tier.split(':')[0]})</div>
+        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${formatMultiple(s.pl)}</b> (P/L Teórico: <b class="text-emerald-800 font-bold">${formatNumberBR(expPL, 1, 'x')}</b>)</div>
         <div class="text-slate-700">• Momento 2T26: ${momTag}</div>
         <div class="text-slate-700">• Earnings Yield: <b class="text-slate-900 font-bold">${formatPercent(s.earnings_yield_pct/100)}</b> (Spread NTN-B: <b class="${getColorSpread(s.ey_spread)}">${spreadStr}</b>)</div>
         <div class="text-slate-700">• ROIC: <b class="text-slate-900 font-bold">${s.is_financial ? 'N/A' : formatPercent(s.roic)}</b> | ROE: <b class="text-slate-900 font-bold">${formatPercent(s.roe)}</b> | DY: <b class="text-emerald-800 font-bold">${formatPercent(s.div_yield)}</b></div>
@@ -4517,8 +4524,8 @@
       const nx = needleLen * Math.cos(angleRad);
       const ny = needleLen * Math.sin(angleRad);
 
-      let valText = options.displayVal || (options.isPercent ? (val * 100).toFixed(1) + '%' : (options.isMultiple ? val.toFixed(1) + 'x' : val.toFixed(1)));
-      if (options.isSpread && !options.displayVal) valText = (val > 0 ? '+' : '') + val.toFixed(1) + '%';
+      let valText = options.displayVal || (options.isPercent ? formatNumberBR(val * 100, 1, '%') : (options.isMultiple ? formatNumberBR(val, 1, 'x') : formatNumberBR(val, 1)));
+      if (options.isSpread && !options.displayVal) valText = (val > 0 ? '+' : '') + formatNumberBR(val, 1, '%');
       if (options.isDebt && val < 0) valText = 'Caixa Líq.';
 
       // Cor semântica do texto
@@ -4625,7 +4632,7 @@
           </div>
           <div class="flex flex-col items-end gap-1.5">
             <span class="px-3 py-1 rounded-full font-mono font-bold text-xs sm:text-sm border ${headScoreColor} shadow-2xs flex items-center gap-1.5">
-              <span>SCORE ${s.quality_score.toFixed(1).replace('.', ',')}</span>
+              <span>SCORE ${formatNumberBR(s.quality_score, 1)}</span>
               <span class="text-[10px] font-mono opacity-85">• ${s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}</span>
             </span>
             <div class="text-[11px] font-mono text-slate-600 font-medium mt-0.5">
@@ -4671,30 +4678,30 @@
         isFinancial: s.is_financial,
         refVal: 2.0,
         refText: 'Teto: 2.0x • Caixa = Top',
-        displayVal: s.is_financial ? 'N/A' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda < 0 ? 'Caixa Líq.' : s.div_liq_ebitda.toFixed(2) + 'x') : 'N/D')
+        displayVal: s.is_financial ? 'N/A' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda < 0 ? 'Caixa Líq.' : formatNumberBR(s.div_liq_ebitda, 2, 'x')) : 'N/D')
       });
 
       renderAnalogGauge('gaugeSpread', s.ey_spread, -4.0, 10.0, 'Spread NTN-B', {
         isSpread: true,
         refVal: 0.0,
         refText: 'Prêmio Real: > 0%',
-        displayVal: s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '%' : 'N/D'
+        displayVal: s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '%') : 'N/D'
       });
 
       // Radar Polar SVG
       renderPolarRadar(s);
 
       // KPI Grid com Distinção Rigorosa entre ROIC e ROE
-      const spreadStr = s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '%' : 'N/D';
+      const spreadStr = s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '%') : 'N/D';
       const spreadColor = getColorSpread(s.ey_spread);
       const roicColor = s.is_financial ? 'text-slate-400' : getColorRoic(s.roic);
       const roeColor = getColorRoe(s.roe);
       const mrgColor = getColorMrgLiq(s.mrg_liq);
       const debtColor = getColorDebt(s.div_liq_ebitda, s.is_financial);
       const debtVal = s.div_liq_ebitda;
-      const debtStr = s.is_financial ? 'Bancos' : (debtVal !== null ? (debtVal < 0 ? 'Caixa Líq. 🛡️' : debtVal.toFixed(2) + 'x') : 'N/D');
+      const debtStr = s.is_financial ? 'Bancos' : (debtVal !== null ? (debtVal < 0 ? 'Caixa Líq. 🛡️' : formatNumberBR(debtVal, 2, 'x')) : 'N/D');
 
-      const payoutStr = s.payout_implicito !== null ? s.payout_implicito.toFixed(0) + '%' : 'N/D';
+      const payoutStr = s.payout_implicito !== null ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D';
       let payoutColor = 'text-slate-500';
       if (s.payout_implicito !== null) {
         const pVal = Number(s.payout_implicito);
@@ -4862,11 +4869,11 @@
       // Checklist de Rigor Fundamentalista (Auditoria 100% Fundamentus & CVM)
       const capIntVal = s.capital_intensity !== null ? s.capital_intensity : null;
       const isAcidPass = s.is_financial ? (s.roe && s.roe >= 0.15) : (capIntVal !== null && capIntVal >= 0.75);
-      const acidDisplay = s.is_financial ? ('ROE ' + (s.roe * 100).toFixed(1) + '%') : (capIntVal !== null ? ((capIntVal * 100).toFixed(1) + '%') : 'N/D');
+      const acidDisplay = s.is_financial ? ('ROE ' + formatNumberBR(s.roe * 100, 1, '%')) : (capIntVal !== null ? formatNumberBR(capIntVal * 100, 1, '%') : 'N/D');
 
       const dlVal = s.details ? s.details.divida_liquida : null;
       const isSolvencyPass = s.is_financial || (dlVal !== null && dlVal <= 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 1.0);
-      const solvencyDisplay = s.is_financial ? 'Regulação Bacen' : (dlVal !== null && dlVal <= 0 ? 'Caixa Líquido' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda.toFixed(1) + 'x EBITDA') : 'N/D'));
+      const solvencyDisplay = s.is_financial ? 'Regulação Bacen' : (dlVal !== null && dlVal <= 0 ? 'Caixa Líquido' : (s.div_liq_ebitda !== null ? (formatNumberBR(s.div_liq_ebitda, 1, 'x') + ' EBITDA') : 'N/D'));
 
       const tipoStr = (s.details && s.details.tipo) ? s.details.tipo : 'N/D';
       const isGovPass = tipoStr.toUpperCase().includes('ON');
@@ -5119,7 +5126,7 @@
 
       const roicDotsHtml = roicPts.map((p, i) => `
         <circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="#FBBF24" stroke="#080C14" stroke-width="1.5" />
-        <text x="${p[0].toFixed(1)}" y="${(p[1] - 6).toFixed(1)}" text-anchor="middle" fill="#FBBF24" font-size="8.5" font-family="JetBrains Mono" font-weight="700">${(h.roic_roe[i] * 100).toFixed(1)}%</text>
+        <text x="${p[0].toFixed(1)}" y="${(p[1] - 6).toFixed(1)}" text-anchor="middle" fill="#FBBF24" font-size="8.5" font-family="JetBrains Mono" font-weight="700">${formatNumberBR(h.roic_roe[i] * 100, 1, '%')}</text>
       `).join('');
 
       const yearsLabels2Html = h.years.map((y, i) => `
@@ -5136,7 +5143,7 @@
         const col = dy >= 0.06 ? '#10E79D' : (dy > 0 ? '#38BDF8' : '#64748B');
         return `
           <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="2" fill="${col}" fill-opacity="0.85" />
-          <text x="${scaleX2(i).toFixed(1)}" y="${(y - 4).toFixed(1)}" text-anchor="middle" fill="${col}" font-size="8.5" font-family="JetBrains Mono" font-weight="700">${(dy * 100).toFixed(1)}%</text>
+          <text x="${scaleX2(i).toFixed(1)}" y="${(y - 4).toFixed(1)}" text-anchor="middle" fill="${col}" font-size="8.5" font-family="JetBrains Mono" font-weight="700">${formatNumberBR(dy * 100, 1, '%')}</text>
         `;
       }).join('');
 
@@ -5376,10 +5383,10 @@
       const pillarsGrid = document.getElementById('radarPillarsGrid');
       if (pillarsGrid) {
         const pillarCards = [
-          { label: 'Valuation', score: valScore, desc: s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + s.ey_spread.toFixed(1) + '% Real' : 'P/L ' + formatMultiple(s.pl), ...getPillarInfo(valScore) },
+          { label: 'Valuation', score: valScore, desc: s.ey_spread !== null ? (s.ey_spread > 0 ? '+' : '') + formatNumberBR(s.ey_spread, 1, '% Real') : 'P/L ' + formatMultiple(s.pl), ...getPillarInfo(valScore) },
           { label: 'Rentabilidade', score: rentScore, desc: formatPercent(s.roic || s.roe), ...getPillarInfo(rentScore) },
           { label: 'Dividendos', score: divScore, desc: formatPercent(s.div_yield), ...getPillarInfo(divScore) },
-          { label: 'Saúde Fin.', score: solScore, desc: s.is_financial ? 'Basileia Ok' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda < 0 ? 'Caixa Líq.' : s.div_liq_ebitda.toFixed(1) + 'x') : 'N/D'), ...getPillarInfo(solScore) },
+          { label: 'Saúde Fin.', score: solScore, desc: s.is_financial ? 'Basileia Ok' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda < 0 ? 'Caixa Líq.' : formatNumberBR(s.div_liq_ebitda, 1, 'x')) : 'N/D'), ...getPillarInfo(solScore) },
           { label: 'Consistência', score: consScore, desc: s.is_distorted ? 'Distorção' : 'Lucro 2T26 Ok', ...getPillarInfo(consScore) }
         ];
 

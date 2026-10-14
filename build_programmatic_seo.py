@@ -4,6 +4,15 @@ import os
 import re
 from datetime import datetime
 
+def format_number_br(value, decimals=1, suffix=""):
+    if value is None or value == "" or str(value).lower() in ("none", "nan", "n/d", "n/a"):
+        return "N/D"
+    try:
+        val = float(value)
+        return f"{val:.{decimals}f}".replace(".", ",") + suffix
+    except Exception:
+        return "N/D"
+
 def format_curr(val):
     if val is None or val == "" or str(val).lower() == "none":
         return "R$ --"
@@ -16,7 +25,7 @@ def format_pct(val):
     if val is None or val == "":
         return "N/D"
     try:
-        return f"{float(val)*100:.1f}%".replace(".", ",")
+        return format_number_br(float(val) * 100, 1, "%")
     except Exception:
         return "N/D"
 
@@ -24,7 +33,7 @@ def format_mult(val):
     if val is None or val == "":
         return "N/D"
     try:
-        return f"{float(val):.2f}x".replace(".", ",")
+        return format_number_br(val, 2, "x")
     except Exception:
         return "N/D"
 
@@ -476,7 +485,7 @@ def generate_prerendered_mini_matrix_html(s, all_stocks):
             pqs = float(p.get("quality_score") or 50)
             px = scaleX(ppl)
             py = scaleY(pqs)
-            peer_circles.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>{p.get("ticker")}: P/L {ppl:.1f}x | Score {pqs:.0f}</title></circle>')
+            peer_circles.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>{p.get("ticker")}: P/L {format_number_br(ppl, 1, "x")} | Score {format_number_br(pqs, 0)}</title></circle>')
         except Exception:
             pass
     peers_svg_str = "".join(peer_circles)
@@ -1172,7 +1181,7 @@ def build_programmatic_seo():
         cot_str = format_curr(cotacao)
         val_merc_str = format_billions(val_mercado)
         val_firma_str = format_billions(val_firma)
-        div_str = f"{div_liq_ebitda:.2f}x".replace(".", ",") if div_liq_ebitda is not None else "N/D"
+        div_str = format_number_br(div_liq_ebitda, 2, "x") if div_liq_ebitda is not None else "N/D"
 
         # Modelos Clássicos de Valuation: Graham e Bazin
         graham_price = None
@@ -1190,7 +1199,7 @@ def build_programmatic_seo():
 
         graham_str = format_curr(graham_price) if graham_price else "N/D"
         bazin_str = format_curr(bazin_price) if bazin_price else "N/D"
-        score_str = f"{quality_score:.1f}".replace(".", ",")
+        score_str = format_number_br(quality_score, 1)
         graham_badge = f"{graham_margin:+.1f}%".replace(".", ",") + " vs cotação" if graham_margin is not None else "LPA/VPA Inválido"
         bazin_badge = f"{bazin_margin:+.1f}%".replace(".", ",") + " vs cotação" if bazin_margin is not None else "Sem Proventos"
         ey_spread_str = f"{ey_spread:+.1f}%".replace(".", ",")
@@ -1202,9 +1211,9 @@ def build_programmatic_seo():
 
         # Meta tags ricas de SEO focadas em alta intenção de busca (High-CTR)
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
-        page_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin, Graham e Indicadores • Moat Terminal"
+        page_title = f"{ticker} • {empresa} | Moat Terminal"
         meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
-        og_title = f"{ticker} Vale a Pena em 2026? Preço Teto Bazin & Graham • Moat Terminal"
+        og_title = f"{ticker} • {empresa} | Moat Terminal"
         og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
@@ -1357,8 +1366,7 @@ def build_programmatic_seo():
             p_roic = format_pct(p.get("roic") or p.get("roe"))
             p_pl = format_mult(p.get("pl")) if p.get("pl") is not None else "N/D"
             p_dy = format_pct(p.get("div_yield"))
-            p_sc = float(p.get("quality_score", 0) or 0)
-            p_sc_str = f"{p_sc:.1f}".replace(".", ",")
+            p_sc_str = format_number_br(p.get("quality_score"), 1)
             peers_cards_html.append(f"""
             <a href="/acoes/{p_tick.lower()}/" class="p-3.5 rounded-xl border border-slate-200 bg-white hover:border-[#004B49] hover:shadow-xs transition flex flex-col justify-between group">
               <div class="flex items-center justify-between">
@@ -1519,9 +1527,10 @@ def build_programmatic_seo():
         page_html = base_html_template
 
         # 1. Substituir tags de Head (title, meta desc, canonical, og, schema)
-        page_html = page_html.replace(
-            '<title id="pageTitle">Dossiê de Empresa • Moat Terminal</title>',
-            f'<title id="pageTitle">{page_title}</title>'
+        page_html = re.sub(
+            r'<title id="pageTitle">.*?</title>',
+            f'<title id="pageTitle">{page_title}</title>',
+            page_html
         )
         page_html = page_html.replace(
             '<meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">',
@@ -1546,17 +1555,19 @@ def build_programmatic_seo():
             '<meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/empresa.html">',
             f'<meta property="og:url" id="ogUrl" content="{canonical_url}">'
         )
-        page_html = page_html.replace(
-            '<meta property="og:title" id="ogTitle" content="Dossiê de Empresa • Moat Terminal">',
-            f'<meta property="og:title" id="ogTitle" content="{og_title}">'
+        page_html = re.sub(
+            r'<meta property="og:title" id="ogTitle" content=".*?">',
+            f'<meta property="og:title" id="ogTitle" content="{og_title}">',
+            page_html
         )
         page_html = page_html.replace(
             '<meta property="og:description" content="Análise fundamentalista institucional e vantagens competitivas (Moats) da B3.">',
             f'<meta property="og:description" content="{og_desc}">'
         )
-        page_html = page_html.replace(
-            '<meta name="twitter:title" id="twTitle" content="Dossiê de Empresa • Moat Terminal">',
-            f'<meta name="twitter:title" id="twTitle" content="{og_title}">'
+        page_html = re.sub(
+            r'<meta name="twitter:title" id="twTitle" content=".*?">',
+            f'<meta name="twitter:title" id="twTitle" content="{og_title}">',
+            page_html
         )
         page_html = page_html.replace(
             '<meta name="twitter:description" content="Análise fundamentalista completa e vantagens competitivas (Moats) da B3.">',
