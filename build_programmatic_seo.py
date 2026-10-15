@@ -1220,8 +1220,57 @@ def build_programmatic_seo():
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"
         faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {score_str}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
 
-        faq_q2 = f"Qual é a rentabilidade e o ROIC de {ticker}?"
-        faq_a2 = f"{ticker} entrega atualmente um ROIC de {roic_str} e um ROE de {roe_str}. No Moat Terminal, o Retorno sobre Capital Investido avalia a capacidade da diretoria de compor valor econômico acima do custo de capital da economia."
+        # Diagnóstico Analítico Condicional de Rentabilidade (Setor Financeiro vs Diagnóstico ROIC/ROE)
+        is_fin = bool(s.get("is_financial")) or (setor in ["Financeiro", "Bancos", "Seguros", "Previdência"])
+        mrg_liq_val = s.get("mrg_liq")
+        mrg_liq_str = format_pct(mrg_liq_val) if mrg_liq_val is not None else "N/D"
+        payout_val = s.get("payout_implicito")
+        payout_str = f"{format_number_br(payout_val, 0)}%" if payout_val is not None and str(payout_val).lower() not in ["none", "nan"] else None
+
+        if is_fin:
+            faq_q2 = f"Qual é a rentabilidade e o ROE de {ticker}?"
+            payout_txt = f" e payout implícito de {payout_str}" if payout_str else ""
+            faq_a2 = (
+                f"{ticker} entrega atualmente um ROE (Retorno sobre Patrimônio Líquido) de {roe_str}"
+                f"{payout_txt}. No setor financeiro (bancos, seguradoras e intermediação financeira), "
+                f"a rentabilidade sobre o capital próprio (ROE) é a métrica primária de criação de valor econômico, "
+                f"pois a captação de recursos de terceiros (funding e depósitos) constitui a matéria-prima da atividade "
+                f"operacional regulada por exigências prudenciais de solvência (Basileia e Susep), tornando o ROIC inadequado para esse modelo de negócios."
+            )
+        else:
+            faq_q2 = f"Qual é a rentabilidade e o ROIC de {ticker}?"
+            r_num = float(s.get("roic") or 0)
+            e_num = float(s.get("roe") or 0)
+
+            if r_num > 0 and e_num < 0:
+                # Caso 3: ROIC positivo, mas ROE negativo (ex: RAPT4, USIM3)
+                faq_a2 = (
+                    f"{ticker} apresenta ROIC operacional positivo de {roic_str}, porém com ROE de {roe_str}. "
+                    f"Esse descompasso evidencia que, embora a operação gere retorno operacional positivo (ROIC), "
+                    f"o resultado financeiro (custo da dívida) ou efeitos não recorrentes consumiram o lucro líquido "
+                    f"final dos acionistas."
+                )
+            elif e_num > 0 and r_num > 0 and (e_num >= r_num * 1.5 or (e_num - r_num) >= 0.08):
+                # Caso 2: ROE muito maior que o ROIC (ex: RIAA3)
+                faq_a2 = (
+                    f"{ticker} registra um ROE de {roe_str} frente a um ROIC de {roic_str}. "
+                    f"Alerta analítico: o ROE elevado é amplificado por alavancagem financeira ou base patrimonial reduzida, "
+                    f"devendo o investidor focar no ROIC de {roic_str} como a métrica genuína da produtividade do capital investido nos ativos."
+                )
+            elif r_num >= 0.15 and (r_num >= e_num * 0.7):
+                # Caso 1: ROIC > 15% e próximo ou superior ao ROE (ex: LREN3)
+                faq_a2 = (
+                    f"{ticker} entrega atualmente um ROIC de {roic_str} e um ROE de {roe_str}. "
+                    f"Rentabilidade estrutural genuína, impulsionada pela operação e baixa dependência de alavancagem "
+                    f"financeira para remunerar o capital dos acionistas com folga sobre o custo de capital da economia."
+                )
+            else:
+                # Caso Base
+                faq_a2 = (
+                    f"{ticker} entrega atualmente um ROIC de {roic_str} e um ROE de {roe_str}. "
+                    f"No Moat Terminal, o Retorno sobre Capital Investido avalia a capacidade da diretoria de compor valor econômico "
+                    f"acima do custo de capital da economia."
+                )
 
         faq_q3 = f"Quanto {ticker} paga de dividendos e qual o Preço Teto Bazin?"
         faq_a3 = f"Atualmente, {ticker} apresenta um Dividend Yield de {dy_str}. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de {bazin_str} (margem de {bazin_badge}). A distribuição de proventos depende da geração de caixa livre e política de payout."

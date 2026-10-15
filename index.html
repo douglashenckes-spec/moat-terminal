@@ -915,6 +915,20 @@
         </div>
       </div>
 
+      <!-- Faixa de Auditoria do Eixo X & Tratamento de Ativos Fora do Eixo (P/L < 0 ou P/L > 25x) -->
+      <div id="matrixAxisStatusRow" class="px-3 sm:px-4 py-1.5 bg-[#FAFBF9] border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono flex-shrink-0 z-10">
+        <div class="flex items-center gap-2 text-slate-600">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          <span id="matrixEdgeStatusText">Exibindo <b class="text-slate-900 font-bold" id="cntInGraph">134</b> de <b class="text-slate-900 font-bold" id="cntTotalUniverse">134</b> ativos no gráfico (ocultos: <b class="text-rose-700 font-bold" id="cntHiddenLoss">37</b> com prejuízo LTM e <b class="text-amber-700 font-bold" id="cntHiddenHigh">32</b> com P/L &gt; 25x)</span>
+        </div>
+        <div class="flex items-center gap-2 ml-auto">
+          <button id="btnToggleMatrixEdges" type="button" onclick="toggleMatrixEdges()" class="px-2.5 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs" title="Alternar visibilidade dos ativos fora da faixa 0-25x fixados nas bordas do gráfico">
+            <span id="toggleMatrixEdgesIcon" class="text-[10px]">📌</span>
+            <span id="toggleMatrixEdgesLabel">Mostrar na borda</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Corpo da Matriz: Gráfico Amplo SVG + Painel Lateral de Filtros (Empilhado no Mobile, Lateral no Desktop) -->
       <div id="matrixMainWrapper" class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden min-h-0 bg-white">
         
@@ -1384,6 +1398,7 @@
     let panStartCenterX = 12.5;
     let panStartCenterY = 60.0;
     let hasMovedDuringPan = false;
+    let showMatrixEdges = false;
 
     // Curva Munger Compounder Pró-Qualidade:
     // P/L Teórico = 3.5 + 20.0 * ((Quality - 20) / 80) ^ 1.6
@@ -3418,6 +3433,25 @@
       renderMatrix();
     }
 
+    function toggleMatrixEdges() {
+      showMatrixEdges = !showMatrixEdges;
+      const btn = document.getElementById('btnToggleMatrixEdges');
+      const label = document.getElementById('toggleMatrixEdgesLabel');
+      const icon = document.getElementById('toggleMatrixEdgesIcon');
+      if (btn && label) {
+        if (showMatrixEdges) {
+          btn.className = 'px-2.5 py-0.5 rounded-md border border-emerald-600 bg-emerald-50 text-emerald-900 text-[11px] font-bold transition cursor-pointer flex items-center gap-1.5 shadow-3xs';
+          label.innerText = 'Ocultar da borda';
+          if (icon) icon.innerText = '✕';
+        } else {
+          btn.className = 'px-2.5 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs';
+          label.innerText = 'Mostrar na borda';
+          if (icon) icon.innerText = '📌';
+        }
+      }
+      renderMatrix();
+    }
+
     function populateMatrixSectorSelect() {
       const sel = document.getElementById('matrixSectorQuickSelect');
       if (!sel || sel.options.length > 1) return;
@@ -3760,13 +3794,20 @@
           : 'N/D';
         const spreadClass = getColorSpread(s.ey_spread);
 
+        // Destaque de Quadrante Q1 (Score >= 75 e P/L <= 14x e P/L > 0)
+        const isQ1 = (s.quality_score >= 75 && s.pl !== null && s.pl > 0 && s.pl <= 14.0);
+        const q1BadgeHtml = isQ1 
+          ? '<span class="text-[8.5px] px-1.5 py-0.2 rounded font-mono font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] flex items-center gap-1 shadow-3xs" title="Quadrante 1: Score ≥ 75 e P/L ≤ 14x (Valor &amp; Qualidade)"><span class="w-1.5 h-1.5 rounded-full bg-[#00A887]"></span>Q1 • Valor &amp; Qualidade</span>' 
+          : '';
+
         tr.innerHTML = `
           <td class="py-3.5 px-3 border-b border-[#E7E7E2]">
             <div class="flex items-center gap-2.5">
               ${getStockLogoHtml(s.ticker, s.empresa, 'w-7 h-7')}
               <div class="flex flex-col min-w-0">
-                <div class="flex items-center gap-1.5 leading-none">
+                <div class="flex items-center gap-1.5 leading-none flex-wrap">
                   <span class="text-xs font-bold text-slate-900 tracking-wide font-mono">${s.ticker}</span>
+                  ${q1BadgeHtml}
                   <span class="text-[9px] px-1.5 py-0.2 rounded-full font-mono font-bold ${s.is_latest_balanco ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-100 text-slate-600 border border-slate-200'}">${s.tri_balanco || '2T26'}</span>
                   ${s.is_distorted ? '<span class="text-[8px] px-1 py-0.2 rounded bg-amber-100 text-amber-900 font-semibold" title="' + (s.distortion_label || 'Distorção Contábil') + '">Dist.</span>' : ''}
                   <a href="acoes/${s.ticker.toLowerCase()}/" onclick="event.stopPropagation();" class="text-slate-400 hover:text-[#00A887] transition p-0.5" title="Abrir análise de ${s.ticker}">
@@ -3815,21 +3856,52 @@
 
       populateMatrixSectorSelect();
 
-      let stocks = getFilteredStocks().filter(s => s.pl !== null && s.pl > 0 && s.pl <= 35.0);
       const isPl = currentXMetric === 'pl';
       const limiarQuality = 80.0;
       const limiarValuation = isPl ? 15.38 : 6.5;
 
-      if (matrixQuickQuadrant === 'COMPOUNDERS') {
-        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0 && (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
-      } else if (matrixQuickQuadrant === 'TIER1') {
-        stocks = stocks.filter(s => (s.quality_score || 0) >= 80.0);
-      } else if (matrixQuickQuadrant === 'BELOW_NTNB') {
-        stocks = stocks.filter(s => (isPl ? s.pl <= limiarValuation : (s.earnings_yield_pct >= 6.5)));
-      }
+      let baseStocks = getFilteredStocks();
 
       if (matrixQuickSector && matrixQuickSector !== 'ALL') {
-        stocks = stocks.filter(s => (s.setor || '').trim().toLowerCase() === matrixQuickSector.trim().toLowerCase());
+        baseStocks = baseStocks.filter(s => (s.setor || '').trim().toLowerCase() === matrixQuickSector.trim().toLowerCase());
+      }
+
+      if (matrixQuickQuadrant === 'COMPOUNDERS') {
+        baseStocks = baseStocks.filter(s => (s.quality_score || 0) >= 80.0 && (isPl ? (s.pl !== null && s.pl > 0 && s.pl <= limiarValuation) : (s.earnings_yield_pct >= 6.5)));
+      } else if (matrixQuickQuadrant === 'TIER1') {
+        baseStocks = baseStocks.filter(s => (s.quality_score || 0) >= 80.0);
+      } else if (matrixQuickQuadrant === 'BELOW_NTNB') {
+        baseStocks = baseStocks.filter(s => (isPl ? (s.pl !== null && s.pl > 0 && s.pl <= limiarValuation) : (s.earnings_yield_pct >= 6.5)));
+      }
+
+      // Segmentação dos ativos por enquadramento no Eixo X (0 a 25x)
+      const inRangeStocks = baseStocks.filter(s => s.pl !== null && s.pl > 0 && s.pl <= 25.0);
+      const lossStocks = baseStocks.filter(s => s.pl === null || s.pl <= 0);
+      const highPlStocks = baseStocks.filter(s => s.pl !== null && s.pl > 25.0);
+
+      const cntIn = inRangeStocks.length;
+      const cntLoss = lossStocks.length;
+      const cntHigh = highPlStocks.length;
+
+      // Atualizar o contador discreto abaixo dos controles da Matriz
+      const edgeStatusEl = document.getElementById('matrixEdgeStatusText');
+      if (edgeStatusEl) {
+        if (showMatrixEdges) {
+          edgeStatusEl.innerHTML = `Exibindo <b class="text-emerald-700 font-bold">${cntIn + cntLoss + cntHigh}</b> ativos no gráfico (${cntIn} no plano + <b class="text-rose-700 font-bold">${cntLoss}</b> com prejuízo e <b class="text-amber-700 font-bold">${cntHigh}</b> com P/L &gt; 25x fixados na borda)`;
+        } else {
+          edgeStatusEl.innerHTML = `Exibindo <b class="text-slate-900 font-bold">${cntIn}</b> de <b class="text-slate-900 font-bold">134</b> ativos no gráfico (ocultos: <b class="text-rose-700 font-bold">${cntLoss}</b> com prejuízo LTM e <b class="text-amber-700 font-bold">${cntHigh}</b> com P/L &gt; 25x)`;
+        }
+      }
+
+      let stocks = [];
+      if (!showMatrixEdges) {
+        stocks = inRangeStocks.map(s => Object.assign({}, s, { edgePlacement: 'none' }));
+      } else {
+        stocks = [
+          ...inRangeStocks.map(s => Object.assign({}, s, { edgePlacement: 'none' })),
+          ...lossStocks.map(s => Object.assign({}, s, { edgePlacement: 'left_loss' })),
+          ...highPlStocks.map(s => Object.assign({}, s, { edgePlacement: 'right_high' }))
+        ];
       }
 
       const padL = 70, padR = 30, padT = 35, padB = 55;
@@ -3921,6 +3993,17 @@
             <text x="${padL + innerW - 18}" y="${padT + innerH - 34}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q4: VALUATION ELEVADO / BAIXA PROTEÇÃO</text>
             <text x="${padL + innerW - 18}" y="${padT + innerH - 18}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${isPl ? 'P/L > 15,4x' : 'EY < 6,5%'}</text>
           </g>
+
+          ${showMatrixEdges ? `
+          <!-- Faixas Indicadoras de Bordas (Prejuízo e Múltiplos > 25x) -->
+          <rect x="${padL}" y="${padT}" width="26" height="${innerH}" fill="#FEE2E2" opacity="0.38" />
+          <line x1="${padL + 26}" y1="${padT}" x2="${padL + 26}" y2="${padT + innerH}" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,3" />
+          <text x="${padL + 17}" y="${padT + innerH / 2}" text-anchor="middle" fill="#991B1B" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(-90 ${padL + 17} ${padT + innerH / 2})">BORDA: PREJUÍZO LTM</text>
+
+          <rect x="${padL + innerW - 26}" y="${padT}" width="26" height="${innerH}" fill="#FEF3C7" opacity="0.38" />
+          <line x1="${padL + innerW - 26}" y1="${padT}" x2="${padL + innerW - 26}" y2="${padT + innerH}" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="3,3" />
+          <text x="${padL + innerW - 9}" y="${padT + innerH / 2}" text-anchor="middle" fill="#92400E" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(90 ${padL + innerW - 9} ${padT + innerH / 2})">BORDA: P/L &gt; 25x</text>
+          ` : ''}
         </g>
       `;
 
@@ -4073,9 +4156,13 @@
       let selectedGroup = null;
 
       stocks.forEach(s => {
+        const isLeftLoss = (s.edgePlacement === 'left_loss');
+        const isRightHigh = (s.edgePlacement === 'right_high');
+        const isEdge = isLeftLoss || isRightHigh;
+
         const xVal = isPl ? s.pl : s.earnings_yield_pct;
         const yVal = s.quality_score;
-        if (xVal === null || xVal === undefined) return;
+        if (!isEdge && (xVal === null || xVal === undefined)) return;
 
         // Métricas de contagem
         const expPL = 5.0 + 0.20 * (Math.max(20, Math.min(100, s.quality_score || 50)) - 30.0);
@@ -4085,18 +4172,38 @@
         if (s.run_rate_div_pct && s.run_rate_div_pct >= 15.0) nExp++;
         if (s.div_yield && s.div_yield > 0.06) nDiv++;
 
-        // Contador de ativos no campo visual atual
-        if (xVal >= curXMin - 2 && xVal <= curXMax + 2 && yVal >= curYMin - 5 && yVal <= curYMax + 5) {
+        let cx, cy;
+        if (isLeftLoss) {
+          cx = padL + 13;
+          cy = scaleY(Math.max(20, Math.min(100, s.quality_score || 50)));
           visibleCount++;
+        } else if (isRightHigh) {
+          cx = padL + innerW - 13;
+          cy = scaleY(Math.max(20, Math.min(100, s.quality_score || 50)));
+          visibleCount++;
+        } else {
+          cx = scaleX(xVal);
+          cy = scaleY(yVal);
+          // Contador de ativos no campo visual atual
+          if (xVal >= curXMin - 2 && xVal <= curXMax + 2 && yVal >= curYMin - 5 && yVal <= curYMax + 5) {
+            visibleCount++;
+          }
         }
 
-        const cx = scaleX(xVal);
-        const cy = scaleY(yVal);
         const r = calcRadius(s);
 
-        const colConfig = getBubbleColor(s);
-        const fillColor = colConfig.fill;
-        const strokeColor = colConfig.stroke;
+        let fillColor, strokeColor;
+        if (isLeftLoss) {
+          fillColor = '#E11D48';
+          strokeColor = '#9F1239';
+        } else if (isRightHigh) {
+          fillColor = '#D97706';
+          strokeColor = '#78350F';
+        } else {
+          const colConfig = getBubbleColor(s);
+          fillColor = colConfig.fill;
+          strokeColor = colConfig.stroke;
+        }
 
         const isSelected = s.ticker === selectedTicker;
         const shouldShowLabel = isSelected || topStocksSet.has(s.ticker);
@@ -4140,6 +4247,18 @@
           `;
         }
 
+        // Anel indicador para ativos fixados na borda
+        let edgeRingHtml = '';
+        if (isLeftLoss) {
+          edgeRingHtml = `
+            <circle cx="${cx}" cy="${cy}" r="${r + 4}" fill="none" stroke="#F43F5E" stroke-width="1.8" stroke-dasharray="2,2" opacity="0.9" class="pointer-events-none" />
+          `;
+        } else if (isRightHigh) {
+          edgeRingHtml = `
+            <circle cx="${cx}" cy="${cy}" r="${r + 4}" fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="2,2" opacity="0.9" class="pointer-events-none" />
+          `;
+        }
+
         // Nome encurtado para leitura imediata
         const rawName = s.empresa || '';
         let shortName = rawName.replace(/\s*(ON|PN|UNT|S\/A|S\.A\.|NM|N1|N2).*$/i, '').trim();
@@ -4155,6 +4274,7 @@
 
           g.innerHTML = `
             ${warningRingHtml}
+            ${edgeRingHtml}
             <circle cx="${cx}" cy="${cy}" r="${r + 9}" fill="none" stroke="#F59E0B" stroke-width="3" class="animate-pulse pointer-events-none" />
             <circle cx="${cx}" cy="${cy}" r="${r}" fill="${fillColor}" stroke="#FFFFFF" stroke-width="3" class="main-bubble" />
             <g class="pointer-events-none select-none">
@@ -4179,7 +4299,8 @@
           }
           g.innerHTML = `
             ${warningRingHtml}
-            <circle cx="${cx}" cy="${cy}" r="${r}" fill="${fillColor}" fill-opacity="0.88" stroke="${strokeColor}" stroke-width="1.3" class="main-bubble transition-transform" />
+            ${edgeRingHtml}
+            <circle cx="${cx}" cy="${cy}" r="${r}" fill="${fillColor}" fill-opacity="${isEdge ? '0.95' : '0.88'}" stroke="${strokeColor}" stroke-width="${isEdge ? '1.8' : '1.3'}" class="main-bubble transition-transform" />
             ${labelHtml}
           `;
           bubblesGroup.appendChild(g);
@@ -4298,7 +4419,11 @@
       const isHighQuality = (s.quality_score || 0) >= 75;
       const isLowPl = isPl ? (s.pl <= 14.0) : (s.earnings_yield_pct >= 7.14);
       let quadBadge = '';
-      if (s.entry_tag === 'PASSIVO_DESCOBERTO') {
+      if (s.edgePlacement === 'left_loss') {
+        quadBadge = '<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[10px]">📌 Prejuízo LTM (Borda)</span>';
+      } else if (s.edgePlacement === 'right_high') {
+        quadBadge = '<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-bold text-[10px]">📌 P/L &gt; 25x (Borda)</span>';
+      } else if (s.entry_tag === 'PASSIVO_DESCOBERTO') {
         quadBadge = '<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-300 font-bold text-[10px]">🛑 Passivo Descoberto</span>';
       } else if (isHighQuality && isLowPl) {
         quadBadge = '<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold text-[10px]">💎 Q1: Alta Qualidade &amp; Valuation Atrativo</span>';
@@ -4328,6 +4453,11 @@
       }
 
       const expPL = calcFairPL(s.quality_score);
+      const plDisplay = s.edgePlacement === 'left_loss' 
+        ? '<span class="text-rose-700 font-bold">Prejuízo LTM (Fixado na borda esquerda)</span>' 
+        : (s.edgePlacement === 'right_high' 
+            ? `${formatMultiple(s.pl)} <span class="text-amber-800 font-bold">(&gt; 25x • Borda direita)</span>` 
+            : formatMultiple(s.pl));
 
       tt.innerHTML = `
         <div class="font-bold text-slate-900 text-sm flex items-center justify-between gap-2">
@@ -4341,7 +4471,7 @@
           Cap: <b class="text-slate-900 font-bold">${mcapStr}</b> • Vol: <b class="text-slate-900 font-bold">R$ ${volStr}/d</b> • Bal: <b class="text-slate-800 font-semibold">${s.ult_balanco}</b>
         </div>
         <div class="text-slate-700">• Quality Score: <b class="text-slate-900 font-bold">${formatNumberBR(s.quality_score, 1)}/100</b> (${s.quality_tier.split(':')[0]})</div>
-        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${formatMultiple(s.pl)}</b> (P/L Teórico: <b class="text-emerald-800 font-bold">${formatNumberBR(expPL, 1, 'x')}</b>)</div>
+        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${plDisplay}</b> (P/L Teórico: <b class="text-emerald-800 font-bold">${formatNumberBR(expPL, 1, 'x')}</b>)</div>
         <div class="text-slate-700">• Momento 2T26: ${momTag}</div>
         <div class="text-slate-700">• Earnings Yield: <b class="text-slate-900 font-bold">${formatPercent(s.earnings_yield_pct/100)}</b> (Spread NTN-B: <b class="${getColorSpread(s.ey_spread)}">${spreadStr}</b>)</div>
         <div class="text-slate-700">• ROIC: <b class="text-slate-900 font-bold">${s.is_financial ? 'N/A' : formatPercent(s.roic)}</b> | ROE: <b class="text-slate-900 font-bold">${formatPercent(s.roe)}</b> | DY: <b class="text-emerald-800 font-bold">${formatPercent(s.div_yield)}</b></div>
