@@ -516,7 +516,13 @@ def generate_stock_badges_html(s):
             else:
                 valuation_pills.append(('Queda de Run-Rate', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_DECELERATION'))
 
-    if dy >= 0.05 and payout_num is not None and 30 <= payout_num <= 88:
+    is_debt_safe = is_fin or (dle_num is not None and dle_num <= 2.2) or is_net_cash
+    is_payout_healthy = (payout_num is not None and 0 < payout_num <= 85.0)
+    is_bazin_blindado = (dy >= 0.07) and is_payout_healthy and is_debt_safe
+
+    if is_bazin_blindado:
+        valuation_pills.append(('Bazin Blindado', 'bg-emerald-600', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold', 'CAT_BAZIN_ARMORED'))
+    elif dy >= 0.05 and payout_num is not None and 30 <= payout_num <= 88:
         valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
     elif payout_num is not None and payout_num > 105:
         valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
@@ -1325,15 +1331,33 @@ def build_programmatic_seo():
         roe_val = s.get("roe") or 0
         pl_val = s.get("pl")
 
-        # Trava de Valuation Munger (Caso LAVV3 e outros):
-        # Nunca exibir "MÚLTIPLOS ELEVADOS" se o ativo estiver Acima da Curva (Desconto) ou se P/L LTM e Run-Rate <= 12x
-        exp_pl = 3.5 + 20.0 * (((max(20.0, min(100.0, quality_score)) - 20.0) / 80.0) ** 1.6)
+        det = s.get("details", {}) or {}
+        # Trava de Valuation Munger com Ajuste de Estrutura de Capital (CFA):
+        base_exp_pl = 3.5 + 20.0 * (((max(20.0, min(100.0, quality_score)) - 20.0) / 80.0) ** 1.6)
+        exp_pl = base_exp_pl
+        is_fin = bool(s.get("is_financial"))
+        dle_val = s.get("div_liq_ebitda")
+        dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
+        eveb_val = s.get("ev_ebitda")
+        eveb_num = float(eveb_val) if eveb_val is not None and str(eveb_val).lower() not in ["none", "nan"] else None
+        dl_val = det.get("divida_liquida")
+        dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
+        is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
+
+        is_high_debt = (not is_fin) and (dle_num is not None and dle_num > 2.5)
+        is_net_cash_bonus = (not is_fin) and is_net_cash and (eveb_num is not None and 0 < eveb_num <= 6.0)
+
+        if is_high_debt:
+            exp_pl = base_exp_pl * 0.75
+        elif is_net_cash_bonus:
+            exp_pl = max(base_exp_pl * 1.30, 16.5)
+
         is_above_curve = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < exp_pl)
         pl_rr = s.get("pl_run_rate") or det.get("pl_run_rate")
         is_low_pl = (pl_val is not None and float(pl_val) > 0 and float(pl_val) <= 12.0 and (pl_rr is None or float(pl_rr) <= 12.0))
 
-        if (is_above_curve or is_low_pl) and (entry_tag == "ESTICADA" or "ELEVADOS" in str(entry_status)):
-            if (pl_val is not None and float(pl_val) <= 10.0) or is_above_curve:
+        if (is_above_curve or is_low_pl or (is_net_cash_bonus and pl_val is not None and float(pl_val) <= 16.5)) and (entry_tag == "ESTICADA" or "ELEVADOS" in str(entry_status)):
+            if (pl_val is not None and float(pl_val) <= 10.0) or is_above_curve or is_net_cash_bonus:
                 entry_tag = "ASSIMETRIA_FAVORAVEL"
                 entry_status = "🟢 MÚLTIPLOS ATRATIVOS"
             else:
@@ -1344,7 +1368,6 @@ def build_programmatic_seo():
         dy_val = float(s.get("div_yield") or 0)
         ey_spread = float(s.get("ey_spread") or 0)
         div_liq_ebitda = s.get("div_liq_ebitda")
-        det = s.get("details", {}) or {}
         val_mercado = det.get("valor_mercado")
         val_firma = det.get("valor_firma")
         lpa = float(det.get("lpa")) if det.get("lpa") not in [None, ""] else None

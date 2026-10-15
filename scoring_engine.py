@@ -611,41 +611,69 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
         elif pl > 15.0 or (ev_ebitda is not None and ev_ebitda > 10.0) or ey_spread < 0.0:
             is_stretched = True
 
-    # Regra de correção 1 (Munger Valuation Guard - Caso LAVV3 e outros):
-    # Nunca classificar como "MÚLTIPLOS ELEVADOS" se:
-    # a) O ativo estiver classificado como "Acima da Curva (Desconto)", ou seja, P/L < calc_fair_pl(quality_score)
-    # b) OU se o P/L LTM e o P/L Run-Rate forem positivos e menores ou iguais a 12,0x
+    # Regra de correção 1 (Curva Valor vs Qualidade Ajustada por Estrutura de Capital):
+    # a) Se Caixa Líquido e EV/EBITDA <= 6.0x (mesmo com P/L entre 12x e 16x): bônus de desconto (eleva teto justo para até 16.5x)
+    # b) Se Dívida Líquida/EBITDA > 2.5x: exige desconto de P/L 25% maior (reduz teto justo em 25%)
     qs = quality_score if quality_score is not None else row.get("quality_score")
-    exp_pl = (3.5 + 20.0 * (((max(20.0, min(100.0, float(qs))) - 20.0) / 80.0) ** 1.6)) if qs is not None else 15.38
+    base_exp_pl = (3.5 + 20.0 * (((max(20.0, min(100.0, float(qs))) - 20.0) / 80.0) ** 1.6)) if qs is not None else 15.38
+    exp_pl = base_exp_pl
+
+    det = row.get("details", {}) or {}
+    dl_val = det.get("divida_liquida")
+    dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
+    dle_val = row.get("div_liq_ebitda")
+    dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
+    eveb_val = row.get("ev_ebitda")
+    eveb_num = float(eveb_val) if eveb_val is not None and str(eveb_val).lower() not in ["none", "nan"] else None
+    is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
+
+    is_high_debt = (not is_fin) and (dle_num is not None and dle_num > 2.5)
+    is_net_cash_bonus = (not is_fin) and is_net_cash and (eveb_num is not None and 0 < eveb_num <= 6.0)
+
+    if is_high_debt:
+        exp_pl = base_exp_pl * 0.75  # Exige desconto 25% maior
+    elif is_net_cash_bonus:
+        exp_pl = max(base_exp_pl * 1.30, 16.5)  # Bônus de desconto por caixa líquido robusto
+
     is_above_curve = (pl is not None and pl > 0 and pl < exp_pl)
     
     pl_rr = row.get("pl_run_rate")
     if pl_rr is None:
-        det = row.get("details", {}) or {}
         pl_rr = det.get("pl_run_rate")
     is_low_pl = (pl is not None and pl > 0 and pl <= 12.0 and (pl_rr is None or pl_rr <= 12.0))
 
-    if is_above_curve or is_low_pl:
+    if is_above_curve or is_low_pl or (is_net_cash_bonus and pl is not None and pl <= 16.5):
         is_stretched = False
         if not is_asymmetry:
-            if (pl is not None and pl <= 10.0) or (ey_spread is not None and ey_spread >= 3.0) or is_above_curve:
+            if (pl is not None and pl <= 10.0) or (ey_spread is not None and ey_spread >= 3.0) or is_above_curve or is_net_cash_bonus:
                 is_asymmetry = True
+
+    # Trava para empresas altamente endividadas: bloqueia assimetria favorável se não atingir desconto rigoroso
+    if is_high_debt and (pl is not None and pl >= exp_pl):
+        is_asymmetry = False
 
     if is_asymmetry:
         status = "🟢 MÚLTIPLOS ATRATIVOS"
         tag = "ASSIMETRIA_FAVORAVEL"
         color = "#10B981"
-        rationale = (
-            f"Earnings Yield de {ey_pct:.1f}% confere spread de +{ey_spread:.1f}% sobre a NTN-B real (6,5%). "
-            f"P/L de {pl:.1f}x negocia abaixo da curva de referência e da média histórica do setor."
-        )
+        if is_net_cash_bonus:
+            rationale = (
+                f"Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de {eveb_num:.1f}x (<= 6,0x), "
+                f"neutralizando a distorção do P/L tradicional ({pl:.1f}x) e conferindo assimetria favorável."
+            )
+        else:
+            rationale = (
+                f"Earnings Yield de {ey_pct:.1f}% confere spread de +{ey_spread:.1f}% sobre a NTN-B real (6,5%). "
+                f"P/L de {pl:.1f}x negocia abaixo da curva de referência ajustada ({exp_pl:.1f}x) e da média histórica do setor."
+            )
     elif is_stretched:
         status = "🔴 MÚLTIPLOS ELEVADOS"
         tag = "ESTICADA"
         color = "#EF4444"
         spread_msg = f"Spread vs NTN-B comprimido em {ey_spread:+.1f}%" if ey_spread < 2.0 else f"P/L elevado de {pl:.1f}x"
+        debt_warn = f" Alavancagem de {dle_num:.1f}x EBITDA impõe exigência de 25% a mais de desconto." if is_high_debt else ""
         rationale = (
-            f"{spread_msg}. Earnings Yield de {ey_pct:.1f}% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana."
+            f"{spread_msg}.{debt_warn} Earnings Yield de {ey_pct:.1f}% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana."
         )
     else:
         status = "🟡 VALUATION EM LINHA"
@@ -653,7 +681,7 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
         color = "#F59E0B"
         rationale = (
             f"P/L de {pl:.1f}x e Earnings Yield de {ey_pct:.1f}% (Spread de {ey_spread:+.1f}% sobre NTN-B). "
-            f"Múltiplos situam-se na faixa mediana histórica do setor."
+            f"Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada ({exp_pl:.1f}x)."
         )
 
     return {

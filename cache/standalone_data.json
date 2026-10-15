@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "15/10/2026 15:20:11",
+  "audit_timestamp": "15/10/2026 15:35:39",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "2T26",
   "total_stocks": 203,
@@ -63,7 +63,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 83.90431466835153
       },
-      "rationale": "Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência ajustada (18.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -77,7 +77,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.1%**). Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.1%**). Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência ajustada (18.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -234,7 +234,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 83.90431466835153
       },
-      "rationale": "Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência ajustada (18.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -248,7 +248,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.5%**). Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.5%**). Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência ajustada (18.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -405,7 +405,7 @@
         "cresc_rec5a": 76.85,
         "mrg_bruta": 84.63945225001082
       },
-      "rationale": "Earnings Yield de 6.0% confere spread de +-0.5% sobre a NTN-B real (6,5%). P/L de 16.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 6.0% confere spread de +-0.5% sobre a NTN-B real (6,5%). P/L de 16.7x negocia abaixo da curva de referência ajustada (18.5x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -419,7 +419,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Earnings Yield de 6.0% confere spread de +-0.5% sobre a NTN-B real (6,5%). P/L de 16.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Earnings Yield de 6.0% confere spread de +-0.5% sobre a NTN-B real (6,5%). P/L de 16.7x negocia abaixo da curva de referência ajustada (18.5x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -576,7 +576,7 @@
         "cresc_rec5a": 77.48,
         "mrg_bruta": 85.38837257598126
       },
-      "rationale": "Earnings Yield de 18.6% confere spread de +12.1% sobre a NTN-B real (6,5%). P/L de 5.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 18.6% confere spread de +12.1% sobre a NTN-B real (6,5%). P/L de 5.4x negocia abaixo da curva de referência ajustada (18.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -590,7 +590,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **18.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+12.1%**). Earnings Yield de 18.6% confere spread de +12.1% sobre a NTN-B real (6,5%). P/L de 5.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **18.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+12.1%**). Earnings Yield de 18.6% confere spread de +12.1% sobre a NTN-B real (6,5%). P/L de 5.4x negocia abaixo da curva de referência ajustada (18.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -747,7 +747,7 @@
         "cresc_rec5a": 86.46000000000001,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 6.7% confere spread de +0.2% sobre a NTN-B real (6,5%). P/L de 14.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 6.7% confere spread de +0.2% sobre a NTN-B real (6,5%). P/L de 14.9x negocia abaixo da curva de referência ajustada (18.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -761,7 +761,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.2%**). Earnings Yield de 6.7% confere spread de +0.2% sobre a NTN-B real (6,5%). P/L de 14.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.2%**). Earnings Yield de 6.7% confere spread de +0.2% sobre a NTN-B real (6,5%). P/L de 14.9x negocia abaixo da curva de referência ajustada (18.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -918,7 +918,7 @@
         "cresc_rec5a": 80.56,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência ajustada (18.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -932,7 +932,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência ajustada (18.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -1260,7 +1260,7 @@
         "cresc_rec5a": 87.74,
         "mrg_bruta": 72.20518609857479
       },
-      "rationale": "Earnings Yield de 8.1% confere spread de +1.6% sobre a NTN-B real (6,5%). P/L de 12.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.1% confere spread de +1.6% sobre a NTN-B real (6,5%). P/L de 12.3x negocia abaixo da curva de referência ajustada (18.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -1274,7 +1274,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.6%**). Earnings Yield de 8.1% confere spread de +1.6% sobre a NTN-B real (6,5%). P/L de 12.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.6%**). Earnings Yield de 8.1% confere spread de +1.6% sobre a NTN-B real (6,5%). P/L de 12.3x negocia abaixo da curva de referência ajustada (18.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -1602,7 +1602,7 @@
         "cresc_rec5a": 79.34,
         "mrg_bruta": 83.49364492431738
       },
-      "rationale": "Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência ajustada (17.9x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -1616,7 +1616,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.2%**). Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.2%**). Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência ajustada (17.9x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -1773,7 +1773,7 @@
         "cresc_rec5a": 84.88,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 11.9% confere spread de +5.4% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.9% confere spread de +5.4% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência ajustada (17.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -1787,7 +1787,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.4%**). Earnings Yield de 11.9% confere spread de +5.4% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.4%**). Earnings Yield de 11.9% confere spread de +5.4% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência ajustada (17.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -1944,7 +1944,7 @@
         "cresc_rec5a": 80.64,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 6.1% confere spread de +-0.4% sobre a NTN-B real (6,5%). P/L de 16.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 6.1% confere spread de +-0.4% sobre a NTN-B real (6,5%). P/L de 16.4x negocia abaixo da curva de referência ajustada (17.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -1958,7 +1958,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.1% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.4%**). Earnings Yield de 6.1% confere spread de +-0.4% sobre a NTN-B real (6,5%). P/L de 16.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.1% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.4%**). Earnings Yield de 6.1% confere spread de +-0.4% sobre a NTN-B real (6,5%). P/L de 16.4x negocia abaixo da curva de referência ajustada (17.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2115,7 +2115,7 @@
         "cresc_rec5a": 87.36,
         "mrg_bruta": 76.67687291287666
       },
-      "rationale": "Earnings Yield de 21.4% confere spread de +14.9% sobre a NTN-B real (6,5%). P/L de 4.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 21.4% confere spread de +14.9% sobre a NTN-B real (6,5%). P/L de 4.7x negocia abaixo da curva de referência ajustada (17.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2129,7 +2129,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **21.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+14.9%**). Earnings Yield de 21.4% confere spread de +14.9% sobre a NTN-B real (6,5%). P/L de 4.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **21.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+14.9%**). Earnings Yield de 21.4% confere spread de +14.9% sobre a NTN-B real (6,5%). P/L de 4.7x negocia abaixo da curva de referência ajustada (17.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2286,7 +2286,7 @@
         "cresc_rec5a": 87.36,
         "mrg_bruta": 76.67687291287666
       },
-      "rationale": "Earnings Yield de 20.0% confere spread de +13.5% sobre a NTN-B real (6,5%). P/L de 5.0x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 20.0% confere spread de +13.5% sobre a NTN-B real (6,5%). P/L de 5.0x negocia abaixo da curva de referência ajustada (17.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2300,7 +2300,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **20.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+13.5%**). Earnings Yield de 20.0% confere spread de +13.5% sobre a NTN-B real (6,5%). P/L de 5.0x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **20.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+13.5%**). Earnings Yield de 20.0% confere spread de +13.5% sobre a NTN-B real (6,5%). P/L de 5.0x negocia abaixo da curva de referência ajustada (17.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2457,7 +2457,7 @@
         "cresc_rec5a": 45.0,
         "mrg_bruta": 92.0
       },
-      "rationale": "Earnings Yield de 11.4% confere spread de +4.8% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.4% confere spread de +4.8% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência ajustada (17.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2471,7 +2471,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.8%**). Earnings Yield de 11.4% confere spread de +4.8% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.8%**). Earnings Yield de 11.4% confere spread de +4.8% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência ajustada (17.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2628,7 +2628,7 @@
         "cresc_rec5a": 45.0,
         "mrg_bruta": 91.34555363354472
       },
-      "rationale": "Earnings Yield de 7.2% confere spread de +0.7% sobre a NTN-B real (6,5%). P/L de 13.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 7.2% confere spread de +0.7% sobre a NTN-B real (6,5%). P/L de 13.8x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2642,7 +2642,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.7%**). Earnings Yield de 7.2% confere spread de +0.7% sobre a NTN-B real (6,5%). P/L de 13.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.7%**). Earnings Yield de 7.2% confere spread de +0.7% sobre a NTN-B real (6,5%). P/L de 13.8x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2799,7 +2799,7 @@
         "cresc_rec5a": 44.9,
         "mrg_bruta": 81.52004351782946
       },
-      "rationale": "Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2813,7 +2813,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -2970,7 +2970,7 @@
         "cresc_rec5a": 44.9,
         "mrg_bruta": 81.52004351782946
       },
-      "rationale": "Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -2984,7 +2984,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.7%**). Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.7%**). Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -3141,7 +3141,7 @@
         "cresc_rec5a": 62.730000000000004,
         "mrg_bruta": 80.84074536657093
       },
-      "rationale": "Earnings Yield de 10.1% confere spread de +3.6% sobre a NTN-B real (6,5%). P/L de 9.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.1% confere spread de +3.6% sobre a NTN-B real (6,5%). P/L de 9.9x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -3155,7 +3155,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.6%**). Earnings Yield de 10.1% confere spread de +3.6% sobre a NTN-B real (6,5%). P/L de 9.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.6%**). Earnings Yield de 10.1% confere spread de +3.6% sobre a NTN-B real (6,5%). P/L de 9.9x negocia abaixo da curva de referência ajustada (17.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -3312,7 +3312,7 @@
         "cresc_rec5a": 86.55,
         "mrg_bruta": 77.1198212669271
       },
-      "rationale": "Earnings Yield de 9.2% confere spread de +2.7% sobre a NTN-B real (6,5%). P/L de 10.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 9.2% confere spread de +2.7% sobre a NTN-B real (6,5%). P/L de 10.8x negocia abaixo da curva de referência ajustada (16.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -3326,7 +3326,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.7%**). Earnings Yield de 9.2% confere spread de +2.7% sobre a NTN-B real (6,5%). P/L de 10.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.7%**). Earnings Yield de 9.2% confere spread de +2.7% sobre a NTN-B real (6,5%). P/L de 10.8x negocia abaixo da curva de referência ajustada (16.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -3483,7 +3483,7 @@
         "cresc_rec5a": 41.5,
         "mrg_bruta": 75.65236243965597
       },
-      "rationale": "Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência ajustada (16.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -3497,7 +3497,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.1%**). Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.1%**). Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência ajustada (16.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -3654,7 +3654,7 @@
         "cresc_rec5a": 70.74000000000001,
         "mrg_bruta": 78.61718009892179
       },
-      "rationale": "Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência ajustada (16.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -3668,7 +3668,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.6%**). Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.6%**). Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência ajustada (16.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -3825,7 +3825,7 @@
         "cresc_rec5a": 83.89,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 7.1% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 7.1% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.1x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -3839,7 +3839,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Earnings Yield de 7.1% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Earnings Yield de 7.1% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.1x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -4167,7 +4167,7 @@
         "cresc_rec5a": 72.27,
         "mrg_bruta": 72.48659954446241
       },
-      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -4181,7 +4181,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -4338,7 +4338,7 @@
         "cresc_rec5a": 72.27,
         "mrg_bruta": 72.48659954446241
       },
-      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -4352,7 +4352,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -4509,7 +4509,7 @@
         "cresc_rec5a": 72.27,
         "mrg_bruta": 72.48659954446241
       },
-      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -4523,7 +4523,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.1%**). Earnings Yield de 14.6% confere spread de +8.1% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (16.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -4680,7 +4680,7 @@
         "cresc_rec5a": 63.54,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 2.6x (<= 6,0x), neutralizando a distorção do P/L tradicional (9.3x) e conferindo assimetria favorável.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -4694,7 +4694,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.3%**). Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.3%**). Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 2.6x (<= 6,0x), neutralizando a distorção do P/L tradicional (9.3x) e conferindo assimetria favorável.",
           "icon": "scale"
         }
       ],
@@ -4851,7 +4851,7 @@
         "cresc_rec5a": 72.57,
         "mrg_bruta": 71.08749330105405
       },
-      "rationale": "Earnings Yield de 12.0% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 12.0% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.3x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -4865,7 +4865,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.5%**). Earnings Yield de 12.0% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.5%**). Earnings Yield de 12.0% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.3x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -5022,7 +5022,7 @@
         "cresc_rec5a": 72.57,
         "mrg_bruta": 71.08749330105405
       },
-      "rationale": "Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5036,7 +5036,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.1%**). Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.1%**). Earnings Yield de 10.6% confere spread de +4.1% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -5193,7 +5193,7 @@
         "cresc_rec5a": 72.09,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 37.2% confere spread de +30.7% sobre a NTN-B real (6,5%). P/L de 2.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 37.2% confere spread de +30.7% sobre a NTN-B real (6,5%). P/L de 2.7x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5207,7 +5207,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **37.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+30.7%**). Earnings Yield de 37.2% confere spread de +30.7% sobre a NTN-B real (6,5%). P/L de 2.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **37.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+30.7%**). Earnings Yield de 37.2% confere spread de +30.7% sobre a NTN-B real (6,5%). P/L de 2.7x negocia abaixo da curva de referência ajustada (16.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -5364,7 +5364,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 84.85469133523797
       },
-      "rationale": "Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 5.8x (<= 6,0x), neutralizando a distorção do P/L tradicional (9.1x) e conferindo assimetria favorável.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5378,7 +5378,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 5.8x (<= 6,0x), neutralizando a distorção do P/L tradicional (9.1x) e conferindo assimetria favorável.",
           "icon": "scale"
         }
       ],
@@ -5535,7 +5535,7 @@
         "cresc_rec5a": 87.44,
         "mrg_bruta": 89.1603649199825
       },
-      "rationale": "Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência ajustada (15.9x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5549,7 +5549,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.1%**). Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.1%**). Earnings Yield de 8.6% confere spread de +2.1% sobre a NTN-B real (6,5%). P/L de 11.6x negocia abaixo da curva de referência ajustada (15.9x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -5706,7 +5706,7 @@
         "cresc_rec5a": 71.00999999999999,
         "mrg_bruta": 85.55031464986759
       },
-      "rationale": "Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência ajustada (15.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5720,7 +5720,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.5%**). Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.5%**). Earnings Yield de 8.0% confere spread de +1.5% sobre a NTN-B real (6,5%). P/L de 12.5x negocia abaixo da curva de referência ajustada (15.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -5877,7 +5877,7 @@
         "cresc_rec5a": 88.96000000000001,
         "mrg_bruta": 68.23359175231201
       },
-      "rationale": "Earnings Yield de 7.4% confere spread de +0.8% sobre a NTN-B real (6,5%). P/L de 13.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 7.4% confere spread de +0.8% sobre a NTN-B real (6,5%). P/L de 13.6x negocia abaixo da curva de referência ajustada (15.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -5891,7 +5891,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.8%**). Earnings Yield de 7.4% confere spread de +0.8% sobre a NTN-B real (6,5%). P/L de 13.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.8%**). Earnings Yield de 7.4% confere spread de +0.8% sobre a NTN-B real (6,5%). P/L de 13.6x negocia abaixo da curva de referência ajustada (15.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -6048,7 +6048,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 89.08647738191414
       },
-      "rationale": "Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -6062,7 +6062,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.1%**). Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.1%**). Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -6219,7 +6219,7 @@
         "cresc_rec5a": 49.44,
         "mrg_bruta": 86.82918591485443
       },
-      "rationale": "Earnings Yield de 14.2% confere spread de +7.8% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.2% confere spread de +7.8% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -6233,7 +6233,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.8%**). Earnings Yield de 14.2% confere spread de +7.8% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.8%**). Earnings Yield de 14.2% confere spread de +7.8% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -6561,7 +6561,7 @@
         "cresc_rec5a": 44.04,
         "mrg_bruta": 82.8036996575739
       },
-      "rationale": "Earnings Yield de 14.8% confere spread de +8.3% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.8% confere spread de +8.3% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -6575,7 +6575,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.3%**). Earnings Yield de 14.8% confere spread de +8.3% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.3%**). Earnings Yield de 14.8% confere spread de +8.3% sobre a NTN-B real (6,5%). P/L de 6.8x negocia abaixo da curva de referência ajustada (15.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -7074,7 +7074,7 @@
         "cresc_rec5a": 67.71000000000001,
         "mrg_bruta": 76.71425307030711
       },
-      "rationale": "Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência ajustada (15.5x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -7088,7 +7088,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.2%**). Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.2%**). Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência ajustada (15.5x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -7245,7 +7245,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 79.26238668140002
       },
-      "rationale": "Earnings Yield de 18.2% confere spread de +11.7% sobre a NTN-B real (6,5%). P/L de 5.5x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 18.2% confere spread de +11.7% sobre a NTN-B real (6,5%). P/L de 5.5x negocia abaixo da curva de referência ajustada (15.5x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -7259,7 +7259,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **18.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+11.7%**). Earnings Yield de 18.2% confere spread de +11.7% sobre a NTN-B real (6,5%). P/L de 5.5x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **18.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+11.7%**). Earnings Yield de 18.2% confere spread de +11.7% sobre a NTN-B real (6,5%). P/L de 5.5x negocia abaixo da curva de referência ajustada (15.5x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -7587,7 +7587,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 85.13626737571975
       },
-      "rationale": "Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência ajustada (15.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -7601,7 +7601,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.6%**). Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.6%**). Earnings Yield de 14.1% confere spread de +7.6% sobre a NTN-B real (6,5%). P/L de 7.1x negocia abaixo da curva de referência ajustada (15.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -7758,7 +7758,7 @@
         "cresc_rec5a": 25.78,
         "mrg_bruta": 71.1474979612
       },
-      "rationale": "Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência ajustada (15.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -7772,7 +7772,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.0%**). Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.0%**). Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência ajustada (15.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -7929,7 +7929,7 @@
         "cresc_rec5a": 62.55,
         "mrg_bruta": 83.32299732180434
       },
-      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (15.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -7943,7 +7943,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (15.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -8100,7 +8100,7 @@
         "cresc_rec5a": 70.5,
         "mrg_bruta": 73.00388008478558
       },
-      "rationale": "Earnings Yield de 20.4% confere spread de +13.9% sobre a NTN-B real (6,5%). P/L de 4.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 20.4% confere spread de +13.9% sobre a NTN-B real (6,5%). P/L de 4.9x negocia abaixo da curva de referência ajustada (15.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -8114,7 +8114,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **20.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+13.9%**). Earnings Yield de 20.4% confere spread de +13.9% sobre a NTN-B real (6,5%). P/L de 4.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **20.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+13.9%**). Earnings Yield de 20.4% confere spread de +13.9% sobre a NTN-B real (6,5%). P/L de 4.9x negocia abaixo da curva de referência ajustada (15.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -8271,7 +8271,7 @@
         "cresc_rec5a": 76.07,
         "mrg_bruta": 89.24074305323037
       },
-      "rationale": "Earnings Yield de 12.8% confere spread de +6.3% sobre a NTN-B real (6,5%). P/L de 7.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 12.8% confere spread de +6.3% sobre a NTN-B real (6,5%). P/L de 7.8x negocia abaixo da curva de referência ajustada (15.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -8285,7 +8285,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.3%**). Earnings Yield de 12.8% confere spread de +6.3% sobre a NTN-B real (6,5%). P/L de 7.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.3%**). Earnings Yield de 12.8% confere spread de +6.3% sobre a NTN-B real (6,5%). P/L de 7.8x negocia abaixo da curva de referência ajustada (15.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -8784,7 +8784,7 @@
         "cresc_rec5a": 86.17,
         "mrg_bruta": 83.06289254705257
       },
-      "rationale": "Earnings Yield de 7.0% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 7.0% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.2x negocia abaixo da curva de referência ajustada (15.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -8798,7 +8798,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Earnings Yield de 7.0% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **7.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Earnings Yield de 7.0% confere spread de +0.6% sobre a NTN-B real (6,5%). P/L de 14.2x negocia abaixo da curva de referência ajustada (15.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -8955,7 +8955,7 @@
         "cresc_rec5a": 45.93,
         "mrg_bruta": 82.88089856964174
       },
-      "rationale": "Earnings Yield de 6.8% confere spread de +0.3% sobre a NTN-B real (6,5%). P/L de 14.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 6.8% confere spread de +0.3% sobre a NTN-B real (6,5%). P/L de 14.7x negocia abaixo da curva de referência ajustada (14.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -8969,7 +8969,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.3%**). Earnings Yield de 6.8% confere spread de +0.3% sobre a NTN-B real (6,5%). P/L de 14.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.3%**). Earnings Yield de 6.8% confere spread de +0.3% sobre a NTN-B real (6,5%). P/L de 14.7x negocia abaixo da curva de referência ajustada (14.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -9126,7 +9126,7 @@
         "cresc_rec5a": 85.98,
         "mrg_bruta": 75.24750737012698
       },
-      "rationale": "Earnings Yield de 13.1% confere spread de +6.6% sobre a NTN-B real (6,5%). P/L de 7.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.1% confere spread de +6.6% sobre a NTN-B real (6,5%). P/L de 7.6x negocia abaixo da curva de referência ajustada (14.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -9140,7 +9140,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.6%**). Earnings Yield de 13.1% confere spread de +6.6% sobre a NTN-B real (6,5%). P/L de 7.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.6%**). Earnings Yield de 13.1% confere spread de +6.6% sobre a NTN-B real (6,5%). P/L de 7.6x negocia abaixo da curva de referência ajustada (14.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -9468,7 +9468,7 @@
         "cresc_rec5a": 44.16,
         "mrg_bruta": 62.251615055369086
       },
-      "rationale": "Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência ajustada (14.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -9482,7 +9482,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência ajustada (14.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -9639,7 +9639,7 @@
         "cresc_rec5a": 81.87,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 23.6% confere spread de +17.1% sobre a NTN-B real (6,5%). P/L de 4.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 23.6% confere spread de +17.1% sobre a NTN-B real (6,5%). P/L de 4.2x negocia abaixo da curva de referência ajustada (14.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -9653,7 +9653,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **23.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+17.1%**). Earnings Yield de 23.6% confere spread de +17.1% sobre a NTN-B real (6,5%). P/L de 4.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **23.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+17.1%**). Earnings Yield de 23.6% confere spread de +17.1% sobre a NTN-B real (6,5%). P/L de 4.2x negocia abaixo da curva de referência ajustada (14.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -9810,7 +9810,7 @@
         "cresc_rec5a": 70.65,
         "mrg_bruta": 90.82081103338437
       },
-      "rationale": "Earnings Yield de 14.4% confere spread de +7.9% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.4% confere spread de +7.9% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência ajustada (14.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -9824,7 +9824,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.9%**). Earnings Yield de 14.4% confere spread de +7.9% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.9%**). Earnings Yield de 14.4% confere spread de +7.9% sobre a NTN-B real (6,5%). P/L de 7.0x negocia abaixo da curva de referência ajustada (14.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -10152,7 +10152,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 83.99978822648873
       },
-      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (14.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -10166,7 +10166,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (14.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -10494,7 +10494,7 @@
         "cresc_rec5a": 77.38,
         "mrg_bruta": 80.28566664623781
       },
-      "rationale": "P/L de 14.8x e Earnings Yield de 6.8% (Spread de +0.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 14.8x e Earnings Yield de 6.8% (Spread de +0.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (14.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -10508,7 +10508,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **6.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.3%**). P/L de 14.8x e Earnings Yield de 6.8% (Spread de +0.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **6.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.3%**). P/L de 14.8x e Earnings Yield de 6.8% (Spread de +0.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (14.0x).",
           "icon": "scale"
         }
       ],
@@ -10665,7 +10665,7 @@
         "cresc_rec5a": 77.26,
         "mrg_bruta": 89.10986244995742
       },
-      "rationale": "Earnings Yield de 14.0% confere spread de +7.5% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.0% confere spread de +7.5% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (14.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -10679,7 +10679,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.5%**). Earnings Yield de 14.0% confere spread de +7.5% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.5%**). Earnings Yield de 14.0% confere spread de +7.5% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (14.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -10836,7 +10836,7 @@
         "cresc_rec5a": 56.34,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.4x negocia abaixo da curva de referência ajustada (13.9x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -10850,7 +10850,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.1%**). Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.1%**). Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.4x negocia abaixo da curva de referência ajustada (13.9x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -11007,7 +11007,7 @@
         "cresc_rec5a": 66.84,
         "mrg_bruta": 79.0
       },
-      "rationale": "Earnings Yield de 29.6% confere spread de +23.1% sobre a NTN-B real (6,5%). P/L de 3.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 29.6% confere spread de +23.1% sobre a NTN-B real (6,5%). P/L de 3.4x negocia abaixo da curva de referência ajustada (13.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11021,7 +11021,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **29.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+23.1%**). Earnings Yield de 29.6% confere spread de +23.1% sobre a NTN-B real (6,5%). P/L de 3.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **29.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+23.1%**). Earnings Yield de 29.6% confere spread de +23.1% sobre a NTN-B real (6,5%). P/L de 3.4x negocia abaixo da curva de referência ajustada (13.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -11178,7 +11178,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 82.20358464381748
       },
-      "rationale": "Earnings Yield de 12.2% confere spread de +5.7% sobre a NTN-B real (6,5%). P/L de 8.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 12.2% confere spread de +5.7% sobre a NTN-B real (6,5%). P/L de 8.2x negocia abaixo da curva de referência ajustada (13.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11192,7 +11192,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.7%**). Earnings Yield de 12.2% confere spread de +5.7% sobre a NTN-B real (6,5%). P/L de 8.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.7%**). Earnings Yield de 12.2% confere spread de +5.7% sobre a NTN-B real (6,5%). P/L de 8.2x negocia abaixo da curva de referência ajustada (13.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -11349,7 +11349,7 @@
         "cresc_rec5a": 52.11,
         "mrg_bruta": 81.5406265805272
       },
-      "rationale": "Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.5x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 5.1x (<= 6,0x), neutralizando a distorção do P/L tradicional (10.5x) e conferindo assimetria favorável.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11363,7 +11363,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.1%**). Earnings Yield de 9.6% confere spread de +3.1% sobre a NTN-B real (6,5%). P/L de 10.5x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.1%**). Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 5.1x (<= 6,0x), neutralizando a distorção do P/L tradicional (10.5x) e conferindo assimetria favorável.",
           "icon": "scale"
         }
       ],
@@ -11520,7 +11520,7 @@
         "cresc_rec5a": 54.839999999999996,
         "mrg_bruta": 81.22067161687536
       },
-      "rationale": "Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência ajustada (13.5x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11534,7 +11534,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência ajustada (13.5x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -11662,9 +11662,9 @@
       "pilar_solidez": 56.3,
       "pilar_consistencia": 78.1,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 10.35,
       "ev_ebitda": 7.67,
       "ev_ebit": 9.23,
@@ -11691,7 +11691,7 @@
         "cresc_rec5a": 57.72,
         "mrg_bruta": 88.06394551010845
       },
-      "rationale": "Earnings Yield de 9.7% confere spread de +3.2% sobre a NTN-B real (6,5%). P/L de 10.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 10.3x e Earnings Yield de 9.7% (Spread de +3.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (10.1x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11705,7 +11705,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.2%**). Earnings Yield de 9.7% confere spread de +3.2% sobre a NTN-B real (6,5%). P/L de 10.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **9.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.2%**). P/L de 10.3x e Earnings Yield de 9.7% (Spread de +3.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (10.1x).",
           "icon": "scale"
         }
       ],
@@ -11862,7 +11862,7 @@
         "cresc_rec5a": 69.69,
         "mrg_bruta": 87.4110616244706
       },
-      "rationale": "Earnings Yield de 8.6% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.6% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.7x negocia abaixo da curva de referência ajustada (13.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -11876,7 +11876,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.0%**). Earnings Yield de 8.6% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.0%**). Earnings Yield de 8.6% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.7x negocia abaixo da curva de referência ajustada (13.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -12888,7 +12888,7 @@
         "cresc_rec5a": 43.62,
         "mrg_bruta": 64.87314703694389
       },
-      "rationale": "Earnings Yield de 59.5% confere spread de +53.0% sobre a NTN-B real (6,5%). P/L de 1.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 59.5% confere spread de +53.0% sobre a NTN-B real (6,5%). P/L de 1.7x negocia abaixo da curva de referência ajustada (13.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -12902,7 +12902,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **59.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+53.0%**). Earnings Yield de 59.5% confere spread de +53.0% sobre a NTN-B real (6,5%). P/L de 1.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **59.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+53.0%**). Earnings Yield de 59.5% confere spread de +53.0% sobre a NTN-B real (6,5%). P/L de 1.7x negocia abaixo da curva de referência ajustada (13.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -13059,7 +13059,7 @@
         "cresc_rec5a": 57.84,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência ajustada (10.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13073,7 +13073,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.3%**). Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.3%**). Earnings Yield de 10.8% confere spread de +4.3% sobre a NTN-B real (6,5%). P/L de 9.3x negocia abaixo da curva de referência ajustada (10.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -13230,7 +13230,7 @@
         "cresc_rec5a": 82.6,
         "mrg_bruta": 81.34725444726197
       },
-      "rationale": "Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência ajustada (13.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13244,7 +13244,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.3%**). Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.3%**). Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência ajustada (13.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -13401,7 +13401,7 @@
         "cresc_rec5a": 67.44,
         "mrg_bruta": 72.50996234276059
       },
-      "rationale": "Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (13.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13415,7 +13415,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.3%**). Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.3%**). Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (13.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -13572,7 +13572,7 @@
         "cresc_rec5a": 81.96000000000001,
         "mrg_bruta": 87.31043308609839
       },
-      "rationale": "Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência ajustada (9.9x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13586,7 +13586,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.2%**). Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.2%**). Earnings Yield de 13.7% confere spread de +7.2% sobre a NTN-B real (6,5%). P/L de 7.3x negocia abaixo da curva de referência ajustada (9.9x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -13714,9 +13714,9 @@
       "pilar_solidez": 45.1,
       "pilar_consistencia": 76.8,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 11.31,
       "ev_ebitda": 9.27,
       "ev_ebit": 11.67,
@@ -13743,7 +13743,7 @@
         "cresc_rec5a": 53.28,
         "mrg_bruta": 87.90931592089356
       },
-      "rationale": "Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 11.3x e Earnings Yield de 8.8% (Spread de +2.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.8x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13757,7 +13757,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.3%**). Earnings Yield de 8.8% confere spread de +2.3% sobre a NTN-B real (6,5%). P/L de 11.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.3%**). P/L de 11.3x e Earnings Yield de 8.8% (Spread de +2.3% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.8x).",
           "icon": "scale"
         }
       ],
@@ -13914,7 +13914,7 @@
         "cresc_rec5a": 75.07,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 12.5% confere spread de +6.0% sobre a NTN-B real (6,5%). P/L de 8.0x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 12.5% confere spread de +6.0% sobre a NTN-B real (6,5%). P/L de 8.0x negocia abaixo da curva de referência ajustada (13.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -13928,7 +13928,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.0%**). Earnings Yield de 12.5% confere spread de +6.0% sobre a NTN-B real (6,5%). P/L de 8.0x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.0%**). Earnings Yield de 12.5% confere spread de +6.0% sobre a NTN-B real (6,5%). P/L de 8.0x negocia abaixo da curva de referência ajustada (13.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -14256,7 +14256,7 @@
         "cresc_rec5a": 59.01,
         "mrg_bruta": 65.5470330315442
       },
-      "rationale": "Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência ajustada (13.0x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -14270,7 +14270,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.1%**). Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.1%**). Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência ajustada (13.0x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -14427,7 +14427,7 @@
         "cresc_rec5a": 62.07,
         "mrg_bruta": 88.73474098423019
       },
-      "rationale": "Spread vs NTN-B comprimido em -2.1%. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -2.1%. Alavancagem de 2.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -14441,7 +14441,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.1%**). Spread vs NTN-B comprimido em -2.1%. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.1%**). Spread vs NTN-B comprimido em -2.1%. Alavancagem de 2.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -14598,7 +14598,7 @@
         "cresc_rec5a": 83.3,
         "mrg_bruta": 70.41544255781335
       },
-      "rationale": "Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência ajustada (9.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -14612,7 +14612,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência ajustada (9.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -15282,7 +15282,7 @@
         "cresc_rec5a": 63.18,
         "mrg_bruta": 69.37413051216123
       },
-      "rationale": "Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência ajustada (9.4x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -15296,7 +15296,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.0%**). Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.0%**). Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência ajustada (9.4x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -15424,9 +15424,9 @@
       "pilar_solidez": 57.7,
       "pilar_consistencia": 74.2,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 11.2,
       "ev_ebitda": 9.28,
       "ev_ebit": 11.77,
@@ -15453,7 +15453,7 @@
         "cresc_rec5a": 63.18,
         "mrg_bruta": 69.37413051216123
       },
-      "rationale": "Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.4x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -15467,7 +15467,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). Earnings Yield de 8.9% confere spread de +2.4% sobre a NTN-B real (6,5%). P/L de 11.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.4x).",
           "icon": "scale"
         }
       ],
@@ -15795,7 +15795,7 @@
         "cresc_rec5a": 77.15,
         "mrg_bruta": 85.52549781753564
       },
-      "rationale": "Earnings Yield de 10.4% confere spread de +3.9% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 10.4% confere spread de +3.9% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência ajustada (12.5x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -15809,7 +15809,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.9%**). Earnings Yield de 10.4% confere spread de +3.9% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.9%**). Earnings Yield de 10.4% confere spread de +3.9% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência ajustada (12.5x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -15966,7 +15966,7 @@
         "cresc_rec5a": 52.14,
         "mrg_bruta": 67.31558719526535
       },
-      "rationale": "Earnings Yield de 15.1% confere spread de +8.6% sobre a NTN-B real (6,5%). P/L de 6.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 15.1% confere spread de +8.6% sobre a NTN-B real (6,5%). P/L de 6.6x negocia abaixo da curva de referência ajustada (9.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -15980,7 +15980,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.6%**). Earnings Yield de 15.1% confere spread de +8.6% sobre a NTN-B real (6,5%). P/L de 6.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.6%**). Earnings Yield de 15.1% confere spread de +8.6% sobre a NTN-B real (6,5%). P/L de 6.6x negocia abaixo da curva de referência ajustada (9.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -16308,7 +16308,7 @@
         "cresc_rec5a": 75.38,
         "mrg_bruta": 69.22596422238978
       },
-      "rationale": "Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (12.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -16322,7 +16322,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.3%**). Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.3%**). Earnings Yield de 13.8% confere spread de +7.3% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (12.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -16479,7 +16479,7 @@
         "cresc_rec5a": 69.53999999999999,
         "mrg_bruta": 76.3972889220956
       },
-      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (12.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -16493,7 +16493,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.7%**). Earnings Yield de 17.2% confere spread de +10.7% sobre a NTN-B real (6,5%). P/L de 5.8x negocia abaixo da curva de referência ajustada (12.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -16650,7 +16650,7 @@
         "cresc_rec5a": 53.16,
         "mrg_bruta": 66.9276770247633
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.0%. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.0%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -16664,7 +16664,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.0%**). Spread vs NTN-B comprimido em -4.0%. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.0%**). Spread vs NTN-B comprimido em -4.0%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -16821,7 +16821,7 @@
         "cresc_rec5a": 53.16,
         "mrg_bruta": 66.9276770247633
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.0%. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.0%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -16835,7 +16835,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.0%**). Spread vs NTN-B comprimido em -4.0%. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.0%**). Spread vs NTN-B comprimido em -4.0%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -16992,7 +16992,7 @@
         "cresc_rec5a": 53.16,
         "mrg_bruta": 66.9276770247633
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.1%. Earnings Yield de 2.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.1%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -17006,7 +17006,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.1%**). Spread vs NTN-B comprimido em -4.1%. Earnings Yield de 2.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.1%**). Spread vs NTN-B comprimido em -4.1%. Alavancagem de 3.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -17334,7 +17334,7 @@
         "cresc_rec5a": 10.0,
         "mrg_bruta": 92.0
       },
-      "rationale": "P/L de 12.2x e Earnings Yield de 8.2% (Spread de +1.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 12.2x e Earnings Yield de 8.2% (Spread de +1.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (11.9x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -17348,7 +17348,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.7%**). P/L de 12.2x e Earnings Yield de 8.2% (Spread de +1.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.7%**). P/L de 12.2x e Earnings Yield de 8.2% (Spread de +1.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (11.9x).",
           "icon": "scale"
         }
       ],
@@ -17676,7 +17676,7 @@
         "cresc_rec5a": 40.34,
         "mrg_bruta": 89.01162926853155
       },
-      "rationale": "Earnings Yield de 17.8% confere spread de +11.3% sobre a NTN-B real (6,5%). P/L de 5.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 17.8% confere spread de +11.3% sobre a NTN-B real (6,5%). P/L de 5.6x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -17690,7 +17690,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+11.3%**). Earnings Yield de 17.8% confere spread de +11.3% sobre a NTN-B real (6,5%). P/L de 5.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **17.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+11.3%**). Earnings Yield de 17.8% confere spread de +11.3% sobre a NTN-B real (6,5%). P/L de 5.6x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -17847,7 +17847,7 @@
         "cresc_rec5a": 40.34,
         "mrg_bruta": 89.01162926853155
       },
-      "rationale": "Earnings Yield de 15.9% confere spread de +9.4% sobre a NTN-B real (6,5%). P/L de 6.3x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 15.9% confere spread de +9.4% sobre a NTN-B real (6,5%). P/L de 6.3x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -17861,7 +17861,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.4%**). Earnings Yield de 15.9% confere spread de +9.4% sobre a NTN-B real (6,5%). P/L de 6.3x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.4%**). Earnings Yield de 15.9% confere spread de +9.4% sobre a NTN-B real (6,5%). P/L de 6.3x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -18018,7 +18018,7 @@
         "cresc_rec5a": 80.43,
         "mrg_bruta": 68.67276159973154
       },
-      "rationale": "Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -18032,7 +18032,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.0%**). Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.0%**). Earnings Yield de 13.5% confere spread de +7.0% sobre a NTN-B real (6,5%). P/L de 7.4x negocia abaixo da curva de referência ajustada (11.8x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -18189,7 +18189,7 @@
         "cresc_rec5a": 57.78,
         "mrg_bruta": 59.193792631353006
       },
-      "rationale": "P/L de 12.7x e Earnings Yield de 7.9% (Spread de +1.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 12.7x e Earnings Yield de 7.9% (Spread de +1.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (11.7x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -18203,7 +18203,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.4%**). P/L de 12.7x e Earnings Yield de 7.9% (Spread de +1.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.4%**). P/L de 12.7x e Earnings Yield de 7.9% (Spread de +1.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (11.7x).",
           "icon": "scale"
         }
       ],
@@ -18360,7 +18360,7 @@
         "cresc_rec5a": 83.66,
         "mrg_bruta": 81.75243728431951
       },
-      "rationale": "Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência ajustada (8.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -18374,7 +18374,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência ajustada (8.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -18531,7 +18531,7 @@
         "cresc_rec5a": 83.66,
         "mrg_bruta": 81.75243728431951
       },
-      "rationale": "Earnings Yield de 13.9% confere spread de +7.4% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 13.9% confere spread de +7.4% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (8.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -18545,7 +18545,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.4%**). Earnings Yield de 13.9% confere spread de +7.4% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **13.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+7.4%**). Earnings Yield de 13.9% confere spread de +7.4% sobre a NTN-B real (6,5%). P/L de 7.2x negocia abaixo da curva de referência ajustada (8.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -18702,7 +18702,7 @@
         "cresc_rec5a": 61.32,
         "mrg_bruta": 55.1437455668507
       },
-      "rationale": "Earnings Yield de 11.4% confere spread de +4.9% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.4% confere spread de +4.9% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência ajustada (11.7x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -18716,7 +18716,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.9%**). Earnings Yield de 11.4% confere spread de +4.9% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.9%**). Earnings Yield de 11.4% confere spread de +4.9% sobre a NTN-B real (6,5%). P/L de 8.8x negocia abaixo da curva de referência ajustada (11.7x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -19215,7 +19215,7 @@
         "cresc_rec5a": 70.25999999999999,
         "mrg_bruta": 76.78633378578108
       },
-      "rationale": "Spread vs NTN-B comprimido em -2.0%. Earnings Yield de 4.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -2.0%. Alavancagem de 3.4x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -19229,7 +19229,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.0%**). Spread vs NTN-B comprimido em -2.0%. Earnings Yield de 4.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.0%**). Spread vs NTN-B comprimido em -2.0%. Alavancagem de 3.4x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -19386,7 +19386,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 69.09849780148627
       },
-      "rationale": "Spread vs NTN-B comprimido em -3.5%. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -3.5%. Alavancagem de 3.2x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -19400,7 +19400,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **3.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.5%**). Spread vs NTN-B comprimido em -3.5%. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **3.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.5%**). Spread vs NTN-B comprimido em -3.5%. Alavancagem de 3.2x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -19728,7 +19728,7 @@
         "cresc_rec5a": 85.03,
         "mrg_bruta": 78.64786571085207
       },
-      "rationale": "Earnings Yield de 12.6% confere spread de +6.1% sobre a NTN-B real (6,5%). P/L de 7.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 12.6% confere spread de +6.1% sobre a NTN-B real (6,5%). P/L de 7.9x negocia abaixo da curva de referência ajustada (11.3x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -19742,7 +19742,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.1%**). Earnings Yield de 12.6% confere spread de +6.1% sobre a NTN-B real (6,5%). P/L de 7.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **12.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+6.1%**). Earnings Yield de 12.6% confere spread de +6.1% sobre a NTN-B real (6,5%). P/L de 7.9x negocia abaixo da curva de referência ajustada (11.3x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -20070,7 +20070,7 @@
         "cresc_rec5a": 83.39,
         "mrg_bruta": 81.36826285314635
       },
-      "rationale": "Earnings Yield de 16.6% confere spread de +10.1% sobre a NTN-B real (6,5%). P/L de 6.0x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 16.6% confere spread de +10.1% sobre a NTN-B real (6,5%). P/L de 6.0x negocia abaixo da curva de referência ajustada (11.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -20084,7 +20084,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.1%**). Earnings Yield de 16.6% confere spread de +10.1% sobre a NTN-B real (6,5%). P/L de 6.0x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.1%**). Earnings Yield de 16.6% confere spread de +10.1% sobre a NTN-B real (6,5%). P/L de 6.0x negocia abaixo da curva de referência ajustada (11.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -20412,7 +20412,7 @@
         "cresc_rec5a": 77.35,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência ajustada (11.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -20426,7 +20426,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.1%**). Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.1%**). Earnings Yield de 11.6% confere spread de +5.1% sobre a NTN-B real (6,5%). P/L de 8.6x negocia abaixo da curva de referência ajustada (11.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -20583,7 +20583,7 @@
         "cresc_rec5a": 10.0,
         "mrg_bruta": 90.49669911452597
       },
-      "rationale": "Earnings Yield de 9.0% confere spread de +2.5% sobre a NTN-B real (6,5%). P/L de 11.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 9.0% confere spread de +2.5% sobre a NTN-B real (6,5%). P/L de 11.1x negocia abaixo da curva de referência ajustada (11.1x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -20597,7 +20597,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.5%**). Earnings Yield de 9.0% confere spread de +2.5% sobre a NTN-B real (6,5%). P/L de 11.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **9.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.5%**). Earnings Yield de 9.0% confere spread de +2.5% sobre a NTN-B real (6,5%). P/L de 11.1x negocia abaixo da curva de referência ajustada (11.1x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -20754,7 +20754,7 @@
         "cresc_rec5a": 41.26,
         "mrg_bruta": 78.09977820914071
       },
-      "rationale": "Spread vs NTN-B comprimido em -0.7%. Earnings Yield de 5.8% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -0.7%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.8% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -20768,7 +20768,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.8% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.7%**). Spread vs NTN-B comprimido em -0.7%. Earnings Yield de 5.8% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.8% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.7%**). Spread vs NTN-B comprimido em -0.7%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.8% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -20925,7 +20925,7 @@
         "cresc_rec5a": 55.86,
         "mrg_bruta": 75.9338698503094
       },
-      "rationale": "Spread vs NTN-B comprimido em -0.5%. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -0.5%. Alavancagem de 2.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -20939,7 +20939,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Spread vs NTN-B comprimido em -0.5%. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Spread vs NTN-B comprimido em -0.5%. Alavancagem de 2.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -21267,7 +21267,7 @@
         "cresc_rec5a": 59.7,
         "mrg_bruta": 87.90931592089356
       },
-      "rationale": "Spread vs NTN-B comprimido em +0.6%. Earnings Yield de 7.1% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em +0.6%. Alavancagem de 3.5x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 7.1% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -21281,7 +21281,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **7.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Spread vs NTN-B comprimido em +0.6%. Earnings Yield de 7.1% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **7.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.6%**). Spread vs NTN-B comprimido em +0.6%. Alavancagem de 3.5x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 7.1% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -21409,9 +21409,9 @@
       "pilar_solidez": 88.9,
       "pilar_consistencia": 60.6,
       "is_financial": false,
-      "entry_status": "🟡 VALUATION EM LINHA",
-      "entry_tag": "PRECO_JUSTO",
-      "entry_color": "#F59E0B",
+      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
+      "entry_tag": "ASSIMETRIA_FAVORAVEL",
+      "entry_color": "#10B981",
       "pl": 14.94,
       "ev_ebitda": 4.4,
       "ev_ebit": 14.07,
@@ -21438,7 +21438,7 @@
         "cresc_rec5a": 29.259999999999998,
         "mrg_bruta": 57.90758330485005
       },
-      "rationale": "P/L de 14.9x e Earnings Yield de 6.7% (Spread de +0.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 4.4x (<= 6,0x), neutralizando a distorção do P/L tradicional (14.9x) e conferindo assimetria favorável.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -21452,7 +21452,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **6.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.2%**). P/L de 14.9x e Earnings Yield de 6.7% (Spread de +0.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **6.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.2%**). Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de 4.4x (<= 6,0x), neutralizando a distorção do P/L tradicional (14.9x) e conferindo assimetria favorável.",
           "icon": "scale"
         }
       ],
@@ -21751,9 +21751,9 @@
       "pilar_solidez": 50.0,
       "pilar_consistencia": 71.4,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 8.37,
       "ev_ebitda": 7.91,
       "ev_ebit": 10.63,
@@ -21780,7 +21780,7 @@
         "cresc_rec5a": 53.46,
         "mrg_bruta": 69.75536431091422
       },
-      "rationale": "Earnings Yield de 11.9% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 8.4x e Earnings Yield de 11.9% (Spread de +5.5% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.7x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -21794,7 +21794,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.5%**). Earnings Yield de 11.9% confere spread de +5.5% sobre a NTN-B real (6,5%). P/L de 8.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **11.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+5.5%**). P/L de 8.4x e Earnings Yield de 11.9% (Spread de +5.5% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.7x).",
           "icon": "scale"
         }
       ],
@@ -22293,7 +22293,7 @@
         "cresc_rec5a": 39.38,
         "mrg_bruta": 79.14954054118425
       },
-      "rationale": "Earnings Yield de 16.1% confere spread de +9.6% sobre a NTN-B real (6,5%). P/L de 6.2x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 16.1% confere spread de +9.6% sobre a NTN-B real (6,5%). P/L de 6.2x negocia abaixo da curva de referência ajustada (10.2x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -22307,7 +22307,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.6%**). Earnings Yield de 16.1% confere spread de +9.6% sobre a NTN-B real (6,5%). P/L de 6.2x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.6%**). Earnings Yield de 16.1% confere spread de +9.6% sobre a NTN-B real (6,5%). P/L de 6.2x negocia abaixo da curva de referência ajustada (10.2x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -22635,7 +22635,7 @@
         "cresc_rec5a": 58.08,
         "mrg_bruta": 91.0
       },
-      "rationale": "P/L de 13.7x e Earnings Yield de 7.3% (Spread de +0.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 13.7x e Earnings Yield de 7.3% (Spread de +0.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.3x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -22649,7 +22649,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.8%**). P/L de 13.7x e Earnings Yield de 7.3% (Spread de +0.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.8%**). P/L de 13.7x e Earnings Yield de 7.3% (Spread de +0.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.3x).",
           "icon": "scale"
         }
       ],
@@ -22806,7 +22806,7 @@
         "cresc_rec5a": 51.87,
         "mrg_bruta": 80.38033672596072
       },
-      "rationale": "Spread vs NTN-B comprimido em -2.1%. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -2.1%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -22820,7 +22820,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.1%**). Spread vs NTN-B comprimido em -2.1%. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **4.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-2.1%**). Spread vs NTN-B comprimido em -2.1%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 4.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -23319,7 +23319,7 @@
         "cresc_rec5a": 42.78,
         "mrg_bruta": 64.72432511183362
       },
-      "rationale": "Spread vs NTN-B comprimido em -1.0%. Earnings Yield de 5.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -1.0%. Alavancagem de 2.6x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -23333,7 +23333,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-1.0%**). Spread vs NTN-B comprimido em -1.0%. Earnings Yield de 5.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.5% a.a.** (Spread vs. NTN-B real de 6,5%: **-1.0%**). Spread vs NTN-B comprimido em -1.0%. Alavancagem de 2.6x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.5% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -23832,7 +23832,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 65.50126427763949
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.9%. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.9%. Alavancagem de 3.4x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -23846,7 +23846,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.6% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.9%**). Spread vs NTN-B comprimido em -4.9%. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.6% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.9%**). Spread vs NTN-B comprimido em -4.9%. Alavancagem de 3.4x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -24174,7 +24174,7 @@
         "cresc_rec5a": 45.0,
         "mrg_bruta": 10.0
       },
-      "rationale": "P/L de 13.6x e Earnings Yield de 7.4% (Spread de +0.9% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 13.6x e Earnings Yield de 7.4% (Spread de +0.9% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -24188,7 +24188,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.9%**). P/L de 13.6x e Earnings Yield de 7.4% (Spread de +0.9% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **7.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+0.9%**). P/L de 13.6x e Earnings Yield de 7.4% (Spread de +0.9% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (9.0x).",
           "icon": "scale"
         }
       ],
@@ -24345,7 +24345,7 @@
         "cresc_rec5a": 21.44,
         "mrg_bruta": 79.37450980985368
       },
-      "rationale": "Earnings Yield de 16.8% confere spread de +10.3% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 16.8% confere spread de +10.3% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência ajustada (6.6x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -24359,7 +24359,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.3%**). Earnings Yield de 16.8% confere spread de +10.3% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.8% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.3%**). Earnings Yield de 16.8% confere spread de +10.3% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência ajustada (6.6x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -24687,7 +24687,7 @@
         "cresc_rec5a": 83.11,
         "mrg_bruta": 82.69699200988182
       },
-      "rationale": "Spread vs NTN-B comprimido em -0.5%. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -0.5%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -24701,7 +24701,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Spread vs NTN-B comprimido em -0.5%. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **6.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.5%**). Spread vs NTN-B comprimido em -0.5%. Alavancagem de 3.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 6.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -24858,7 +24858,7 @@
         "cresc_rec5a": 48.45,
         "mrg_bruta": 55.00158036271057
       },
-      "rationale": "P/L de 12.3x e Earnings Yield de 8.1% (Spread de +1.6% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 12.3x e Earnings Yield de 8.1% (Spread de +1.6% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (8.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -24872,7 +24872,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.6%**). P/L de 12.3x e Earnings Yield de 8.1% (Spread de +1.6% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.1% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.6%**). P/L de 12.3x e Earnings Yield de 8.1% (Spread de +1.6% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (8.0x).",
           "icon": "scale"
         }
       ],
@@ -25029,7 +25029,7 @@
         "cresc_rec5a": 45.0,
         "mrg_bruta": 10.0
       },
-      "rationale": "P/L de 12.0x e Earnings Yield de 8.3% (Spread de +1.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 12.0x e Earnings Yield de 8.3% (Spread de +1.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.6x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -25043,7 +25043,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.8%**). P/L de 12.0x e Earnings Yield de 8.3% (Spread de +1.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+1.8%**). P/L de 12.0x e Earnings Yield de 8.3% (Spread de +1.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (7.6x).",
           "icon": "scale"
         }
       ],
@@ -26710,9 +26710,9 @@
       "pilar_solidez": 56.8,
       "pilar_consistencia": 75.8,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 5.9,
       "ev_ebitda": 8.64,
       "ev_ebit": 9.02,
@@ -26739,7 +26739,7 @@
         "cresc_rec5a": 61.56,
         "mrg_bruta": 76.45587550078352
       },
-      "rationale": "Earnings Yield de 16.9% confere spread de +10.4% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 5.9x e Earnings Yield de 16.9% (Spread de +10.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -26753,7 +26753,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **16.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.4%**). Earnings Yield de 16.9% confere spread de +10.4% sobre a NTN-B real (6,5%). P/L de 5.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **16.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+10.4%**). P/L de 5.9x e Earnings Yield de 16.9% (Spread de +10.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -26881,9 +26881,9 @@
       "pilar_solidez": 55.6,
       "pilar_consistencia": 82.2,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 6.4,
       "ev_ebitda": 6.92,
       "ev_ebit": 8.21,
@@ -26910,7 +26910,7 @@
         "cresc_rec5a": 80.4,
         "mrg_bruta": 78.84298968355019
       },
-      "rationale": "Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 6.4x e Earnings Yield de 15.6% (Spread de +9.1% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -26924,7 +26924,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **15.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.1%**). Earnings Yield de 15.6% confere spread de +9.1% sobre a NTN-B real (6,5%). P/L de 6.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **15.6% a.a.** (Spread vs. NTN-B real de 6,5%: **+9.1%**). P/L de 6.4x e Earnings Yield de 15.6% (Spread de +9.1% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27052,9 +27052,9 @@
       "pilar_solidez": 28.8,
       "pilar_consistencia": 82.7,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 6.92,
       "ev_ebitda": 21.71,
       "ev_ebit": 22.38,
@@ -27081,7 +27081,7 @@
         "cresc_rec5a": 69.96000000000001,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 6.9x e Earnings Yield de 14.5% (Spread de +8.0% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27095,7 +27095,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). Earnings Yield de 14.5% confere spread de +8.0% sobre a NTN-B real (6,5%). P/L de 6.9x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **14.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+8.0%**). P/L de 6.9x e Earnings Yield de 14.5% (Spread de +8.0% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27223,9 +27223,9 @@
       "pilar_solidez": 28.7,
       "pilar_consistencia": 86.9,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 9.08,
       "ev_ebitda": 5.05,
       "ev_ebit": 5.14,
@@ -27252,7 +27252,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 84.88047719452025
       },
-      "rationale": "Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 9.1x e Earnings Yield de 11.0% (Spread de +4.5% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27266,7 +27266,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **11.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). Earnings Yield de 11.0% confere spread de +4.5% sobre a NTN-B real (6,5%). P/L de 9.1x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **11.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.5%**). P/L de 9.1x e Earnings Yield de 11.0% (Spread de +4.5% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27394,9 +27394,9 @@
       "pilar_solidez": 50.9,
       "pilar_consistencia": 65.5,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 9.37,
       "ev_ebitda": 9.58,
       "ev_ebit": 21.15,
@@ -27423,7 +27423,7 @@
         "cresc_rec5a": 37.3,
         "mrg_bruta": 66.41950768304491
       },
-      "rationale": "Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 9.4x e Earnings Yield de 10.7% (Spread de +4.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27437,7 +27437,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.2%**). Earnings Yield de 10.7% confere spread de +4.2% sobre a NTN-B real (6,5%). P/L de 9.4x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **10.7% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.2%**). P/L de 9.4x e Earnings Yield de 10.7% (Spread de +4.2% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27565,9 +27565,9 @@
       "pilar_solidez": 53.0,
       "pilar_consistencia": 85.1,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 9.57,
       "ev_ebitda": 10.29,
       "ev_ebit": 10.65,
@@ -27594,7 +27594,7 @@
         "cresc_rec5a": 78.01,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 9.6x e Earnings Yield de 10.4% (Spread de +4.0% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27608,7 +27608,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.0%**). Earnings Yield de 10.4% confere spread de +4.0% sobre a NTN-B real (6,5%). P/L de 9.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **10.4% a.a.** (Spread vs. NTN-B real de 6,5%: **+4.0%**). P/L de 9.6x e Earnings Yield de 10.4% (Spread de +4.0% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27736,9 +27736,9 @@
       "pilar_solidez": 52.9,
       "pilar_consistencia": 85.1,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 9.68,
       "ev_ebitda": 10.37,
       "ev_ebit": 10.72,
@@ -27765,7 +27765,7 @@
         "cresc_rec5a": 78.01,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 9.7x e Earnings Yield de 10.3% (Spread de +3.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27779,7 +27779,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). Earnings Yield de 10.3% confere spread de +3.8% sobre a NTN-B real (6,5%). P/L de 9.7x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **10.3% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.8%**). P/L de 9.7x e Earnings Yield de 10.3% (Spread de +3.8% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -27907,9 +27907,9 @@
       "pilar_solidez": 52.9,
       "pilar_consistencia": 85.1,
       "is_financial": false,
-      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#10B981",
+      "entry_status": "🟡 VALUATION EM LINHA",
+      "entry_tag": "PRECO_JUSTO",
+      "entry_color": "#F59E0B",
       "pl": 9.78,
       "ev_ebitda": 10.43,
       "ev_ebit": 10.79,
@@ -27936,7 +27936,7 @@
         "cresc_rec5a": 78.01,
         "mrg_bruta": 91.0
       },
-      "rationale": "Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "P/L de 9.8x e Earnings Yield de 10.2% (Spread de +3.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -27950,7 +27950,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.7%**). Earnings Yield de 10.2% confere spread de +3.7% sobre a NTN-B real (6,5%). P/L de 9.8x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **10.2% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.7%**). P/L de 9.8x e Earnings Yield de 10.2% (Spread de +3.7% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -28107,7 +28107,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 68.25581397752033
       },
-      "rationale": "P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+      "rationale": "P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28121,7 +28121,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟡 VALUATION EM LINHA. Earnings Yield auditado em **8.9% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.4%**). P/L de 11.2x e Earnings Yield de 8.9% (Spread de +2.4% sobre NTN-B). Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada (5.0x).",
           "icon": "scale"
         }
       ],
@@ -28278,7 +28278,7 @@
         "cresc_rec5a": 88.35,
         "mrg_bruta": 83.36519426120438
       },
-      "rationale": "Spread vs NTN-B comprimido em -0.8%. Earnings Yield de 5.7% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -0.8%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.7% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28292,7 +28292,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.7% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.8%**). Spread vs NTN-B comprimido em -0.8%. Earnings Yield de 5.7% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **5.7% a.a.** (Spread vs. NTN-B real de 6,5%: **-0.8%**). Spread vs NTN-B comprimido em -0.8%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 5.7% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -28449,7 +28449,7 @@
         "cresc_rec5a": 55.41,
         "mrg_bruta": 75.90520481523524
       },
-      "rationale": "Spread vs NTN-B comprimido em -3.3%. Earnings Yield de 3.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -3.3%. Alavancagem de 5.8x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 3.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28463,7 +28463,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **3.2% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.3%**). Spread vs NTN-B comprimido em -3.3%. Earnings Yield de 3.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **3.2% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.3%**). Spread vs NTN-B comprimido em -3.3%. Alavancagem de 5.8x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 3.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -28620,7 +28620,7 @@
         "cresc_rec5a": 13.780000000000001,
         "mrg_bruta": 81.31569447477683
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.3%. Earnings Yield de 2.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.3%. Alavancagem de 24.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28634,7 +28634,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.2% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.3%**). Spread vs NTN-B comprimido em -4.3%. Earnings Yield de 2.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.2% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.3%**). Spread vs NTN-B comprimido em -4.3%. Alavancagem de 24.9x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.2% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -28791,7 +28791,7 @@
         "cresc_rec5a": 82.87,
         "mrg_bruta": 64.50557226345958
       },
-      "rationale": "Spread vs NTN-B comprimido em -4.5%. Earnings Yield de 2.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -4.5%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28805,7 +28805,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.5%**). Spread vs NTN-B comprimido em -4.5%. Earnings Yield de 2.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **2.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-4.5%**). Spread vs NTN-B comprimido em -4.5%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 2.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -28962,7 +28962,7 @@
         "cresc_rec5a": 83.46000000000001,
         "mrg_bruta": 77.39619829600514
       },
-      "rationale": "Spread vs NTN-B comprimido em -5.0%. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -5.0%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -28976,7 +28976,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.6% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.0%**). Spread vs NTN-B comprimido em -5.0%. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.6% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.0%**). Spread vs NTN-B comprimido em -5.0%. Alavancagem de 4.3x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -29133,7 +29133,7 @@
         "cresc_rec5a": 76.3,
         "mrg_bruta": 53.299023567122845
       },
-      "rationale": "Spread vs NTN-B comprimido em -5.1%. Earnings Yield de 1.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -5.1%. Alavancagem de 4.0x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -29147,7 +29147,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.1%**). Spread vs NTN-B comprimido em -5.1%. Earnings Yield de 1.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.1%**). Spread vs NTN-B comprimido em -5.1%. Alavancagem de 4.0x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -29304,7 +29304,7 @@
         "cresc_rec5a": 90.0,
         "mrg_bruta": 84.58598868134094
       },
-      "rationale": "Spread vs NTN-B comprimido em -6.1%. Earnings Yield de 0.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -6.1%. Alavancagem de 4.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 0.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -29318,7 +29318,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **0.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-6.1%**). Spread vs NTN-B comprimido em -6.1%. Earnings Yield de 0.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **0.4% a.a.** (Spread vs. NTN-B real de 6,5%: **-6.1%**). Spread vs NTN-B comprimido em -6.1%. Alavancagem de 4.1x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 0.4% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],
@@ -29475,7 +29475,7 @@
         "cresc_rec5a": 51.57,
         "mrg_bruta": 69.44689568976284
       },
-      "rationale": "Earnings Yield de 38.0% confere spread de +31.5% sobre a NTN-B real (6,5%). P/L de 2.6x negocia abaixo da curva de referência e da média histórica do setor.",
+      "rationale": "Earnings Yield de 38.0% confere spread de +31.5% sobre a NTN-B real (6,5%). P/L de 2.6x negocia abaixo da curva de referência ajustada (4.9x) e da média histórica do setor.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -29489,7 +29489,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **38.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+31.5%**). Earnings Yield de 38.0% confere spread de +31.5% sobre a NTN-B real (6,5%). P/L de 2.6x negocia abaixo da curva de referência e da média histórica do setor.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **38.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+31.5%**). Earnings Yield de 38.0% confere spread de +31.5% sobre a NTN-B real (6,5%). P/L de 2.6x negocia abaixo da curva de referência ajustada (4.9x) e da média histórica do setor.",
           "icon": "scale"
         }
       ],
@@ -29817,7 +29817,7 @@
         "cresc_rec5a": 64.11,
         "mrg_bruta": 80.03823321831474
       },
-      "rationale": "Spread vs NTN-B comprimido em -5.2%. Earnings Yield de 1.3% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "rationale": "Spread vs NTN-B comprimido em -5.2%. Alavancagem de 11.6x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.3% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
@@ -29831,7 +29831,7 @@
         },
         {
           "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.3% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.2%**). Spread vs NTN-B comprimido em -5.2%. Earnings Yield de 1.3% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS ELEVADOS. Earnings Yield auditado em **1.3% a.a.** (Spread vs. NTN-B real de 6,5%: **-5.2%**). Spread vs NTN-B comprimido em -5.2%. Alavancagem de 11.6x EBITDA impõe exigência de 25% a mais de desconto. Earnings Yield de 1.3% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
           "icon": "scale"
         }
       ],

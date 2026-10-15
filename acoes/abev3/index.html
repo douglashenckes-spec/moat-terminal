@@ -1081,14 +1081,46 @@
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
     }
 
-    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência e Trava de P/L <= 12x
+    // Curva de Regressão Ajustada por Estrutura de Capital (CFA: EV/EBITDA + P/L)
+    function calcAdjustedFairPL(s) {
+      if (!s) return 15.38;
+      const baseExp = calcFairPL(s.quality_score);
+      if (s.is_financial) return baseExp;
+
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+      const det = s.details || {};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+
+      // Penalidade: Dívida Líquida/EBITDA > 2,5x exige desconto 25% maior (teto de P/L reduzido em 25%)
+      if (dle !== null && dle > 2.5) {
+        return baseExp * 0.75;
+      }
+      // Bônus: Caixa Líquido relevante e EV/EBITDA <= 6,0x (mesmo com P/L entre 12x e 16x)
+      if (isNetCash && eveb !== null && eveb > 0 && eveb <= 6.0) {
+        return Math.max(baseExp * 1.30, 16.5);
+      }
+
+      return baseExp;
+    }
+
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada
     function sanitizeStockValuation(s) {
       if (!s) return;
-      const expPL = calcFairPL(s.quality_score);
+      const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
       const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
-      if ((isAbove || isLowPL) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {
-        if ((s.pl && s.pl <= 10.0) || isAbove) {
+
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+      const det = s.details || {};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+      const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
+
+      if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {
+        if ((s.pl && s.pl <= 10.0) || isAbove || isNetCashBonus) {
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
           s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
@@ -1430,8 +1462,27 @@
         }
       }
 
-      // Proventos & Payout
-      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
+      // Proventos & Payout (Bazin Blindado vs Clássico)
+      const dyVal = Number(s.div_yield || 0);
+      const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
+      const dleVal = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const detVal = s.details || {};
+      const dlVal = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
+      const isNetCashVal = (dlVal !== null && dlVal < 0) || (dleVal !== null && dleVal < 0);
+      const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
+      const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
+      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
+
+      if (isBazinBlindado) {
+        cats.push({
+          id: 'CAT_BAZIN_ARMORED',
+          group: 'VALUATION',
+          label: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
+          shortLabel: 'Bazin Blindado 🛡️',
+          ledClass: 'bg-emerald-600',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
+        });
+      } else if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
         cats.push({
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
@@ -1951,6 +2002,11 @@
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
+      const isFin = Boolean(s.is_financial);
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const det = s.details || {};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
 
       // 1. Valor Intrínseco de Graham: sqrt(22.5 * LPA * VPA)
       let grahamPrice = null;
@@ -1961,14 +2017,28 @@
           grahamMargin = ((grahamPrice - cot) / cot) * 100;
         }
       }
+      const roicVal = (s.roic !== null && s.roic !== undefined) ? Number(s.roic) : null;
+      const isHighRoic = roicVal !== null && roicVal >= 0.14;
+      const isGrahamValidated = (grahamMargin !== null && grahamMargin > 0) && (isHighRoic || (grahamMargin >= 25.0));
 
-      // 2. Referência Décio Bazin: DPA Médio / 0.06 (Exige 6% de Dividend Yield Mínimo)
+      // 2. Referência Décio Bazin: DPA Médio / 0.06 (Clássico) vs DPA / 0.07 (Blindado)
       let bazinPrice = null;
       let bazinMargin = null;
-      if (s.div_yield && s.div_yield > 0 && cot > 0) {
-        const dpa = cot * s.div_yield;
+      let bazinPriceBlindado = null;
+      let bazinMarginBlindado = null;
+      const dyVal = Number(s.div_yield || 0);
+      const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
+      const isDebtSafe = isFin || (dle !== null && dle <= 2.2) || isNetCash;
+      const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
+      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
+      const isBazinClassico = dyVal >= 0.06;
+
+      if (dyVal > 0 && cot > 0) {
+        const dpa = cot * dyVal;
         bazinPrice = dpa / 0.06;
         bazinMargin = ((bazinPrice - cot) / cot) * 100;
+        bazinPriceBlindado = dpa / 0.07;
+        bazinMarginBlindado = ((bazinPriceBlindado - cot) / cot) * 100;
       }
 
       // 3. Prêmio de Risco NTN-B
@@ -1976,45 +2046,61 @@
 
       document.getElementById('valuationCalculatorsContainer').innerHTML = `
         <!-- Calculadora 1: Graham -->
-        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-2 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco de Benjamin Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
+              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${grahamMargin !== null && grahamMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${grahamMargin !== null && grahamMargin > 0 ? (isGrahamValidated ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-amber-100 text-amber-950 border border-amber-300') : 'bg-slate-200 text-slate-800'}">
               ${grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + formatNumberBR(grahamMargin, 1) + '% de Margem' : 'LPA/VPA Inválido'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
-            <span class="text-slate-600 font-sans">Valor Intrínseco Graham (V = √(22.5 × LPA × VPA)):</span>
+            <span class="text-slate-600 font-sans">Valor Intrínseco (V = √(22.5 × LPA × VPA)):</span>
             <b class="text-sm font-bold text-slate-900">${grahamPrice ? formatCurrency(grahamPrice) : 'N/D'}</b>
           </div>
           <p class="text-[10px] text-slate-500 font-sans">
-            Referência teórica clássica de Benjamin Graham ponderando valor contábil e lucros passados.
+            Referência de Benjamin Graham: pondera valor patrimonial por ação (VPA) e lucro por ação (LPA).
           </p>
+          <div class="p-2.5 rounded-xl bg-white border border-slate-200 text-[11px] font-sans text-slate-700 leading-relaxed shadow-3xs">
+            <b class="text-slate-900 font-mono text-[10px] uppercase tracking-wider block mb-0.5">🏛️ Olhar Institucional (Ajuste NTN-B):</b>
+            A constante original de Graham (22,5 = P/L 15x × P/VP 1,5x) pressupõe juros nominais americanos de 4% a 5%. No Brasil (com NTN-B a 6,5% real + inflação de 4,5%), analistas fundamentalistas exigem margem de segurança adicional ou <b>ROIC &gt; 14%</b> (${isHighRoic ? '<span class="text-emerald-800 font-bold">atendido ✅</span>' : '<span class="text-amber-800 font-semibold">não atendido ⚠️</span>'}) para validar o desconto e afastar armadilhas de valor em empresas de capital intensivo.
+          </div>
         </div>
 
         <!-- Calculadora 2: Bazin -->
-        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-2 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin (DY 6%) <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
+              <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
             </span>
-            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${bazinMargin !== null && bazinMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
-              ${bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + formatNumberBR(bazinMargin, 1) + '% vs Cotação' : 'Sem Proventos'}
+            <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${isBazinBlindado ? 'bg-emerald-100 text-emerald-900 border border-emerald-300 shadow-2xs' : (isBazinClassico ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-200 text-slate-800')}">
+              ${isBazinBlindado ? '🛡️ Bazin Blindado (DY ≥ 7% • Caixa Seguro)' : (isBazinClassico ? '🎯 Bazin Clássico (DY ≥ 6,0%)' : (dyVal > 0 ? 'DY ' + formatNumberBR(dyVal*100, 1, '%') : 'Sem Proventos'))}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
-            <span class="text-slate-600 font-sans">Preço Teórico de Referência (DY 6%):</span>
+            <span class="text-slate-600 font-sans">Preço Teto Clássico (DY 6,0%):</span>
             <b class="text-sm font-bold text-slate-900">${bazinPrice ? formatCurrency(bazinPrice) : 'N/D'}</b>
           </div>
+          ${bazinPriceBlindado ? `
+          <div class="flex items-baseline justify-between text-xs pt-0.5 border-t border-slate-200/60 mt-1">
+            <span class="text-emerald-800 font-sans font-medium">Preço Teto Blindado (DY 7,0%):</span>
+            <b class="text-sm font-bold text-emerald-900">${formatCurrency(bazinPriceBlindado)}</b>
+          </div>
+          ` : ''}
           <p class="text-[10px] text-slate-500 font-sans">
-            Modelo quantitativo de proventos: calcula a cotação em que a distribuição equivale a 6,0% ao ano.
+            Método de Décio Bazin: estima a cotação máxima de compra para obter remuneração mínima em proventos.
           </p>
+          <div class="p-2.5 rounded-xl bg-white border border-slate-200 text-[11px] font-sans text-slate-700 leading-relaxed shadow-3xs">
+            <b class="text-slate-900 font-mono text-[10px] uppercase tracking-wider block mb-0.5">🏛️ Olhar Institucional (Ajuste NTN-B):</b>
+            ${isBazinBlindado 
+              ? `<span class="text-emerald-800 font-bold">Enquadramento Bazin Blindado:</span> Remunera com DY de <b>${formatNumberBR(dyVal*100, 1, '%')}</b> aliado a Payout sustentável (<b>${payoutVal ? formatNumberBR(payoutVal, 0, '%') : 'N/D'}</b>) e endividamento sob controle${dle !== null ? ` (${formatNumberBR(dle, 1, 'x')} EBITDA)` : ''}. Proventos respaldados por geração real de caixa sem comprometer o balanço.` 
+              : `Com a NTN-B pagando IPCA + 6,5% a.a., analistas diferenciam <b>Bazin Clássico (DY ≥ 6%)</b> de <b>Bazin Blindado (DY ≥ 7% com Payout &lt; 85% e Dívida Líq./EBITDA &le; 2,2x)</b> para separar yield inflado por desinvestimento de empresas que pagam dividendos com fluxo de caixa genuíno.`}
+          </div>
         </div>
 
         <!-- Calculadora 3: Prêmio Real vs NTN-B -->
-        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-1.5 hover:border-[#00A887] transition-colors">
+        <div class="p-4 rounded-2xl border border-[#E7E7E2] bg-[#FAFAF7] font-mono space-y-2 hover:border-[#00A887] transition-colors">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-slate-900 font-sans flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0V5l-8 4v12h16V9l-8-4z"/></svg> Prêmio de Risco vs Tesouro NTN-B 2035 <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span>
@@ -2030,6 +2116,10 @@
           <p class="text-[10px] text-slate-500 font-sans">
             Compara o rendimento em lucros da empresa diretamente contra o custo de oportunidade do Tesouro IPCA+ 6,50%.
           </p>
+          <div class="p-2.5 rounded-xl bg-white border border-slate-200 text-[11px] font-sans text-slate-700 leading-relaxed shadow-3xs">
+            <b class="text-slate-900 font-mono text-[10px] uppercase tracking-wider block mb-0.5">🏛️ Regra de Alocação Munger:</b>
+            Para justificar o risco de renda variável no Brasil, o Earnings Yield precisa superar a taxa livre de risco (NTN-B 2035). Spreads acima de +3,0% indicam margem de segurança real para o acionista.
+          </div>
         </div>
 
         <!-- Card Didático: Por que os Métodos de Valuation Divergem? -->
@@ -2039,7 +2129,7 @@
           </div>
           <div class="text-[11.5px] text-slate-700 space-y-1.5 leading-relaxed">
             <p>• <b>Benjamin Graham (Valor Intrínseco):</b> Foco em margem de segurança patrimonial e lucros sustentáveis passados. Exigente com empresas intensivas em capital ou holdings com ativos subavaliados.</p>
-            <p>• <b>Décio Bazin (Referência de Proventos):</b> Foco exclusivo em fluxo histórico de dividendos. Estima a cotação teórica para obter 6% de retorno anual em dinheiro.</p>
+            <p>• <b>Décio Bazin (Referência de Proventos):</b> Foco exclusivo em fluxo histórico de dividendos. Estima a cotação teórica para obter 6% a 7% de retorno anual em dinheiro.</p>
             <p>• <b>Charlie Munger & Buffett (Qualidade & Moat):</b> Prioriza alta rentabilidade do capital reinvestido (ROIC/ROE > 15%). Uma empresa espetacular com múltiplos equilibrados supera um negócio medíocre a preço vil.</p>
           </div>
         </div>
@@ -2898,9 +2988,11 @@
 
       const sPl = (s.pl && s.pl > 0) ? s.pl : ((s.details && s.details.pl) || 15.0);
       const sScore = s.quality_score || 50.0;
+      const expPL = calcAdjustedFairPL(s);
+      const isAboveCurve = sPl < expPL;
 
       const isHighQuality = sScore >= limiarQuality;
-      const isLowPl = sPl <= limiarValuation;
+      const isLowPl = isAboveCurve || (sPl <= limiarValuation);
 
       let quadName = '';
       let badgeStyle = '';
@@ -2908,24 +3000,25 @@
 
       const sScoreStr = formatNumberBR(sScore, 1);
       const sPlStr = formatNumberBR(sPl, 1);
+      const expPLStr = formatNumberBR(expPL, 1);
       const sEyStr = (sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'N/D');
 
       if (isHighQuality && isLowPl) {
         quadName = 'Q1: Compounder Descontada';
         badgeStyle = 'bg-emerald-50 text-emerald-900 border-emerald-300';
-        quadExplanation = `A <b>${s.ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de ${sPlStr}x</b>, implicando Earnings Yield de ${sEyStr}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco.`;
+        quadExplanation = `A <b>${s.ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de ${sPlStr}x</b> frente ao P/L justo ajustado por estrutura de capital de <b>${expPLStr}x</b>, implicando Earnings Yield de ${sEyStr}). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco.`;
       } else if (isHighQuality && !isLowPl) {
         quadName = 'Q2: Qualidade com Prêmio';
         badgeStyle = 'bg-sky-50 text-sky-900 border-sky-300';
-        quadExplanation = `A <b>${s.ticker}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1), porém negocia com prêmio de valuation de mercado (<b>P/L de ${sPlStr}x</b>, implicando Earnings Yield de ${sEyStr}, inferior ao corte de 6,5% da NTN-B real).`;
+        quadExplanation = `A <b>${s.ticker}</b> possui comprovada excelência operacional e vantagens estruturais sólidas (<b>Moat Score de ${sScoreStr} pts</b>, Tier 1), porém negocia com prêmio de valuation frente à curva ajustada (<b>P/L de ${sPlStr}x</b> vs teto justo de <b>${expPLStr}x</b>, implicando Earnings Yield de ${sEyStr}).`;
       } else if (!isHighQuality && isLowPl) {
         quadName = 'Q3: Múltiplos Baixos / Cíclica';
         badgeStyle = 'bg-amber-50 text-amber-900 border-amber-300';
-        quadExplanation = `A <b>${s.ticker}</b> transaciona a múltiplos atrativos (<b>P/L de ${sPlStr}x</b>, Earnings Yield de ${sEyStr} acima do corte soberano), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de ${sScoreStr} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>).`;
+        quadExplanation = `A <b>${s.ticker}</b> transaciona a múltiplos com desconto na curva ajustada (<b>P/L de ${sPlStr}x</b> vs teto de <b>${expPLStr}x</b>, Earnings Yield de ${sEyStr}), porém apresenta barreira competitiva moderada a frágil (<b>Moat Score de ${sScoreStr} pts</b>). Requer monitoramento rigoroso contra armadilhas de valor (<i>Value Trap</i>).`;
       } else {
         quadName = 'Q4: Valuation Elevado / Baixo Moat';
         badgeStyle = 'bg-rose-50 text-rose-900 border-rose-300';
-        quadExplanation = `A <b>${s.ticker}</b> reúne múltiplos esticados (<b>P/L de ${sPlStr}x</b>) e limitada proteção competitiva (<b>Moat Score de ${sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às ${validPeers.length} empresas cobertas no universo B3.`;
+        quadExplanation = `A <b>${s.ticker}</b> reúne múltiplos esticados (<b>P/L de ${sPlStr}x</b> vs teto justo de <b>${expPLStr}x</b>) e limitada proteção competitiva (<b>Moat Score de ${sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às ${validPeers.length} empresas cobertas no universo B3.`;
       }
 
       if (badge) {

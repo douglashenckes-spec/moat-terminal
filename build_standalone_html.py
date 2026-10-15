@@ -1123,6 +1123,7 @@ html_template = f"""<!DOCTYPE html>
               <option value="CAT_HIGH_ROIC">🏰 Super ROIC (≥ 18%)</option>
               <option value="CAT_GRAHAM">📐 Desconto Graham</option>
               <option value="CAT_GRAHAM_ALERT">⚠️ Graham c/ Alerta</option>
+              <option value="CAT_BAZIN_ARMORED">🛡️ Bazin Blindado (DY ≥ 7% • Caixa Seguro)</option>
               <option value="CAT_BAZIN">🎯 Referência Bazin</option>
               <option value="CAT_BAZIN_WARNING">⚠️ Bazin (Atenção Payout)</option>
               <option value="CAT_SPREAD_NTNB">📈 Prêmio Real sobre NTN-B</option>
@@ -1443,14 +1444,46 @@ html_template = f"""<!DOCTYPE html>
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
     }}
 
-    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência e Trava de P/L <= 12x
+    // Curva de Regressão Ajustada por Estrutura de Capital (CFA: EV/EBITDA + P/L)
+    function calcAdjustedFairPL(s) {{
+      if (!s) return 15.38;
+      const baseExp = calcFairPL(s.quality_score);
+      if (s.is_financial) return baseExp;
+
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+
+      // Penalidade: Dívida Líquida/EBITDA > 2,5x exige desconto 25% maior (teto de P/L reduzido em 25%)
+      if (dle !== null && dle > 2.5) {{
+        return baseExp * 0.75;
+      }}
+      // Bônus: Caixa Líquido relevante e EV/EBITDA <= 6,0x (mesmo com P/L entre 12x e 16x)
+      if (isNetCash && eveb !== null && eveb > 0 && eveb <= 6.0) {{
+        return Math.max(baseExp * 1.30, 16.5);
+      }}
+
+      return baseExp;
+    }}
+
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada
     function sanitizeStockValuation(s) {{
       if (!s) return;
-      const expPL = calcFairPL(s.quality_score);
+      const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
       const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
-      if ((isAbove || isLowPL) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
-        if ((s.pl && s.pl <= 10.0) || isAbove) {{
+
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+      const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
+
+      if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
+        if ((s.pl && s.pl <= 10.0) || isAbove || isNetCashBonus) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
           s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
@@ -1736,12 +1769,14 @@ html_template = f"""<!DOCTYPE html>
           return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 14.0);
         }}
 
-        // Compatibilidade retroativa para filtros de quadrante
+        // Filtros de quadrante na curva de regressão (Desconto vs Prêmio)
         if (currentFilter === 'QUAD_ABOVE' || currentFilter === 'QUAD_FILE' || currentFilter === 'QUAD_BARGAIN') {{
-          return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
+          if (!s.pl || s.pl <= 0) return false;
+          return s.pl < calcAdjustedFairPL(s);
         }}
         if (currentFilter === 'QUAD_BELOW' || currentFilter === 'QUAD_EXPENSIVE' || currentFilter === 'QUAD_TRAP') {{
-          return (s.quality_score || 0) < 75 || (s.pl !== null && s.pl > 14.0);
+          if (!s.pl || s.pl <= 0) return true;
+          return s.pl >= calcAdjustedFairPL(s);
         }}
 
         // Enquadramentos / Categorias Institucionais Padronizadas
@@ -2063,8 +2098,27 @@ html_template = f"""<!DOCTYPE html>
         }}
       }}
 
-      // Proventos & Payout
-      if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
+      // Proventos & Payout (Bazin Blindado vs Clássico)
+      const dyVal = Number(s.div_yield || 0);
+      const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
+      const dleVal = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const detVal = s.details || {{}};
+      const dlVal = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
+      const isNetCashVal = (dlVal !== null && dlVal < 0) || (dleVal !== null && dleVal < 0);
+      const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
+      const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
+      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
+
+      if (isBazinBlindado) {{
+        cats.push({{
+          id: 'CAT_BAZIN_ARMORED',
+          group: 'VALUATION',
+          label: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
+          shortLabel: 'Bazin Blindado 🛡️',
+          ledClass: 'bg-emerald-600',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
+        }});
+      }} else if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
         cats.push({{
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
@@ -2556,6 +2610,11 @@ html_template = f"""<!DOCTYPE html>
         name: 'Graham c/ Alerta (Possível Não-Recorrente)',
         icon: '⚠️',
         rationale: 'Ativos que atendem à fórmula teórica de Graham, mas possuem ROE muito superior ao ROIC com ROIC modesto ou P/L muito deprimido sob baixo Score de Qualidade.'
+      }},
+      'CAT_BAZIN_ARMORED': {{
+        name: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
+        icon: '🛡️',
+        rationale: 'Ações com Dividend Yield ≥ 7,0% garantido por Payout saudável (< 85%) e endividamento sob controle (Dívida Líq./EBITDA ≤ 2,2x ou Caixa Líquido). Proventos respaldados por geração real de caixa livre.'
       }},
       'CAT_BAZIN': {{
         name: 'Referência Décio Bazin (DY 6%)',
@@ -4524,8 +4583,8 @@ html_template = f"""<!DOCTYPE html>
         const yVal = s.quality_score;
         if (!isEdge && (xVal === null || xVal === undefined)) return;
 
-        // Métricas de contagem
-        const expPL = 5.0 + 0.20 * (Math.max(20, Math.min(100, s.quality_score || 50)) - 30.0);
+        // Métricas de contagem na curva ajustada
+        const expPL = calcAdjustedFairPL(s);
         if (s.pl && s.pl > 0 && s.pl < expPL) nAbove++;
         else nBelow++;
 
@@ -4801,7 +4860,7 @@ html_template = f"""<!DOCTYPE html>
         `;
       }}
 
-      const expPL = calcFairPL(s.quality_score);
+      const expPL = calcAdjustedFairPL(s);
       const plDisplay = s.edgePlacement === 'left_loss' 
         ? '<span class="text-rose-700 font-bold">Prejuízo LTM (Fixado na borda esquerda)</span>' 
         : formatMultiple(s.pl);
@@ -4818,7 +4877,7 @@ html_template = f"""<!DOCTYPE html>
           Cap: <b class="text-slate-900 font-bold">${{mcapStr}}</b> • Vol: <b class="text-slate-900 font-bold">R$ ${{volStr}}/d</b> • Bal: <b class="text-slate-800 font-semibold">${{s.ult_balanco}}</b>
         </div>
         <div class="text-slate-700">• Quality Score: <b class="text-slate-900 font-bold">${{formatNumberBR(s.quality_score, 1)}}/100</b> (${{s.quality_tier.split(':')[0]}})</div>
-        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${{plDisplay}}</b> (P/L Teórico: <b class="text-emerald-800 font-bold">${{formatNumberBR(expPL, 1, 'x')}}</b>)</div>
+        <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${{plDisplay}}</b> (P/L Teórico Ajustado: <b class="text-emerald-800 font-bold">${{formatNumberBR(expPL, 1, 'x')}}</b>)</div>
         <div class="text-slate-700">• Momento 2T26: ${{momTag}}</div>
         <div class="text-slate-700">• Earnings Yield: <b class="text-slate-900 font-bold">${{formatPercent(s.earnings_yield_pct/100)}}</b> (Spread NTN-B: <b class="${{getColorSpread(s.ey_spread)}}">${{spreadStr}}</b>)</div>
         <div class="text-slate-700">• ROIC: <b class="text-slate-900 font-bold">${{s.is_financial ? 'N/A' : formatPercent(s.roic)}}</b> | ROE: <b class="text-slate-900 font-bold">${{formatPercent(s.roe)}}</b> | DY: <b class="text-emerald-800 font-bold">${{formatPercent(s.div_yield)}}</b></div>
@@ -5113,7 +5172,7 @@ html_template = f"""<!DOCTYPE html>
               <span class="text-[10px] font-mono opacity-85">• ${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'))}}</span>
             </span>
             <div class="text-[11px] font-mono text-slate-600 font-medium mt-0.5">
-              P/L Teórico: <b class="text-slate-900 font-bold tabular-nums">${{formatMultiple(calcFairPL(s.quality_score))}}</b>
+              P/L Teórico Ajustado: <b class="text-slate-900 font-bold tabular-nums">${{formatMultiple(calcAdjustedFairPL(s))}}</b>
             </div>
           </div>
         </div>

@@ -346,6 +346,7 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         if mcap is not None and lucro_run_rate is not None and lucro_run_rate > 0:
             pl_run_rate = round(mcap / lucro_run_rate, 2)
         row_dict["pl_run_rate"] = pl_run_rate
+        row_dict["details"] = det_entry
 
         v = evaluate_entry_valuation(row_dict, sector, quality_score=q.get("quality_score"))
         bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)
