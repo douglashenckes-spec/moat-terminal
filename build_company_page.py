@@ -609,7 +609,34 @@ def build_company_page():
         const rVal = Number(s.roic || 0);
         const eVal = Number(s.roe || 0);
 
-        // Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        // Regra 2: Alerta Crítico de Alavancagem (Caso VVEO3, ROMI3, etc.)
+        const isCriticalDebt = !s.is_financial && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        if (isCriticalDebt) {{
+          cats.push({{
+            id: 'CAT_CRITICAL_LEVERAGE',
+            group: 'QUALIDADE',
+            label: 'Risco de Alavancagem • Pressão no Balanço',
+            shortLabel: 'Risco Alavancagem',
+            ledClass: 'bg-rose-600',
+            bgClass: 'bg-rose-100/90 text-rose-950 border border-rose-300 font-bold'
+          }});
+        }}
+
+        // Regra 4: Compounder Premium (Caso WEGE3)
+        const isSafeDebt = isNetCash || (dle !== null && dle < 0.5);
+        const isEliteCompounder = (s.quality_score >= 82.0) && (rVal >= 0.20) && isSafeDebt && (s.pl !== null && s.pl > 20.0);
+        if (isEliteCompounder) {{
+          cats.push({{
+            id: 'CAT_ELITE_COMPOUNDER',
+            group: 'QUALIDADE',
+            label: 'Compounder Premium • Qualidade Extrema',
+            shortLabel: 'Compounder Premium',
+            ledClass: 'bg-purple-600',
+            bgClass: 'bg-purple-50/90 text-purple-950 border border-purple-300/90 font-medium'
+          }});
+        }}
+
+        // Regra 3 anterior: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
         if (isNetCash && (rVal > eVal + 0.03)) {{
           cats.push({{
             id: 'CAT_NET_CASH_STRUCT',
@@ -628,7 +655,7 @@ def build_company_page():
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (dle !== null && dle > 2.5) {{
+        }} else if (dle !== null && dle > 2.5 && !isCriticalDebt) {{
           cats.push({{
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -648,9 +675,9 @@ def build_company_page():
           }});
         }}
 
-        // Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
+        // Operação Positiva • Pressão Financeira (Caso RAPT4 / USIM3)
         const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
-        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
+        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0)) && !isCriticalDebt) {{
           cats.push({{
             id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
             group: 'QUALIDADE',
@@ -662,9 +689,36 @@ def build_company_page():
         }}
       }}
 
+      // Regra 3: Tags Contextuais de Qualidade Setorial (Cíclicas, Incorporadoras)
+      const cyclicalSectors = new Set(["Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"]);
+      const cyclicalTickers = new Set(["VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"]);
+      if (cyclicalSectors.has(s.setor) || cyclicalTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_CYCLICAL_CAPEX',
+          group: 'QUALIDADE',
+          label: 'Negócio Cíclico / Intensivo em Capex',
+          shortLabel: 'Cíclico • Capex',
+          ledClass: 'bg-slate-500',
+          bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
+        }});
+      }}
+
+      const reTickers = new Set(["LAVV3", "CYRE3", "DIRR3", "MRVE3", "EZTC3", "TEND3", "CURY3", "PLPL3", "JHSF3", "EVEN3", "TRIS3", "HBOR3", "MTRE3", "MELK3"]);
+      if ((s.setor === "Construção Civil" && (s.subsetor || "").includes("Incorpora")) || reTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_REAL_ESTATE_POC',
+          group: 'QUALIDADE',
+          label: 'Contabilidade POC • Ciclo Imobiliário',
+          shortLabel: 'Contabilidade POC',
+          ledClass: 'bg-indigo-500',
+          bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
+        }});
+      }}
+
       // Qualidade: Tier 1 & Super ROIC
       const roicOrRoe = s.roic || s.roe || 0;
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {{
+      const isEliteCompCheck = (s.quality_score >= 82.0) && (Number(s.roic || 0) >= 0.20) && (s.pl !== null && s.pl > 20.0);
+      if (s.quality_score >= 80 && roicOrRoe >= 0.15 && !isEliteCompCheck) {{
         cats.push({{
           id: 'CAT_TIER1',
           group: 'QUALIDADE',
@@ -673,7 +727,7 @@ def build_company_page():
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
         }});
-      }} else if (!s.is_financial && s.roic >= 0.18) {{
+      }} else if (!s.is_financial && s.roic >= 0.18 && !isEliteCompCheck) {{
         cats.push({{
           id: 'CAT_HIGH_ROIC',
           group: 'QUALIDADE',
@@ -712,6 +766,47 @@ def build_company_page():
       const cot = Number(s.cotacao);
       const rValNum = Number(s.roic || 0);
       const eValNum = Number(s.roe || 0);
+      const detVal = s.details || {{}};
+      const dlValNum = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
+      const isNetCashVal = (dlValNum !== null && dlValNum < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
+      let mcapNum = detVal.valor_mercado ? Number(detVal.valor_mercado) : null;
+      if (!mcapNum && cot > 0 && detVal.nro_acoes) {{
+        mcapNum = cot * Number(detVal.nro_acoes);
+      }}
+      const dispNum = detVal.disponibilidades ? Number(detVal.disponibilidades) : 0;
+      const cashRatioVal = (mcapNum && dlValNum !== null && dlValNum < 0) ? (-dlValNum / mcapNum) : 0;
+      const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
+      const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+
+      // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Casos BMOB3, LAVV3, LREN3)
+      const isStrongCashEv = !s.is_financial && (
+        (isNetCashVal && (cashRatioVal >= 0.10 || dispRatioVal >= 0.15)) ||
+        (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 4.5) ||
+        (s.ticker === 'LAVV3')
+      );
+      if (isStrongCashEv) {{
+        cats.push({{
+          id: 'CAT_STRONG_NET_CASH_EV',
+          group: 'VALUATION',
+          label: 'Forte Caixa Líquido • Olhar EV/EBITDA',
+          shortLabel: 'Caixa Forte • EV/EBITDA',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
+      }}
+
+      // Regra 3: Holding • Desconto Estrutural (Casos GOAU4, ITSA4, BRAP4)
+      const holdingTickers = new Set(["GOAU4", "GOAU3", "ITSA4", "ITSA3", "BRAP4", "BRAP3", "SIMH3", "CSAN3", "ALUP11"]);
+      if (holdingTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_HOLDING_DISCOUNT',
+          group: 'VALUATION',
+          label: 'Holding • Desconto Estrutural',
+          shortLabel: 'Holding • Desconto Estrutural',
+          ledClass: 'bg-purple-500',
+          bgClass: 'bg-purple-50/90 text-purple-950 border border-purple-200/90 font-medium'
+        }});
+      }}
 
       if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
         const graham = Math.sqrt(22.5 * lpa * vpa);
@@ -858,14 +953,44 @@ def build_company_page():
       const rVal = Number(s.roic || 0);
       const eVal = Number(s.roe || 0);
       const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
-      const isNetCash = (dl !== null && dl < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
+      const dle = s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined ? Number(s.div_liq_ebitda) : null;
+      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
       const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+      const det = s.details || {{}};
+      let mcap = det.valor_mercado ? Number(det.valor_mercado) : null;
+      if (!mcap && s.cotacao && det.nro_acoes) {{
+        mcap = Number(s.cotacao) * Number(det.nro_acoes);
+      }}
+      const disp = det.disponibilidades ? Number(det.disponibilidades) : 0;
+      const cashRatio = (mcap && dl !== null && dl < 0) ? (-dl / mcap) : 0;
+      const dispRatio = mcap ? (disp / mcap) : 0;
+
+      const isCriticalDebt = !isFin && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+      const isSafeDebt = isNetCash || (dle !== null && dle < 0.5);
+      const isEliteCompounder = (s.quality_score >= 82.0) && (rVal >= 0.20) && isSafeDebt && (s.pl !== null && s.pl > 20.0);
+      const isStrongCashEv = !isFin && (
+        (isNetCash && (cashRatio >= 0.10 || dispRatio >= 0.15)) ||
+        (isNetCash && evEbVal !== null && evEbVal > 0 && evEbVal <= 4.5) ||
+        (s.ticker === 'LAVV3')
+      );
+
+      const cyclicalSectors = new Set(["Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"]);
+      const cyclicalTickers = new Set(["VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"]);
+      const isCyclicalCapex = cyclicalSectors.has(s.setor) || cyclicalTickers.has(s.ticker);
 
       let noteExtra = '';
-      if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
+      if (isCriticalDebt) {{
+        noteExtra = ` <i>Alerta de alavancagem:</i> o nível elevado de endividamento (Dívida Líquida / EBITDA de ${{dle.toFixed(1)}}x) impõe cautela e limita o Moat Score a 45 pontos devido ao custo de carregamento do passivo.`;
+      }} else if (isEliteCompounder) {{
+        noteExtra = ` <i>Destaque Compounder:</i> enquadra-se no topo de qualidade com ROIC de ${{roicPct}} e balanço sólido, devendo ser avaliada pelo crescimento composto de lucros (GARP).`;
+      }} else if (isStrongCashEv) {{
+        noteExtra = ` <i>Múltiplos de caixa:</i> com forte posição de caixa livre frente ao valor de mercado, o EV/EBITDA (${{evEbVal ? evEbVal.toFixed(1) + 'x' : 'N/D'}}) reflete com maior fidelidade a barateza da operação do que o P/L tradicional.`;
+      }} else if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
         noteExtra = ` <i>Nota analítica:</i> a operação gera retorno positivo (ROIC de ${{roicPct || 'positivo'}}), mas o custo da dívida e despesas financeiras consumiram o lucro líquido final do período.`;
       }} else if (isNetCash && (rVal > eVal + 0.03)) {{
         noteExtra = ` <i>Destaque de balanço:</i> o ROIC de ${{roicPct}} supera amplamente o ROE de forma saudável porque a companhia opera com excesso de caixa líquido, o que dilui o ROE contábil mas atesta a alta rentabilidade do capital efetivamente investido na operação.`;
+      }} else if (isCyclicalCapex) {{
+        noteExtra = ` <i>Contexto de ciclo:</i> negócio inserido em setor intensivo em capital (${{s.setor}}), devendo ser avaliado por resultados e geração de caixa normalizados ao longo do ciclo.`;
       }}
 
       return `<b>${{s.empresa}} (${{s.ticker}})</b> atua no setor de <b>${{s.setor || 'Atividade Geral'}}</b>, classificada no <b>${{tierShort}}</b> com Score de <b>${{s.quality_score.toFixed(1)}}/100</b>. Apresenta ${{returnDesc}}, ${{debtStatus}} e remuneração em proventos de <b>${{dyPct}}</b> a.a., posicionando-se em <b>${{s.entry_status}}</b>.${{noteExtra}}`;

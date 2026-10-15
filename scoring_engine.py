@@ -431,6 +431,12 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         quality_tag = "RISCO_ESTRUTURAL"
     else:
         quality_score = round(max(5.0, min(92.5, raw_score)), 1)
+        # Trava Crítica de Alavancagem Munger: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
+        dle_val = row.get("div_liq_ebitda")
+        roe_val = row.get("roe")
+        if dle_val is not None and (dle_val >= 3.5 or (dle_val >= 2.5 and roe_val is not None and roe_val < 0)):
+            quality_score = min(45.0, quality_score)
+
         if quality_score >= 80.0:
             quality_tier = "Tier 1: Classe Mundial (Wide/Narrow Moat)"
             quality_tag = "CLASSE_MUNDIAL"

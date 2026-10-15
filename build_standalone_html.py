@@ -1107,6 +1107,12 @@ html_template = f"""<!DOCTYPE html>
           <div class="relative inline-flex items-center">
             <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="" disabled selected>+ Mais Filtros...</option>
+              <option value="CAT_CRITICAL_LEVERAGE">🚨 Risco Alavancagem (Balanço Pressionado)</option>
+              <option value="CAT_ELITE_COMPOUNDER">👑 Compounder Premium (Qualidade Extrema)</option>
+              <option value="CAT_STRONG_NET_CASH_EV">💎 Forte Caixa Líquido • Olhar EV/EBITDA</option>
+              <option value="CAT_CYCLICAL_CAPEX">🏭 Cíclico • Intensivo em Capex</option>
+              <option value="CAT_REAL_ESTATE_POC">🏗️ Contabilidade POC (Incorporadoras)</option>
+              <option value="CAT_HOLDING_DISCOUNT">🏛️ Holding • Desconto Estrutural</option>
               <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão 2T26)</option>
               <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração 2T26)</option>
               <option value="CAT_NET_CASH">🛡️ Caixa Líquido (Dívida Zero)</option>
@@ -1747,7 +1753,34 @@ html_template = f"""<!DOCTYPE html>
         const rVal = Number(s.roic || 0);
         const eVal = Number(s.roe || 0);
 
-        // Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        // Regra 2: Alerta Crítico de Alavancagem (Caso VVEO3, ROMI3, etc.)
+        const isCriticalDebt = !s.is_financial && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        if (isCriticalDebt) {{
+          cats.push({{
+            id: 'CAT_CRITICAL_LEVERAGE',
+            group: 'QUALIDADE',
+            label: 'Risco de Alavancagem • Pressão no Balanço',
+            shortLabel: 'Risco Alavancagem',
+            ledClass: 'bg-rose-600',
+            bgClass: 'bg-rose-100/90 text-rose-950 border border-rose-300 font-bold'
+          }});
+        }}
+
+        // Regra 4: Compounder Premium (Caso WEGE3)
+        const isSafeDebt = isNetCash || (dle !== null && dle < 0.5);
+        const isEliteCompounder = (s.quality_score >= 82.0) && (rVal >= 0.20) && isSafeDebt && (s.pl !== null && s.pl > 20.0);
+        if (isEliteCompounder) {{
+          cats.push({{
+            id: 'CAT_ELITE_COMPOUNDER',
+            group: 'QUALIDADE',
+            label: 'Compounder Premium • Qualidade Extrema',
+            shortLabel: 'Compounder Premium',
+            ledClass: 'bg-purple-600',
+            bgClass: 'bg-purple-50/90 text-purple-950 border border-purple-300/90 font-medium'
+          }});
+        }}
+
+        // Regra 3 anterior: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
         if (isNetCash && (rVal > eVal + 0.03)) {{
           cats.push({{
             id: 'CAT_NET_CASH_STRUCT',
@@ -1766,7 +1799,7 @@ html_template = f"""<!DOCTYPE html>
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (dle !== null && dle > 2.5) {{
+        }} else if (dle !== null && dle > 2.5 && !isCriticalDebt) {{
           cats.push({{
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -1786,9 +1819,9 @@ html_template = f"""<!DOCTYPE html>
           }});
         }}
 
-        // Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
+        // Operação Positiva • Pressão Financeira (Caso RAPT4 / USIM3)
         const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
-        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
+        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0)) && !isCriticalDebt) {{
           cats.push({{
             id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
             group: 'QUALIDADE',
@@ -1800,9 +1833,36 @@ html_template = f"""<!DOCTYPE html>
         }}
       }}
 
+      // Regra 3: Tags Contextuais de Qualidade Setorial (Cíclicas, Incorporadoras)
+      const cyclicalSectors = new Set(["Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"]);
+      const cyclicalTickers = new Set(["VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"]);
+      if (cyclicalSectors.has(s.setor) || cyclicalTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_CYCLICAL_CAPEX',
+          group: 'QUALIDADE',
+          label: 'Negócio Cíclico / Intensivo em Capex',
+          shortLabel: 'Cíclico • Capex',
+          ledClass: 'bg-slate-500',
+          bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
+        }});
+      }}
+
+      const reTickers = new Set(["LAVV3", "CYRE3", "DIRR3", "MRVE3", "EZTC3", "TEND3", "CURY3", "PLPL3", "JHSF3", "EVEN3", "TRIS3", "HBOR3", "MTRE3", "MELK3"]);
+      if ((s.setor === "Construção Civil" && (s.subsetor || "").includes("Incorpora")) || reTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_REAL_ESTATE_POC',
+          group: 'QUALIDADE',
+          label: 'Contabilidade POC • Ciclo Imobiliário',
+          shortLabel: 'Contabilidade POC',
+          ledClass: 'bg-indigo-500',
+          bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
+        }});
+      }}
+
       // Qualidade: Tier 1 & Super ROIC
       const roicOrRoe = s.roic || s.roe || 0;
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15) {{
+      const isEliteCompCheck = (s.quality_score >= 82.0) && (Number(s.roic || 0) >= 0.20) && (s.pl !== null && s.pl > 20.0);
+      if (s.quality_score >= 80 && roicOrRoe >= 0.15 && !isEliteCompCheck) {{
         cats.push({{
           id: 'CAT_TIER1',
           group: 'QUALIDADE',
@@ -1811,7 +1871,7 @@ html_template = f"""<!DOCTYPE html>
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
         }});
-      }} else if (!s.is_financial && s.roic >= 0.18) {{
+      }} else if (!s.is_financial && s.roic >= 0.18 && !isEliteCompCheck) {{
         cats.push({{
           id: 'CAT_HIGH_ROIC',
           group: 'QUALIDADE',
@@ -1850,6 +1910,47 @@ html_template = f"""<!DOCTYPE html>
       const cot = Number(s.cotacao);
       const rValNum = Number(s.roic || 0);
       const eValNum = Number(s.roe || 0);
+      const detVal = s.details || {{}};
+      const dlValNum = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
+      const isNetCashVal = (dlValNum !== null && dlValNum < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
+      let mcapNum = detVal.valor_mercado ? Number(detVal.valor_mercado) : null;
+      if (!mcapNum && cot > 0 && detVal.nro_acoes) {{
+        mcapNum = cot * Number(detVal.nro_acoes);
+      }}
+      const dispNum = detVal.disponibilidades ? Number(detVal.disponibilidades) : 0;
+      const cashRatioVal = (mcapNum && dlValNum !== null && dlValNum < 0) ? (-dlValNum / mcapNum) : 0;
+      const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
+      const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+
+      // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Casos BMOB3, LAVV3, LREN3)
+      const isStrongCashEv = !s.is_financial && (
+        (isNetCashVal && (cashRatioVal >= 0.10 || dispRatioVal >= 0.15)) ||
+        (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 4.5) ||
+        (s.ticker === 'LAVV3')
+      );
+      if (isStrongCashEv) {{
+        cats.push({{
+          id: 'CAT_STRONG_NET_CASH_EV',
+          group: 'VALUATION',
+          label: 'Forte Caixa Líquido • Olhar EV/EBITDA',
+          shortLabel: 'Caixa Forte • EV/EBITDA',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
+      }}
+
+      // Regra 3: Holding • Desconto Estrutural (Casos GOAU4, ITSA4, BRAP4)
+      const holdingTickers = new Set(["GOAU4", "GOAU3", "ITSA4", "ITSA3", "BRAP4", "BRAP3", "SIMH3", "CSAN3", "ALUP11"]);
+      if (holdingTickers.has(s.ticker)) {{
+        cats.push({{
+          id: 'CAT_HOLDING_DISCOUNT',
+          group: 'VALUATION',
+          label: 'Holding • Desconto Estrutural',
+          shortLabel: 'Holding • Desconto Estrutural',
+          ledClass: 'bg-purple-500',
+          bgClass: 'bg-purple-50/90 text-purple-950 border border-purple-200/90 font-medium'
+        }});
+      }}
 
       if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
         const graham = Math.sqrt(22.5 * lpa * vpa);
@@ -2473,6 +2574,36 @@ html_template = f"""<!DOCTYPE html>
         name: 'Abaixo da Curva (Prêmio Valuation)',
         icon: '⚠️',
         rationale: 'Ativos cujo múltiplo P/L atual situa-se acima da curva teórica de referência, negociando com prêmio de múltiplos.'
+      }},
+      'CAT_CRITICAL_LEVERAGE': {{
+        name: 'Risco de Alavancagem • Pressão no Balanço',
+        icon: '🚨',
+        rationale: 'Empresas não-financeiras com Dívida Líquida / EBITDA ≥ 3,5x ou relação ≥ 2,5x sob prejuízo contábil recente. O Moat Score é limitado preventivamente a 45 pontos (Tier 4).'
+      }},
+      'CAT_ELITE_COMPOUNDER': {{
+        name: 'Compounder Premium • Qualidade Extrema',
+        icon: '👑',
+        rationale: 'Empresas de altíssima rentabilidade estrutural (Score ≥ 82, ROIC ≥ 20% e balanço desavancado ou com caixa líquido) negociando com prêmio de múltiplos (P/L > 20x). Devem ser avaliadas por reinvestimento e crescimento composto (GARP).'
+      }},
+      'CAT_STRONG_NET_CASH_EV': {{
+        name: 'Forte Caixa Líquido • Olhar EV/EBITDA',
+        icon: '💎',
+        rationale: 'Empresas cujo caixa líquido ou disponibilidades representam parcela expressiva do valor de mercado (ou EV/EBITDA ≤ 4,5x com dívida líquida negativa). O P/L tradicional distorce a barateza real do ativo.'
+      }},
+      'CAT_CYCLICAL_CAPEX': {{
+        name: 'Negócio Cíclico / Intensivo em Capex',
+        icon: '🏭',
+        rationale: 'Ativos em setores de commodities, mineração, siderurgia, petróleo ou bens de capital pesados sujeitos a ciclos acentuados de preços e demanda; métricas de P/L e ROIC devem ser avaliadas normalizadas pelo ciclo.'
+      }},
+      'CAT_REAL_ESTATE_POC': {{
+        name: 'Contabilidade POC • Ciclo Imobiliário',
+        icon: '🏗️',
+        rationale: 'Incorporadoras imobiliárias cujo reconhecimento de receita e lucro segue o método de percentual de conclusão de obra (POC), gerando descasamento natural entre lucro contábil e fluxo de caixa de lançamentos.'
+      }},
+      'CAT_HOLDING_DISCOUNT': {{
+        name: 'Holding • Desconto Estrutural',
+        icon: '🏛️',
+        rationale: 'Empresas controladoras e holdings puras cujas cotas negociam historicamente com desconto estrutural sobre a soma das partes (SOTP / Net Asset Value).'
       }}
     }};
 
@@ -3488,6 +3619,66 @@ html_template = f"""<!DOCTYPE html>
         badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
         description: 'Negócio operacionalmente rentável (ROIC ≥ 8% e EV/EBITDA ≤ 10x), mas com prejuízo contábil no período decorrente de custo da dívida ou resultado financeiro.',
         rationale: 'Diagnóstico de pressão de juros: a operação industrial ou comercial gera resultado positivo, mas as despesas financeiras absorvem o lucro líquido dos acionistas.'
+      }},
+      {{
+        id: 'CAT_CRITICAL_LEVERAGE',
+        name: 'Risco de Alavancagem • Pressão no Balanço',
+        shortName: 'Risco Alavancagem',
+        icon: '🚨',
+        color: 'rose',
+        badgeClass: 'bg-rose-100 text-rose-950 border border-rose-300 font-bold',
+        description: 'Empresas com Dívida Líquida / EBITDA ≥ 3,5x ou ≥ 2,5x associada a prejuízo líquido (ROE < 0 ou P/L < 0). Score limitado a 45 pts.',
+        rationale: 'Alerta preventivo institucional: em cenários de juros restritivos, o serviço da dívida absorve o fluxo operacional e destrói valor para o acionista.'
+      }},
+      {{
+        id: 'CAT_ELITE_COMPOUNDER',
+        name: 'Compounder Premium • Qualidade Extrema',
+        shortName: 'Compounder Premium',
+        icon: '👑',
+        color: 'purple',
+        badgeClass: 'bg-purple-50 text-purple-950 border border-purple-300',
+        description: 'Score ≥ 82, ROIC ≥ 20%, balanço desavancado ou caixa líquido e P/L > 20x. Empresas de qualidade suprema e forte poder de reinvestimento.',
+        rationale: 'Modelo GARP (Growth at a Reasonable Price): negócios com fossos econômicos profundos raramente negociam com múltiplos baixos de Graham.'
+      }},
+      {{
+        id: 'CAT_STRONG_NET_CASH_EV',
+        name: 'Forte Caixa Líquido • Olhar EV/EBITDA',
+        shortName: 'Caixa Forte • EV/EBITDA',
+        icon: '💎',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Caixa Líquido ou Disponibilidades representam fatia relevante do Market Cap (> 15%) ou EV/EBITDA ≤ 4,5x com dívida líquida negativa.',
+        rationale: 'O P/L tradicional sobretaxa o valor do ativo ao desconsiderar a montanha de caixa desocupada. EV/EBITDA e EV/EBIT revelam a real barganha operacional.'
+      }},
+      {{
+        id: 'CAT_CYCLICAL_CAPEX',
+        name: 'Negócio Cíclico / Intensivo em Capex',
+        shortName: 'Cíclico • Capex',
+        icon: '🏭',
+        color: 'slate',
+        badgeClass: 'bg-slate-100 text-slate-800 border border-slate-300',
+        description: 'Setores de commodities minerais, petróleo, siderurgia e maquinário industrial pesado sujeitos a ciclos internacionais de preços.',
+        rationale: 'Avaliação de ciclo econômico: múltiplos P/L baixos no topo do ciclo e altos no fundo exigem análise dos lucros médios de meio de ciclo (mid-cycle).'
+      }},
+      {{
+        id: 'CAT_REAL_ESTATE_POC',
+        name: 'Contabilidade POC • Ciclo Imobiliário',
+        shortName: 'Contabilidade POC',
+        icon: '🏗️',
+        color: 'indigo',
+        badgeClass: 'bg-indigo-50 text-indigo-950 border border-indigo-200',
+        description: 'Incorporadoras residenciais operando sob a norma contábil POC (Percentage of Completion), onde o lucro é apropriado conforme a evolução física das obras.',
+        rationale: 'Exige diferenciar caixa de recebíveis de clientes e repasses bancários (SFH/CRI) de endividamento corporativo estrutural de curto prazo.'
+      }},
+      {{
+        id: 'CAT_HOLDING_DISCOUNT',
+        name: 'Holding • Desconto Estrutural',
+        shortName: 'Holding • Desconto Estrutural',
+        icon: '🏛️',
+        color: 'purple',
+        badgeClass: 'bg-purple-50 text-purple-950 border border-purple-200',
+        description: 'Veículos de investimento e holdings puras que negociam historicamente com desconto em relação ao valor de mercado líquido de suas investidas (NAV).',
+        rationale: 'Desconto de governança e tributação de dividendos intermediários que costuma criar assimetrias recorrentes para o investidor fundamentalista.'
       }}
     ];
 

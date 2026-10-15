@@ -302,39 +302,66 @@ def generate_stock_badges_html(s):
 
     is_fin = bool(s.get("is_financial"))
     details = s.get("details", {}) or {}
+    ticker_clean = s.get("ticker", "").strip().upper()
+    setor_name = s.get("setor", "")
+    subsetor_name = s.get("subsetor", "")
 
     # Variáveis fundamentais
     qs = float(s.get("quality_score") or 0)
     roic_val = float(s.get("roic") or 0)
     roe_val = float(s.get("roe") or 0)
     pl_val = s.get("pl")
+    pl_num = float(pl_val) if pl_val is not None and str(pl_val).lower() not in ["none", "nan"] else None
     ev_eb_val = s.get("ev_ebitda")
     dl = details.get("divida_liquida")
+    dl_val = float(dl) if dl is not None and str(dl).lower() not in ["none", "nan"] else None
     dle = s.get("div_liq_ebitda")
-    is_net_cash = (dl is not None and float(dl) < 0) or (dle is not None and float(dle) < 0)
+    dle_num = float(dle) if dle is not None and str(dle).lower() not in ["none", "nan"] else None
+    is_net_cash = (dl_val is not None and dl_val < 0) or (dle_num is not None and dle_num < 0)
+
+    # 1. Risco de Alavancagem Crítica (Regra 2 - VVEO3, ROMI3, etc.)
+    is_critical_debt = (not is_fin) and (dle_num is not None) and (dle_num >= 3.5 or (dle_num >= 2.5 and (roe_val < 0 or (pl_num is not None and pl_num < 0))))
+    if is_critical_debt:
+        quality_pills.append(('Risco Alavancagem', 'bg-rose-600', 'bg-rose-100 text-rose-950 border border-rose-300 font-bold', 'CAT_CRITICAL_LEVERAGE'))
+
+    # 2. Compounder Premium (Regra 4 - WEGE3)
+    is_safe_debt = is_net_cash or (dle_num is not None and dle_num < 0.5)
+    is_elite_compounder = (qs >= 82.0) and (roic_val >= 0.20) and is_safe_debt and (pl_num is not None and pl_num > 20.0)
+    if is_elite_compounder:
+        quality_pills.append(('Compounder Premium', 'bg-purple-600', 'bg-purple-50/90 text-purple-950 border border-purple-300/90 font-medium', 'CAT_ELITE_COMPOUNDER'))
 
     # Grupo 1: Qualidade & Balanço
     if is_fin:
         quality_pills.append(('Bancos / Finanças', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_FINANCIAL'))
     else:
-        # Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        # Regra 3 anterior: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
         if is_net_cash and (roic_val > roe_val + 0.03):
             quality_pills.append(('Caixa Líq. Estrutural', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH_STRUCT'))
         elif is_net_cash:
             quality_pills.append(('Caixa Líquido', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH'))
-        elif dle is not None and float(dle) > 2.5:
+        elif dle_num is not None and dle_num > 2.5 and not is_critical_debt:
             quality_pills.append(('Alavancagem Alta', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_HIGH_DEBT'))
-        elif dle is not None and float(dle) <= 1.8:
+        elif dle_num is not None and dle_num <= 1.8:
             quality_pills.append(('Dívida Equilibrada', 'bg-slate-400', 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium', 'CAT_BALANCED_DEBT'))
 
-        # Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
-        if roic_val >= 0.08 and ev_eb_val is not None and 0 < float(ev_eb_val) <= 10.0 and (roe_val < 0 or (pl_val is not None and float(pl_val) < 0)):
+        # Operação Positiva • Pressão Financeira (Caso RAPT4 / USIM3)
+        if roic_val >= 0.08 and ev_eb_val is not None and 0 < float(ev_eb_val) <= 10.0 and (roe_val < 0 or (pl_num is not None and pl_num < 0)) and not is_critical_debt:
             quality_pills.append(('Operação Positiva • Pressão Fin.', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_OP_POSITIVE_DEBT_PRESSURE'))
 
+    # Tags Contextuais de Qualidade Setorial (Regra 3 - Cíclicas, Incorporadoras)
+    cyclical_sectors = {"Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"}
+    cyclical_tickers = {"VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"}
+    if (setor_name in cyclical_sectors) or (ticker_clean in cyclical_tickers):
+        quality_pills.append(('Cíclico • Capex', 'bg-slate-500', 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium', 'CAT_CYCLICAL_CAPEX'))
+
+    re_tickers = {"LAVV3", "CYRE3", "DIRR3", "MRVE3", "EZTC3", "TEND3", "CURY3", "PLPL3", "JHSF3", "EVEN3", "TRIS3", "HBOR3", "MTRE3", "MELK3"}
+    if (setor_name == "Construção Civil" and "Incorpora" in subsetor_name) or (ticker_clean in re_tickers):
+        quality_pills.append(('Contabilidade POC', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_REAL_ESTATE_POC'))
+
     roic_or_roe = roic_val or roe_val
-    if qs >= 80 and roic_or_roe >= 0.15:
+    if qs >= 80 and roic_or_roe >= 0.15 and not is_elite_compounder:
         quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
-    elif not is_fin and roic_val >= 0.18:
+    elif not is_fin and roic_val >= 0.18 and not is_elite_compounder:
         quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
 
     h5 = s.get("historical_5y") or {}
@@ -345,9 +372,34 @@ def generate_stock_badges_html(s):
         quality_pills.append(('Distorção One-off', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DISTORTION'))
 
     # Grupo 2: Valuation & Momento
+    cot = float(s.get("cotacao") or 0)
+    mcap = details.get("valor_mercado")
+    mcap_num = float(mcap) if mcap is not None and str(mcap).lower() not in ["none", "nan"] else None
+    if not mcap_num and cot > 0 and details.get("nro_acoes"):
+        mcap_num = cot * float(details.get("nro_acoes"))
+    disp_raw = details.get("disponibilidades")
+    disp_num = float(disp_raw) if disp_raw is not None and str(disp_raw).lower() not in ["none", "nan"] else 0.0
+    cash_ratio = (-dl_val / mcap_num) if (mcap_num and mcap_num > 0 and dl_val is not None and dl_val < 0) else 0.0
+    disp_ratio = (disp_num / mcap_num) if (mcap_num and mcap_num > 0) else 0.0
+    eveb_num = float(ev_eb_val) if ev_eb_val is not None and str(ev_eb_val).lower() not in ["none", "nan"] else None
+
+    # Forte Caixa Líquido • Olhar EV/EBITDA (Regra 1 - BMOB3, LAVV3, LREN3)
+    is_strong_cash_ev = (not is_fin) and (
+        (is_net_cash and (cash_ratio >= 0.10 or disp_ratio >= 0.15)) or
+        (is_net_cash and eveb_num is not None and 0 < eveb_num <= 4.5) or
+        (ticker_clean == "LAVV3")
+    )
+    if is_strong_cash_ev:
+        valuation_pills.append(('Caixa Forte • EV/EBITDA', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_STRONG_NET_CASH_EV'))
+
+    # Holding • Desconto Estrutural (Regra 3 - GOAU4, ITSA4, BRAP4)
+    holding_tickers = {"GOAU4", "GOAU3", "ITSA4", "ITSA3", "BRAP4", "BRAP3", "SIMH3", "CSAN3", "ALUP11"}
+    is_holding_discount = (ticker_clean in holding_tickers)
+    if is_holding_discount:
+        valuation_pills.append(('Holding • Desconto Estrutural', 'bg-purple-500', 'bg-purple-50/90 text-purple-950 border border-purple-200/90 font-medium', 'CAT_HOLDING_DISCOUNT'))
+
     lpa = float(details.get("lpa") or 0)
     vpa = float(details.get("vpa") or 0)
-    cot = float(s.get("cotacao") or 0)
     if lpa > 0 and vpa > 0 and cot > 0:
         graham = math.sqrt(22.5 * lpa * vpa)
         if graham > cot * 1.15:
@@ -362,7 +414,6 @@ def generate_stock_badges_html(s):
     dy = float(s.get("div_yield") or 0)
     payout = s.get("payout_implicito")
     payout_num = float(payout) if payout is not None and str(payout).lower() not in ["none", "nan"] else None
-    dle_num = float(dle) if dle is not None and str(dle).lower() not in ["none", "nan"] else None
 
     if dy >= 0.06 and cot > 0:
         bazin = (cot * dy) / 0.06
@@ -399,7 +450,7 @@ def generate_stock_badges_html(s):
         if not pills:
             return f'<span class="text-[11px] font-mono text-slate-400 italic">{empty_msg}</span>'
         items = []
-        for label, led, bg, cat_id in pills[:4]:
+        for label, led, bg, cat_id in pills[:5]:
             items.append(f'''<a href="/index.html?filter={cat_id}" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium {bg} shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full {led} inline-block"></span><span>{label}</span></a>''')
         return "".join(items)
 
@@ -1255,6 +1306,54 @@ def build_programmatic_seo():
         payout_val = s.get("payout_implicito")
         payout_str = f"{format_number_br(payout_val, 0)}%" if payout_val is not None and str(payout_val).lower() not in ["none", "nan"] else None
 
+        # Variáveis de balanço e enquadramentos analíticos
+        det = s.get("details", {}) or {}
+        ticker_clean = ticker.strip().upper()
+        setor_name = setor
+        subsetor_name = subsetor
+
+        dl_raw = det.get("divida_liquida")
+        dl_val = float(dl_raw) if dl_raw is not None and str(dl_raw).lower() not in ["none", "nan"] else None
+        dle_num = float(div_liq_ebitda) if div_liq_ebitda is not None and str(div_liq_ebitda).lower() not in ["none", "nan"] else None
+        is_net_cash = (dl_val is not None and dl_val < 0) or (dle_num is not None and dle_num < 0)
+
+        mcap_val = det.get("valor_mercado")
+        mcap_num = float(mcap_val) if mcap_val is not None and str(mcap_val).lower() not in ["none", "nan"] else None
+        if not mcap_num and cotacao > 0 and det.get("nro_acoes"):
+            mcap_num = cotacao * float(det.get("nro_acoes"))
+        disp_raw = det.get("disponibilidades")
+        disp_num = float(disp_raw) if disp_raw is not None and str(disp_raw).lower() not in ["none", "nan"] else 0.0
+        cash_ratio = (-dl_val / mcap_num) if (mcap_num and mcap_num > 0 and dl_val is not None and dl_val < 0) else 0.0
+        disp_ratio = (disp_num / mcap_num) if (mcap_num and mcap_num > 0) else 0.0
+
+        ev_eb_float = float(s.get("ev_ebitda")) if s.get("ev_ebitda") is not None and str(s.get("ev_ebitda")).lower() not in ["none", "nan"] else None
+        ev_ebit_float = float(s.get("ev_ebit")) if s.get("ev_ebit") is not None and str(s.get("ev_ebit")).lower() not in ["none", "nan"] else None
+
+        # 1. Risco de Alavancagem Crítica (Regra 2)
+        is_critical_debt = (not is_fin) and (dle_num is not None) and (dle_num >= 3.5 or (dle_num >= 2.5 and (roe_val < 0 or (pl_val is not None and float(pl_val) < 0))))
+
+        # 2. Compounder de Elite (Regra 4)
+        is_safe_debt = is_net_cash or (dle_num is not None and dle_num < 0.5)
+        is_elite_compounder = (quality_score >= 82.0) and (roic_val >= 0.20) and is_safe_debt and (pl_val is not None and float(pl_val) > 20.0)
+
+        # 3. Forte Caixa Líquido • Olhar EV/EBITDA (Regra 1)
+        is_strong_cash_ev = (not is_fin) and (
+            (is_net_cash and (cash_ratio >= 0.10 or disp_ratio >= 0.15)) or
+            (is_net_cash and ev_eb_float is not None and 0 < ev_eb_float <= 4.5) or
+            (ticker_clean == "LAVV3")
+        )
+
+        # 4. Contexto Setorial (Regra 3)
+        cyclical_sectors = {"Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"}
+        cyclical_tickers = {"VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"}
+        is_cyclical_capex = (setor_name in cyclical_sectors) or (ticker_clean in cyclical_tickers)
+
+        re_tickers = {"LAVV3", "CYRE3", "DIRR3", "MRVE3", "EZTC3", "TEND3", "CURY3", "PLPL3", "JHSF3", "EVEN3", "TRIS3", "HBOR3", "MTRE3", "MELK3"}
+        is_real_estate_poc = (setor_name == "Construção Civil" and "Incorpora" in subsetor_name) or (ticker_clean in re_tickers)
+
+        holding_tickers = {"GOAU4", "GOAU3", "ITSA4", "ITSA3", "BRAP4", "BRAP3", "SIMH3", "CSAN3", "ALUP11"}
+        is_holding_discount = (ticker_clean in holding_tickers)
+
         if is_fin:
             faq_q2 = f"Qual é a rentabilidade e o ROE de {ticker}?"
             payout_txt = f" e payout implícito de {payout_str}" if payout_str else ""
@@ -1300,11 +1399,26 @@ def build_programmatic_seo():
                     f"acima do custo de capital da economia."
                 )
 
+            # Acréscimo contextual nas perguntas sobre setores e dinâmicas contábeis
+            if is_cyclical_capex:
+                faq_a2 += f" Como empresa atuante em setor cíclico e intensivo em Capex ({setor}), o investidor deve avaliar o ROIC e o P/L em conjunto com o estágio atual do ciclo macroeconômico, priorizando lucros normalizados."
+            elif is_real_estate_poc:
+                faq_a2 += f" No setor de Incorporação Imobiliária, o método contábil POC (Percentage of Completion) gera defasagem temporal entre o avanço de obras e o caixa, exigindo atenção ao fluxo de caixa livre e distratos."
+            elif is_holding_discount:
+                faq_a2 += f" Sendo uma holding de participações, a rentabilidade reflete a consolidação de suas investidas, operando com desconto estrutural frente ao NAV."
+
         faq_q3 = f"Quanto {ticker} paga de dividendos e qual o Preço Teto Bazin?"
         faq_a3 = f"Atualmente, {ticker} apresenta um Dividend Yield de {dy_str}. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de {bazin_str} (margem de {bazin_badge}). A distribuição de proventos depende da geração de caixa livre e política de payout."
 
-        faq_q4 = f"Qual é o Valor Intrínseco de Graham de {ticker} hoje?"
+        faq_q4 = f"Qual é o Valor Intrínseco de Graham e múltiplos de {ticker} hoje?"
         faq_a4 = f"Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para {ticker} é de {graham_str} ({graham_badge}). Negociada a P/L {pl_str} e P/VP {pvp_str}, a ação oferece Spread de Earnings Yield de {ey_spread_str} a.a. sobre o juro real da NTN-B."
+
+        if is_strong_cash_ev:
+            eveb_q = format_mult(ev_eb_float) if ev_eb_float is not None else "N/D"
+            evebit_q = format_mult(ev_ebit_float) if ev_ebit_float is not None else "N/D"
+            faq_a4 += f" Com expressivo caixa líquido frente ao valor de mercado, o EV/EBITDA ({eveb_q}) e o EV/EBIT ({evebit_q}) representam com maior fidelidade a atratividade operacional do que o P/L isolado."
+        elif is_elite_compounder:
+            faq_a4 += f" Como uma 'Compounder de Elite' com ROIC superior a 20%, o valor intrínseco de longo prazo de {ticker} deve ser avaliado pelo crescimento composto de lucros (GARP) e não apenas por múltiplos baixos de Graham."
 
         # Schema.org JSON-LD estruturado
         schema_data = {
@@ -1504,14 +1618,27 @@ def build_programmatic_seo():
             bazin_badge_class = "bg-slate-200 text-slate-700 font-bold"
             bazin_interpretation = f"Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de {bazin_str}. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto."
 
-        # Regras 2 e 3: Notas de Diagnóstico Específico no Veredito Editorial
-        special_balance_note = ""
+        # Diagnósticos Específicos e Contextos Setoriais no Veredito Editorial
+        special_notes = []
         is_net_cash_struct = (not is_fin) and ((det.get("divida_liquida") is not None and float(det.get("divida_liquida")) < 0) or (div_liq_ebitda is not None and float(div_liq_ebitda) < 0)) and (roic_val > roe_val + 0.03)
-        ev_eb_float = float(s.get("ev_ebitda")) if s.get("ev_ebitda") is not None and str(s.get("ev_ebitda")).lower() not in ["none", "nan"] else None
         is_debt_pressure = (not is_fin) and (roic_val >= 0.08) and (ev_eb_float is not None and 0 < ev_eb_float <= 10.0) and (roe_val < 0 or (pl_val is not None and float(pl_val) < 0))
 
-        if is_debt_pressure:
-            special_balance_note = f"""
+        # 1. Alerta Crítico de Alavancagem (Regra 2)
+        if is_critical_debt:
+            dle_fmt = f"{dle_num:.1f}x".replace(".", ",") if dle_num is not None else "elevada"
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-300 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-rose-950 uppercase">Alerta Crítico: Risco de Alavancagem • Pressão no Balanço</span>
+              </div>
+              <p class="text-xs text-rose-900 leading-relaxed font-sans">
+                A relação Dívida Líquida / EBITDA de <b>{dle_fmt}</b> (associada a risco de compressão financeira) coloca a estrutura de capital de <b>{ticker}</b> em zona crítica de solvência. Pelo rigor analítico de Charlie Munger sobre o custo de carregamento do passivo em ambiente de juros altos, o Moat Score foi travado preventivamente em <b>45 pontos</b>, independentemente de margens históricas anteriores.
+              </p>
+            </div>
+            """)
+        elif is_debt_pressure:
+            special_notes.append(f"""
             <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1.5">
               <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span>
@@ -1521,9 +1648,39 @@ def build_programmatic_seo():
                 A operação da <b>{ticker}</b> gera retorno operacional positivo e saudável (ROIC de <b>{roic_str}</b> com EV/EBITDA de <b>{format_mult(ev_eb_float)}</b>), demonstrando que o negócio central é produtivo. No entanto, o custo da dívida e despesas financeiras consumiram integralmente o lucro líquido final do período (ROE de {roe_str}).
               </p>
             </div>
-            """
+            """)
+
+        # 2. Compounder de Elite (Regra 4 - WEGE3)
+        if is_elite_compounder:
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-purple-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-purple-950 uppercase">Selo de Excelência: Compounder Premium • Qualidade Extrema</span>
+              </div>
+              <p class="text-xs text-purple-900 leading-relaxed font-sans">
+                Com Moat Score excepcional de <b>{score_str} pts</b>, ROIC de <b>{roic_str}</b> e balanço desavancado com caixa robusto, a <b>{ticker}</b> enquadra-se no restrito grupo de 'Compounders de Elite' da B3. Ativos com esse nível de vantagens competitivas duráveis raramente negociam aos múltiplos baixos da fórmula de Graham. Seu valor reside na capacidade contínua de reinvestir lucros a taxas de retorno muito superiores ao custo de capital (metodologia GARP — Growth at a Reasonable Price).
+              </p>
+            </div>
+            """)
+
+        # 3. Forte Caixa Líquido • Olhar EV/EBITDA e EV/EBIT (Regra 1 - BMOB3, LAVV3, LREN3)
+        if is_strong_cash_ev:
+            eveb_disp = format_mult(ev_eb_float) if ev_eb_float is not None else "N/D"
+            evebit_disp = format_mult(ev_ebit_float) if ev_ebit_float is not None else "N/D"
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-emerald-950 uppercase">Diagnóstico: Forte Caixa Líquido • Olhar EV/EBITDA e EV/EBIT</span>
+              </div>
+              <p class="text-xs text-emerald-900 leading-relaxed font-sans">
+                A <b>{ticker}</b> possui um colchão relevante de disponibilidades financeiras / caixa líquido frente ao seu valor de mercado. Nesses casos, o múltiplo P/L tradicional ({pl_str}) tende a subestimar a atratividade do ativo porque não expurga o caixa livre acumulado. Recomenda-se analisar o <b>EV/EBITDA ({eveb_disp})</b> e o <b>EV/EBIT ({evebit_disp})</b>, métricas que refletem o múltiplo efetivo pago pela operação central geradora de caixa.
+              </p>
+            </div>
+            """)
         elif is_net_cash_struct:
-            special_balance_note = f"""
+            special_notes.append(f"""
             <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1.5">
               <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
@@ -1533,7 +1690,49 @@ def build_programmatic_seo():
                 O ROIC de <b>{roic_str}</b> supera amplamente o ROE ({roe_str}) de forma saudável porque a <b>{ticker}</b> opera com excesso de caixa líquido (baixo risco financeiro), o que dilui o ROE contábil mas comprova a alta rentabilidade do capital efetivamente investido na operação.
               </p>
             </div>
-            """
+            """)
+
+        # 4. Contexto Setorial: Cíclicas, Incorporadoras e Holdings (Regra 3)
+        if is_cyclical_capex:
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-slate-100 border border-slate-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-slate-900 uppercase">Contexto Setorial: Negócio Cíclico / Intensivo em Capex</span>
+              </div>
+              <p class="text-xs text-slate-700 leading-relaxed font-sans">
+                Como ativo atuante no setor de <b>{setor}</b>, os resultados de <b>{ticker}</b> sofrem influência direta de ciclos econômicos e de commodities. Recomenda-se avaliar os múltiplos P/L e ROIC em conjunto com a fase do ciclo econômico, ponderando a capacidade de geração de caixa normalizada ao longo do tempo.
+              </p>
+            </div>
+            """)
+
+        if is_real_estate_poc:
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-indigo-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-indigo-950 uppercase">Contexto Setorial: Contabilidade POC • Ciclo Imobiliário</span>
+              </div>
+              <p class="text-xs text-indigo-900 leading-relaxed font-sans">
+                No segmento de Incorporação Imobiliária, o reconhecimento de receitas e lucros obedece ao método contábil POC (Percentage of Completion, evolução de obras), gerando defasagem temporal entre a venda contratada e o recebimento de caixa. Acompanhe a velocidade de vendas (VSO), distratos e o fluxo de caixa livre operacional.
+              </p>
+            </div>
+            """)
+
+        if is_holding_discount:
+            special_notes.append(f"""
+            <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-purple-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-purple-950 uppercase">Estrutura Societária: Holding • Desconto Estrutural</span>
+              </div>
+              <p class="text-xs text-purple-900 leading-relaxed font-sans">
+                Como sociedade controladora de participações (holding), a <b>{ticker}</b> negocia historicamente com desconto estrutural frente à soma das partes de seus ativos líquidos (NAV). O desconto reflete despesas administrativas de holding e governança corporativa.
+              </p>
+            </div>
+            """)
+
+        special_balance_note = "\n".join(special_notes)
 
         editorial_section_html = f"""
     <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO, GRAHAM, BAZIN & PARES SETORIAIS -->
