@@ -463,13 +463,14 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         quality_score = round(max(5.0, min(95.0, raw_score)), 1)
         
         # Trava Crítica CFA de ROIC / Criação de Valor Econômico (Custo de Capital ~13,5%):
-        # 1. Se ROIC < 10%: O Moat Score final NÃO pode ultrapassar 58,0 (máximo Tier 3)
-        # 2. Se ROIC entre 10% e 13,5%: O Moat Score final fica limitado ao teto de 68,0 (Tier 2 moderado)
+        # 1. Se ROIC < 10%: recalcule moat_score = min(moat_score, round(45 + roic * 1.3, 1))
+        # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5)
         if r_roic_pct is not None:
             if r_roic_pct < 10.0:
-                quality_score = min(58.0, quality_score)
-            elif r_roic_pct <= 13.5:
-                quality_score = min(68.0, quality_score)
+                roic_cap = round(45.0 + (r_roic_pct * 1.3), 1)
+                quality_score = min(quality_score, roic_cap)
+            elif r_roic_pct < 13.5:
+                quality_score = min(quality_score, 66.5)
 
         # Trava Crítica de Alavancagem Munger: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
         roe_val = row.get("roe")
@@ -680,8 +681,14 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
     if is_high_debt and (pl is not None and pl >= exp_pl):
         is_asymmetry = False
 
-    if is_asymmetry:
-        status = "🟢 VALUATION ATRATIVO" if (pl is not None and pl <= 10.0) else "🟢 MÚLTIPLOS ATRATIVOS"
+    # Alinhamento Rigoroso de Badges de Valuation (Eliminação de Contradições):
+    # - Se está Acima da Curva (Desconto) -> MÚLTIPLOS ATRATIVOS (se P/L <= 11x) ou DESCONTO RELATIVO AO MOAT (se P/L > 11x)
+    # - Se está Abaixo da Curva (Prêmio) -> MÚLTIPLOS EXIGENTES (se P/L > 15x) ou PRÊMIO SOBRE A CURVA
+    if is_above_curve:
+        if pl is not None and pl <= 11.0:
+            status = "🟢 MÚLTIPLOS ATRATIVOS"
+        else:
+            status = "🟢 DESCONTO RELATIVO AO MOAT"
         tag = "ASSIMETRIA_FAVORAVEL"
         color = "#10B981"
         if is_net_cash_bonus:
@@ -694,34 +701,24 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
                 f"Earnings Yield de {ey_pct:.1f}% confere spread de +{ey_spread:.1f}% sobre a NTN-B real (6,5%). "
                 f"P/L de {pl:.1f}x negocia abaixo da curva de referência ajustada ({exp_pl:.1f}x) e da média histórica do setor."
             )
-    elif is_stretched:
-        status = "🔴 MÚLTIPLOS ELEVADOS"
-        tag = "ESTICADA"
-        color = "#EF4444"
-        spread_msg = f"Spread vs NTN-B comprimido em {ey_spread:+.1f}%" if ey_spread < 2.0 else f"P/L elevado de {pl:.1f}x"
-        debt_warn = f" Alavancagem de {dle_num:.1f}x EBITDA impõe exigência de 25% a mais de desconto." if is_high_debt else ""
-        rationale = (
-            f"{spread_msg}.{debt_warn} Earnings Yield de {ey_pct:.1f}% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana."
-        )
     else:
-        status = "🟡 VALUATION EM LINHA"
-        tag = "PRECO_JUSTO"
-        color = "#F59E0B"
-        rationale = (
-            f"P/L de {pl:.1f}x e Earnings Yield de {ey_pct:.1f}% (Spread de {ey_spread:+.1f}% sobre NTN-B). "
-            f"Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada ({exp_pl:.1f}x)."
-        )
-
-    # Regra Fundamentalista CFA: Impossibilidade Lógica de "Múltiplos Elevados" se estiver "Acima da Curva (Desconto)"
-    if is_above_curve and ("ELEVADOS" in status or tag == "ESTICADA"):
-        if pl is not None and pl <= 10.0:
-            status = "🟢 VALUATION ATRATIVO"
-            tag = "ASSIMETRIA_FAVORAVEL"
-            color = "#10B981"
+        if pl is not None and pl > 15.0:
+            status = "🔴 MÚLTIPLOS EXIGENTES"
+            tag = "ESTICADA"
+            color = "#EF4444"
+            spread_msg = f"Spread vs NTN-B comprimido em {ey_spread:+.1f}%" if ey_spread < 2.0 else f"P/L elevado de {pl:.1f}x"
+            debt_warn = f" Alavancagem de {dle_num:.1f}x EBITDA impõe exigência de 25% a mais de desconto." if is_high_debt else ""
+            rationale = (
+                f"{spread_msg}.{debt_warn} Earnings Yield de {ey_pct:.1f}% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana."
+            )
         else:
-            status = "🟡 VALUATION EM LINHA"
+            status = "🟡 PRÊMIO SOBRE A CURVA"
             tag = "PRECO_JUSTO"
             color = "#F59E0B"
+            rationale = (
+                f"P/L de {pl:.1f}x e Earnings Yield de {ey_pct:.1f}% (Spread de {ey_spread:+.1f}% sobre NTN-B). "
+                f"Múltiplos negociam acima da curva de referência ajustada ({exp_pl:.1f}x) para o nível de qualidade do ativo."
+            )
 
     return {
         "entry_status": status,

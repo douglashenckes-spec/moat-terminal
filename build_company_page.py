@@ -1428,16 +1428,30 @@ def build_company_page():
       const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
 
-      if (isAbove && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
-        if (s.pl && s.pl <= 10.0) {{
+      if (isAbove) {{
+        if (s.pl && s.pl <= 11.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 VALUATION ATRATIVO';
+          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
           heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
           entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
         }} else {{
+          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_status = '🟢 DESCONTO RELATIVO AO MOAT';
+          s.entry_color = '#10B981';
+          heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
+          entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
+        }}
+      }} else {{
+        if (s.pl && s.pl > 15.0) {{
+          s.entry_tag = 'ESTICADA';
+          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+          s.entry_color = '#EF4444';
+          heroBgClass = 'bg-rose-50/70 border-rose-300 shadow-xs';
+          entryBadgeClass = 'bg-rose-600 text-white font-bold shadow-2xs';
+        }} else {{
           s.entry_tag = 'PRECO_JUSTO';
-          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
           s.entry_color = '#F59E0B';
           heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
           entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';

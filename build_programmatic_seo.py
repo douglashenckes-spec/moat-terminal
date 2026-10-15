@@ -1356,29 +1356,31 @@ def build_programmatic_seo():
         pl_rr = s.get("pl_run_rate") or det.get("pl_run_rate")
         is_low_pl = (pl_val is not None and float(pl_val) > 0 and float(pl_val) <= 12.0 and (pl_rr is None or float(pl_rr) <= 12.0))
 
-        if (is_above_curve or is_low_pl or (is_net_cash_bonus and pl_val is not None and float(pl_val) <= 16.5)) and (entry_tag == "ESTICADA" or "ELEVADOS" in str(entry_status)):
-            if (pl_val is not None and float(pl_val) <= 10.0) or is_above_curve or is_net_cash_bonus:
-                if pl_val is not None and float(pl_val) <= 10.0:
-                    entry_tag = "ASSIMETRIA_FAVORAVEL"
-                    entry_status = "🟢 VALUATION ATRATIVO"
-                else:
-                    entry_tag = "PRECO_JUSTO"
-                    entry_status = "🟡 VALUATION EM LINHA"
-            else:
-                entry_tag = "PRECO_JUSTO"
-                entry_status = "🟡 VALUATION EM LINHA"
-
-        # Trava Adicional: se está Acima da Curva (Desconto), NUNCA pode ter badge de Múltiplos Elevados
-        if is_above_curve and ("ELEVADOS" in str(entry_status) or entry_tag == "ESTICADA"):
-            if pl_val is not None and float(pl_val) <= 10.0:
+        # Alinhamento Rigoroso de Badges de Valuation (Eliminação de Contradições):
+        # - Se está Acima da Curva (Desconto) -> MÚLTIPLOS ATRATIVOS (se P/L <= 11x) ou DESCONTO RELATIVO AO MOAT (se P/L > 11x)
+        # - Se está Abaixo da Curva (Prêmio) -> MÚLTIPLOS EXIGENTES (se P/L > 15x) ou PRÊMIO SOBRE A CURVA
+        if is_above_curve:
+            if pl_val is not None and float(pl_val) <= 11.0:
                 entry_tag = "ASSIMETRIA_FAVORAVEL"
-                entry_status = "🟢 VALUATION ATRATIVO"
+                entry_status = "🟢 MÚLTIPLOS ATRATIVOS"
+                entry_color = "#10B981"
+            else:
+                entry_tag = "ASSIMETRIA_FAVORAVEL"
+                entry_status = "🟢 DESCONTO RELATIVO AO MOAT"
+                entry_color = "#10B981"
+        else:
+            if pl_val is not None and float(pl_val) > 15.0:
+                entry_tag = "ESTICADA"
+                entry_status = "🔴 MÚLTIPLOS EXIGENTES"
+                entry_color = "#EF4444"
             else:
                 entry_tag = "PRECO_JUSTO"
-                entry_status = "🟡 VALUATION EM LINHA"
+                entry_status = "🟡 PRÊMIO SOBRE A CURVA"
+                entry_color = "#F59E0B"
 
         s["entry_status"] = entry_status
         s["entry_tag"] = entry_tag
+        s["entry_color"] = entry_color
 
         pvp_val = s.get("pvp")
         dy_val = float(s.get("div_yield") or 0)
@@ -1429,9 +1431,10 @@ def build_programmatic_seo():
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
         short_name = get_short_trading_name(ticker, empresa)
         page_title = f"{ticker} • {short_name} • Moat Terminal"
-        meta_desc = f"Análise fundamentalista de {short_name} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
+        rent_metric_label = f"ROE {roe_str}" if is_fin else f"ROIC {roic_str}"
+        meta_desc = f"Análise fundamentalista de {short_name} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), {rent_metric_label} e dividendos. Veja se {ticker} vale a pena em 2026."
         og_title = f"{ticker} • {short_name} • Moat Terminal"
-        og_desc = f"Análise de {short_name} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
+        og_desc = f"Análise de {short_name} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), {rent_metric_label}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"
