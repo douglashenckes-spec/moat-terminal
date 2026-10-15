@@ -58,14 +58,25 @@ def is_cyclical_sector(sector_name: str) -> bool:
 
 
 def score_roic(roic: Optional[float]) -> float:
-    """Curva contínua logarítmica de ROIC (NTN-B 6.5% -> ~45 | 18% -> ~76 | 25% -> ~85 | Max 93.0)."""
+    """
+    Régua Quantitativa e CFA Charterholder de Retorno sobre Capital (ROIC vs WACC Nominal ~13,5%):
+    - ROIC < 10%: Abaixo do custo de capital (EVA negativo frente à NTN-B 6,5% + inflação 4,5% + risco). Nota < 50.
+    - ROIC entre 10% e 13,5%: Retorno Neutro no limite do custo de oportunidade (50 a 65 pts).
+    - ROIC > 14%: Geração Real de Valor Econômico com spread positivo sobre o WACC (> 68 a 93 pts).
+    """
     if roic is None or math.isnan(roic):
         return 25.0
     r = roic * 100.0 if abs(roic) < 2.0 else roic
     if r <= 0.0:
         return max(5.0, 15.0 + r)
-    val = 26.0 + (math.log(max(1.0, r + 1.0)) * 19.0)
-    return min(93.0, max(5.0, val))
+    elif r < 10.0:
+        return 15.0 + (r / 10.0) * 33.0
+    elif r <= 13.5:
+        return 50.0 + ((r - 10.0) / 3.5) * 15.0
+    else:
+        excess = r - 13.5
+        val = 68.0 + (math.log(max(1.0, excess + 1.0)) * 9.5)
+        return min(93.0, max(68.0, val))
 
 
 def score_roe(roe: Optional[float]) -> float:
@@ -710,10 +721,12 @@ def generate_cfa_verdict(
             elif mrg_liq > 1.0:
                 positives.append("geração robusta via equivalência patrimonial de coligadas")
         else:
-            if roic >= 0.18:
-                positives.append(f"retorno sobre capital excepcional (ROIC de {roic*100:.1f}%)")
+            if roic >= 0.14:
+                positives.append(f"geração real de valor econômico (ROIC de {roic*100:.1f}% com spread sobre WACC)")
             elif roe >= 0.18:
                 positives.append(f"alta rentabilidade patrimonial (ROE de {roe*100:.1f}%)")
+            elif roic >= 0.10:
+                positives.append(f"retorno sobre capital estável (ROIC de {roic*100:.1f}%)")
             if mrg_liq >= 0.12:
                 positives.append(f"poder de precificação sustentável (Margem Líquida de {mrg_liq*100:.1f}%)")
             if is_net_cash:
@@ -757,6 +770,8 @@ def generate_cfa_verdict(
         risks.append(f"alavancagem de {dl_ebitda:.2f}x Dív.Líq/EBITDA requer monitoramento contínuo")
     if not is_fin and mrg_liq < 0.05 and mrg_liq > 0:
         risks.append(f"margem líquida comprimida ({mrg_liq*100:.1f}%), vulnerável a pressão inflacionária de insumos")
+    if not is_fin and roic < 0.10 and not is_passivo_descoberto:
+        risks.append(f"retorno sobre capital ({roic*100:.1f}%) abaixo do custo de oportunidade (WACC nominal ~13,5%), sinalizando destruição de valor econômico (EVA negativo)")
 
     if is_fin:
         risks.append("sensibilidade ao ciclo de crédito bancário (inadimplência/PDD), margem financeira de intermediação e oscilações da taxa Selic")

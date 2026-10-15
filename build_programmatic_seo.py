@@ -223,13 +223,13 @@ def generate_moat_decomposition_html(s):
         roic = float(s.get("roic") or 0)
         roic_str = format_pct(roic)
         if roic >= 0.20:
-            desc1 = f"ROIC auditado de {roic_str} supera amplamente o juro real soberano (NTN-B 6,5%), gerando alto valor econômico (EVA)."
-        elif roic >= 0.12:
-            desc1 = f"ROIC de {roic_str} entrega retorno saudável e consistente acima do custo de oportunidade da economia brasileira."
-        elif roic >= 0.06:
-            desc1 = f"ROIC de {roic_str} opera em patamar moderado, com spread estreito sobre os títulos soberanos da NTN-B."
+            desc1 = f"ROIC auditado de {roic_str} comprova geração excepcional de valor econômico (alto spread positivo sobre o WACC nominal de ~13,5%)."
+        elif roic >= 0.14:
+            desc1 = f"ROIC de {roic_str} atesta Geração Real de Valor Econômico (Spread Positivo sobre o WACC nominal brasileiro de ~13,5%)."
+        elif roic >= 0.10:
+            desc1 = f"ROIC de {roic_str} reflete Retorno Neutro (no limite do custo de oportunidade brasileiro frente à NTN-B + inflação)."
         else:
-            desc1 = f"ROIC de {roic_str} fica abaixo do custo de oportunidade soberano (NTN-B 6,5%), consumindo valor econômico dos acionistas."
+            desc1 = f"ROIC de {roic_str} opera Abaixo do Custo de Capital (Destruição de Valor Econômico / EVA Negativo frente à NTN-B + inflação)."
 
         mrg = float(s.get("mrg_liq") or 0)
         mrg_str = format_pct(mrg)
@@ -507,8 +507,14 @@ def generate_stock_badges_html(s):
     if pl_val and pl_rr and rr_div is not None:
         if float(rr_div) >= 15.0 and float(pl_rr) < float(pl_val) * 0.88:
             valuation_pills.append(('Lucro Acelerando', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_EXPANSION'))
-        elif float(rr_div) <= -20.0 and float(pl_rr) > float(pl_val) * 1.25:
-            valuation_pills.append(('Lucro em Retração', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DECELERATION'))
+        elif float(rr_div) <= -25.0 and float(pl_rr) > float(pl_val) * 1.25:
+            seasonal_sectors = {"Consumo Cíclico", "Tecidos, Vestuário e Calçados", "Comércio", "Agropecuária", "Alimentos Processados"}
+            seasonal_tickers = {"LREN3", "RIAA3", "ALOS3", "MULT3", "IGTI11", "ARZZ3", "SOMA3", "VIVA3", "AZZA3", "GUAR3", "CEAB3", "AGRO3", "SLCE3", "SMTO3", "SOJA3"}
+            is_seasonal = (setor_name in seasonal_sectors) or (ticker_clean in seasonal_tickers)
+            if is_seasonal:
+                valuation_pills.append(('Sazonalidade Trimestral', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_SEASONAL_DECEL'))
+            else:
+                valuation_pills.append(('Queda de Run-Rate', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_DECELERATION'))
 
     if dy >= 0.05 and payout_num is not None and 30 <= payout_num <= 88:
         valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))

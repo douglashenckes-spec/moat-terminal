@@ -971,6 +971,11 @@ def build_company_page():
 
       // Momento de Resultados
       if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
+        const seasonalSectors = new Set(["Comércio", "Comércio e Distribuição", "Tecidos, Vestuário e Calçados", "Agropecuária", "Alimentos Processados", "Açúcar e Álcool"]);
+        const seasonalTickers = new Set(["LREN3", "RIAA3", "ARZZ3", "SOMA3", "AZZA3", "VIVA3", "LJQQ3", "MGLU3", "BHIA3", "CEAB3", "AGRO3", "SLCE3", "TTEN3", "SOJA3", "SMTO3", "JALL3", "CAML3", "MDIA3"]);
+        const sub = (s.details && s.details.subsetor) ? s.details.subsetor : '';
+        const isSeasonal = seasonalSectors.has(s.setor) || seasonalTickers.has(s.ticker) || sub.includes('Moda') || sub.includes('Vestuário') || sub.includes('Calçados') || (s.setor && s.setor.includes('Varejo'));
+
         if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
           cats.push({{
             id: 'CAT_EXPANSION',
@@ -980,15 +985,26 @@ def build_company_page():
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25) {{
-          cats.push({{
-            id: 'CAT_DECELERATION',
-            group: 'VALUATION',
-            label: 'Lucro em Retração (Desaceleração 2T26)',
-            shortLabel: 'Lucro em Retração',
-            ledClass: 'bg-amber-500',
-            bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
-          }});
+        }} else if (s.run_rate_div_pct <= -25.0 && s.pl_run_rate > s.pl * 1.25) {{
+          if (isSeasonal) {{
+            cats.push({{
+              id: 'CAT_SEASONAL_DECEL',
+              group: 'VALUATION',
+              label: 'Sazonalidade / Desaceleração Trimestral',
+              shortLabel: 'Sazonalidade Trimestral',
+              ledClass: 'bg-amber-500',
+              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+            }});
+          }} else {{
+            cats.push({{
+              id: 'CAT_DECELERATION',
+              group: 'VALUATION',
+              label: 'Queda de Run-Rate (Desaceleração 2T26)',
+              shortLabel: 'Queda Run-Rate',
+              ledClass: 'bg-rose-500',
+              bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
+            }});
+          }}
         }}
       }}
 
@@ -1043,10 +1059,14 @@ def build_company_page():
       }}
 
       const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${{formatNumberBR(s.div_liq_ebitda, 1, 'x')}} EBITDA` : 'estrutura de capital auditada');
-      const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${{roicPct}}</b> e retorno patrimonial (ROE) de <b>${{roePct}}</b>` : `ROE de <b>${{roePct}}</b>`;
-
       const rVal = Number(s.roic || 0);
       const eVal = Number(s.roe || 0);
+      let roicQual = '';
+      if (rVal >= 0.14) roicQual = ' (geração real de valor econômico sobre WACC)';
+      else if (rVal >= 0.10) roicQual = ' (retorno neutro no limite do custo de capital)';
+      else if (rVal > 0) roicQual = ' (abaixo do custo de capital brasileiro)';
+
+      const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${{roicPct}}</b>${{roicQual}} e retorno patrimonial (ROE) de <b>${{roePct}}</b>` : `ROE de <b>${{roePct}}</b>`;
       const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
       const dle = s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined ? Number(s.div_liq_ebitda) : null;
       const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
@@ -1081,7 +1101,7 @@ def build_company_page():
       }} else if (isStrongCashEv) {{
         noteExtra = ` <i>Múltiplos de caixa:</i> com forte posição de caixa livre frente ao valor de mercado, o EV/EBITDA (${{evEbVal ? formatNumberBR(evEbVal, 1, 'x') : 'N/D'}}) reflete com maior fidelidade a barateza da operação do que o P/L tradicional.`;
       }} else if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
-        noteExtra = ` <i>Nota analítica:</i> a operação gera retorno positivo (ROIC de ${{roicPct || 'positivo'}}), mas o custo da dívida e despesas financeiras consumiram o lucro líquido final do período.`;
+        noteExtra = ` <i>Nota analítica:</i> a operação registra ROIC de ${{roicPct || 'positivo'}} (abaixo do custo de oportunidade da economia), mas o peso dos juros da dívida e despesas financeiras consumiram o lucro líquido final do período.`;
       }} else if (isNetCash && (rVal > eVal + 0.03)) {{
         noteExtra = ` <i>Destaque de balanço:</i> o ROIC de ${{roicPct}} supera amplamente o ROE de forma saudável porque a companhia opera com excesso de caixa líquido, o que dilui o ROE contábil mas atesta a alta rentabilidade do capital efetivamente investido na operação.`;
       }} else if (isCyclicalCapex) {{
@@ -1183,10 +1203,10 @@ def build_company_page():
 
         const roic = Number(s.roic || 0);
         const roicStr = (roic * 100).toFixed(1).replace('.', ',') + '%';
-        if (roic >= 0.20) desc1 = `ROIC auditado de ${{roicStr}} supera amplamente o juro real soberano (NTN-B 6,5%), gerando alto valor econômico (EVA).`;
-        else if (roic >= 0.12) desc1 = `ROIC de ${{roicStr}} entrega retorno saudável e consistente acima do custo de oportunidade da economia brasileira.`;
-        else if (roic >= 0.06) desc1 = `ROIC de ${{roicStr}} opera em patamar moderado, com spread estreito sobre os títulos soberanos da NTN-B.`;
-        else desc1 = `ROIC de ${{roicStr}} fica abaixo do custo de oportunidade soberano (NTN-B 6,5%), consumindo valor econômico dos acionistas.`;
+        if (roic >= 0.20) desc1 = `ROIC auditado de ${{roicStr}} comprova geração excepcional de valor econômico (alto spread positivo sobre o WACC nominal de ~13,5%).`;
+        else if (roic >= 0.14) desc1 = `ROIC de ${{roicStr}} atesta Geração Real de Valor Econômico (Spread Positivo sobre o WACC nominal brasileiro de ~13,5%).`;
+        else if (roic >= 0.10) desc1 = `ROIC de ${{roicStr}} reflete Retorno Neutro (no limite do custo de oportunidade brasileiro frente à NTN-B + inflação).`;
+        else desc1 = `ROIC de ${{roicStr}} opera Abaixo do Custo de Capital (Destruição de Valor Econômico / EVA Negativo frente à NTN-B + inflação).`;
 
         const mrg = Number(s.mrg_liq || 0);
         const mrgStr = (mrg * 100).toFixed(1).replace('.', ',') + '%';
@@ -1943,9 +1963,31 @@ def build_company_page():
         const mrg = rec > 0 ? (lucro / rec) : 0;
         const giro = ativo > 0 ? (rec / ativo) : 0;
         const alav = pl > 0 ? (ativo / pl) : 0;
+        const dle = s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined ? Number(s.div_liq_ebitda) : null;
+        const roicVal = (s.roic !== null && s.roic !== undefined) ? Number(s.roic) : null;
+        const isLeverageInflated = (roeVal > 0.18) && (alav > 3.5 || (dle !== null && dle > 2.5)) && (roicVal !== null && roicVal < 0.11);
+
+        let alertBadgeHtml = '';
+        if (isLeverageInflated) {{
+          alertBadgeHtml = `
+            <div class="p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-950 flex items-start gap-2.5 shadow-2xs">
+              <span class="text-rose-600 font-bold text-sm leading-none mt-0.5">⚠️</span>
+              <div>
+                <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-900">
+                  ROE Inflado por Alavancagem • Baixa Eficiência Operacional (ROIC)
+                </div>
+                <div class="text-[10.5px] font-sans text-rose-800 mt-0.5 leading-relaxed">
+                  O ROE elevado (${{formatNumberBR(roeVal * 100, 1, '%')}}) é alavancado por capital de terceiros (${{formatNumberBR(alav, 2, 'x')}} Ativo/PL${{dle !== null ? ` | Dívida Líq./EBITDA ${{formatNumberBR(dle, 1, 'x')}}` : ''}}), enquanto o retorno operacional do capital (ROIC de ${{roicVal !== null ? formatNumberBR(roicVal * 100, 1, '%') : 'N/D'}}) fica abaixo do custo de oportunidade (~13,5%). O retorno aos sócios embute alto risco financeiro e sensibilidade à Selic.
+                </div>
+              </div>
+            </div>
+          `;
+        }}
 
         let engine = '';
-        if (mrg >= 0.15 && alav <= 2.5) {{
+        if (isLeverageInflated) {{
+          engine = '<b>Alerta de Alavancagem Sintética:</b> O retorno sobre o patrimônio decorre predominantemente da <b>alavancagem financeira (' + formatNumberBR(alav, 1, 'x') + ' Ativo/PL)</b> e não de vantagens competitivas reais de margem ou giro. A disparidade entre ROE (' + formatNumberBR(roeVal*100, 1, '%') + ') e ROIC (' + (roicVal !== null ? formatNumberBR(roicVal*100, 1, '%') : 'N/D') + ') comprova dependência de endividamento.';
+        }} else if (mrg >= 0.15 && alav <= 2.5) {{
           engine = '<b>Motor Saudável & Moat:</b> A rentabilidade é gerada majoritariamente por <b>forte margem líquida (' + formatNumberBR(mrg*100, 1, '%') + ')</b> e poder de precificação, sem dependência arriscada de endividamento (alavancagem moderada de ' + formatNumberBR(alav, 1, 'x') + '). Padrão Charlie Munger.';
         }} else if (giro >= 1.0 && alav <= 2.8) {{
           engine = '<b>Motor de Giro Operacional:</b> A empresa compensa margens mais enxutas com <b>alto giro de ativos (' + formatNumberBR(giro, 2, 'x') + ')</b>, mostrando excelência na rotação de capital e eficiência comercial.';
@@ -1957,6 +1999,7 @@ def build_company_page():
 
         container.innerHTML = `
           <div class="space-y-3 font-mono">
+            ${{alertBadgeHtml}}
             <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5">
               <!-- 1. Margem Líquida -->
               <div class="flex-1 w-full p-3.5 rounded-xl border border-slate-200 bg-white flex flex-col justify-between shadow-2xs">
@@ -2765,8 +2808,8 @@ def build_company_page():
       }},
       pl_run_rate: {{
         title: '⏱️ P/L Run-Rate (Ritmo Anualizado 2T26)',
-        desc: 'Anualiza o lucro do trimestre mais recente (4x 2T26). Se for menor que o P/L 12M (verde), indica que a operação recente está acelerando frente à média passada.',
-        foot: 'Antecipa viradas de ciclo antes do mercado geral'
+        desc: 'Anualização do último trimestre reportado (4x). Em setores com forte sazonalidade de 4T (Varejo) ou safra (Agro), compare sempre com o P/L LTM.',
+        foot: 'Antecipa viradas de ciclo antes do mercado geral • Atenção à sazonalidade'
       }},
       graham: {{
         title: '📐 Valor Intrínseco de Benjamin Graham (V.I.)',

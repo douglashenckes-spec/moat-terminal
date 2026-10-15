@@ -3190,7 +3190,10 @@ html_template = f"""<!DOCTYPE html>
         const l12 = (s.details && s.details.lucro_liq_12m) || 0;
         const l3 = (s.details && s.details.lucro_liq_3m) || 0;
         if (l12 < 30000000 || l3 <= 0) return false;
-        return s.run_rate_div_pct <= -20.0 && s.run_rate_div_pct >= -70.0 && s.pl_run_rate > s.pl * 1.25;
+        const seasonalSectors = new Set(["Consumo Cíclico", "Tecidos, Vestuário e Calçados", "Comércio", "Agropecuária", "Alimentos Processados"]);
+        const seasonalTickers = new Set(["LREN3", "RIAA3", "ALOS3", "MULT3", "IGTI11", "ARZZ3", "SOMA3", "VIVA3", "AZZA3", "GUAR3", "CEAB3", "AGRO3", "SLCE3", "SMTO3", "SOJA3"]);
+        if (seasonalSectors.has(s.setor) || seasonalTickers.has(s.ticker)) return false;
+        return s.run_rate_div_pct <= -25.0 && s.run_rate_div_pct >= -70.0 && s.pl_run_rate > s.pl * 1.25;
       }});
       const decelerating = dedupPreferLiquid(
         allDecel,
@@ -6000,8 +6003,8 @@ html_template = f"""<!DOCTYPE html>
       }},
       pl_run_rate: {{
         title: '⏱️ P/L Run-Rate (Ritmo Anualizado 2T26)',
-        desc: 'Anualiza o lucro do trimestre mais recente (4x 2T26). Se for menor que o P/L 12M (verde), indica que a operação recente está acelerando frente à média passada.',
-        foot: 'Antecipa viradas de ciclo antes do mercado geral'
+        desc: 'Anualização do último trimestre reportado (4x). Em setores com forte sazonalidade de 4T (Varejo) ou safra (Agro), compare sempre com o P/L LTM.',
+        foot: 'Antecipa viradas de ciclo antes do mercado geral • Atenção à sazonalidade'
       }},
       graham: {{
         title: '📐 Valor Intrínseco de Benjamin Graham (V.I.)',

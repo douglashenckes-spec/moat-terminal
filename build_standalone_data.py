@@ -355,6 +355,10 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         distortion_tag = "RECORRENTE"
         distortion_label = "🟢 Estável / Recorrente"
 
+        seasonal_sectors = {"Comércio", "Comércio e Distribuição", "Tecidos, Vestuário e Calçados", "Agropecuária", "Alimentos Processados", "Açúcar e Álcool"}
+        seasonal_tickers = {"LREN3", "RIAA3", "ARZZ3", "SOMA3", "AZZA3", "VIVA3", "LJQQ3", "MGLU3", "BHIA3", "CEAB3", "AGRO3", "SLCE3", "TTEN3", "SOJA3", "SMTO3", "JALL3", "CAML3", "MDIA3"}
+        is_seasonal_sector = (sector in seasonal_sectors) or (ticker in seasonal_tickers) or ("Moda" in subsetor) or ("Vestuário" in subsetor) or ("Varejo" in sector) or ("Calçados" in subsetor)
+
         if l12 is not None and l3 is not None and l12 != 0:
             div = ((4.0 * l3) - l12) / abs(l12)
             run_rate_div_pct = round(div * 100.0, 1)
@@ -371,10 +375,15 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
                 is_distorted = True
                 distortion_tag = "EXPANSAO_ONE_OFF"
                 distortion_label = f"⚠️ One-Off / Sazonal (+{run_rate_div_pct:.0f}%)"
-            elif div < -0.50:
-                is_distorted = True
-                distortion_tag = "DETERIORACAO_LUCRO"
-                distortion_label = f"🔴 Queda de Run-Rate ({run_rate_div_pct:.0f}%)"
+            elif div < -0.25:
+                if is_seasonal_sector:
+                    is_distorted = False
+                    distortion_tag = "SAZONALIDADE_TRIMESTRAL"
+                    distortion_label = f"⚠️ Sazonalidade / Desaceleração Trimestral ({run_rate_div_pct:.0f}%)"
+                else:
+                    is_distorted = True
+                    distortion_tag = "DETERIORACAO_LUCRO"
+                    distortion_label = f"🔴 Queda de Run-Rate ({run_rate_div_pct:.0f}%)"
             else:
                 is_distorted = False
                 distortion_tag = "RECORRENTE"
