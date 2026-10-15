@@ -1483,9 +1483,9 @@ html_template = f"""<!DOCTYPE html>
       const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
 
       if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
-        if ((s.pl && s.pl <= 10.0) || isAbove || isNetCashBonus) {{
+        if (s.pl && s.pl <= 10.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
+          s.entry_status = '🟢 VALUATION ATRATIVO';
           s.entry_color = '#10B981';
         }} else {{
           s.entry_tag = 'PRECO_JUSTO';

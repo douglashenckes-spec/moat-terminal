@@ -215,7 +215,7 @@ def extract_historical_metrics(hist_data: Optional[Dict[str, Any]], cur_roe: Opt
             effective_roe = avg_hist_roe
 
         if cur_roic is not None:
-            effective_roic = (cur_roic * 0.60) + (avg_hist_roe * 0.40)
+            effective_roic = cur_roic
         else:
             effective_roic = effective_roe
 
@@ -435,17 +435,45 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         # Produtores de Commodities: tomadores de preço, vulneráveis ao ciclo global de preços
         raw_score *= 0.88
 
+    # Obter ROIC contábil LTM percentual (%):
+    r_roic_pct = None
+    if cur_roic is not None and not math.isnan(cur_roic):
+        r_roic_pct = cur_roic * 100.0 if abs(cur_roic) < 2.0 else cur_roic
+
+    # Estrutura de capital para validação de Compounder
+    dle_val = row.get("div_liq_ebitda")
+    dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
+    det = row.get("details", {}) or {}
+    dl_val = det.get("divida_liquida")
+    dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
+    is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
+    is_controlled_debt = is_net_cash or (dle_num is not None and dle_num <= 2.0)
+
+    # Bônus CFA de Compounder: ROIC >= 18% com Dívida Controlada ou Caixa Líquido
+    if r_roic_pct is not None and r_roic_pct >= 18.0 and is_controlled_debt and not has_negative_equity:
+        compounder_bonus = min(10.0, 5.0 + ((r_roic_pct - 18.0) * 0.40))
+        raw_score += compounder_bonus
+
     # Salvaguarda Munger: Empresas com Passivo a Descoberto NUNCA podem passar de Tier 4
     if has_negative_equity:
         quality_score = min(35.0, round(raw_score, 1))
         quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
         quality_tag = "RISCO_ESTRUTURAL"
     else:
-        quality_score = round(max(5.0, min(92.5, raw_score)), 1)
+        quality_score = round(max(5.0, min(95.0, raw_score)), 1)
+        
+        # Trava Crítica CFA de ROIC / Criação de Valor Econômico (Custo de Capital ~13,5%):
+        # 1. Se ROIC < 10%: O Moat Score final NÃO pode ultrapassar 58,0 (máximo Tier 3)
+        # 2. Se ROIC entre 10% e 13,5%: O Moat Score final fica limitado ao teto de 68,0 (Tier 2 moderado)
+        if r_roic_pct is not None:
+            if r_roic_pct < 10.0:
+                quality_score = min(58.0, quality_score)
+            elif r_roic_pct <= 13.5:
+                quality_score = min(68.0, quality_score)
+
         # Trava Crítica de Alavancagem Munger: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
-        dle_val = row.get("div_liq_ebitda")
         roe_val = row.get("roe")
-        if dle_val is not None and (dle_val >= 3.5 or (dle_val >= 2.5 and roe_val is not None and roe_val < 0)):
+        if dle_num is not None and (dle_num >= 3.5 or (dle_num >= 2.5 and roe_val is not None and roe_val < 0)):
             quality_score = min(45.0, quality_score)
 
         if quality_score >= 80.0:
@@ -653,7 +681,7 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
         is_asymmetry = False
 
     if is_asymmetry:
-        status = "🟢 MÚLTIPLOS ATRATIVOS"
+        status = "🟢 VALUATION ATRATIVO" if (pl is not None and pl <= 10.0) else "🟢 MÚLTIPLOS ATRATIVOS"
         tag = "ASSIMETRIA_FAVORAVEL"
         color = "#10B981"
         if is_net_cash_bonus:
@@ -683,6 +711,17 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
             f"P/L de {pl:.1f}x e Earnings Yield de {ey_pct:.1f}% (Spread de {ey_spread:+.1f}% sobre NTN-B). "
             f"Múltiplos situam-se na faixa mediana histórica do setor frente à curva ajustada ({exp_pl:.1f}x)."
         )
+
+    # Regra Fundamentalista CFA: Impossibilidade Lógica de "Múltiplos Elevados" se estiver "Acima da Curva (Desconto)"
+    if is_above_curve and ("ELEVADOS" in status or tag == "ESTICADA"):
+        if pl is not None and pl <= 10.0:
+            status = "🟢 VALUATION ATRATIVO"
+            tag = "ASSIMETRIA_FAVORAVEL"
+            color = "#10B981"
+        else:
+            status = "🟡 VALUATION EM LINHA"
+            tag = "PRECO_JUSTO"
+            color = "#F59E0B"
 
     return {
         "entry_status": status,
@@ -732,13 +771,15 @@ def generate_cfa_verdict(
 
     is_passivo_descoberto = valuation_data.get("entry_tag") == "PASSIVO_DESCOBERTO" or (metrics.get("patrim_liq") is not None and metrics.get("patrim_liq") < 0)
 
+    q_score_str = f"{float(q_score):.1f}".replace(".", ",")
+
     # BULLET 1: Por que é boa? (Fosso & Eficiência de Capital)
     if is_passivo_descoberto:
         pl_val = abs(metrics.get("patrim_liq", 0)) / 1e9
         bullet_1 = (
             f"**Insolvência Técnica & Passivo a Descoberto:** {company_name} opera com patrimônio líquido negativo de -R$ {pl_val:.2f} bilhões. "
             f"Todos os ativos somados não cobrem o montante devido aos credores e arrendadores. "
-            f"Quality Score limitado pelo modelo Munger em **{q_score}/100** ({quality_data['quality_tier']})."
+            f"Quality Score limitado pelo modelo Munger em **{q_score_str}/100** ({quality_data['quality_tier']})."
         )
     else:
         positives = []
@@ -773,7 +814,7 @@ def generate_cfa_verdict(
 
         bullet_1 = (
             f"**Fundamentos & Fosso Competitivo:** {company_name} apresenta {', '.join(positives[:3])}. "
-            f"Quality Score consolidado em **{q_score}/100** ({quality_data['quality_tier']})."
+            f"Quality Score consolidado em **{q_score_str}/100** ({quality_data['quality_tier']})."
         )
 
     # BULLET 2: Onde está o risco? (Teste Ácido de Juros, Capex e Ciclos)

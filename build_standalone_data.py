@@ -231,13 +231,18 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     # 1. Checar se pertence a setores cíclicos pesados (Regra 2c)
     cyclical_keywords = ["siderurg", "metalurg", "minera", "material de transporte", "material rodoviário", "máquinas e equipamentos", "petróleo", "combustív", "construção civil", "incorporaç", "químic", "papel e celulose"]
     cyclical_tickers = {"RAPT4", "ROMI3", "USIM3", "USIM5", "CSNA3", "GGBR4", "GGBR3", "GOAU4", "GOAU3", "VALE3", "TUPY3", "FRAS3", "POMO4", "POMO3", "FESA4", "CBAV3", "KEPL3", "PRIO3", "PETR4", "PETR3", "RECV3", "BRAV3", "LAVV3", "CYRE3", "DIRR3", "MRVE3", "TEND3", "EZTC3", "PLPL3", "CURY3"}
-    is_cyclical = any(k in full_sector for k in cyclical_keywords) or (ticker in cyclical_tickers) or has_recent_loss
-
-    # 2. Checar se pertence a setores perenes / defensivos (Regra 2b)
     defensive_keywords = ["segur", "previdência", "banco", "financeiro", "intermediação", "energia elétrica", "transmiss", "distribui", "saneam", "água"]
     defensive_tickers = {"CXSE3", "BBSE3", "PSSA3", "ITUB4", "ITUB3", "BBDC4", "BBDC3", "BBAS3", "SANB11", "EGIE3", "TAEE11", "TAEE4", "TAEE3", "TRPL4", "ISAE4", "CPFE3", "EQTL3", "SAPR11", "SAPR4", "SBSP3", "CSMG3", "VIVT3", "TIMS3"}
+
+    t_up = ticker.strip().upper()
     has_positive_3y = len(roic_series) >= 3 and all(r > 0 for r in roic_series[-3:])
-    is_defensive = (any(k in full_sector for k in defensive_keywords) or (ticker in defensive_tickers)) and has_positive_3y and not has_recent_loss
+    is_cyclical = any(k in full_sector for k in cyclical_keywords) or (t_up in cyclical_tickers) or has_recent_loss
+    is_defensive = (any(k in full_sector for k in defensive_keywords) or (t_up in defensive_tickers)) and has_positive_3y and not has_recent_loss
+
+    # Bens de capital e industriais pesados são estritamente cíclicos
+    if t_up in {"RAPT4", "RAPT3", "ROMI3", "TUPY3", "SHUL4", "KEPL3", "USIM3", "USIM5", "CSNA3", "GGBR4", "GOAU4", "VALE3"}:
+        is_cyclical = True
+        is_defensive = False
 
     if is_defensive:
         # Priorizar Resiliente / Consistência de Ciclo para defensivas lucrativas

@@ -698,9 +698,9 @@ def build_company_page():
       const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
 
       if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
-        if ((s.pl && s.pl <= 10.0) || isAbove || isNetCashBonus) {{
+        if (s.pl && s.pl <= 10.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
+          s.entry_status = '🟢 VALUATION ATRATIVO';
           s.entry_color = '#10B981';
         }} else {{
           s.entry_tag = 'PRECO_JUSTO';
@@ -1102,7 +1102,7 @@ def build_company_page():
       const roePct = s.roe ? (s.roe * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
       const roicPct = s.roic ? (s.roic * 100).toFixed(1).replace('.', ',') + '%' : null;
       const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-      const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'));
+      const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : (s.quality_score >= 50 ? 'Tier 3: Sem Fosso Claro / Sensível ao Ciclo' : 'Tier 4 (Risco de Capital)'));
       const scoreStr = formatNumberBR(s.quality_score, 1);
 
       if (isFin) {{
@@ -1428,10 +1428,27 @@ def build_company_page():
       }}
 
       const heroEl = document.getElementById('companyHeroCard');
+      const expPL = calcAdjustedFairPL(s);
+      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
+
+      if (isAbove && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
+        if (s.pl && s.pl <= 10.0) {{
+          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_status = '🟢 VALUATION ATRATIVO';
+          s.entry_color = '#10B981';
+          heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
+          entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
+        }} else {{
+          s.entry_tag = 'PRECO_JUSTO';
+          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_color = '#F59E0B';
+          heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
+          entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';
+        }}
+      }}
+
       heroEl.className = `glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-200 shadow-sm ${{heroBgClass}}`;
 
-      const expPL = calcFairPL(s.quality_score);
-      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
       const curveBadge = isAbove 
         ? '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
         : '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>';
@@ -1493,7 +1510,7 @@ def build_company_page():
             <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${{scoreBadgeClass}} min-w-[95px]">
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
               <span class="text-2xl font-bold font-mono leading-none my-0.5 tabular-nums">${{formatNumberBR(s.quality_score, 1)}}</span>
-              <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'))}}</span>
+              <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso Claro / Sensível ao Ciclo)' : 'Tier 4 (Risco de Capital)'))}}</span>
             </div>
           </div>
         </div>
@@ -1886,8 +1903,13 @@ def build_company_page():
         const minRent = Math.min(...vals) * 100;
         const maxRent = Math.max(...vals) * 100;
 
-        const isCyclicAsset = (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0);
-        const rentCycleTag = isCyclicAsset ? 'Sensível ao ciclo ⚠️' : (minRent >= 10 ? 'Resiliente mesmo em crise' : 'Oscilação moderada');
+        const isDefensiveExplicit = ['CXSE3', 'BBSE3', 'PSSA3', 'ITUB4', 'ITUB3', 'BBDC4', 'BBDC3', 'BBAS3', 'SANB11', 'EGIE3', 'TAEE11', 'TAEE4', 'TAEE3', 'TRPL4', 'ISAE4', 'CPFE3', 'EQTL3', 'SAPR11', 'SAPR4', 'SBSP3', 'CSMG3', 'VIVT3', 'TIMS3'].includes(s.ticker);
+        const isCyclicExplicit = ['RAPT4', 'RAPT3', 'ROMI3', 'TUPY3', 'SHUL4', 'KEPL3', 'USIM3', 'USIM5', 'CSNA3', 'GGBR4', 'GOAU4', 'VALE3', 'PRIO3', 'PETR4', 'PETR3', 'RECV3', 'BRAV3'].includes(s.ticker);
+
+        const isCyclicAsset = (!isDefensiveExplicit) && (isCyclicExplicit || (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0));
+        const rentCycleTag = isDefensiveExplicit
+          ? 'Resiliente mesmo em crise'
+          : (isCyclicAsset ? 'Sensível ao ciclo ⚠️' : (minRent >= 10 ? 'Resiliente mesmo em crise' : 'Oscilação moderada'));
 
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
@@ -2246,10 +2268,13 @@ def build_company_page():
       }}
 
       const h = s.historical_5y || {{}};
-      const isCyclicAsset = (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0);
-      const isDefensiveCycle = h && h.estabilidade_margens && (h.estabilidade_margens.includes('Resiliente') || h.estabilidade_margens.includes('Alta Estabilidade'));
+      const isDefensiveExplicit = ['CXSE3', 'BBSE3', 'PSSA3', 'ITUB4', 'ITUB3', 'BBDC4', 'BBDC3', 'BBAS3', 'SANB11', 'EGIE3', 'TAEE11', 'TAEE4', 'TAEE3', 'TRPL4', 'ISAE4', 'CPFE3', 'EQTL3', 'SAPR11', 'SAPR4', 'SBSP3', 'CSMG3', 'VIVT3', 'TIMS3'].includes(s.ticker);
+      const isCyclicExplicit = ['RAPT4', 'RAPT3', 'ROMI3', 'TUPY3', 'SHUL4', 'KEPL3', 'USIM3', 'USIM5', 'CSNA3', 'GGBR4', 'GOAU4', 'VALE3', 'PRIO3', 'PETR4', 'PETR3', 'RECV3', 'BRAV3'].includes(s.ticker);
+
+      const isCyclicAsset = (!isDefensiveExplicit) && (isCyclicExplicit || (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0));
+      const isDefensiveCycle = isDefensiveExplicit || (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Resiliente') || h.estabilidade_margens.includes('Alta Estabilidade')));
       const cycleConsistencyText = isCyclicAsset 
-        ? 'Sensível ao Ciclo ⚠️' 
+        ? 'Cíclica / Sensível ao Ciclo ⚠️' 
         : (isDefensiveCycle ? 'Resiliente / Recorrente 🟢' : (!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'));
 
       document.getElementById('companyCfaVerdictBox').innerHTML = `

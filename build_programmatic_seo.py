@@ -1358,11 +1358,27 @@ def build_programmatic_seo():
 
         if (is_above_curve or is_low_pl or (is_net_cash_bonus and pl_val is not None and float(pl_val) <= 16.5)) and (entry_tag == "ESTICADA" or "ELEVADOS" in str(entry_status)):
             if (pl_val is not None and float(pl_val) <= 10.0) or is_above_curve or is_net_cash_bonus:
-                entry_tag = "ASSIMETRIA_FAVORAVEL"
-                entry_status = "🟢 MÚLTIPLOS ATRATIVOS"
+                if pl_val is not None and float(pl_val) <= 10.0:
+                    entry_tag = "ASSIMETRIA_FAVORAVEL"
+                    entry_status = "🟢 VALUATION ATRATIVO"
+                else:
+                    entry_tag = "PRECO_JUSTO"
+                    entry_status = "🟡 VALUATION EM LINHA"
             else:
                 entry_tag = "PRECO_JUSTO"
                 entry_status = "🟡 VALUATION EM LINHA"
+
+        # Trava Adicional: se está Acima da Curva (Desconto), NUNCA pode ter badge de Múltiplos Elevados
+        if is_above_curve and ("ELEVADOS" in str(entry_status) or entry_tag == "ESTICADA"):
+            if pl_val is not None and float(pl_val) <= 10.0:
+                entry_tag = "ASSIMETRIA_FAVORAVEL"
+                entry_status = "🟢 VALUATION ATRATIVO"
+            else:
+                entry_tag = "PRECO_JUSTO"
+                entry_status = "🟡 VALUATION EM LINHA"
+
+        s["entry_status"] = entry_status
+        s["entry_tag"] = entry_tag
 
         pvp_val = s.get("pvp")
         dy_val = float(s.get("div_yield") or 0)
@@ -1618,6 +1634,12 @@ def build_programmatic_seo():
         entry_badge_bg = "bg-emerald-600 text-white" if entry_tag == "ASSIMETRIA_FAVORAVEL" else ("bg-amber-500 text-white" if entry_tag == "PRECO_JUSTO" else "bg-slate-700 text-white")
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else ("Tier 3 (Sem Fosso Claro / Sensível ao Ciclo)" if quality_score >= 50 else "Tier 4 (Fragilidade Operacional / Risco de Capital)"))
 
+        curve_badge_html = (
+            '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
+            if is_above_curve else
+            '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>'
+        )
+
         decomposition_html = generate_moat_decomposition_html(s)
         badges_html = generate_stock_badges_html(s)
 
@@ -1632,6 +1654,7 @@ def build_programmatic_seo():
               <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">{ticker}</h1>
               <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white text-slate-800 border border-slate-200">2T26 Auditado</span>
               <span class="text-xs px-3 py-0.5 rounded-full font-sans font-semibold {entry_badge_bg}">{entry_status}</span>
+              {curve_badge_html}
               <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white text-slate-800 border border-slate-200">{quality_tier}</span>
             </div>
             <div class="text-base font-medium font-editorial text-slate-800 mt-1 truncate">{empresa}</div>
@@ -2003,6 +2026,7 @@ def build_programmatic_seo():
             f'<title id="pageTitle">{page_title}</title>',
             page_html
         )
+        page_html = re.sub(r'(<title[^>]*>.*?)\s*[-|]\s*[Mm]oat\s*[Tt]erminal(</title>)', r'\1 • Moat Terminal\2', page_html)
         page_html = page_html.replace(
             '<meta name="description" content="Dossiê fundamentalista institucional de ações B3: decomposição DuPont, histórico auditado de 5 anos, valuation Graham e Bazin, e análise de fosso econômico (Economic Moat).">',
             f'<meta name="description" content="{meta_desc}">'
