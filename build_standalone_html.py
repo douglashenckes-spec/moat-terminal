@@ -939,14 +939,14 @@ html_template = f"""<!DOCTYPE html>
         </div>
       </div>
 
-      <!-- Faixa de Auditoria do Eixo X & Tratamento de Ativos Fora do Eixo (P/L < 0 ou P/L > 25x) -->
+      <!-- Faixa de Auditoria do Eixo X & Tratamento de Ativos Fora do Eixo (Prejuízo LTM) -->
       <div id="matrixAxisStatusRow" class="px-3 sm:px-4 py-1.5 bg-[#FAFBF9] border-b border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono flex-shrink-0 z-10">
         <div class="flex items-center gap-2 text-slate-600">
           <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-          <span id="matrixEdgeStatusText">Exibindo <b class="text-slate-900 font-bold" id="cntInGraph">134</b> de <b class="text-slate-900 font-bold" id="cntTotalUniverse">134</b> ativos no gráfico (ocultos: <b class="text-rose-700 font-bold" id="cntHiddenLoss">37</b> com prejuízo LTM e <b class="text-amber-700 font-bold" id="cntHiddenHigh">32</b> com P/L &gt; 25x)</span>
+          <span id="matrixEdgeStatusText">Exibindo <b class="text-slate-900 font-bold" id="cntInGraph">--</b> ativos com lucro na matriz (fora da matriz: <b class="text-rose-700 font-bold" id="cntHiddenLoss">--</b> com prejuízo LTM)</span>
         </div>
         <div class="flex items-center gap-2 ml-auto">
-          <button id="btnToggleMatrixEdges" type="button" onclick="toggleMatrixEdges()" class="px-2.5 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs" title="Alternar visibilidade dos ativos fora da faixa 0-25x fixados nas bordas do gráfico">
+          <button id="btnToggleMatrixEdges" type="button" onclick="toggleMatrixEdges()" class="px-2.5 py-0.5 rounded-md border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-3xs" title="Alternar visibilidade dos ativos com prejuízo LTM fixados na borda esquerda do gráfico">
             <span id="toggleMatrixEdgesIcon" class="text-[10px]">📌</span>
             <span id="toggleMatrixEdgesLabel">Mostrar na borda</span>
           </button>
@@ -3815,7 +3815,7 @@ html_template = f"""<!DOCTYPE html>
     function resetMatrixZoom() {{
       matrixZoom = 1.0;
       const isPl = currentXMetric === 'pl';
-      const baseXMax = isPl ? 25.0 : 25.0;
+      const baseXMax = isPl ? 35.0 : 25.0;
       matrixCenterX = baseXMax / 2;
       matrixCenterY = (100.0 + 20.0) / 2;
       updateZoomLabel();
@@ -3834,7 +3834,7 @@ html_template = f"""<!DOCTYPE html>
     function zoomMatrixAt(factor, clientX, clientY) {{
       const isPl = currentXMetric === 'pl';
       const baseXMin = 0;
-      const baseXMax = isPl ? 25.0 : 25.0;
+      const baseXMax = isPl ? 35.0 : 25.0;
       const baseYMin = 20.0;
       const baseYMax = 100.0;
 
@@ -4215,22 +4215,20 @@ html_template = f"""<!DOCTYPE html>
         baseStocks = baseStocks.filter(s => (isPl ? (s.pl !== null && s.pl > 0 && s.pl <= limiarValuation) : (s.earnings_yield_pct >= 6.5)));
       }}
 
-      // Segmentação dos ativos por enquadramento no Eixo X (0 a 25x)
-      const inRangeStocks = baseStocks.filter(s => s.pl !== null && s.pl > 0 && s.pl <= 25.0);
+      // Segmentação dos ativos: todos os ativos com lucro na matriz original, apenas prejuízos fora
+      const inRangeStocks = baseStocks.filter(s => s.pl !== null && s.pl > 0);
       const lossStocks = baseStocks.filter(s => s.pl === null || s.pl <= 0);
-      const highPlStocks = baseStocks.filter(s => s.pl !== null && s.pl > 25.0);
 
       const cntIn = inRangeStocks.length;
       const cntLoss = lossStocks.length;
-      const cntHigh = highPlStocks.length;
 
       // Atualizar o contador discreto abaixo dos controles da Matriz
       const edgeStatusEl = document.getElementById('matrixEdgeStatusText');
       if (edgeStatusEl) {{
         if (showMatrixEdges) {{
-          edgeStatusEl.innerHTML = `Exibindo <b class="text-emerald-700 font-bold">${{cntIn + cntLoss + cntHigh}}</b> ativos no gráfico (${{cntIn}} no plano + <b class="text-rose-700 font-bold">${{cntLoss}}</b> com prejuízo e <b class="text-amber-700 font-bold">${{cntHigh}}</b> com P/L &gt; 25x fixados na borda)`;
+          edgeStatusEl.innerHTML = `Exibindo <b class="text-emerald-700 font-bold">${{cntIn + cntLoss}}</b> ativos no gráfico (${{cntIn}} na matriz + <b class="text-rose-700 font-bold">${{cntLoss}}</b> com prejuízo fixados na borda esquerda)`;
         }} else {{
-          edgeStatusEl.innerHTML = `Exibindo <b class="text-slate-900 font-bold">${{cntIn}}</b> de <b class="text-slate-900 font-bold">134</b> ativos no gráfico (ocultos: <b class="text-rose-700 font-bold">${{cntLoss}}</b> com prejuízo LTM e <b class="text-amber-700 font-bold">${{cntHigh}}</b> com P/L &gt; 25x)`;
+          edgeStatusEl.innerHTML = `Exibindo <b class="text-slate-900 font-bold">${{cntIn}}</b> ativos com lucro na matriz (fora da matriz: <b class="text-rose-700 font-bold">${{cntLoss}}</b> com prejuízo LTM)`;
         }}
       }}
 
@@ -4240,8 +4238,7 @@ html_template = f"""<!DOCTYPE html>
       }} else {{
         stocks = [
           ...inRangeStocks.map(s => Object.assign({{}}, s, {{ edgePlacement: 'none' }})),
-          ...lossStocks.map(s => Object.assign({{}}, s, {{ edgePlacement: 'left_loss' }})),
-          ...highPlStocks.map(s => Object.assign({{}}, s, {{ edgePlacement: 'right_high' }}))
+          ...lossStocks.map(s => Object.assign({{}}, s, {{ edgePlacement: 'left_loss' }}))
         ];
       }}
 
@@ -4251,7 +4248,7 @@ html_template = f"""<!DOCTYPE html>
       const innerH = h - padT - padB;
 
       const baseXMin = 0;
-      const baseXMax = isPl ? 25.0 : 25.0;
+      const baseXMax = isPl ? 35.0 : 25.0;
       const baseYMin = 20.0;
       const baseYMax = 100.0;
 
@@ -4336,14 +4333,10 @@ html_template = f"""<!DOCTYPE html>
           </g>
 
           ${{showMatrixEdges ? `
-          <!-- Faixas Indicadoras de Bordas (Prejuízo e Múltiplos > 25x) -->
+          <!-- Faixa Indicadora de Borda Esquerda (Prejuízo LTM) -->
           <rect x="${{padL}}" y="${{padT}}" width="26" height="${{innerH}}" fill="#FEE2E2" opacity="0.38" />
           <line x1="${{padL + 26}}" y1="${{padT}}" x2="${{padL + 26}}" y2="${{padT + innerH}}" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,3" />
           <text x="${{padL + 17}}" y="${{padT + innerH / 2}}" text-anchor="middle" fill="#991B1B" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(-90 ${{padL + 17}} ${{padT + innerH / 2}})">BORDA: PREJUÍZO LTM</text>
-
-          <rect x="${{padL + innerW - 26}}" y="${{padT}}" width="26" height="${{innerH}}" fill="#FEF3C7" opacity="0.38" />
-          <line x1="${{padL + innerW - 26}}" y1="${{padT}}" x2="${{padL + innerW - 26}}" y2="${{padT + innerH}}" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="3,3" />
-          <text x="${{padL + innerW - 9}}" y="${{padT + innerH / 2}}" text-anchor="middle" fill="#92400E" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(90 ${{padL + innerW - 9}} ${{padT + innerH / 2}})">BORDA: P/L &gt; 25x</text>
           ` : ''}}
         </g>
       `;
@@ -4382,7 +4375,8 @@ html_template = f"""<!DOCTYPE html>
       let xStep = 5;
       if (xSpan <= 8) xStep = 1;
       else if (xSpan <= 15) xStep = 2;
-      else if (xSpan <= 25) xStep = 5;
+      else if (xSpan <= 40) xStep = 5;
+      else xStep = 10;
 
       const firstTick = Math.ceil(curXMin / xStep) * xStep;
       for (let v = firstTick; v <= curXMax; v += xStep) {{
@@ -4498,8 +4492,7 @@ html_template = f"""<!DOCTYPE html>
 
       stocks.forEach(s => {{
         const isLeftLoss = (s.edgePlacement === 'left_loss');
-        const isRightHigh = (s.edgePlacement === 'right_high');
-        const isEdge = isLeftLoss || isRightHigh;
+        const isEdge = isLeftLoss;
 
         const xVal = isPl ? s.pl : s.earnings_yield_pct;
         const yVal = s.quality_score;
@@ -4513,17 +4506,15 @@ html_template = f"""<!DOCTYPE html>
         if (s.run_rate_div_pct && s.run_rate_div_pct >= 15.0) nExp++;
         if (s.div_yield && s.div_yield > 0.06) nDiv++;
 
+        const r = calcRadius(s);
+
         let cx, cy;
         if (isLeftLoss) {{
           cx = padL + 13;
           cy = scaleY(Math.max(20, Math.min(100, s.quality_score || 50)));
           visibleCount++;
-        }} else if (isRightHigh) {{
-          cx = padL + innerW - 13;
-          cy = scaleY(Math.max(20, Math.min(100, s.quality_score || 50)));
-          visibleCount++;
         }} else {{
-          cx = scaleX(xVal);
+          cx = Math.min(scaleX(xVal), padL + innerW - r - 3);
           cy = scaleY(yVal);
           // Contador de ativos no campo visual atual
           if (xVal >= curXMin - 2 && xVal <= curXMax + 2 && yVal >= curYMin - 5 && yVal <= curYMax + 5) {{
@@ -4531,15 +4522,10 @@ html_template = f"""<!DOCTYPE html>
           }}
         }}
 
-        const r = calcRadius(s);
-
         let fillColor, strokeColor;
         if (isLeftLoss) {{
           fillColor = '#E11D48';
           strokeColor = '#9F1239';
-        }} else if (isRightHigh) {{
-          fillColor = '#D97706';
-          strokeColor = '#78350F';
         }} else {{
           const colConfig = getBubbleColor(s);
           fillColor = colConfig.fill;
@@ -4588,15 +4574,11 @@ html_template = f"""<!DOCTYPE html>
           `;
         }}
 
-        // Anel indicador para ativos fixados na borda
+        // Anel indicador para ativos fixados na borda esquerda (Prejuízo)
         let edgeRingHtml = '';
         if (isLeftLoss) {{
           edgeRingHtml = `
             <circle cx="${{cx}}" cy="${{cy}}" r="${{r + 4}}" fill="none" stroke="#F43F5E" stroke-width="1.8" stroke-dasharray="2,2" opacity="0.9" class="pointer-events-none" />
-          `;
-        }} else if (isRightHigh) {{
-          edgeRingHtml = `
-            <circle cx="${{cx}}" cy="${{cy}}" r="${{r + 4}}" fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-dasharray="2,2" opacity="0.9" class="pointer-events-none" />
           `;
         }}
 
@@ -4796,9 +4778,7 @@ html_template = f"""<!DOCTYPE html>
       const expPL = calcFairPL(s.quality_score);
       const plDisplay = s.edgePlacement === 'left_loss' 
         ? '<span class="text-rose-700 font-bold">Prejuízo LTM (Fixado na borda esquerda)</span>' 
-        : (s.edgePlacement === 'right_high' 
-            ? `${{formatMultiple(s.pl)}} <span class="text-amber-800 font-bold">(&gt; 25x • Borda direita)</span>` 
-            : formatMultiple(s.pl));
+        : formatMultiple(s.pl);
 
       tt.innerHTML = `
         <div class="font-bold text-slate-900 text-sm flex items-center justify-between gap-2">
@@ -4873,7 +4853,7 @@ html_template = f"""<!DOCTYPE html>
         if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {{
           hasMovedDuringPan = true;
           const isPl = currentXMetric === 'pl';
-          const baseXMax = isPl ? 25.0 : 25.0;
+          const baseXMax = isPl ? 35.0 : 25.0;
           const baseXMin = 0;
           const baseYMax = 100.0;
           const baseYMin = 20.0;
@@ -4922,7 +4902,7 @@ html_template = f"""<!DOCTYPE html>
         if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {{
           hasMovedDuringPan = true;
           const isPl = currentXMetric === 'pl';
-          const baseXMax = isPl ? 25.0 : 25.0;
+          const baseXMax = isPl ? 35.0 : 25.0;
           const baseXMin = 0;
           const baseYMax = 100.0;
           const baseYMin = 20.0;
