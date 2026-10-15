@@ -1443,6 +1443,28 @@ html_template = f"""<!DOCTYPE html>
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
     }}
 
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência e Trava de P/L <= 12x
+    function sanitizeStockValuation(s) {{
+      if (!s) return;
+      const expPL = calcFairPL(s.quality_score);
+      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
+      const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
+      if ((isAbove || isLowPL) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
+        if ((s.pl && s.pl <= 10.0) || isAbove) {{
+          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
+          s.entry_color = '#10B981';
+        }} else {{
+          s.entry_tag = 'PRECO_JUSTO';
+          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_color = '#F59E0B';
+        }}
+      }}
+    }}
+    if (typeof APP_DATA !== 'undefined' && APP_DATA && APP_DATA.stocks) {{
+      APP_DATA.stocks.forEach(sanitizeStockValuation);
+    }}
+
     // Inicialização do cabeçalho
     function updateHeaderInfo() {{
       const ts = document.getElementById('auditTimestamp');
@@ -2365,10 +2387,10 @@ html_template = f"""<!DOCTYPE html>
         ${{currentSearchResults.map((s, idx) => {{
           const isHigh = idx === searchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : (s.quality_score >= 50 ? 'Tier 3' : 'Tier 4')));
           const tierClass = tier === 'Tier 1' 
             ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : (tier === 'Tier 3' ? 'bg-slate-100 text-slate-700 border border-slate-200' : 'bg-rose-50 text-rose-700 border border-rose-200'));
           const scoreClass = s.quality_score >= 80 
             ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
             : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');
@@ -5084,7 +5106,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="flex flex-col items-end gap-1.5">
             <span class="px-3 py-1 rounded-full font-mono font-bold text-xs sm:text-sm border ${{headScoreColor}} shadow-2xs flex items-center gap-1.5">
               <span>SCORE ${{formatNumberBR(s.quality_score, 1)}}</span>
-              <span class="text-[10px] font-mono opacity-85">• ${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}}</span>
+              <span class="text-[10px] font-mono opacity-85">• ${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'))}}</span>
             </span>
             <div class="text-[11px] font-mono text-slate-600 font-medium mt-0.5">
               P/L Teórico: <b class="text-slate-900 font-bold tabular-nums">${{formatMultiple(calcFairPL(s.quality_score))}}</b>

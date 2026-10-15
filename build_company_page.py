@@ -587,6 +587,28 @@ def build_company_page():
       return 3.5 + 20.0 * Math.pow(norm, 1.6);
     }}
 
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência e Trava de P/L <= 12x
+    function sanitizeStockValuation(s) {{
+      if (!s) return;
+      const expPL = calcFairPL(s.quality_score);
+      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
+      const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
+      if ((isAbove || isLowPL) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
+        if ((s.pl && s.pl <= 10.0) || isAbove) {{
+          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
+          s.entry_color = '#10B981';
+        }} else {{
+          s.entry_tag = 'PRECO_JUSTO';
+          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_color = '#F59E0B';
+        }}
+      }}
+    }}
+    if (typeof APP_DATA !== 'undefined' && APP_DATA && APP_DATA.stocks) {{
+      APP_DATA.stocks.forEach(sanitizeStockValuation);
+    }}
+
     // Rótulos e Categorias Institucionais Munger da Ação (Status Pills Minimalistas)
     function getStockCategories(s) {{
       const cats = [];
@@ -941,7 +963,7 @@ def build_company_page():
       const roePct = s.roe ? (s.roe * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
       const roicPct = s.roic ? (s.roic * 100).toFixed(1).replace('.', ',') + '%' : null;
       const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0.0%';
-      const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : 'No Moat (Tier 3)');
+      const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'));
 
       if (isFin) {{
         return `<b>${{s.empresa}} (${{s.ticker}})</b> é uma instituição financeira/holding regulada pelas métricas do Banco Central, avaliada no <b>${{tierShort}}</b> com nota <b>${{s.quality_score.toFixed(1)}}/100</b>. Entrega um retorno patrimonial (ROE) robusto de <b>${{roePct}}</b> ao ano e distribui dividendos regulares de <b>${{dyPct}}</b> a.a. Seu valuation atual oferece <b>${{s.entry_status}}</b> frente à renda fixa pública.`;
@@ -1325,7 +1347,7 @@ def build_company_page():
             <div class="flex flex-col items-center justify-center p-3 rounded-2xl border ${{scoreBadgeClass}} min-w-[95px]">
               <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">Qualidade</span>
               <span class="text-2xl font-bold font-mono leading-none my-0.5 tabular-nums">${{formatNumberBR(s.quality_score, 1)}}</span>
-              <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : 'Tier 3 (No Moat)')}}</span>
+              <span class="text-[9px] font-mono font-semibold text-slate-700">${{s.quality_score >= 80 ? 'Tier 1 (Wide Moat)' : (s.quality_score >= 65 ? 'Tier 2 (Narrow Moat)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'))}}</span>
             </div>
           </div>
         </div>
@@ -1679,6 +1701,9 @@ def build_company_page():
         const minRent = Math.min(...vals) * 100;
         const maxRent = Math.max(...vals) * 100;
 
+        const isCyclicAsset = (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0);
+        const rentCycleTag = isCyclicAsset ? 'Sensível ao ciclo ⚠️' : (minRent >= 10 ? 'Resiliente mesmo em crise' : 'Oscilação moderada');
+
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Média 5 Anos (${{s.is_financial ? 'ROE' : 'ROIC'}})</span>
@@ -1688,7 +1713,7 @@ def build_company_page():
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Pior Ano (Fundo de Ciclo)</span>
             <div class="text-base font-bold font-mono text-slate-900 mt-1">${{formatNumberBR(minRent, 1, '%')}}</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{minRent >= 10 ? 'Resiliente mesmo em crise' : 'Sensível ao ciclo'}}</span>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{rentCycleTag}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Melhor Ano (Pico)</span>
@@ -2012,6 +2037,13 @@ def build_company_page():
         verdictBadgeClass = 'bg-rose-600 text-white border-rose-700';
       }}
 
+      const h = s.historical_5y || {{}};
+      const isCyclicAsset = (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Cíclica') || h.estabilidade_margens.includes('Sensível ao Ciclo'))) || (s.roe !== null && s.roe < 0);
+      const isDefensiveCycle = h && h.estabilidade_margens && (h.estabilidade_margens.includes('Resiliente') || h.estabilidade_margens.includes('Alta Estabilidade'));
+      const cycleConsistencyText = isCyclicAsset 
+        ? 'Sensível ao Ciclo ⚠️' 
+        : (isDefensiveCycle ? 'Resiliente / Recorrente 🟢' : (!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'));
+
       document.getElementById('companyCfaVerdictBox').innerHTML = `
         <div class="p-4 rounded-xl border ${{verdictBgClass}} font-sans space-y-2.5 transition-colors duration-200">
           <div class="flex items-center justify-between">
@@ -2030,7 +2062,7 @@ def build_company_page():
             <span>•</span>
             <span>Solvência: <b class="text-slate-900">${{d.divida_liquida <= 0 ? 'Caixa Líquido Positivo' : 'Endividamento sob Controle'}}</b></span>
             <span>•</span>
-            <span>Consistência de Ciclo: <b class="text-slate-900">${{!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'}}</b></span>
+            <span>Consistência de Ciclo: <b class="text-slate-900">${{cycleConsistencyText}}</b></span>
           </div>
         </div>
       `;
@@ -2507,10 +2539,10 @@ def build_company_page():
         ${{companySearchResults.map((s, idx) => {{
           const isHigh = idx === companySearchHighlightedIndex;
           const bg = isHigh ? 'bg-emerald-50/90 border-l-4 border-emerald-600' : 'hover:bg-slate-50';
-          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : 'Tier 3'));
+          const tier = s.tier || (s.quality_score >= 80 ? 'Tier 1' : (s.quality_score >= 65 ? 'Tier 2' : (s.quality_score >= 50 ? 'Tier 3' : 'Tier 4')));
           const tierClass = tier === 'Tier 1' 
             ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200');
+            : (tier === 'Tier 2' ? 'bg-amber-50 text-amber-800 border border-amber-200' : (tier === 'Tier 3' ? 'bg-slate-100 text-slate-700 border border-slate-200' : 'bg-rose-50 text-rose-700 border border-rose-200'));
           const scoreClass = s.quality_score >= 80 
             ? 'bg-emerald-100 text-emerald-950 border border-emerald-300' 
             : (s.quality_score >= 65 ? 'bg-amber-100 text-amber-950 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-300');

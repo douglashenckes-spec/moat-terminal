@@ -87,9 +87,9 @@ def fetch_fundamentus_raw_universe() -> Tuple[pd.DataFrame, str]:
     Retorna o DataFrame bruto e o timestamp da coleta.
     """
     url = "https://www.fundamentus.com.br/resultado.php"
-    logger.info("Requisitando dados completos do Fundamentus: %s", url)
-
-    response = requests.get(url, headers=HTTP_HEADERS, timeout=15)
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    response = requests.get(url, headers=HTTP_HEADERS, timeout=15, verify=False)
     response.raise_for_status()
     response.encoding = "latin1"
 
@@ -284,22 +284,32 @@ def get_cached_universe(force_refresh: bool = False) -> Tuple[pd.DataFrame, str]
             logger.warning("Falha ao ler cache local (%s), realizando nova coleta.", e)
 
     # Coleta nova
-    raw_df, audit_timestamp = fetch_fundamentus_raw_universe()
-    clean_df = normalize_fundamentus_dataframe(raw_df, audit_timestamp)
-
     try:
-        cache_payload = {
-            "audit_timestamp": audit_timestamp,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-            "records": clean_df.to_dict(orient="records"),
-        }
-        with open(CACHE_FILE, "w", encoding="utf-8") as f:
-            json.dump(cache_payload, f, ensure_ascii=False, indent=2)
-        logger.info("Cache local gravado em %s.", CACHE_FILE)
-    except Exception as e:
-        logger.error("Erro ao gravar cache: %s", e)
+        raw_df, audit_timestamp = fetch_fundamentus_raw_universe()
+        clean_df = normalize_fundamentus_dataframe(raw_df, audit_timestamp)
 
-    return clean_df, audit_timestamp
+        try:
+            cache_payload = {
+                "audit_timestamp": audit_timestamp,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "records": clean_df.to_dict(orient="records"),
+            }
+            with open(CACHE_FILE, "w", encoding="utf-8") as f:
+                json.dump(cache_payload, f, ensure_ascii=False, indent=2)
+            logger.info("Cache local gravado em %s.", CACHE_FILE)
+        except Exception as e:
+            logger.error("Erro ao gravar cache: %s", e)
+
+        return clean_df, audit_timestamp
+    except Exception as err:
+        if os.path.exists(CACHE_FILE):
+            logger.warning("Falha ao coletar dados frescos do Fundamentus (%s), usando cache existente.", err)
+            with open(CACHE_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            records = data.get("records", [])
+            audit_timestamp = data.get("audit_timestamp", get_current_timestamp_brt())
+            return pd.DataFrame(records), audit_timestamp
+        raise
 
 
 def fetch_fundamentus_ticker_details(ticker: str, force_refresh: bool = False) -> Dict[str, Any]:
@@ -326,9 +336,9 @@ def fetch_fundamentus_ticker_details(ticker: str, force_refresh: bool = False) -
             return cached_entry["data"]
 
     url = f"https://www.fundamentus.com.br/detalhes.php?papel={ticker}"
-    logger.info("Requisitando detalhes aprofundados para %s: %s", ticker, url)
-
-    response = requests.get(url, headers=HTTP_HEADERS, timeout=15)
+    import urllib3
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    response = requests.get(url, headers=HTTP_HEADERS, timeout=15, verify=False)
     response.raise_for_status()
     response.encoding = "latin1"
 

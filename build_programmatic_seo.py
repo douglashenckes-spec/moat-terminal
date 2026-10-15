@@ -1236,12 +1236,32 @@ def build_programmatic_seo():
         cotacao = float(s.get("cotacao", 0) or 0)
         quality_score = float(s.get("quality_score", 0) or 0)
         quality_tier = s.get("quality_tier", "TIER 2")
+        if "Operação Medíocre" in quality_tier or "Concorrência Predatória" in quality_tier:
+            quality_tier = "Tier 3: Sem Fosso Claro / Sensível ao Ciclo"
+        elif "Destruidor de Valor" in quality_tier or "Risco Estrutural" in quality_tier:
+            quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
         quality_tag = s.get("quality_tag", "EQUILIBRADA")
         entry_status = s.get("entry_status", "Neutro")
         entry_tag = s.get("entry_tag", "NEUTRO")
         roic_val = s.get("roic") or s.get("roe") or 0
         roe_val = s.get("roe") or 0
         pl_val = s.get("pl")
+
+        # Trava de Valuation Munger (Caso LAVV3 e outros):
+        # Nunca exibir "MÚLTIPLOS ELEVADOS" se o ativo estiver Acima da Curva (Desconto) ou se P/L LTM e Run-Rate <= 12x
+        exp_pl = 3.5 + 20.0 * (((max(20.0, min(100.0, quality_score)) - 20.0) / 80.0) ** 1.6)
+        is_above_curve = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < exp_pl)
+        pl_rr = s.get("pl_run_rate") or det.get("pl_run_rate")
+        is_low_pl = (pl_val is not None and float(pl_val) > 0 and float(pl_val) <= 12.0 and (pl_rr is None or float(pl_rr) <= 12.0))
+
+        if (is_above_curve or is_low_pl) and (entry_tag == "ESTICADA" or "ELEVADOS" in str(entry_status)):
+            if (pl_val is not None and float(pl_val) <= 10.0) or is_above_curve:
+                entry_tag = "ASSIMETRIA_FAVORAVEL"
+                entry_status = "🟢 MÚLTIPLOS ATRATIVOS"
+            else:
+                entry_tag = "PRECO_JUSTO"
+                entry_status = "🟡 VALUATION EM LINHA"
+
         pvp_val = s.get("pvp")
         dy_val = float(s.get("div_yield") or 0)
         ey_spread = float(s.get("ey_spread") or 0)
@@ -1494,7 +1514,7 @@ def build_programmatic_seo():
 
         # Pre-rendered Hero Card HTML para rastreadores
         entry_badge_bg = "bg-emerald-600 text-white" if entry_tag == "ASSIMETRIA_FAVORAVEL" else ("bg-amber-500 text-white" if entry_tag == "PRECO_JUSTO" else "bg-slate-700 text-white")
-        tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else "Tier 3 (No Moat)")
+        tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else ("Tier 3 (Sem Fosso Claro / Sensível ao Ciclo)" if quality_score >= 50 else "Tier 4 (Fragilidade Operacional / Risco de Capital)"))
 
         decomposition_html = generate_moat_decomposition_html(s)
         badges_html = generate_stock_badges_html(s)

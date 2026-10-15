@@ -118,7 +118,15 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     lucro_ltm = float(det_entry.get("lucro_liq_12m") or (row_dict.get("lucro_liq") if row_dict.get("lucro_liq") is not None else 0.0))
 
     # 4. ROIC / ROE Atual (Fundamentus)
-    roic_cur = float(row_dict.get("roic") or row_dict.get("roe") or 0.12)
+    setor_name_init = (row_dict.get("setor") or det_entry.get("setor") or "").strip()
+    subsetor_name_init = (row_dict.get("subsetor") or det_entry.get("subsetor") or "").strip()
+    full_sector_init = f"{setor_name_init} {subsetor_name_init}".lower()
+    is_fin_init = bool(row_dict.get("is_financial")) or any(k in full_sector_init for k in ["segur", "previdência", "banco", "financeiro", "intermediação"]) or ticker in {"ITSA4", "ITSA3", "BBSE3", "CXSE3", "PSSA3"}
+
+    if is_fin_init:
+        roic_cur = float(row_dict.get("roe") or 0.15)
+    else:
+        roic_cur = float(row_dict.get("roic") if row_dict.get("roic") is not None else (row_dict.get("roe") or 0.12))
 
     # 5. Dividend Yield Atual e Cotação
     dy_cur = float(row_dict.get("div_yield") or 0.0)
@@ -210,18 +218,50 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     cagr_rec_calc = max(-0.50, min(0.80, cagr_rec_calc))
     cagr_lucro = max(-0.50, min(0.80, cagr_lucro))
 
-    # Estabilidade real das margens líquidas (Desvio Padrão Real)
-    margins = [(lucro_series[i] / rev_series[i]) for i in range(5) if rev_series[i] > 0]
-    if len(margins) >= 4:
-        m_std = float(pd.Series(margins).std())
-        if m_std < 0.03:
+    # Estabilidade real das margens líquidas & Regras Setoriais de Ciclo (Regra 2)
+    setor_name = (row_dict.get("setor") or det_entry.get("setor") or "").strip()
+    subsetor_name = (row_dict.get("subsetor") or det_entry.get("subsetor") or "").strip()
+    full_sector = f"{setor_name} {subsetor_name}".lower()
+
+    # Checar prejuízo recente ou histórico negativo
+    roe_val = row_dict.get("roe")
+    pl_val = row_dict.get("pl")
+    has_recent_loss = (roe_val is not None and roe_val < 0) or (pl_val is not None and pl_val < 0) or (lucro_series and lucro_series[-1] < 0)
+
+    # 1. Checar se pertence a setores cíclicos pesados (Regra 2c)
+    cyclical_keywords = ["siderurg", "metalurg", "minera", "material de transporte", "material rodoviário", "máquinas e equipamentos", "petróleo", "combustív", "construção civil", "incorporaç", "químic", "papel e celulose"]
+    cyclical_tickers = {"RAPT4", "ROMI3", "USIM3", "USIM5", "CSNA3", "GGBR4", "GGBR3", "GOAU4", "GOAU3", "VALE3", "TUPY3", "FRAS3", "POMO4", "POMO3", "FESA4", "CBAV3", "KEPL3", "PRIO3", "PETR4", "PETR3", "RECV3", "BRAV3", "LAVV3", "CYRE3", "DIRR3", "MRVE3", "TEND3", "EZTC3", "PLPL3", "CURY3"}
+    is_cyclical = any(k in full_sector for k in cyclical_keywords) or (ticker in cyclical_tickers) or has_recent_loss
+
+    # 2. Checar se pertence a setores perenes / defensivos (Regra 2b)
+    defensive_keywords = ["segur", "previdência", "banco", "financeiro", "intermediação", "energia elétrica", "transmiss", "distribui", "saneam", "água"]
+    defensive_tickers = {"CXSE3", "BBSE3", "PSSA3", "ITUB4", "ITUB3", "BBDC4", "BBDC3", "BBAS3", "SANB11", "EGIE3", "TAEE11", "TAEE4", "TAEE3", "TRPL4", "ISAE4", "CPFE3", "EQTL3", "SAPR11", "SAPR4", "SBSP3", "CSMG3", "VIVT3", "TIMS3"}
+    has_positive_3y = len(roic_series) >= 3 and all(r > 0 for r in roic_series[-3:])
+    is_defensive = (any(k in full_sector for k in defensive_keywords) or (ticker in defensive_tickers)) and has_positive_3y and not has_recent_loss
+
+    if is_defensive:
+        # Priorizar Resiliente / Consistência de Ciclo para defensivas lucrativas
+        margins = [(lucro_series[i] / rev_series[i]) for i in range(5) if rev_series[i] > 0]
+        if len(margins) >= 4 and float(pd.Series(margins).std()) < 0.03:
             estabilidade = "Alta Estabilidade 💎"
-        elif m_std < 0.07:
-            estabilidade = "Resiliente 🟢"
         else:
-            estabilidade = "Cíclica / Volátil ⚠️"
+            estabilidade = "Resiliente 🟢"
+    elif is_cyclical:
+        # Cíclicas, bens de capital pesados ou empresas com prejuízo recente
+        estabilidade = "Cíclica / Sensível ao Ciclo ⚠️"
     else:
-        estabilidade = "Resiliente 🟢"
+        # Demais setores por variabilidade estatística
+        margins = [(lucro_series[i] / rev_series[i]) for i in range(5) if rev_series[i] > 0]
+        if len(margins) >= 4:
+            m_std = float(pd.Series(margins).std())
+            if m_std < 0.03:
+                estabilidade = "Alta Estabilidade 💎"
+            elif m_std < 0.07:
+                estabilidade = "Resiliente 🟢"
+            else:
+                estabilidade = "Cíclica / Sensível ao Ciclo ⚠️"
+        else:
+            estabilidade = "Resiliente 🟢"
 
     return {
         "years": years,
@@ -300,13 +340,15 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
 
         ticker_hist = get_historical_cache().get(ticker)
         q = calculate_business_quality(row_dict, sector, ticker_hist)
-        v = evaluate_entry_valuation(row_dict, sector)
-        bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)
 
         lucro_run_rate = (4.0 * l3) if l3 is not None else None
         pl_run_rate = None
         if mcap is not None and lucro_run_rate is not None and lucro_run_rate > 0:
             pl_run_rate = round(mcap / lucro_run_rate, 2)
+        row_dict["pl_run_rate"] = pl_run_rate
+
+        v = evaluate_entry_valuation(row_dict, sector, quality_score=q.get("quality_score"))
+        bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)
 
         run_rate_div_pct = None
         is_distorted = False

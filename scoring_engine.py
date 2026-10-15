@@ -319,10 +319,10 @@ def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Opti
         quality_tier = "Tier 2: Empresa Sólida / Saudável"
         quality_tag = "SOLIDA"
     elif quality_score >= 50.0:
-        quality_tier = "Tier 3: Operação Medíocre / Concorrência Predatória"
+        quality_tier = "Tier 3: Sem Fosso Claro / Sensível ao Ciclo"
         quality_tag = "MEDIOCRE"
     else:
-        quality_tier = "Tier 4: Risco Estrutural / Destruidor de Valor"
+        quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
         quality_tag = "RISCO_ESTRUTURAL"
 
     return {
@@ -427,7 +427,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     # Salvaguarda Munger: Empresas com Passivo a Descoberto NUNCA podem passar de Tier 4
     if has_negative_equity:
         quality_score = min(35.0, round(raw_score, 1))
-        quality_tier = "Tier 4: Risco Estrutural / Destruidor de Valor"
+        quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
         quality_tag = "RISCO_ESTRUTURAL"
     else:
         quality_score = round(max(5.0, min(92.5, raw_score)), 1)
@@ -444,10 +444,10 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             quality_tier = "Tier 2: Empresa Sólida / Saudável"
             quality_tag = "SOLIDA"
         elif quality_score >= 50.0:
-            quality_tier = "Tier 3: Operação Medíocre / Concorrência Predatória"
+            quality_tier = "Tier 3: Sem Fosso Claro / Sensível ao Ciclo"
             quality_tag = "MEDIOCRE"
         else:
-            quality_tier = "Tier 4: Risco Estrutural / Destruidor de Valor"
+            quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
             quality_tag = "RISCO_ESTRUTURAL"
 
     return {
@@ -471,7 +471,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     }
 
 
-def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "") -> Dict[str, Any]:
+def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality_score: float = None) -> Dict[str, Any]:
     """
     Filtro 2: Modelagem Fundamentalista de Múltiplos e Solvência:
     - Spread vs NTN-B (Equity Risk Premium Real)
@@ -600,13 +600,33 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "") -> Dict
         elif pl > 15.0 or (ev_ebitda is not None and ev_ebitda > 10.0) or ey_spread < 0.0:
             is_stretched = True
 
+    # Regra de correção 1 (Munger Valuation Guard - Caso LAVV3 e outros):
+    # Nunca classificar como "MÚLTIPLOS ELEVADOS" se:
+    # a) O ativo estiver classificado como "Acima da Curva (Desconto)", ou seja, P/L < calc_fair_pl(quality_score)
+    # b) OU se o P/L LTM e o P/L Run-Rate forem positivos e menores ou iguais a 12,0x
+    qs = quality_score if quality_score is not None else row.get("quality_score")
+    exp_pl = (3.5 + 20.0 * (((max(20.0, min(100.0, float(qs))) - 20.0) / 80.0) ** 1.6)) if qs is not None else 15.38
+    is_above_curve = (pl is not None and pl > 0 and pl < exp_pl)
+    
+    pl_rr = row.get("pl_run_rate")
+    if pl_rr is None:
+        det = row.get("details", {}) or {}
+        pl_rr = det.get("pl_run_rate")
+    is_low_pl = (pl is not None and pl > 0 and pl <= 12.0 and (pl_rr is None or pl_rr <= 12.0))
+
+    if is_above_curve or is_low_pl:
+        is_stretched = False
+        if not is_asymmetry:
+            if (pl is not None and pl <= 10.0) or (ey_spread is not None and ey_spread >= 3.0) or is_above_curve:
+                is_asymmetry = True
+
     if is_asymmetry:
-        status = "🟢 MÚLTIPLOS DESCONTADOS"
+        status = "🟢 MÚLTIPLOS ATRATIVOS"
         tag = "ASSIMETRIA_FAVORAVEL"
         color = "#10B981"
         rationale = (
             f"Earnings Yield de {ey_pct:.1f}% confere spread de +{ey_spread:.1f}% sobre a NTN-B real (6,5%). "
-            f"P/L de {pl:.1f}x negocia abaixo da média histórica do setor e do mercado."
+            f"P/L de {pl:.1f}x negocia abaixo da curva de referência e da média histórica do setor."
         )
     elif is_stretched:
         status = "🔴 MÚLTIPLOS ELEVADOS"
