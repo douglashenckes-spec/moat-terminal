@@ -1550,9 +1550,6 @@
       const dyVal = Number(s.div_yield || 0);
       const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
       const dleVal = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      const detVal = s.details || {};
-      const dlVal = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
-      const isNetCashVal = (dlVal !== null && dlVal < 0) || (dleVal !== null && dleVal < 0);
       const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
       const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
       const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
