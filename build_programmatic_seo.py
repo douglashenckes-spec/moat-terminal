@@ -1366,8 +1366,8 @@ def build_programmatic_seo():
                 entry_color = "#10B981"
             else:
                 entry_tag = "ASSIMETRIA_FAVORAVEL"
-                entry_status = "🟢 DESCONTO RELATIVO AO MOAT"
-                entry_color = "#10B981"
+                entry_status = "🔵 DESCONTO RELATIVO AO MOAT"
+                entry_color = "#0284C7"
         else:
             if pl_val is not None and float(pl_val) > 15.0:
                 entry_tag = "ESTICADA"
@@ -1634,7 +1634,14 @@ def build_programmatic_seo():
     </nav>"""
 
         # Pre-rendered Hero Card HTML para rastreadores
-        entry_badge_bg = "bg-emerald-600 text-white" if entry_tag == "ASSIMETRIA_FAVORAVEL" else ("bg-amber-500 text-white" if entry_tag == "PRECO_JUSTO" else "bg-slate-700 text-white")
+        if "DESCONTO RELATIVO" in str(entry_status):
+            entry_badge_bg = "bg-blue-600 text-white font-bold"
+        elif entry_tag == "ASSIMETRIA_FAVORAVEL":
+            entry_badge_bg = "bg-emerald-600 text-white font-bold"
+        elif entry_tag == "PRECO_JUSTO":
+            entry_badge_bg = "bg-amber-500 text-white font-bold"
+        else:
+            entry_badge_bg = "bg-rose-600 text-white font-bold"
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else ("Tier 3 (Sem Fosso Claro / Sensível ao Ciclo)" if quality_score >= 50 else "Tier 4 (Fragilidade Operacional / Risco de Capital)"))
 
         curve_badge_html = (

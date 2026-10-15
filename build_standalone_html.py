@@ -1482,14 +1482,24 @@ html_template = f"""<!DOCTYPE html>
       const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
       const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
 
-      if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {{
-        if (s.pl && s.pl <= 10.0) {{
+      if (isAbove) {{
+        if (s.pl && s.pl <= 11.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 VALUATION ATRATIVO';
+          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
         }} else {{
+          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
+          s.entry_color = '#0284C7';
+        }}
+      }} else {{
+        if (s.pl && s.pl > 15.0) {{
+          s.entry_tag = 'ESTICADA';
+          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+          s.entry_color = '#EF4444';
+        }} else {{
           s.entry_tag = 'PRECO_JUSTO';
-          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
           s.entry_color = '#F59E0B';
         }}
       }}

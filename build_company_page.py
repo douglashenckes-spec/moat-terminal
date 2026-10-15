@@ -1437,10 +1437,10 @@ def build_company_page():
           entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
         }} else {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 DESCONTO RELATIVO AO MOAT';
-          s.entry_color = '#10B981';
-          heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
-          entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
+          s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
+          s.entry_color = '#0284C7';
+          heroBgClass = 'bg-sky-50/70 border-sky-300 shadow-xs';
+          entryBadgeClass = 'bg-sky-600 text-white font-bold shadow-2xs';
         }}
       }} else {{
         if (s.pl && s.pl > 15.0) {{

@@ -687,10 +687,11 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
     if is_above_curve:
         if pl is not None and pl <= 11.0:
             status = "🟢 MÚLTIPLOS ATRATIVOS"
+            color = "#10B981"
         else:
-            status = "🟢 DESCONTO RELATIVO AO MOAT"
+            status = "🔵 DESCONTO RELATIVO AO MOAT"
+            color = "#0284C7"
         tag = "ASSIMETRIA_FAVORAVEL"
-        color = "#10B981"
         if is_net_cash_bonus:
             rationale = (
                 f"Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de {eveb_num:.1f}x (<= 6,0x), "

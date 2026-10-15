@@ -106,10 +106,11 @@ def update_dataset():
         if is_above_curve:
             if pl_val is not None and float(pl_val) <= 11.0:
                 s["entry_status"] = "🟢 MÚLTIPLOS ATRATIVOS"
+                s["entry_color"] = "#10B981"
             else:
-                s["entry_status"] = "🟢 DESCONTO RELATIVO AO MOAT"
+                s["entry_status"] = "🔵 DESCONTO RELATIVO AO MOAT"
+                s["entry_color"] = "#0284C7"
             s["entry_tag"] = "ASSIMETRIA_FAVORAVEL"
-            s["entry_color"] = "#10B981"
         else:
             if pl_val is not None and float(pl_val) > 15.0:
                 s["entry_status"] = "🔴 MÚLTIPLOS EXIGENTES"
