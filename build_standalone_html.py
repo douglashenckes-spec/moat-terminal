@@ -1110,10 +1110,15 @@ html_template = f"""<!DOCTYPE html>
               <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão 2T26)</option>
               <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração 2T26)</option>
               <option value="CAT_NET_CASH">🛡️ Caixa Líquido (Dívida Zero)</option>
+              <option value="CAT_NET_CASH_STRUCT">🛡️ Caixa Líquido Estrutural</option>
               <option value="CAT_HIGH_DEBT">🚨 Alavancagem Alta (Crítica > 2.5x)</option>
+              <option value="CAT_OP_POSITIVE_DEBT_PRESSURE">🏭 Operação Positiva • Pressão Fin.</option>
               <option value="CAT_CLEAN_EARNINGS">💎 Lucro Limpo &amp; Recorrente</option>
               <option value="CAT_HIGH_ROIC">🏰 Super ROIC (≥ 18%)</option>
               <option value="CAT_GRAHAM">📐 Desconto Graham</option>
+              <option value="CAT_GRAHAM_ALERT">⚠️ Graham c/ Alerta</option>
+              <option value="CAT_BAZIN">🎯 Referência Bazin</option>
+              <option value="CAT_BAZIN_WARNING">⚠️ Bazin (Atenção Payout)</option>
               <option value="CAT_SPREAD_NTNB">📈 Prêmio Real sobre NTN-B</option>
               <option value="CAT_ULTRA_CRITIC">🛡️ Máxima Solvência &amp; Resiliência</option>
               <option value="QUAD_ABOVE">✨ Acima da Curva (Desconto Valuation)</option>
@@ -1661,13 +1666,10 @@ html_template = f"""<!DOCTYPE html>
         if (currentFilter === 'CAT_HIGH_ROIC') return (s.roic !== null && s.roic >= 0.18) || (s.is_financial && s.roe >= 0.18);
         if (currentFilter === 'CAT_FINANCIAL') return !!s.is_financial;
         if (currentFilter === 'CAT_GRAHAM') {{
-          const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
-          const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
-          const cot = Number(s.cotacao);
-          if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
-            return Math.sqrt(22.5 * lpa * vpa) > cot * 1.15;
-          }}
-          return false;
+          return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
+        }}
+        if (currentFilter === 'CAT_BAZIN') {{
+          return getStockCategories(s).some(c => c.id === 'CAT_BAZIN');
         }}
 
         // 0. Categoria Ultra-Crítica (Régua Máxima Munger: Qualidade & Solvência)
@@ -1741,7 +1743,21 @@ html_template = f"""<!DOCTYPE html>
       }} else {{
         const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
         const dle = s.div_liq_ebitda;
-        if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {{
+        const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+        const rVal = Number(s.roic || 0);
+        const eVal = Number(s.roe || 0);
+
+        // Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        if (isNetCash && (rVal > eVal + 0.03)) {{
+          cats.push({{
+            id: 'CAT_NET_CASH_STRUCT',
+            group: 'QUALIDADE',
+            label: 'Caixa Líquido Estrutural (ROIC > ROE)',
+            shortLabel: 'Caixa Líq. Estrutural',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          }});
+        }} else if (isNetCash) {{
           cats.push({{
             id: 'CAT_NET_CASH',
             group: 'QUALIDADE',
@@ -1767,6 +1783,19 @@ html_template = f"""<!DOCTYPE html>
             shortLabel: 'Dívida Equilibrada',
             ledClass: 'bg-slate-400',
             bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
+          }});
+        }}
+
+        // Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
+        const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {{
+          cats.push({{
+            id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
+            group: 'QUALIDADE',
+            label: 'Operação Positiva • Pressão Financeira',
+            shortLabel: 'Operação Positiva • Pressão Fin.',
+            ledClass: 'bg-amber-500',
+            bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
           }});
         }}
       }}
@@ -1819,30 +1848,62 @@ html_template = f"""<!DOCTYPE html>
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
+      const rValNum = Number(s.roic || 0);
+      const eValNum = Number(s.roe || 0);
+
       if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
         const graham = Math.sqrt(22.5 * lpa * vpa);
         if (graham > cot * 1.15) {{
-          cats.push({{
-            id: 'CAT_GRAHAM',
-            group: 'VALUATION',
-            label: 'Desconto Graham (Margem > 15%)',
-            shortLabel: 'Desconto Graham',
-            ledClass: 'bg-cyan-500',
-            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-          }});
+          // Regra 1: Trava de Qualidade Graham
+          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12);
+          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 60);
+          if (condG1 || condG2) {{
+            cats.push({{
+              id: 'CAT_GRAHAM_ALERT',
+              group: 'VALUATION',
+              label: 'Graham c/ Alerta (Possível Não-Recorrente)',
+              shortLabel: 'Graham c/ Alerta',
+              ledClass: 'bg-amber-500',
+              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+            }});
+          }} else {{
+            cats.push({{
+              id: 'CAT_GRAHAM',
+              group: 'VALUATION',
+              label: 'Desconto Graham (Margem > 15%)',
+              shortLabel: 'Desconto Graham',
+              ledClass: 'bg-cyan-500',
+              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
+            }});
+          }}
         }}
       }}
       if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {{
         const bazin = (cot * s.div_yield) / 0.06;
         if (bazin > cot * 1.15) {{
-          cats.push({{
-            id: 'CAT_BAZIN',
-            group: 'VALUATION',
-            label: 'Referência Décio Bazin (DY 6%)',
-            shortLabel: 'Ref. Bazin (DY 6%)',
-            ledClass: 'bg-cyan-500',
-            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-          }});
+          // Regra 4: Trava de Segurança Bazin
+          const payoutNum = (s.payout_implicito !== null && s.payout_implicito !== undefined) ? Number(s.payout_implicito) : null;
+          const dleNum = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0);
+          if (isBazinWarning) {{
+            cats.push({{
+              id: 'CAT_BAZIN_WARNING',
+              group: 'VALUATION',
+              label: 'Yield Alto • Atenção ao Payout / Dívida',
+              shortLabel: 'Yield Alto • Atenção ao Payout',
+              ledClass: 'bg-amber-500',
+              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+            }});
+          }} else {{
+            cats.push({{
+              id: 'CAT_BAZIN',
+              group: 'VALUATION',
+              label: 'Referência Décio Bazin (DY 6%)',
+              shortLabel: 'Ref. Bazin (DY 6%)',
+              ledClass: 'bg-cyan-500',
+              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
+            }});
+          }}
         }}
       }}
       if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {{
@@ -2367,6 +2428,31 @@ html_template = f"""<!DOCTYPE html>
         name: 'Desconto Fórmula de Graham',
         icon: '📐',
         rationale: 'Ações sendo negociadas com desconto superior a 15% em relação ao Valor Intrínseco clássico de Benjamin Graham (√(22.5 * LPA * VPA)).'
+      }},
+      'CAT_GRAHAM_ALERT': {{
+        name: 'Graham c/ Alerta (Possível Não-Recorrente)',
+        icon: '⚠️',
+        rationale: 'Ativos que atendem à fórmula teórica de Graham, mas possuem ROE muito superior ao ROIC com ROIC modesto ou P/L muito deprimido sob baixo Score de Qualidade.'
+      }},
+      'CAT_BAZIN': {{
+        name: 'Referência Décio Bazin (DY 6%)',
+        icon: '🎯',
+        rationale: 'Ações com Dividend Yield sustentável ≥ 6,0% negociando abaixo do preço teto histórico de Bazin.'
+      }},
+      'CAT_BAZIN_WARNING': {{
+        name: 'Yield Alto • Atenção ao Payout',
+        icon: '⚠️',
+        rationale: 'Dividend Yield elevado (≥ 6%), porém com Payout superior a 95% ou alavancagem financeira acima de 3,0x EBITDA.'
+      }},
+      'CAT_OP_POSITIVE_DEBT_PRESSURE': {{
+        name: 'Operação Positiva • Pressão Financeira',
+        icon: '🏭',
+        rationale: 'Companhias com operação rentável (ROIC ≥ 8% e EV/EBITDA ≤ 10x), mas com prejuízo contábil recente decorrente de despesas financeiras ou juros da dívida.'
+      }},
+      'CAT_NET_CASH_STRUCT': {{
+        name: 'Caixa Líquido Estrutural',
+        icon: '🛡️',
+        rationale: 'Companhias com balanço desavancado e dívida líquida negativa, onde o ROIC supera amplamente o ROE contábil sem risco de crédito.'
       }},
       'CAT_SPREAD_NTNB': {{
         name: 'Prêmio Real sobre NTN-B',
@@ -3264,6 +3350,16 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Critério estritamente contábil de solvência máxima: risco de liquidez e solvência virtualmente nulo no curto e médio prazo, imunes ao ciclo restritivo da taxa Selic.'
       }},
       {{
+        id: 'CAT_NET_CASH_STRUCT',
+        name: 'Caixa Líquido Estrutural (ROIC > ROE)',
+        shortName: 'Caixa Líq. Estrutural',
+        icon: '🛡️',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Empresas sem endividamento bancário líquido cujo ROIC supera o ROE em mais de 3 p.p., comprovando rentabilidade pura do negócio central.',
+        rationale: 'O caixa líquido dilui aritmeticamente o ROE contábil, mas o ROIC elevado atesta a altíssima produtividade do capital investido na operação.'
+      }},
+      {{
         id: 'CAT_EXPANSION',
         name: 'Lucro Acelerando (Expansão 2T26)',
         shortName: 'Lucro Acelerando',
@@ -3294,6 +3390,16 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Modelo clássico de Value Investing: identifica ativos negociando abaixo do valor intrínseco resultante da combinação ponderada entre lucro por ação e patrimônio líquido auditado.'
       }},
       {{
+        id: 'CAT_GRAHAM_ALERT',
+        name: 'Graham c/ Alerta (Possível Não-Recorrente)',
+        shortName: 'Graham c/ Alerta',
+        icon: '⚠️',
+        color: 'amber',
+        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
+        description: 'Ativos que cumprem o desconto de Graham (> 15%), mas possuem ROE muito maior que o ROIC com rentabilidade modesta ou P/L excessivamente comprimido com baixo Score.',
+        rationale: 'Trava de segurança quantitativa contra falsos positivos inflados por alavancagem financeira ou lucros contábeis pontuais.'
+      }},
+      {{
         id: 'CAT_BAZIN',
         name: 'Referência Décio Bazin',
         shortName: 'Referência Bazin',
@@ -3302,6 +3408,16 @@ html_template = f"""<!DOCTYPE html>
         badgeClass: 'bg-sky-50 text-sky-950 border border-sky-300',
         description: 'Cotação de mercado abaixo da referência teórica Bazin (Proventos / 0,06) com margem de segurança de pelo menos 15%.',
         rationale: 'Metodologia tradicional brasileira de seleção por fluxo de dividendos com taxa de retorno teórica de 6,0% a.a. em proventos.'
+      }},
+      {{
+        id: 'CAT_BAZIN_WARNING',
+        name: 'Yield Alto • Atenção ao Payout',
+        shortName: 'Atenção Payout',
+        icon: '⚠️',
+        color: 'amber',
+        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
+        description: 'Dividend Yield de Bazin ≥ 6%, porém associado a Payout superior a 95% ou alavancagem financeira elevada (> 3,0x EBITDA).',
+        rationale: 'Alerta de sustentabilidade de proventos: fluxos de dividendos gerados com alavancagem ou sem retenção de lucros apresentam alto risco de corte futuro.'
       }},
       {{
         id: 'CAT_SPREAD_NTNB',
@@ -3362,6 +3478,16 @@ html_template = f"""<!DOCTYPE html>
         badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
         description: 'Empresas não-financeiras com Dívida Líquida / EBITDA superior a 2,5x em ambiente de taxas de juros elevadas.',
         rationale: 'Marcador de risco de solvência: despesas financeiras absorvem fatia relevante do resultado operacional, comprimindo o lucro líquido.'
+      }},
+      {{
+        id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
+        name: 'Operação Positiva • Pressão Financeira',
+        shortName: 'Operação Positiva • Pressão Fin.',
+        icon: '🏭',
+        color: 'amber',
+        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
+        description: 'Negócio operacionalmente rentável (ROIC ≥ 8% e EV/EBITDA ≤ 10x), mas com prejuízo contábil no período decorrente de custo da dívida ou resultado financeiro.',
+        rationale: 'Diagnóstico de pressão de juros: a operação industrial ou comercial gera resultado positivo, mas as despesas financeiras absorvem o lucro líquido dos acionistas.'
       }}
     ];
 

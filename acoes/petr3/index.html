@@ -797,7 +797,7 @@
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Justo Graham</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
                 +43,4% vs cotação
               </span>
             </div>
@@ -811,8 +811,8 @@
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Teto Bazin (6%)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-700">
-                -6,5% vs cotação
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 font-bold">
+                Abaixo do Teto
               </span>
             </div>
             <div class="text-xl font-bold font-mono text-slate-900">R$ 60,79</div>
@@ -835,6 +835,8 @@
             </p>
           </div>
         </div>
+
+        
 
         <!-- Comparativo com Concorrentes do Setor -->
         <div class="space-y-3 pt-2">
@@ -1108,7 +1110,21 @@
       } else {
         const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
         const dle = s.div_liq_ebitda;
-        if ((dl !== null && dl <= 0) || (dle !== null && dle < 0)) {
+        const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+        const rVal = Number(s.roic || 0);
+        const eVal = Number(s.roe || 0);
+
+        // Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        if (isNetCash && (rVal > eVal + 0.03)) {
+          cats.push({
+            id: 'CAT_NET_CASH_STRUCT',
+            group: 'QUALIDADE',
+            label: 'Caixa Líquido Estrutural (ROIC > ROE)',
+            shortLabel: 'Caixa Líq. Estrutural',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          });
+        } else if (isNetCash) {
           cats.push({
             id: 'CAT_NET_CASH',
             group: 'QUALIDADE',
@@ -1134,6 +1150,19 @@
             shortLabel: 'Dívida Equilibrada',
             ledClass: 'bg-slate-400',
             bgClass: 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium'
+          });
+        }
+
+        // Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
+        const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+        if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {
+          cats.push({
+            id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
+            group: 'QUALIDADE',
+            label: 'Operação Positiva • Pressão Financeira',
+            shortLabel: 'Operação Positiva • Pressão Fin.',
+            ledClass: 'bg-amber-500',
+            bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
           });
         }
       }
@@ -1186,30 +1215,63 @@
       const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
       const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
       const cot = Number(s.cotacao);
+      const rValNum = Number(s.roic || 0);
+      const eValNum = Number(s.roe || 0);
+
       if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {
         const graham = Math.sqrt(22.5 * lpa * vpa);
         if (graham > cot * 1.15) {
-          cats.push({
-            id: 'CAT_GRAHAM',
-            group: 'VALUATION',
-            label: 'Desconto Graham (Margem > 15%)',
-            shortLabel: 'Desconto Graham',
-            ledClass: 'bg-cyan-500',
-            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-          });
+          // Regra 1: Trava de Qualidade Graham
+          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12);
+          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 60);
+          if (condG1 || condG2) {
+            cats.push({
+              id: 'CAT_GRAHAM_ALERT',
+              group: 'VALUATION',
+              label: 'Graham c/ Alerta (Possível Não-Recorrente)',
+              shortLabel: 'Graham c/ Alerta',
+              ledClass: 'bg-amber-500',
+              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+            });
+          } else {
+            cats.push({
+              id: 'CAT_GRAHAM',
+              group: 'VALUATION',
+              label: 'Desconto Graham (Margem > 15%)',
+              shortLabel: 'Desconto Graham',
+              ledClass: 'bg-cyan-500',
+              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
+            });
+          }
         }
       }
+
       if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {
         const bazin = (cot * s.div_yield) / 0.06;
         if (bazin > cot * 1.15) {
-          cats.push({
-            id: 'CAT_BAZIN',
-            group: 'VALUATION',
-            label: 'Referência Décio Bazin (DY 6%)',
-            shortLabel: 'Ref. Bazin (DY 6%)',
-            ledClass: 'bg-cyan-500',
-            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-          });
+          // Regra 4: Trava de Segurança Bazin
+          const payoutNum = (s.payout_implicito !== null && s.payout_implicito !== undefined) ? Number(s.payout_implicito) : null;
+          const dleNum = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0);
+          if (isBazinWarning) {
+            cats.push({
+              id: 'CAT_BAZIN_WARNING',
+              group: 'VALUATION',
+              label: 'Yield Alto • Atenção ao Payout / Dívida',
+              shortLabel: 'Yield Alto • Atenção ao Payout',
+              ledClass: 'bg-amber-500',
+              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+            });
+          } else {
+            cats.push({
+              id: 'CAT_BAZIN',
+              group: 'VALUATION',
+              label: 'Referência Décio Bazin (DY 6%)',
+              shortLabel: 'Ref. Bazin (DY 6%)',
+              ledClass: 'bg-cyan-500',
+              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
+            });
+          }
         }
       }
       if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {
@@ -1298,7 +1360,20 @@
       const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${s.div_liq_ebitda.toFixed(1)}x EBITDA` : 'estrutura de capital auditada');
       const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${roicPct}</b> e retorno patrimonial (ROE) de <b>${roePct}</b>` : `ROE de <b>${roePct}</b>`;
 
-      return `<b>${s.empresa} (${s.ticker})</b> atua no setor de <b>${s.setor || 'Atividade Geral'}</b>, classificada no <b>${tierShort}</b> com Score de <b>${s.quality_score.toFixed(1)}/100</b>. Apresenta ${returnDesc}, ${debtStatus} e remuneração em proventos de <b>${dyPct}</b> a.a., posicionando-se em <b>${s.entry_status}</b>.`;
+      const rVal = Number(s.roic || 0);
+      const eVal = Number(s.roe || 0);
+      const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
+      const isNetCash = (dl !== null && dl < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
+      const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
+
+      let noteExtra = '';
+      if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {
+        noteExtra = ` <i>Nota analítica:</i> a operação gera retorno positivo (ROIC de ${roicPct || 'positivo'}), mas o custo da dívida e despesas financeiras consumiram o lucro líquido final do período.`;
+      } else if (isNetCash && (rVal > eVal + 0.03)) {
+        noteExtra = ` <i>Destaque de balanço:</i> o ROIC de ${roicPct} supera amplamente o ROE de forma saudável porque a companhia opera com excesso de caixa líquido, o que dilui o ROE contábil mas atesta a alta rentabilidade do capital efetivamente investido na operação.`;
+      }
+
+      return `<b>${s.empresa} (${s.ticker})</b> atua no setor de <b>${s.setor || 'Atividade Geral'}</b>, classificada no <b>${tierShort}</b> com Score de <b>${s.quality_score.toFixed(1)}/100</b>. Apresenta ${returnDesc}, ${debtStatus} e remuneração em proventos de <b>${dyPct}</b> a.a., posicionando-se em <b>${s.entry_status}</b>.${noteExtra}`;
     }
 
     // Decomposição Analítica do Moat Score (Raio-X de Qualidade)

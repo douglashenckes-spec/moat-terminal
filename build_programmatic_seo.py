@@ -303,24 +303,38 @@ def generate_stock_badges_html(s):
     is_fin = bool(s.get("is_financial"))
     details = s.get("details", {}) or {}
 
+    # Variáveis fundamentais
+    qs = float(s.get("quality_score") or 0)
+    roic_val = float(s.get("roic") or 0)
+    roe_val = float(s.get("roe") or 0)
+    pl_val = s.get("pl")
+    ev_eb_val = s.get("ev_ebitda")
+    dl = details.get("divida_liquida")
+    dle = s.get("div_liq_ebitda")
+    is_net_cash = (dl is not None and float(dl) < 0) or (dle is not None and float(dle) < 0)
+
     # Grupo 1: Qualidade & Balanço
     if is_fin:
         quality_pills.append(('Bancos / Finanças', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_FINANCIAL'))
     else:
-        dl = details.get("divida_liquida")
-        dle = s.get("div_liq_ebitda")
-        if (dl is not None and float(dl) <= 0) or (dle is not None and float(dle) < 0):
+        # Regra 3: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        if is_net_cash and (roic_val > roe_val + 0.03):
+            quality_pills.append(('Caixa Líq. Estrutural', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH_STRUCT'))
+        elif is_net_cash:
             quality_pills.append(('Caixa Líquido', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_NET_CASH'))
         elif dle is not None and float(dle) > 2.5:
             quality_pills.append(('Alavancagem Alta', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_HIGH_DEBT'))
         elif dle is not None and float(dle) <= 1.8:
             quality_pills.append(('Dívida Equilibrada', 'bg-slate-400', 'bg-slate-100/90 text-slate-800 border border-slate-300/90 font-medium', 'CAT_BALANCED_DEBT'))
 
-    qs = float(s.get("quality_score") or 0)
-    roic_or_roe = float(s.get("roic") or s.get("roe") or 0)
+        # Regra 2: Novo Diagnóstico "Lucro Corroído por Juros" (Caso RAPT4 / USIM3)
+        if roic_val >= 0.08 and ev_eb_val is not None and 0 < float(ev_eb_val) <= 10.0 and (roe_val < 0 or (pl_val is not None and float(pl_val) < 0)):
+            quality_pills.append(('Operação Positiva • Pressão Fin.', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_OP_POSITIVE_DEBT_PRESSURE'))
+
+    roic_or_roe = roic_val or roe_val
     if qs >= 80 and roic_or_roe >= 0.15:
         quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
-    elif not is_fin and float(s.get("roic") or 0) >= 0.18:
+    elif not is_fin and roic_val >= 0.18:
         quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
 
     h5 = s.get("historical_5y") or {}
@@ -337,31 +351,45 @@ def generate_stock_badges_html(s):
     if lpa > 0 and vpa > 0 and cot > 0:
         graham = math.sqrt(22.5 * lpa * vpa)
         if graham > cot * 1.15:
-            valuation_pills.append(('Desconto Graham', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_GRAHAM'))
+            # Regra 1: Trava de Qualidade no Badge Graham
+            graham_alert_cond1 = (roe_val > 2 * roic_val and roic_val < 0.12)
+            graham_alert_cond2 = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < 3.5 and qs < 60)
+            if graham_alert_cond1 or graham_alert_cond2:
+                valuation_pills.append(('Graham c/ Alerta (Possível Não-Recorrente)', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_GRAHAM_ALERT'))
+            else:
+                valuation_pills.append(('Desconto Graham', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_GRAHAM'))
 
     dy = float(s.get("div_yield") or 0)
+    payout = s.get("payout_implicito")
+    payout_num = float(payout) if payout is not None and str(payout).lower() not in ["none", "nan"] else None
+    dle_num = float(dle) if dle is not None and str(dle).lower() not in ["none", "nan"] else None
+
     if dy >= 0.06 and cot > 0:
         bazin = (cot * dy) / 0.06
         if bazin > cot * 1.15:
-            valuation_pills.append(('Ref. Bazin (DY 6%)', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_BAZIN'))
+            # Regra 4: Trava de Segurança no Badge Ref. Bazin
+            bazin_warn_payout = (payout_num is not None and payout_num > 95.0)
+            bazin_warn_debt = (not is_fin and dle_num is not None and dle_num > 3.0)
+            if bazin_warn_payout or bazin_warn_debt:
+                valuation_pills.append(('Yield Alto • Atenção ao Payout', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_BAZIN_WARNING'))
+            else:
+                valuation_pills.append(('Ref. Bazin (DY 6%)', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_BAZIN'))
 
     ey = s.get("ey_spread")
-    pl = s.get("pl")
-    if ey is not None and float(ey) >= 2.0 and (pl is None or float(pl) <= 15.0):
+    if ey is not None and float(ey) >= 2.0 and (pl_val is None or float(pl_val) <= 15.0):
         valuation_pills.append(('Prêmio Real NTN-B', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_SPREAD_NTNB'))
 
     pl_rr = s.get("pl_run_rate")
     rr_div = s.get("run_rate_div_pct")
-    if pl and pl_rr and rr_div is not None:
-        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl) * 0.88:
+    if pl_val and pl_rr and rr_div is not None:
+        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl_val) * 0.88:
             valuation_pills.append(('Lucro Acelerando', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_EXPANSION'))
-        elif float(rr_div) <= -20.0 and float(pl_rr) > float(pl) * 1.25:
+        elif float(rr_div) <= -20.0 and float(pl_rr) > float(pl_val) * 1.25:
             valuation_pills.append(('Lucro em Retração', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_DECELERATION'))
 
-    payout = s.get("payout_implicito")
-    if dy >= 0.05 and payout is not None and 30 <= float(payout) <= 88:
+    if dy >= 0.05 and payout_num is not None and 30 <= payout_num <= 88:
         valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
-    elif payout is not None and float(payout) > 105:
+    elif payout_num is not None and payout_num > 105:
         valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
 
     if s.get("is_commodity_peak"):
@@ -1432,9 +1460,80 @@ def build_programmatic_seo():
             """)
         peers_cards_joined = "\n".join(peers_cards_html) if peers_cards_html else '<p class="text-xs text-slate-500 font-sans">Nenhum concorrente com liquidez suficiente no mesmo setor.</p>'
 
+        # Regra 1: Trava de Qualidade Graham
+        is_graham_alert = False
+        if graham_margin and graham_margin > 0:
+            cond_g1 = (roe_val > 2 * roic_val and roic_val < 0.12)
+            cond_g2 = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < 3.5 and quality_score < 60)
+            if cond_g1 or cond_g2:
+                is_graham_alert = True
+
+        # Regra 4: Trava de Segurança Bazin
+        is_bazin_warning = False
+        if bazin_margin and bazin_margin > 0:
+            payout_val = s.get("payout_implicito")
+            p_num = float(payout_val) if payout_val is not None and str(payout_val).lower() not in ["none", "nan"] else None
+            dle_num = float(div_liq_ebitda) if div_liq_ebitda is not None and str(div_liq_ebitda).lower() not in ["none", "nan"] else None
+            if (p_num is not None and p_num > 95.0) or (not is_fin and dle_num is not None and dle_num > 3.0):
+                is_bazin_warning = True
+
         graham_margin_val_str = f"{graham_margin:.1f}%".replace(".", ",") if graham_margin is not None else ""
-        graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin_val_str} segundo o método clássico de Benjamin Graham." if (graham_margin and graham_margin > 0) else f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
-        bazin_interpretation = f"Com dividendo atual de {dy_str}, o preço teto de Bazin (exigência de 6% a.a.) fica em {bazin_str}, proporcionando margem favorável de proventos frente à cotação atual." if (bazin_margin and bazin_margin > 0) else f"Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de {bazin_str}. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto."
+        if is_graham_alert:
+            graham_badge = "Graham c/ Alerta"
+            graham_badge_class = "bg-amber-100 text-amber-900 border border-amber-300 font-bold"
+            graham_interpretation = f"Com cotação atual de {cot_str} frente ao valor intrínseco de Graham de {graham_str} ({graham_margin_val_str} de margem teórica). <b>Alerta Analítico:</b> O ativo preenche a fórmula matemática, porém o ROE elevado é amplificado por alavancagem com ROIC modesto (< 12%) ou o P/L muito deprimido decorre de possíveis resultados não-recorrentes."
+        elif graham_margin and graham_margin > 0:
+            graham_badge = f"{graham_margin:+.1f}%".replace(".", ",") + " vs cotação"
+            graham_badge_class = "bg-emerald-100 text-emerald-800 font-bold"
+            graham_interpretation = f"Com cotação atual de {cot_str} contra o valor intrínseco teórico de {graham_str}, o papel negocia com margem de segurança de {graham_margin_val_str} segundo o método clássico de Benjamin Graham."
+        else:
+            graham_badge = "Sem Margem Graham" if graham_margin is not None else "LPA/VPA Inválido"
+            graham_badge_class = "bg-slate-200 text-slate-700 font-bold"
+            graham_interpretation = f"Negociada a {cot_str}, acima do valor intrínseco teórico de Graham ({graham_str}), o que é comum em companhias com alto prêmio de qualidade e crescimento sobre o valor contábil."
+
+        if is_bazin_warning:
+            bazin_badge = "Yield Alto • Atenção Payout"
+            bazin_badge_class = "bg-amber-100 text-amber-900 border border-amber-300 font-bold"
+            bazin_interpretation = f"Com dividendo atual de {dy_str}, o preço teto de Bazin fica em {bazin_str}. <b>Atenção Quantitativa:</b> O Payout superior a 95% ou a alavancagem financeira elevada acendem alerta de possível insustentabilidade ou corte no fluxo de proventos futuros."
+        elif bazin_margin and bazin_margin > 0:
+            bazin_badge = f"{bazin_margin:+.1f}%".replace(".", ",") + " vs cotação"
+            bazin_badge_class = "bg-indigo-100 text-indigo-800 font-bold"
+            bazin_interpretation = f"Com dividendo atual de {dy_str}, o preço teto de Bazin (exigência de 6% a.a.) fica em {bazin_str}, proporcionando margem favorável de proventos frente à cotação atual."
+        else:
+            bazin_badge = "Abaixo do Teto" if bazin_margin is not None else "Sem Proventos"
+            bazin_badge_class = "bg-slate-200 text-slate-700 font-bold"
+            bazin_interpretation = f"Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de {bazin_str}. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto."
+
+        # Regras 2 e 3: Notas de Diagnóstico Específico no Veredito Editorial
+        special_balance_note = ""
+        is_net_cash_struct = (not is_fin) and ((det.get("divida_liquida") is not None and float(det.get("divida_liquida")) < 0) or (div_liq_ebitda is not None and float(div_liq_ebitda) < 0)) and (roic_val > roe_val + 0.03)
+        ev_eb_float = float(s.get("ev_ebitda")) if s.get("ev_ebitda") is not None and str(s.get("ev_ebitda")).lower() not in ["none", "nan"] else None
+        is_debt_pressure = (not is_fin) and (roic_val >= 0.08) and (ev_eb_float is not None and 0 < ev_eb_float <= 10.0) and (roe_val < 0 or (pl_val is not None and float(pl_val) < 0))
+
+        if is_debt_pressure:
+            special_balance_note = f"""
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-amber-950 uppercase">Diagnóstico: Operação Positiva • Pressão Financeira</span>
+              </div>
+              <p class="text-xs text-amber-900 leading-relaxed font-sans">
+                A operação da <b>{ticker}</b> gera retorno operacional positivo e saudável (ROIC de <b>{roic_str}</b> com EV/EBITDA de <b>{format_mult(ev_eb_float)}</b>), demonstrando que o negócio central é produtivo. No entanto, o custo da dívida e despesas financeiras consumiram integralmente o lucro líquido final do período (ROE de {roe_str}).
+              </p>
+            </div>
+            """
+        elif is_net_cash_struct:
+            special_balance_note = f"""
+            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+                <span class="text-xs font-mono font-bold text-emerald-950 uppercase">Diagnóstico: Caixa Líquido Estrutural</span>
+              </div>
+              <p class="text-xs text-emerald-900 leading-relaxed font-sans">
+                O ROIC de <b>{roic_str}</b> supera amplamente o ROE ({roe_str}) de forma saudável porque a <b>{ticker}</b> opera com excesso de caixa líquido (baixo risco financeiro), o que dilui o ROE contábil mas comprova a alta rentabilidade do capital efetivamente investido na operação.
+              </p>
+            </div>
+            """
 
         editorial_section_html = f"""
     <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO, GRAHAM, BAZIN & PARES SETORIAIS -->
@@ -1461,7 +1560,7 @@ def build_programmatic_seo():
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Justo Graham</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold { 'bg-emerald-100 text-emerald-800' if graham_margin and graham_margin > 0 else 'bg-slate-200 text-slate-700' }">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full {graham_badge_class}">
                 {graham_badge}
               </span>
             </div>
@@ -1475,7 +1574,7 @@ def build_programmatic_seo():
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Teto Bazin (6%)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold { 'bg-indigo-100 text-indigo-800' if bazin_margin and bazin_margin > 0 else 'bg-slate-200 text-slate-700' }">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full {bazin_badge_class}">
                 {bazin_badge}
               </span>
             </div>
@@ -1499,6 +1598,8 @@ def build_programmatic_seo():
             </p>
           </div>
         </div>
+
+        {special_balance_note}
 
         <!-- Comparativo com Concorrentes do Setor -->
         <div class="space-y-3 pt-2">
