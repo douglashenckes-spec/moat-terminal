@@ -1467,7 +1467,7 @@
       if (value === null || value === undefined || value === '' || value === 'N/D' || value === 'N/A') return 'N/D';
       const num = Number(value);
       if (isNaN(num)) return 'N/D';
-      return num.toFixed(decimals).replace('.', ',') + suffix;
+      return num.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
     }
 
     function formatCurrency(v) {
@@ -2999,14 +2999,14 @@
       const listUltra = document.getElementById('home-list-ultracritic');
       if (listUltra) {
         listUltra.innerHTML = topUltraCritic.map((s, i) => {
-          const capStr = s.capital_intensity !== null ? (s.capital_intensity * 100).toFixed(0) + '%' : 'Banco';
+          const capStr = s.capital_intensity !== null ? formatNumberBR(s.capital_intensity * 100, 0, '%') : 'Banco';
           const dl = s.details ? s.details.divida_liquida : null;
-          const dlBadge = dl !== null && dl <= 0 ? '<span class="text-emerald-800 font-semibold">Caixa Líq</span>' : (s.div_liq_ebitda !== null ? `<span class="${getColorDebt(s.div_liq_ebitda, s.is_financial)}">${s.div_liq_ebitda.toFixed(1)}x</span>` : 'N/D');
+          const dlBadge = dl !== null && dl <= 0 ? '<span class="text-emerald-800 font-semibold">Caixa Líq</span>' : (s.div_liq_ebitda !== null ? `<span class="${getColorDebt(s.div_liq_ebitda, s.is_financial)}">${formatNumberBR(s.div_liq_ebitda, 1, 'x')}</span>` : 'N/D');
           return `
             <div onclick="selectTickerAndNavigate('${s.ticker}')" class="p-2.5 rounded-xl glass-card hover:border-yellow-500/50 hover:bg-yellow-500/5 border border-yellow-500/20 transition duration-200 cursor-pointer flex flex-col justify-between shadow-sm">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-amber-800 font-mono text-xs">${s.ticker}</span>
-                <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-yellow-500/20 text-amber-800 border border-yellow-500/40">${s.quality_score.toFixed(0)}</span>
+                <span class="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-yellow-500/20 text-amber-800 border border-yellow-500/40">${formatNumberBR(s.quality_score, 0)}</span>
               </div>
               <div class="text-[11px] text-slate-600 font-sans truncate mt-1" title="${s.empresa}">${s.empresa}</div>
               <div class="mt-2 pt-1.5 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-400 font-mono">
@@ -3047,7 +3047,7 @@
               </div>
             </div>
             <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Score ${s.quality_score.toFixed(1)}</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Score ${formatNumberBR(s.quality_score, 1)}</span>
               <span class="text-slate-400 text-xs group-hover:text-[#00A887] transition-transform group-hover:translate-x-0.5">➜</span>
             </div>
           </div>
@@ -3076,11 +3076,11 @@
                   <span class="text-sm font-bold text-slate-900 font-mono leading-none group-hover:text-[#003836]">${s.ticker}</span>
                   <span class="text-[11px] text-slate-500 font-sans truncate max-w-[150px] hidden sm:inline">${s.empresa}</span>
                 </div>
-                <span class="text-[10px] text-slate-400 font-mono mt-0.5">P/L ${formatMultiple(s.pl)} • Spread +${s.ey_spread.toFixed(1)}%</span>
+                <span class="text-[10px] text-slate-400 font-mono mt-0.5">P/L ${formatMultiple(s.pl)} • Spread +${formatNumberBR(s.ey_spread, 1, '%')}</span>
               </div>
             </div>
             <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200">+${s.ey_spread.toFixed(1)}%</span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200">+${formatNumberBR(s.ey_spread, 1, '%')}</span>
               <span class="text-slate-400 text-xs group-hover:text-[#00A887] transition-transform group-hover:translate-x-0.5">➜</span>
             </div>
           </div>
@@ -3109,7 +3109,7 @@
                   <span class="text-sm font-bold text-slate-900 font-mono leading-none group-hover:text-[#003836]">${s.ticker}</span>
                   <span class="text-[11px] text-slate-500 font-sans truncate max-w-[150px] hidden sm:inline">${s.empresa}</span>
                 </div>
-                <span class="text-[10px] text-slate-400 font-mono mt-0.5">DY ${formatPercent(s.div_yield)} • Payout ${s.payout_implicito ? s.payout_implicito.toFixed(0) + '%' : 'N/D'}</span>
+                <span class="text-[10px] text-slate-400 font-mono mt-0.5">DY ${formatPercent(s.div_yield)} • Payout ${s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}</span>
               </div>
             </div>
             <div class="flex items-center gap-2.5 text-right font-mono flex-shrink-0">
@@ -3150,11 +3150,11 @@
                   <span class="text-[10px] text-slate-600 font-sans truncate max-w-[85px]" title="${s.empresa}">${s.empresa}</span>
                 </div>
                 <div class="text-[10px] text-slate-700 font-mono mt-0.5 font-medium">
-                  P/L: ${s.pl.toFixed(1)}x ➜ <b class="text-emerald-800 font-bold">${s.pl_run_rate.toFixed(1)}x</b>
+                  P/L: ${formatNumberBR(s.pl, 1, 'x')} ➜ <b class="text-emerald-800 font-bold">${formatNumberBR(s.pl_run_rate, 1, 'x')}</b>
                 </div>
               </div>
             </div>
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold font-mono bg-teal-100 text-teal-900 border border-teal-300 shadow-xs">+${s.run_rate_div_pct.toFixed(0)}%</span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold font-mono bg-teal-100 text-teal-900 border border-teal-300 shadow-xs">+${formatNumberBR(s.run_rate_div_pct, 0, '%')}</span>
           </div>
         `).join('');
       }
@@ -3188,11 +3188,11 @@
                   <span class="text-[10px] text-slate-600 font-sans truncate max-w-[85px]" title="${s.empresa}">${s.empresa}</span>
                 </div>
                 <div class="text-[10px] text-slate-700 font-mono mt-0.5 font-medium">
-                  P/L: ${s.pl.toFixed(1)}x ➜ <b class="text-amber-800 font-bold">${s.pl_run_rate.toFixed(1)}x</b>
+                  P/L: ${formatNumberBR(s.pl, 1, 'x')} ➜ <b class="text-amber-800 font-bold">${formatNumberBR(s.pl_run_rate, 1, 'x')}</b>
                 </div>
               </div>
             </div>
-            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold font-mono bg-amber-100 text-amber-900 border border-amber-300 shadow-xs">${s.run_rate_div_pct.toFixed(0)}%</span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold font-mono bg-amber-100 text-amber-900 border border-amber-300 shadow-xs">${formatNumberBR(s.run_rate_div_pct, 0, '%')}</span>
           </div>
         `).join('');
       }
@@ -3249,11 +3249,11 @@
                   <span class="text-[10px] text-slate-600 font-sans truncate max-w-[85px]" title="${s.empresa}">${s.empresa}</span>
                 </div>
                 <div class="text-[10px] text-slate-700 font-mono mt-0.5 font-medium">
-                  Score: <b class="text-rose-700 font-bold">${s.quality_score.toFixed(1)}</b>
+                  Score: <b class="text-rose-700 font-bold">${formatNumberBR(s.quality_score, 1)}</b>
                 </div>
               </div>
             </div>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-rose-100 text-rose-900 border border-rose-300 shadow-xs">${s.div_liq_ebitda.toFixed(1)}x Dívida</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-rose-100 text-rose-900 border border-rose-300 shadow-xs">${formatNumberBR(s.div_liq_ebitda, 1, 'x')} Dívida</span>
           </div>
         `).join('');
       }
@@ -3298,7 +3298,7 @@
       const pls = ibovStocks.filter(s => s.pl && s.pl > 0 && s.pl <= 50).map(s => s.pl).sort((a, b) => a - b);
       const medianPl = pls.length ? pls[Math.floor(pls.length / 2)] : 12.1;
       const elPl = document.getElementById('home-ibov-median-pl');
-      if (elPl) elPl.innerText = medianPl.toFixed(1) + 'x';
+      if (elPl) elPl.innerText = formatNumberBR(medianPl, 1, 'x');
 
       let totalWeight = 0;
       let weightedDySum = 0;
@@ -3381,7 +3381,7 @@
         }
 
         const dyVal = s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
-        const plVal = s.pl && s.pl > 0 ? s.pl.toFixed(1) + 'x' : 'N/D';
+        const plVal = s.pl && s.pl > 0 ? formatNumberBR(s.pl, 1, 'x') : 'N/D';
         const weightVal = s.ibov_weight ? (s.ibov_weight * 100).toFixed(2).replace('.', ',') + '%' : '--';
 
         return `
@@ -3451,9 +3451,10 @@
 
     function getThesisForStock(s) {
       if (INVESTMENT_THESES[s.ticker]) return INVESTMENT_THESES[s.ticker];
-      const roicStr = (s.roic || s.roe) ? ((s.roic || s.roe) * 100).toFixed(0) + '%' : '';
-      const dyStr = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '';
-      return `Ativo com Score Fundamentalista de ${s.quality_score.toFixed(0)} pts, ROIC/ROE de ${roicStr} e distribuição de dividendos estimada em ${dyStr}.`;
+      const roicStr = (s.roic || s.roe) ? formatNumberBR((s.roic || s.roe) * 100, 0, '%') : '';
+      const dyStr = s.div_yield ? formatNumberBR(s.div_yield * 100, 1, '%') : '';
+      const scoreStr = formatNumberBR(s.quality_score, 0);
+      return `Ativo com Score Fundamentalista de ${scoreStr} pts, ROIC/ROE de ${roicStr} e distribuição de dividendos estimada em ${dyStr}.`;
     }
 
     // DEFINIÇÕES METODOLÓGICAS DAS CATEGORIAS QUANTITATIVAS

@@ -50,6 +50,78 @@ def format_billions(val):
     except Exception:
         return "R$ --"
 
+KNOWN_TRADING_NAMES = {
+    'RAPT4': 'Randoncorp', 'RAPT3': 'Randoncorp',
+    'ITUB4': 'Itaú Unibanco', 'ITUB3': 'Itaú Unibanco',
+    'LREN3': 'Lojas Renner', 'LAVV3': 'Lavvi',
+    'PNVL3': 'Panvel', 'BMOB3': 'Bemobi',
+    'USIM3': 'Usiminas', 'USIM5': 'Usiminas',
+    'CXSE3': 'Caixa Seguridade', 'BBSE3': 'BB Seguridade',
+    'VALE3': 'Vale', 'PETR4': 'Petrobras', 'PETR3': 'Petrobras',
+    'WEGE3': 'WEG', 'B3SA3': 'B3', 'BBAS3': 'Banco do Brasil',
+    'BBDC4': 'Bradesco', 'BBDC3': 'Bradesco',
+    'SANB11': 'Santander', 'SANB3': 'Santander', 'SANB4': 'Santander',
+    'ABEV3': 'Ambev', 'MGLU3': 'Magazine Luiza', 'VIVT3': 'Vivo',
+    'TIMS3': 'TIM', 'RENT3': 'Localiza', 'RADL3': 'Raia Drogasil',
+    'EQTL3': 'Equatorial', 'CPFE3': 'CPFL Energia', 'EGIE3': 'Engie Brasil',
+    'ELET3': 'Eletrobras', 'ELET6': 'Eletrobras', 'TAEE11': 'Taesa',
+    'TAEE4': 'Taesa', 'TAEE3': 'Taesa', 'TRPL4': 'ISA CTEEP',
+    'SBSP3': 'Sabesp', 'CSMG3': 'Copasa', 'SAPR11': 'Sanepar',
+    'SAPR4': 'Sanepar', 'SAPR3': 'Sanepar', 'PRIO3': 'PRIO',
+    'RECV3': 'PetroRecôncavo', 'BRAV3': 'Brava Energia',
+    'CSNA3': 'CSN', 'GGBR4': 'Gerdau', 'GGBR3': 'Gerdau',
+    'GOAU4': 'Metalúrgica Gerdau', 'GOAU3': 'Metalúrgica Gerdau',
+    'SUZB3': 'Suzano', 'KLBN11': 'Klabin', 'KLBN4': 'Klabin',
+    'JBSS3': 'JBS', 'BRFS3': 'BRF', 'MRFG3': 'Marfrig', 'MBRF3': 'Marfrig',
+    'ASAI3': 'Assaí', 'CRFB3': 'Carrefour Brasil', 'PCAR3': 'Pão de Açúcar',
+    'BPAC11': 'BTG Pactual', 'PSSA3': 'Porto Seguro', 'TOTS3': 'Totvs',
+    'VULC3': 'Vulcabras', 'MILS3': 'Mills', 'WIZC3': 'Wiz Co',
+    'CURY3': 'Cury', 'PLPL3': 'Plano&Plano', 'TEND3': 'Tenda',
+    'DIRR3': 'Direcional', 'CYRE3': 'Cyrela', 'EZTC3': 'EZTec',
+    'MRVE3': 'MRV', 'MULT3': 'Multiplan', 'ALOS3': 'Allos',
+    'IGTI11': 'Iguatemi', 'HYPE3': 'Hypera', 'FLRY3': 'Fleury',
+    'RDOR3': "Rede D'Or", 'HAPV3': 'Hapvida', 'NTCO3': 'Natura',
+    'VIVA3': 'Vivara', 'POMO4': 'Marcopolo', 'POMO3': 'Marcopolo',
+    'LEVE3': 'Mahle Metal Leve', 'FRAS3': 'Fras-le', 'ROMI3': 'Indústrias Romi',
+    'TUPY3': 'Tupy', 'KEPL3': 'Kepler Weber', 'SHUL4': 'Schulz',
+    'VLID3': 'Valid', 'INTB3': 'Intelbras', 'POSI3': 'Positivo',
+    'CASH3': 'Méliuz', 'LWSA3': 'Locaweb', 'SMFT3': 'Smart Fit',
+    'ALUP11': 'Alupar', 'NEOE3': 'Neoenergia', 'ENEV3': 'Eneva',
+    'AURE3': 'Auren Energia', 'CMIG4': 'Cemig', 'CMIG3': 'Cemig',
+    'RAIL3': 'Rumo', 'CCRO3': 'CCR', 'ECOR3': 'EcoRodovias',
+    'SIMH3': 'Simpar', 'MOVI3': 'Movida', 'VAMO3': 'Vamos',
+    'STBP3': 'Santos Brasil', 'UGPA3': 'Ultrapar', 'VBBR3': 'Vibra',
+    'RAIZ4': 'Raízen', 'UNIP6': 'Unipar', 'BRKM5': 'Braskem',
+    'FESA4': 'Ferbasa', 'CBAV3': 'CBA', 'DXCO3': 'Dexco',
+    'DEXP3': 'Dexxos', 'PTBL3': 'Portobello', 'SMTO3': 'São Martinho',
+    'SLCE3': 'SLC Agrícola', 'AGRO3': 'BrasilAgro', 'TTEN3': '3tentos',
+    'SOJA3': 'Boa Safra', 'CAML3': 'Camil', 'MDIA3': 'M. Dias Branco',
+    'GRND3': 'Grendene', 'BMEB4': 'Banco Mercantil', 'PINE4': 'Banco Pine',
+    'BRSR6': 'Banrisul', 'ABCB4': 'Banco ABC Brasil', 'IRBR3': 'IRB Brasil',
+    'ODPV3': 'Odontoprev', 'PGMN3': 'Pague Menos', 'BLAU3': 'Blau',
+    'DASA3': 'Dasa', 'ONCO3': 'Oncoclínicas', 'HBOR3': 'Helbor',
+    'GFSA3': 'Gafisa', 'JHSF3': 'JHSF', 'MDNE3': 'Moura Dubeux',
+    'LOGG3': 'LOG CP', 'ORVR3': 'Orizon', 'LIGT3': 'Light',
+    'BHIA3': 'Casas Bahia', 'AMER3': 'Americanas', 'CVCB3': 'CVC',
+    'LJQQ3': 'Lojas Quero-Quero', 'ESPA3': 'Espaçolaser', 'EMBR3': 'Embraer',
+    'AZUL4': 'Azul', 'AZUL3': 'Azul', 'GOLL4': 'Gol', 'AURA33': 'Aura Minerals',
+    'ITSA4': 'Itaúsa', 'ITSA3': 'Itaúsa', 'BRAP4': 'Bradespar', 'BRAP3': 'Bradespar'
+}
+
+def get_short_trading_name(ticker, full_name):
+    if not ticker:
+        return full_name or ""
+    t = ticker.upper().strip()
+    if t in KNOWN_TRADING_NAMES:
+        return KNOWN_TRADING_NAMES[t]
+    n = full_name or ticker
+    n = re.sub(r'\s+(ON|PN|UNT|PNA|PNB|PNC|PND|PNE|NM|N1|N2|EJ|ED|EDR|ER|EB|MB)\b.*', '', n, flags=re.IGNORECASE)
+    n = re.sub(r'\b(S\.?A\.?|S/A|PARTICIPAÇÕES|PART|HOLDING|HOLDINGS|INVESTIMENTOS|EMPREENDIMENTOS|DISTRIBUIDORA|COMERCIO|E COMERCIO|INDUSTRIA E COMERCIO|IMPLEMENTOS E PARTICIPAÇÕES)\b', '', n, flags=re.IGNORECASE)
+    n = re.sub(r'\s+', ' ', n).strip()
+    if len(n) > 0 and n == n.upper():
+        n = ' '.join(w.capitalize() if len(w) > 3 else w for w in n.split(' '))
+    return n or ticker
+
 def generate_moat_decomposition_html(s):
     if not s:
         return ""
@@ -1310,10 +1382,11 @@ def build_programmatic_seo():
 
         # Meta tags ricas de SEO focadas em alta intenção de busca (High-CTR)
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
-        page_title = f"{ticker} • {empresa} | Moat Terminal"
-        meta_desc = f"Análise fundamentalista de {empresa} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
-        og_title = f"{ticker} • {empresa} | Moat Terminal"
-        og_desc = f"Análise de {empresa} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
+        short_name = get_short_trading_name(ticker, empresa)
+        page_title = f"{ticker} • {short_name} • Moat Terminal"
+        meta_desc = f"Análise fundamentalista de {short_name} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str} e dividendos. Veja se {ticker} vale a pena em 2026."
+        og_title = f"{ticker} • {short_name} • Moat Terminal"
+        og_desc = f"Análise de {short_name} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), ROIC {roic_str}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"

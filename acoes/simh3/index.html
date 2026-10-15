@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">SIMH3 • SIMPAR ON NM | Moat Terminal</title>
-  <meta name="description" content="Análise fundamentalista de SIMPAR ON NM (SIMH3): Preço Justo de Graham (N/D), Preço Teto Bazin 6% (R$ 2,87), Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2% e dividendos. Veja se SIMH3 vale a pena em 2026.">
+  <title id="pageTitle">SIMH3 • Simpar • Moat Terminal</title>
+  <meta name="description" content="Análise fundamentalista de Simpar (SIMH3): Preço Justo de Graham (N/D), Preço Teto Bazin 6% (R$ 2,87), Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2% e dividendos. Veja se SIMH3 vale a pena em 2026.">
   <meta name="keywords" content="dossiê de ações, análise de balanço B3, valuation, Graham, Décio Bazin, ROIC, ROE, DuPont, fosso econômico, Moat Score">
   <meta name="author" content="MOAT TERMINAL">
   <meta name="robots" content="index, follow">
@@ -12,15 +12,15 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" id="ogUrl" content="https://moatterminal.com.br/acoes/simh3/">
-  <meta property="og:title" id="ogTitle" content="SIMH3 • SIMPAR ON NM | Moat Terminal">
-  <meta property="og:description" content="Análise de SIMPAR ON NM (SIMH3): Preço Graham N/D, Preço Bazin R$ 2,87, Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2%. Indicadores e valuation da B3.">
+  <meta property="og:title" id="ogTitle" content="SIMH3 • Simpar • Moat Terminal">
+  <meta property="og:description" content="Análise de Simpar (SIMH3): Preço Graham N/D, Preço Bazin R$ 2,87, Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2%. Indicadores e valuation da B3.">
   <meta property="og:site_name" content="MOAT TERMINAL">
   <meta property="og:locale" content="pt_BR">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" id="twTitle" content="SIMH3 • SIMPAR ON NM | Moat Terminal">
-  <meta name="twitter:description" content="Análise de SIMPAR ON NM (SIMH3): Preço Graham N/D, Preço Bazin R$ 2,87, Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2%. Indicadores e valuation da B3.">
+  <meta name="twitter:title" id="twTitle" content="SIMH3 • Simpar • Moat Terminal">
+  <meta name="twitter:description" content="Análise de Simpar (SIMH3): Preço Graham N/D, Preço Bazin R$ 2,87, Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2%. Indicadores e valuation da B3.">
 
   <!-- Schema.org JSON-LD Estruturado (Breadcrumbs, Corporation, FAQPage) -->
   <script type="application/ld+json">
@@ -66,7 +66,7 @@
     {
       "@type": "FinancialProduct",
       "name": "Ação SIMH3 - SIMPAR ON NM",
-      "description": "Análise fundamentalista de SIMPAR ON NM (SIMH3): Preço Justo de Graham (N/D), Preço Teto Bazin 6% (R$ 2,87), Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2% e dividendos. Veja se SIMH3 vale a pena em 2026.",
+      "description": "Análise fundamentalista de Simpar (SIMH3): Preço Justo de Graham (N/D), Preço Teto Bazin 6% (R$ 2,87), Moat Score 45,0/100 (Tier 4: Fragilidade Operacional / Risco de Capital), ROIC 11,2% e dividendos. Veja se SIMH3 vale a pena em 2026.",
       "provider": {
         "@type": "Organization",
         "name": "MOAT TERMINAL",
@@ -1024,6 +1024,78 @@
       return 'R$ ' + num.toLocaleString('pt-BR');
     }
 
+    const KNOWN_TRADING_NAMES = {
+      'RAPT4': 'Randoncorp', 'RAPT3': 'Randoncorp',
+      'ITUB4': 'Itaú Unibanco', 'ITUB3': 'Itaú Unibanco',
+      'LREN3': 'Lojas Renner', 'LAVV3': 'Lavvi',
+      'PNVL3': 'Panvel', 'BMOB3': 'Bemobi',
+      'USIM3': 'Usiminas', 'USIM5': 'Usiminas',
+      'CXSE3': 'Caixa Seguridade', 'BBSE3': 'BB Seguridade',
+      'VALE3': 'Vale', 'PETR4': 'Petrobras', 'PETR3': 'Petrobras',
+      'WEGE3': 'WEG', 'B3SA3': 'B3', 'BBAS3': 'Banco do Brasil',
+      'BBDC4': 'Bradesco', 'BBDC3': 'Bradesco',
+      'SANB11': 'Santander', 'SANB3': 'Santander', 'SANB4': 'Santander',
+      'ABEV3': 'Ambev', 'MGLU3': 'Magazine Luiza', 'VIVT3': 'Vivo',
+      'TIMS3': 'TIM', 'RENT3': 'Localiza', 'RADL3': 'Raia Drogasil',
+      'EQTL3': 'Equatorial', 'CPFE3': 'CPFL Energia', 'EGIE3': 'Engie Brasil',
+      'ELET3': 'Eletrobras', 'ELET6': 'Eletrobras', 'TAEE11': 'Taesa',
+      'TAEE4': 'Taesa', 'TAEE3': 'Taesa', 'TRPL4': 'ISA CTEEP',
+      'SBSP3': 'Sabesp', 'CSMG3': 'Copasa', 'SAPR11': 'Sanepar',
+      'SAPR4': 'Sanepar', 'SAPR3': 'Sanepar', 'PRIO3': 'PRIO',
+      'RECV3': 'PetroRecôncavo', 'BRAV3': 'Brava Energia',
+      'CSNA3': 'CSN', 'GGBR4': 'Gerdau', 'GGBR3': 'Gerdau',
+      'GOAU4': 'Metalúrgica Gerdau', 'GOAU3': 'Metalúrgica Gerdau',
+      'SUZB3': 'Suzano', 'KLBN11': 'Klabin', 'KLBN4': 'Klabin',
+      'JBSS3': 'JBS', 'BRFS3': 'BRF', 'MRFG3': 'Marfrig', 'MBRF3': 'Marfrig',
+      'ASAI3': 'Assaí', 'CRFB3': 'Carrefour Brasil', 'PCAR3': 'Pão de Açúcar',
+      'BPAC11': 'BTG Pactual', 'PSSA3': 'Porto Seguro', 'TOTS3': 'Totvs',
+      'VULC3': 'Vulcabras', 'MILS3': 'Mills', 'WIZC3': 'Wiz Co',
+      'CURY3': 'Cury', 'PLPL3': 'Plano&Plano', 'TEND3': 'Tenda',
+      'DIRR3': 'Direcional', 'CYRE3': 'Cyrela', 'EZTC3': 'EZTec',
+      'MRVE3': 'MRV', 'MULT3': 'Multiplan', 'ALOS3': 'Allos',
+      'IGTI11': 'Iguatemi', 'HYPE3': 'Hypera', 'FLRY3': 'Fleury',
+      'RDOR3': "Rede D'Or", 'HAPV3': 'Hapvida', 'NTCO3': 'Natura',
+      'VIVA3': 'Vivara', 'POMO4': 'Marcopolo', 'POMO3': 'Marcopolo',
+      'LEVE3': 'Mahle Metal Leve', 'FRAS3': 'Fras-le', 'ROMI3': 'Indústrias Romi',
+      'TUPY3': 'Tupy', 'KEPL3': 'Kepler Weber', 'SHUL4': 'Schulz',
+      'VLID3': 'Valid', 'INTB3': 'Intelbras', 'POSI3': 'Positivo',
+      'CASH3': 'Méliuz', 'LWSA3': 'Locaweb', 'SMFT3': 'Smart Fit',
+      'ALUP11': 'Alupar', 'NEOE3': 'Neoenergia', 'ENEV3': 'Eneva',
+      'AURE3': 'Auren Energia', 'CMIG4': 'Cemig', 'CMIG3': 'Cemig',
+      'RAIL3': 'Rumo', 'CCRO3': 'CCR', 'ECOR3': 'EcoRodovias',
+      'SIMH3': 'Simpar', 'MOVI3': 'Movida', 'VAMO3': 'Vamos',
+      'STBP3': 'Santos Brasil', 'UGPA3': 'Ultrapar', 'VBBR3': 'Vibra',
+      'RAIZ4': 'Raízen', 'UNIP6': 'Unipar', 'BRKM5': 'Braskem',
+      'FESA4': 'Ferbasa', 'CBAV3': 'CBA', 'DXCO3': 'Dexco',
+      'DEXP3': 'Dexxos', 'PTBL3': 'Portobello', 'SMTO3': 'São Martinho',
+      'SLCE3': 'SLC Agrícola', 'AGRO3': 'BrasilAgro', 'TTEN3': '3tentos',
+      'SOJA3': 'Boa Safra', 'CAML3': 'Camil', 'MDIA3': 'M. Dias Branco',
+      'GRND3': 'Grendene', 'BMEB4': 'Banco Mercantil', 'PINE4': 'Banco Pine',
+      'BRSR6': 'Banrisul', 'ABCB4': 'Banco ABC Brasil', 'IRBR3': 'IRB Brasil',
+      'ODPV3': 'Odontoprev', 'PGMN3': 'Pague Menos', 'BLAU3': 'Blau',
+      'DASA3': 'Dasa', 'ONCO3': 'Oncoclínicas', 'HBOR3': 'Helbor',
+      'GFSA3': 'Gafisa', 'JHSF3': 'JHSF', 'MDNE3': 'Moura Dubeux',
+      'LOGG3': 'LOG CP', 'ORVR3': 'Orizon', 'LIGT3': 'Light',
+      'BHIA3': 'Casas Bahia', 'AMER3': 'Americanas', 'CVCB3': 'CVC',
+      'LJQQ3': 'Lojas Quero-Quero', 'ESPA3': 'Espaçolaser', 'EMBR3': 'Embraer',
+      'AZUL4': 'Azul', 'AZUL3': 'Azul', 'GOLL4': 'Gol', 'AURA33': 'Aura Minerals',
+      'ITSA4': 'Itaúsa', 'ITSA3': 'Itaúsa', 'BRAP4': 'Bradespar', 'BRAP3': 'Bradespar'
+    };
+
+    function getShortTradingName(ticker, fullName) {
+      if (!ticker) return fullName || '';
+      const t = ticker.toUpperCase().trim();
+      if (KNOWN_TRADING_NAMES[t]) return KNOWN_TRADING_NAMES[t];
+      let n = fullName || ticker;
+      n = n.replace(/\s+(ON|PN|UNT|PNA|PNB|PNC|PND|PNE|NM|N1|N2|EJ|ED|EDR|ER|EB|MB)\b.*/i, '');
+      n = n.replace(/\b(S\.?A\.?|S\/A|PARTICIPAÇÕES|PART|HOLDING|HOLDINGS|INVESTIMENTOS|EMPREENDIMENTOS|DISTRIBUIDORA|COMERCIO|E COMERCIO|INDUSTRIA E COMERCIO|IMPLEMENTOS E PARTICIPAÇÕES)\b/gi, '');
+      n = n.replace(/\s+/g, ' ').trim();
+      if (n.length > 0 && n === n.toUpperCase()) {
+        n = n.split(' ').map(w => w.length > 3 ? (w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) : w).join(' ');
+      }
+      return n || ticker;
+    }
+
     function calcFairPL(qualityScore) {
       const q = Math.max(20.0, Math.min(100.0, qualityScore || 50.0));
       const norm = (q - 20.0) / 80.0;
@@ -1405,14 +1477,15 @@
       const isFin = s.is_financial;
       const roePct = s.roe ? (s.roe * 100).toFixed(1).replace('.', ',') + '%' : 'N/D';
       const roicPct = s.roic ? (s.roic * 100).toFixed(1).replace('.', ',') + '%' : null;
-      const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1) + '%' : '0.0%';
+      const dyPct = s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
       const tierShort = s.quality_score >= 80 ? 'Wide Moat (Tier 1)' : (s.quality_score >= 65 ? 'Narrow Moat (Tier 2)' : (s.quality_score >= 50 ? 'Tier 3 (Sem Fosso / Cíclica)' : 'Tier 4 (Risco de Capital)'));
+      const scoreStr = formatNumberBR(s.quality_score, 1);
 
       if (isFin) {
-        return `<b>${s.empresa} (${s.ticker})</b> é uma instituição financeira/holding regulada pelas métricas do Banco Central, avaliada no <b>${tierShort}</b> com nota <b>${s.quality_score.toFixed(1)}/100</b>. Entrega um retorno patrimonial (ROE) robusto de <b>${roePct}</b> ao ano e distribui dividendos regulares de <b>${dyPct}</b> a.a. Seu valuation atual oferece <b>${s.entry_status}</b> frente à renda fixa pública.`;
+        return `<b>${s.empresa} (${s.ticker})</b> é uma instituição financeira/holding regulada pelas métricas do Banco Central, avaliada no <b>${tierShort}</b> com nota <b>${scoreStr}/100</b>. Entrega um retorno patrimonial (ROE) robusto de <b>${roePct}</b> ao ano e distribui dividendos regulares de <b>${dyPct}</b> a.a. Seu valuation atual oferece <b>${s.entry_status}</b> frente à renda fixa pública.`;
       }
 
-      const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${s.div_liq_ebitda.toFixed(1)}x EBITDA` : 'estrutura de capital auditada');
+      const debtStatus = (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) ? 'opera com caixa líquido positivo (sem endividamento líquido)' : (s.div_liq_ebitda ? `alavancagem controlada de ${formatNumberBR(s.div_liq_ebitda, 1, 'x')} EBITDA` : 'estrutura de capital auditada');
       const returnDesc = roicPct ? `retorno operacional (ROIC) de <b>${roicPct}</b> e retorno patrimonial (ROE) de <b>${roePct}</b>` : `ROE de <b>${roePct}</b>`;
 
       const rVal = Number(s.roic || 0);
@@ -1445,11 +1518,11 @@
 
       let noteExtra = '';
       if (isCriticalDebt) {
-        noteExtra = ` <i>Alerta de alavancagem:</i> o nível elevado de endividamento (Dívida Líquida / EBITDA de ${dle.toFixed(1)}x) impõe cautela e limita o Moat Score a 45 pontos devido ao custo de carregamento do passivo.`;
+        noteExtra = ` <i>Alerta de alavancagem:</i> o nível elevado de endividamento (Dívida Líquida / EBITDA de ${formatNumberBR(dle, 1, 'x')}) impõe cautela e limita o Moat Score a 45 pontos devido ao custo de carregamento do passivo.`;
       } else if (isEliteCompounder) {
         noteExtra = ` <i>Destaque Compounder:</i> enquadra-se no topo de qualidade com ROIC de ${roicPct} e balanço sólido, devendo ser avaliada pelo crescimento composto de lucros (GARP).`;
       } else if (isStrongCashEv) {
-        noteExtra = ` <i>Múltiplos de caixa:</i> com forte posição de caixa livre frente ao valor de mercado, o EV/EBITDA (${evEbVal ? evEbVal.toFixed(1) + 'x' : 'N/D'}) reflete com maior fidelidade a barateza da operação do que o P/L tradicional.`;
+        noteExtra = ` <i>Múltiplos de caixa:</i> com forte posição de caixa livre frente ao valor de mercado, o EV/EBITDA (${evEbVal ? formatNumberBR(evEbVal, 1, 'x') : 'N/D'}) reflete com maior fidelidade a barateza da operação do que o P/L tradicional.`;
       } else if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0))) {
         noteExtra = ` <i>Nota analítica:</i> a operação gera retorno positivo (ROIC de ${roicPct || 'positivo'}), mas o custo da dívida e despesas financeiras consumiram o lucro líquido final do período.`;
       } else if (isNetCash && (rVal > eVal + 0.03)) {
@@ -1458,7 +1531,7 @@
         noteExtra = ` <i>Contexto de ciclo:</i> negócio inserido em setor intensivo em capital (${s.setor}), devendo ser avaliado por resultados e geração de caixa normalizados ao longo do ciclo.`;
       }
 
-      return `<b>${s.empresa} (${s.ticker})</b> atua no setor de <b>${s.setor || 'Atividade Geral'}</b>, classificada no <b>${tierShort}</b> com Score de <b>${s.quality_score.toFixed(1)}/100</b>. Apresenta ${returnDesc}, ${debtStatus} e remuneração em proventos de <b>${dyPct}</b> a.a., posicionando-se em <b>${s.entry_status}</b>.${noteExtra}`;
+      return `<b>${s.empresa} (${s.ticker})</b> atua no setor de <b>${s.setor || 'Atividade Geral'}</b>, classificada no <b>${tierShort}</b> com Score de <b>${scoreStr}/100</b>. Apresenta ${returnDesc}, ${debtStatus} e remuneração em proventos de <b>${dyPct}</b> a.a., posicionando-se em <b>${s.entry_status}</b>.${noteExtra}`;
     }
 
     // Decomposição Analítica do Moat Score (Raio-X de Qualidade)
@@ -1683,9 +1756,11 @@
     // Renderizar Hero Card
     function renderHero() {
       const s = currentStock;
+      const shortName = getShortTradingName(s.ticker, s.empresa);
+      const uniformTitle = `${s.ticker} • ${shortName} • Moat Terminal`;
       const pt = document.getElementById('pageTitle');
-      if (pt) pt.innerText = `${s.ticker} • ${s.empresa} | Moat Terminal`;
-      document.title = `${s.ticker} • ${s.empresa} | Moat Terminal`;
+      if (pt) pt.innerText = uniformTitle;
+      document.title = uniformTitle;
 
       const fullCanonical = `https://moatterminal.com.br/acoes/${s.ticker.toLowerCase()}/`;
       const canEl = document.getElementById('canonicalTag') || document.querySelector('link[rel="canonical"]');
@@ -1693,9 +1768,9 @@
       const ogUrlEl = document.getElementById('ogUrl') || document.querySelector('meta[property="og:url"]');
       if (ogUrlEl) ogUrlEl.content = fullCanonical;
       const ogTitleEl = document.getElementById('ogTitle');
-      if (ogTitleEl) ogTitleEl.content = `${s.ticker} • ${s.empresa} | Moat Terminal`;
+      if (ogTitleEl) ogTitleEl.content = uniformTitle;
       const twTitleEl = document.getElementById('twTitle');
-      if (twTitleEl) twTitleEl.content = `${s.ticker} • ${s.empresa} | Moat Terminal`;
+      if (twTitleEl) twTitleEl.content = uniformTitle;
 
       // Coloração Dinâmica do Hero Card conforme a Classificação de Entrada (3 Alternativas)
       let heroBgClass = 'bg-white border-slate-200';
@@ -1908,7 +1983,7 @@
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Valor Intrínseco de Benjamin Graham (V.I.) <span class="info-badge cursor-pointer" data-tooltip="graham">ⓘ</span>
             </span>
             <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${grahamMargin !== null && grahamMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
-              ${grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + grahamMargin.toFixed(1) + '% de Margem' : 'LPA/VPA Inválido'}
+              ${grahamMargin !== null ? (grahamMargin > 0 ? '+' : '') + formatNumberBR(grahamMargin, 1) + '% de Margem' : 'LPA/VPA Inválido'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
@@ -1927,7 +2002,7 @@
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v10m-3-7.5a2.5 2.5 0 015 0c0 2-3 2-3 4h3"/></svg> Referência Décio Bazin (DY 6%) <span class="info-badge cursor-pointer" data-tooltip="bazin">ⓘ</span>
             </span>
             <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${bazinMargin !== null && bazinMargin > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-slate-200 text-slate-800'}">
-              ${bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + bazinMargin.toFixed(1) + '% vs Cotação' : 'Sem Proventos'}
+              ${bazinMargin !== null ? (bazinMargin > 0 ? '+' : '') + formatNumberBR(bazinMargin, 1) + '% vs Cotação' : 'Sem Proventos'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
@@ -1946,12 +2021,12 @@
               <svg class="w-3.5 h-3.5 stroke-[1.75] text-[#004B49] inline-block mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8m0 0V5l-8 4v12h16V9l-8-4z"/></svg> Prêmio de Risco vs Tesouro NTN-B 2035 <span class="info-badge cursor-pointer" data-tooltip="ey_spread">ⓘ</span>
             </span>
             <span class="text-[10px] px-2.5 py-0.5 rounded-full font-bold ${spreadVal !== null && spreadVal > 0 ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]' : 'bg-rose-100 text-rose-950 border border-rose-300'}">
-              ${spreadVal !== null ? (spreadVal > 0 ? '+' : '') + spreadVal.toFixed(1) + '% Real' : 'N/D'}
+              ${spreadVal !== null ? (spreadVal > 0 ? '+' : '') + formatNumberBR(spreadVal, 1) + '% Real' : 'N/D'}
             </span>
           </div>
           <div class="flex items-baseline justify-between text-xs pt-1">
             <span class="text-slate-600 font-sans">Earnings Yield (Lucro/Preço):</span>
-            <b class="text-sm font-bold text-slate-900">${s.earnings_yield_pct !== null ? s.earnings_yield_pct.toFixed(1) + '%' : 'N/D'}</b>
+            <b class="text-sm font-bold text-slate-900">${s.earnings_yield_pct !== null ? formatNumberBR(s.earnings_yield_pct, 1, '%') : 'N/D'}</b>
           </div>
           <p class="text-[10px] text-slate-500 font-sans">
             Compara o rendimento em lucros da empresa diretamente contra o custo de oportunidade do Tesouro IPCA+ 6,50%.
