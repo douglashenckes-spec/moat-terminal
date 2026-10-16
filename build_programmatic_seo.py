@@ -391,8 +391,8 @@ def generate_stock_badges_html(s):
     dle_num = float(dle) if dle is not None and str(dle).lower() not in ["none", "nan"] else None
     is_net_cash = (dl_val is not None and dl_val < 0) or (dle_num is not None and dle_num < 0)
 
-    # 1. Risco de Alavancagem Crítica (Regra 2 - VVEO3, ROMI3, etc.)
-    is_critical_debt = (not is_fin) and (dle_num is not None) and (dle_num >= 3.5 or (dle_num >= 2.5 and (roe_val < 0 or (pl_num is not None and pl_num < 0))))
+    # 1. Risco de Alavancagem Crítica (Regra 2 - Alavancagem alta com compressão de resultado)
+    is_critical_debt = (not is_fin) and (dle_num is not None) and (qs <= 45.5 or roe_val < 0.08 or (pl_num is not None and pl_num < 0)) and (dle_num >= 3.5 or (dle_num >= 2.5 and (roe_val < 0 or (pl_num is not None and pl_num < 0))))
     if is_critical_debt:
         quality_pills.append(('Risco Alavancagem', 'bg-rose-600', 'bg-rose-100 text-rose-950 border border-rose-300 font-bold', 'CAT_CRITICAL_LEVERAGE'))
 
@@ -431,9 +431,9 @@ def generate_stock_badges_html(s):
         quality_pills.append(('Contabilidade POC', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_REAL_ESTATE_POC'))
 
     roic_or_roe = roic_val or roe_val
-    if qs >= 80 and roic_or_roe >= 0.15 and not is_elite_compounder:
+    if qs >= 80 and roic_or_roe >= 0.15:
         quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
-    elif not is_fin and roic_val >= 0.18 and not is_elite_compounder:
+    elif not is_fin and roic_val >= 0.18:
         quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
 
     h5 = s.get("historical_5y") or {}
@@ -598,10 +598,12 @@ def generate_prerendered_mini_matrix_html(s, all_stocks):
     xCross = scaleX(limiarValuation)
     
     try:
-        raw_pl = float(s.get("pl") or (s.get("details", {}) or {}).get("pl") or 15.0)
+        raw_pl_val = s.get("pl") if s.get("pl") is not None else (s.get("details", {}) or {}).get("pl")
+        raw_pl = float(raw_pl_val) if raw_pl_val is not None and str(raw_pl_val).lower() not in ["none", "nan", ""] else None
     except Exception:
-        raw_pl = 15.0
-    sPl = raw_pl if raw_pl > 0 else 15.0
+        raw_pl = None
+    has_negative_earnings = (raw_pl is None or raw_pl <= 0)
+    sPl = raw_pl if not has_negative_earnings else None
     
     try:
         sScore = float(s.get("quality_score") or 50.0)
@@ -609,14 +611,18 @@ def generate_prerendered_mini_matrix_html(s, all_stocks):
         sScore = 50.0
         
     isHighQuality = (sScore >= limiarQuality)
-    isLowPl = (sPl <= limiarValuation)
+    isLowPl = (sPl is not None and sPl <= limiarValuation)
     
     sScoreStr = f"{sScore:.1f}".replace(".", ",")
-    sPlStr = f"{sPl:.1f}".replace(".", ",")
-    sEyStr = f"{(100.0 / sPl):.1f}%".replace(".", ",") if sPl > 0 else "N/D"
+    sPlStr = f"{sPl:.1f}".replace(".", ",") if sPl is not None else "Prejuízo (N/D)"
+    sEyStr = f"{(100.0 / sPl):.1f}%".replace(".", ",") if sPl is not None and sPl > 0 else "Negativo / N/D"
     ticker = s.get("ticker", "ATV3")
     
-    if isHighQuality and isLowPl:
+    if has_negative_earnings:
+        quadName = "Q4: Prejuízo / Sem Base P/L"
+        badgeStyle = "bg-rose-100 text-rose-950 border-rose-300"
+        quadExplanation = f"A <b>{ticker}</b> opera com <b>resultado líquido deficitário no período recente</b> (sem base de cálculo para P/L e Earnings Yield negativo). Em função da ausência de lucros e Moat Score de <b>{sScoreStr} pts</b>, o papel não atende aos critérios fundamentais de margem de segurança da análise Munger/CFA."
+    elif isHighQuality and isLowPl:
         quadName = "Q1: Compounder Descontada"
         badgeStyle = "bg-emerald-50 text-emerald-900 border-emerald-300"
         quadExplanation = f"A <b>{ticker}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de {sScoreStr} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de {sPlStr}x</b>, implicando Earnings Yield de {sEyStr}, superior ao cupom da NTN-B soberana de 6,5% a.a.). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco."
@@ -633,7 +639,7 @@ def generate_prerendered_mini_matrix_html(s, all_stocks):
         badgeStyle = "bg-rose-50 text-rose-900 border-rose-300"
         quadExplanation = f"A <b>{ticker}</b> reúne múltiplos esticados (<b>P/L de {sPlStr}x</b>) e limitada proteção competitiva (<b>Moat Score de {sScoreStr} pts</b>), situando-se no quadrante de menor margem de segurança frente às {peer_count} empresas cobertas no universo B3."
         
-    targetCx = scaleX(sPl)
+    targetCx = scaleX(sPl if sPl is not None else 28.5)
     targetCy = scaleY(sScore)
     isNearTop = (targetCy - 22 < padT)
     pillY = targetCy + 9 if isNearTop else targetCy - 22
@@ -777,9 +783,11 @@ def generate_acoes_directory(stocks, base_dir, today_str):
             cot = float(s.get("cotacao", 0) or 0)
             cot_str = format_curr(cot)
             score = float(s.get("quality_score", 0) or 0)
-            tier = s.get("quality_tier", "TIER 2")
-            roic_val = s.get("roic") or s.get("roe") or 0
-            roic_str = format_pct(roic_val)
+            tier = s.get("quality_tier", "Tier 2")
+            is_fin = bool(s.get("is_financial"))
+            rent_label = "ROE" if is_fin else "ROIC"
+            rent_val = s.get("roe") if is_fin else (s.get("roic") or s.get("roe") or 0)
+            rent_str = format_pct(rent_val)
             pl_val = s.get("pl")
             pl_str = format_mult(pl_val) if pl_val is not None else "N/D"
             dy_val = s.get("div_yield") or 0
@@ -798,7 +806,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
                 bazin_price = (cot * dy_val) / 0.06
             bazin_str = format_curr(bazin_price) if bazin_price else "N/D"
 
-            tier_badge = "bg-emerald-50 text-emerald-800 border-emerald-200" if "TIER 1" in tier else ("bg-blue-50 text-blue-800 border-blue-200" if "TIER 2" in tier else "bg-slate-100 text-slate-700 border-slate-200")
+            tier_badge = "bg-emerald-50 text-emerald-800 border-emerald-200" if "TIER 1" in str(tier).upper() else ("bg-blue-50 text-blue-800 border-blue-200" if "TIER 2" in str(tier).upper() else "bg-slate-100 text-slate-700 border-slate-200")
 
             cards_html_list.append(f"""
             <div class="stock-dir-card bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-2xs hover:shadow-md hover:border-[#004B49] transition flex flex-col justify-between group" data-ticker="{t}" data-name="{emp.lower()}" data-sector="{slug_id}">
@@ -826,8 +834,8 @@ def generate_acoes_directory(stocks, base_dir, today_str):
                     <b class="text-slate-900">{cot_str}</b>
                   </div>
                   <div>
-                    <span class="text-[10px] text-slate-600 block uppercase font-sans">ROIC / ROE</span>
-                    <b class="text-emerald-700">{roic_str}</b>
+                    <span class="text-[10px] text-slate-600 block uppercase font-sans">{rent_label}</span>
+                    <b class="text-emerald-700">{rent_str}</b>
                   </div>
                   <div>
                     <span class="text-[10px] text-slate-600 block uppercase font-sans">Div. Yield</span>
@@ -1350,33 +1358,52 @@ def build_programmatic_seo():
         if is_high_debt:
             exp_pl = base_exp_pl * 0.75
         elif is_net_cash_bonus:
-            exp_pl = max(base_exp_pl * 1.30, 16.5)
+            exp_pl = max(base_exp_pl * 1.15, 13.5)
 
         is_above_curve = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < exp_pl)
         pl_rr = s.get("pl_run_rate") or det.get("pl_run_rate")
         is_low_pl = (pl_val is not None and float(pl_val) > 0 and float(pl_val) <= 12.0 and (pl_rr is None or float(pl_rr) <= 12.0))
 
+        pvp_val = s.get("pvp")
+        dy_val = float(s.get("div_yield") or 0)
+        ey_spread = float(s.get("ey_spread") or 0)
+        div_liq_ebitda = s.get("div_liq_ebitda")
+        val_mercado = det.get("valor_mercado")
+        val_firma = det.get("valor_firma")
+        lpa = float(det.get("lpa")) if det.get("lpa") not in [None, ""] else None
+        vpa = float(det.get("vpa")) if det.get("vpa") not in [None, ""] else None
+
+        has_negative_earnings = (pl_val is None or str(pl_val).lower() in ["none", "nan", ""] or float(pl_val) <= 0)
+        has_neg_equity = (pvp_val is not None and float(pvp_val) < 0) or (vpa is not None and float(vpa) < 0)
+        is_distressed = has_neg_equity or (not is_fin and dle_num is not None and dle_num >= 3.0 and roe_val < 0)
+
         # Alinhamento Rigoroso de Badges de Valuation (Eliminação de Contradições):
-        # - Se está Acima da Curva (Desconto) -> MÚLTIPLOS ATRATIVOS (se P/L <= 11x) ou DESCONTO RELATIVO AO MOAT (se P/L > 11x)
-        # - Se está Abaixo da Curva (Prêmio) -> MÚLTIPLOS EXIGENTES (se P/L > 15x) ou PRÊMIO SOBRE A CURVA
-        if is_above_curve:
-            if pl_val is not None and float(pl_val) <= 11.0:
+        if has_negative_earnings:
+            entry_tag = "ESTICADA"
+            entry_status = "🔴 MÚLTIPLOS ELEVADOS / SEM BASE DE LUCRO"
+            entry_color = "#EF4444"
+        elif is_distressed:
+            entry_tag = "ESTICADA"
+            entry_status = "🔴 MÚLTIPLOS ELEVADOS / ALTO RISCO"
+            entry_color = "#EF4444"
+        elif is_above_curve:
+            if float(pl_val) <= 11.0:
                 entry_tag = "ASSIMETRIA_FAVORAVEL"
                 entry_status = "🟢 MÚLTIPLOS ATRATIVOS"
                 entry_color = "#10B981"
             else:
-                entry_tag = "ASSIMETRIA_FAVORAVEL"
+                entry_tag = "DESCONTO_MOAT"
                 entry_status = "🔵 DESCONTO RELATIVO AO MOAT"
                 entry_color = "#0284C7"
         else:
-            if pl_val is not None and float(pl_val) > 15.0:
-                entry_tag = "ESTICADA"
-                entry_status = "🔴 MÚLTIPLOS EXIGENTES"
-                entry_color = "#EF4444"
-            else:
+            if float(pl_val) <= 15.0:
                 entry_tag = "PRECO_JUSTO"
                 entry_status = "🟡 PRÊMIO SOBRE A CURVA"
                 entry_color = "#F59E0B"
+            else:
+                entry_tag = "ESTICADA"
+                entry_status = "🔴 MÚLTIPLOS EXIGENTES"
+                entry_color = "#EF4444"
 
         s["entry_status"] = entry_status
         s["entry_tag"] = entry_tag
@@ -1438,7 +1465,7 @@ def build_programmatic_seo():
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
         faq_q1 = f"Qual é o Fosso Econômico (Economic Moat) da {empresa} ({ticker})?"
-        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {score_str}/100, classificado no {quality_tier} ({quality_tag}). A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
+        faq_a1 = f"A {empresa} ({ticker}) possui um Moat Score de {score_str}/100, classificado no {quality_tier}. A empresa atua no setor de {setor} ({subsetor}) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal."
 
         # Diagnóstico Analítico Condicional de Rentabilidade (Setor Financeiro vs Diagnóstico ROIC/ROE)
         is_fin = bool(s.get("is_financial")) or (setor in ["Financeiro", "Bancos", "Seguros", "Previdência"])
@@ -1634,8 +1661,8 @@ def build_programmatic_seo():
     </nav>"""
 
         # Pre-rendered Hero Card HTML para rastreadores
-        if "DESCONTO RELATIVO" in str(entry_status):
-            entry_badge_bg = "bg-blue-600 text-white font-bold"
+        if entry_tag == "DESCONTO_MOAT" or "DESCONTO RELATIVO" in str(entry_status):
+            entry_badge_bg = "bg-[#0284C7] text-white font-bold"
         elif entry_tag == "ASSIMETRIA_FAVORAVEL":
             entry_badge_bg = "bg-emerald-600 text-white font-bold"
         elif entry_tag == "PRECO_JUSTO":
@@ -1644,11 +1671,12 @@ def build_programmatic_seo():
             entry_badge_bg = "bg-rose-600 text-white font-bold"
         tier_label = "Tier 1 (Wide Moat)" if quality_score >= 80 else ("Tier 2 (Narrow Moat)" if quality_score >= 65 else ("Tier 3 (Sem Fosso Claro / Sensível ao Ciclo)" if quality_score >= 50 else "Tier 4 (Fragilidade Operacional / Risco de Capital)"))
 
-        curve_badge_html = (
-            '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
-            if is_above_curve else
-            '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>'
-        )
+        if has_negative_earnings:
+            curve_badge_html = '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-rose-800 border border-rose-200">📉 Abaixo da Curva (Prejuízo Contábil)</span>'
+        elif is_above_curve:
+            curve_badge_html = '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
+        else:
+            curve_badge_html = '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-white text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>'
 
         decomposition_html = generate_moat_decomposition_html(s)
         badges_html = generate_stock_badges_html(s)

@@ -677,7 +677,7 @@ def build_company_page():
       }}
       // Bônus: Caixa Líquido relevante e EV/EBITDA <= 6,0x (mesmo com P/L entre 12x e 16x)
       if (isNetCash && eveb !== null && eveb > 0 && eveb <= 6.0) {{
-        return Math.max(baseExp * 1.30, 16.5);
+        return Math.max(baseExp * 1.15, 13.5);
       }}
 
       return baseExp;
@@ -686,11 +686,23 @@ def build_company_page():
     // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada (4 Status Oficiais)
     function sanitizeStockValuation(s) {{
       if (!s) return;
-      if (s.entry_tag === 'PASSIVO_DESCOBERTO' || s.entry_tag === 'ND_PREJUIZO' || !s.pl || s.pl <= 0) return;
       const expPL = calcAdjustedFairPL(s);
-      const isAbove = s.pl < expPL;
-      if (isAbove) {{
-        if (s.pl <= 11.0) {{
+      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
+      const det = s.details || {{}};
+      const hasNegEquity = (s.pvp !== null && Number(s.pvp) < 0) || (det.vpa !== null && Number(det.vpa) < 0);
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const isDistressedVal = hasNegEquity || (!s.is_financial && dle !== null && dle >= 3.0 && s.roe !== null && Number(s.roe) < 0);
+
+      if (s.pl === null || s.pl === undefined || Number(s.pl) <= 0) {{
+        s.entry_tag = 'ESTICADA';
+        s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / SEM BASE DE LUCRO';
+        s.entry_color = '#EF4444';
+      }} else if (isDistressedVal) {{
+        s.entry_tag = 'ESTICADA';
+        s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / ALTO RISCO';
+        s.entry_color = '#EF4444';
+      }} else if (isAbove) {{
+        if (Number(s.pl) <= 11.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
           s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
@@ -700,14 +712,14 @@ def build_company_page():
           s.entry_color = '#0284C7';
         }}
       }} else {{
-        if (s.pl > 15.0) {{
-          s.entry_tag = 'ESTICADA';
-          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
-          s.entry_color = '#EF4444';
-        }} else {{
+        if (Number(s.pl) <= 15.0) {{
           s.entry_tag = 'PRECO_JUSTO';
           s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
           s.entry_color = '#F59E0B';
+        }} else {{
+          s.entry_tag = 'ESTICADA';
+          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+          s.entry_color = '#EF4444';
         }}
       }}
     }}
@@ -788,7 +800,7 @@ def build_company_page():
           }});
         }}
       }} else {{
-        const isCriticalDebt = dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        const isCriticalDebt = dle !== null && (s.quality_score <= 45.5 || eVal < 0.08 || (s.pl !== null && s.pl < 0)) && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
         if (isCriticalDebt) {{
           cats.push({{
             id: 'CAT_CRITICAL_LEVERAGE',
@@ -1206,7 +1218,7 @@ def build_company_page():
       const cashRatio = (mcap && dl !== null && dl < 0) ? (-dl / mcap) : 0;
       const dispRatio = mcap ? (disp / mcap) : 0;
 
-      const isCriticalDebt = !isFin && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+      const isCriticalDebt = !isFin && dle !== null && (s.quality_score <= 45.5 || eVal < 0.08 || (s.pl !== null && s.pl < 0)) && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
       const isSafeDebt = isNetCash || (dle !== null && dle < 0.5);
       const isEliteCompounder = (s.quality_score >= 82.0) && (rVal >= 0.20) && isSafeDebt && (s.pl !== null && s.pl > 20.0);
       const isStrongCashEv = !isFin && (
@@ -1554,9 +1566,11 @@ def build_company_page():
 
       heroEl.className = `glass-card rounded-3xl p-6 sm:p-8 border transition-colors duration-200 shadow-sm ${{heroBgClass}}`;
 
-      const curveBadge = isAbove 
-        ? '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
-        : '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>';
+      const curveBadge = (s.pl === null || s.pl === undefined || Number(s.pl) <= 0)
+        ? '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-rose-800 border border-rose-200">📉 Abaixo da Curva (Prejuízo Contábil)</span>'
+        : (isAbove 
+            ? '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📈 Acima da Curva (Desconto)</span>'
+            : '<span class="px-2.5 py-1 rounded-full text-xs font-bold font-mono bg-white/90 text-slate-800 border border-slate-200">📉 Abaixo da Curva (Prêmio)</span>');
 
       const scoreBadgeClass = 'bg-white/95 text-slate-900 border-slate-300 shadow-2xs';
 
@@ -1942,18 +1956,18 @@ def build_company_page():
         kpisGrid.innerHTML = `
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Receita (5A)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{h.cagr_receita_pct > 0 ? '+' : ''}}${{h.cagr_receita_pct}}%</div>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{(h.cagr_receita_pct !== null && h.cagr_receita_pct !== undefined) ? ((h.cagr_receita_pct > 0 ? '+' : '') + formatNumberBR(h.cagr_receita_pct, 1, '%')) : 'N/D'}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.cagr_receita_pct >= 10 ? 'Forte Expansão' : 'Crescimento Real'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Anos com Lucro</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{h.anos_com_lucro}}</div>
+            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{h.anos_com_lucro || '5/5'}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.is_all_profitable ? 'Lucro Ininterrupto 5A' : 'Com Oscilações'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Lucro (5A)</span>
-            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{h.cagr_lucro_pct > 0 ? '+' : ''}}${{h.cagr_lucro_pct}}%</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.estabilidade_margens}}</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{(h.cagr_lucro_pct !== null && h.cagr_lucro_pct !== undefined) ? ((h.cagr_lucro_pct > 0 ? '+' : '') + formatNumberBR(h.cagr_lucro_pct, 1, '%')) : 'N/D'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.estabilidade_margens || 'Estabilidade de Margens'}}</span>
           </div>
         `;
 
@@ -2364,6 +2378,9 @@ def build_company_page():
       if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {{
         verdictBgClass = 'bg-emerald-50/80 border-emerald-300';
         verdictBadgeClass = 'bg-emerald-600 text-white border-emerald-700';
+      }} else if (s.entry_tag === 'DESCONTO_MOAT') {{
+        verdictBgClass = 'bg-sky-50/80 border-sky-300';
+        verdictBadgeClass = 'bg-[#0284C7] text-white border-sky-700';
       }} else if (s.entry_tag === 'PRECO_JUSTO') {{
         verdictBgClass = 'bg-amber-50/80 border-amber-300';
         verdictBadgeClass = 'bg-amber-600 text-white border-amber-700';
@@ -2671,7 +2688,7 @@ def build_company_page():
       const s = currentStock;
       if (!svg || !s) return;
 
-      const allStocks = APP_DATA.stocks || [];
+      const allStocks = (APP_DATA.searchIndex && APP_DATA.searchIndex.length > 10) ? APP_DATA.searchIndex : (APP_DATA.stocks || []);
       const validPeers = allStocks.filter(item => item.pl !== null && item.pl > 0 && item.pl <= 35.0);
 
       if (peerCountSpan) {{
@@ -2694,24 +2711,29 @@ def build_company_page():
       const yCross = scaleY(limiarQuality);
       const xCross = scaleX(limiarValuation);
 
-      const sPl = (s.pl && s.pl > 0) ? s.pl : ((s.details && s.details.pl) || 15.0);
+      const hasNegativeEarnings = (s.pl === null || s.pl === undefined || Number(s.pl) <= 0);
+      const sPl = !hasNegativeEarnings ? Number(s.pl) : null;
       const sScore = s.quality_score || 50.0;
       const expPL = calcAdjustedFairPL(s);
-      const isAboveCurve = sPl < expPL;
+      const isAboveCurve = sPl !== null && sPl < expPL;
 
       const isHighQuality = sScore >= limiarQuality;
-      const isLowPl = isAboveCurve || (sPl <= limiarValuation);
+      const isLowPl = sPl !== null && (isAboveCurve || (sPl <= limiarValuation));
 
       let quadName = '';
       let badgeStyle = '';
       let quadExplanation = '';
 
       const sScoreStr = formatNumberBR(sScore, 1);
-      const sPlStr = formatNumberBR(sPl, 1);
+      const sPlStr = sPl !== null ? formatNumberBR(sPl, 1) : 'Prejuízo (N/D)';
       const expPLStr = formatNumberBR(expPL, 1);
-      const sEyStr = (sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'N/D');
+      const sEyStr = (sPl !== null && sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'Negativo / N/D');
 
-      if (isHighQuality && isLowPl) {{
+      if (hasNegativeEarnings) {{
+        quadName = 'Q4: Prejuízo / Sem Base P/L';
+        badgeStyle = 'bg-rose-100 text-rose-950 border-rose-300';
+        quadExplanation = `A <b>${{s.ticker}}</b> opera com <b>resultado líquido deficitário no período recente</b> (sem base de cálculo para P/L e Earnings Yield negativo). Em função da ausência de lucros e Moat Score de <b>${{sScoreStr}} pts</b>, o papel não atende aos critérios fundamentais de margem de segurança da análise Munger/CFA.`;
+      }} else if (isHighQuality && isLowPl) {{
         quadName = 'Q1: Compounder Descontada';
         badgeStyle = 'bg-emerald-50 text-emerald-900 border-emerald-300';
         quadExplanation = `A <b>${{s.ticker}}</b> alia alta proteção competitiva de longo prazo (<b>Moat Score de ${{sScoreStr}} pts</b>, Tier 1) a múltiplos atrativos (<b>P/L de ${{sPlStr}}x</b> frente ao P/L justo ajustado por estrutura de capital de <b>${{expPLStr}}x</b>, implicando Earnings Yield de ${{sEyStr}}). Ativo posicionado no quadrante ótimo de acumulação e retorno ajustado ao risco.`;
@@ -2738,7 +2760,7 @@ def build_company_page():
       }}
 
       // Renderizar o SVG
-      const targetCx = scaleX(sPl);
+      const targetCx = scaleX(sPl !== null ? sPl : 28.5);
       const targetCy = scaleY(sScore);
       const isNearTop = (targetCy - 22 < padT);
       const pillY = isNearTop ? targetCy + 9 : targetCy - 22;
