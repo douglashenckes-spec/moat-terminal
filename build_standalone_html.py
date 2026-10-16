@@ -1464,7 +1464,7 @@ html_template = f"""<!DOCTYPE html>
       const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
       const det = s.details || {{}};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
-      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
+      const isNetCash = isNetCashStock(s);
 
       // Penalidade: Dívida Líquida/EBITDA > 2,5x exige desconto 25% maior (teto de P/L reduzido em 25%)
       if (dle !== null && dle > 2.5) {{
@@ -1472,7 +1472,7 @@ html_template = f"""<!DOCTYPE html>
       }}
       // Bônus: Caixa Líquido relevante e EV/EBITDA <= 6,0x (mesmo com P/L entre 12x e 16x)
       if (isNetCash && eveb !== null && eveb > 0 && eveb <= 6.0) {{
-        return Math.max(baseExp * 1.30, 16.5);
+        return Math.max(baseExp * 1.15, 13.5);
       }}
 
       return baseExp;
@@ -1483,9 +1483,21 @@ html_template = f"""<!DOCTYPE html>
       if (!s) return;
       const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
+      const det = s.details || {{}};
+      const hasNegEquity = (s.pvp !== null && Number(s.pvp) < 0) || (det.vpa !== null && Number(det.vpa) < 0);
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const isDistressedVal = hasNegEquity || (!s.is_financial && dle !== null && dle >= 3.0 && s.roe !== null && Number(s.roe) < 0);
 
-      if (isAbove) {{
-        if (s.pl && s.pl <= 11.0) {{
+      if (s.pl === null || s.pl === undefined || Number(s.pl) <= 0) {{
+        s.entry_tag = 'ESTICADA';
+        s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / SEM BASE DE LUCRO';
+        s.entry_color = '#EF4444';
+      }} else if (isDistressedVal) {{
+        s.entry_tag = 'ESTICADA';
+        s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / ALTO RISCO';
+        s.entry_color = '#EF4444';
+      }} else if (isAbove) {{
+        if (Number(s.pl) <= 11.0) {{
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
           s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
@@ -1495,14 +1507,14 @@ html_template = f"""<!DOCTYPE html>
           s.entry_color = '#0284C7';
         }}
       }} else {{
-        if (s.pl && s.pl > 15.0) {{
-          s.entry_tag = 'ESTICADA';
-          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
-          s.entry_color = '#EF4444';
-        }} else {{
+        if (Number(s.pl) <= 15.0) {{
           s.entry_tag = 'PRECO_JUSTO';
           s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
           s.entry_color = '#F59E0B';
+        }} else {{
+          s.entry_tag = 'ESTICADA';
+          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+          s.entry_color = '#EF4444';
         }}
       }}
     }}
@@ -1874,7 +1886,7 @@ html_template = f"""<!DOCTYPE html>
         }}
       }} else {{
         // Regra 2: Alerta Crítico de Alavancagem (Caso VVEO3, ROMI3, etc.)
-        const isCriticalDebt = dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        const isCriticalDebt = dle !== null && (s.quality_score <= 45.5 || eVal < 0.08 || (s.pl !== null && s.pl < 0)) && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
         if (isCriticalDebt) {{
           cats.push({{
             id: 'CAT_CRITICAL_LEVERAGE',
@@ -3666,8 +3678,38 @@ html_template = f"""<!DOCTYPE html>
         icon: '💰',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Dividend Yield ≥ 5,0% com Payout Disciplinado (entre 30% e 88%), sem comprometer o fluxo de caixa operacional.',
-        rationale: 'Filtro de proventos sustentáveis: rejeita empresas que pagam dividendos artificiais através de endividamento (payout > 100%) ou que apresentam yields frágeis não-recorrentes.'
+        description: 'Dividend Yield ≥ 6,0% com Moat Score ≥ 62, ROE ≥ 10% e Payout Sustentável (entre 30% e 88%), sem comprometer o fluxo de caixa.',
+        rationale: 'Filtro rigoroso de proventos consistentes: seleciona pagadoras estruturais com ROE saudável e afasta empresas que distribuem dividendos artificiais via alavancagem ou one-offs.'
+      }},
+      {{
+        id: 'CAT_BAZIN_ARMORED',
+        name: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
+        shortName: 'Bazin Blindado',
+        icon: '🛡️',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
+        description: 'Dividend Yield ≥ 7,0% aliado a Payout ≤ 85% e estrutura financeira confortável (Caixa Líquido ou Dívida Líq./EBITDA ≤ 2,2x).',
+        rationale: 'Filtragem máxima de renda passiva: proventos elevados respaldados por lucros recorrentes e balanço conservador, sem risco iminente de corte nos proventos.'
+      }},
+      {{
+        id: 'CAT_DISCOUNT',
+        name: 'Múltiplos Atrativos (P/L ≤ 11x)',
+        shortName: 'Múltiplos Atrativos',
+        icon: '🟢',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
+        description: 'Empresas negociando com P/L ≤ 11,0x e posicionadas na zona de desconto da curva de referência Munger (Acima da Curva).',
+        rationale: 'Múltiplos comprimidos em termos absolutos e relativos, oferecendo expressivo desconto frente à qualidade dos lucros e ao custo de oportunidade da economia.'
+      }},
+      {{
+        id: 'CAT_DESCONTO_MOAT',
+        name: 'Desconto Relativo ao Moat (GARP)',
+        shortName: 'Desconto ao Moat',
+        icon: '🔵',
+        color: 'sky',
+        badgeClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-bold',
+        description: 'Empresas de alta qualidade (P/L > 11,0x) que negociam abaixo do P/L justo exigido pela curva de Munger para o seu nível de Moat Score.',
+        rationale: 'Conceito GARP (Growth at a Reasonable Price): negócios com vantagens competitivas duráveis negociando com desconto relativo ao seu poder de composição de capital.'
       }},
       {{
         id: 'CAT_GRAHAM',
@@ -4320,7 +4362,7 @@ html_template = f"""<!DOCTYPE html>
           </td>
           <td class="py-3.5 px-2 text-xs text-right font-mono font-bold text-slate-900 border-b border-[#E7E7E2] tabular-nums">${{formatCurrency(s.cotacao)}}</td>
           <td class="py-3.5 px-2 text-center border-b border-[#E7E7E2]">
-            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] tabular-nums ${{scoreBadgeClass}}" title="Moat Score: ${{formatNumberBR(s.quality_score, 1)}} / 92,5">
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] tabular-nums ${{scoreBadgeClass}}" title="Moat Score: ${{formatNumberBR(s.quality_score, 1)}} / 100">
               ${{formatNumberBR(s.quality_score, 1)}}
             </span>
           </td>
@@ -5421,7 +5463,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Dívida Líquida:</span> <b class="${{s.details.divida_liquida <= 0 ? 'text-emerald-700 font-bold' : (s.details.divida_liquida > 1e10 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold')}}">${{formatBillions(s.details.divida_liquida)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Dív. Líq. / EBITDA:</span> <b class="${{getColorDebt(s.div_liq_ebitda, s.is_financial)}} font-bold">${{s.is_financial ? 'N/A (Bancos)' : formatMultiple(s.div_liq_ebitda)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Patrimônio Líquido:</span> <b class="text-slate-900 font-bold">${{formatBillions(s.details.patrimonio_liquido)}}</b></div>
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Valor Patrimonial / Ação:</span> <b class="text-slate-800 font-bold">R$ ${{s.details.vpa || 'N/D'}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Valor Patrimonial / Ação:</span> <b class="text-slate-800 font-bold">${{formatCurrency(s.details.vpa)}}</b></div>
             <div class="flex justify-between py-0.5"><span class="text-slate-600 font-sans font-medium">Estrutura de Capital:</span> <b class="${{s.details.divida_liquida <= 0 ? 'text-emerald-800 font-semibold' : 'text-amber-800 font-semibold'}}">${{s.details.divida_liquida <= 0 ? 'Caixa Líquido Positivo 🛡️' : 'Alavancagem Normal'}}</b></div>
           </div>
         </div>
@@ -5436,7 +5478,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">EBIT Operacional (12m):</span> <b class="${{s.details.ebit_12m < 0 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold'}}">${{formatBillions(s.details.ebit_12m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro Líquido (12m):</span> <b class="${{s.details.lucro_liq_12m < 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}}">${{formatBillions(s.details.lucro_liq_12m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro Trimestre (2T26):</span> <b class="${{s.details.lucro_liq_3m < 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}}">${{formatBillions(s.details.lucro_liq_3m)}}</b></div>
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">LPA (Lucro por Ação):</span> <b class="text-slate-800 font-bold">R$ ${{s.details.lpa || 'N/D'}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">LPA (Lucro por Ação):</span> <b class="text-slate-800 font-bold">${{formatCurrency(s.details.lpa)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Margem Bruta:</span> <b class="${{s.mrg_bruta < 0 ? 'text-rose-700 font-bold' : 'text-slate-800 font-bold'}}">${{formatPercent(s.mrg_bruta)}}</b></div>
             <div class="flex justify-between py-0.5"><span class="text-slate-600 font-sans font-medium">Margem Líquida:</span> <b class="${{getColorMrgLiq(s.mrg_liq)}} font-bold">${{formatPercent(s.mrg_liq)}}</b></div>
           </div>
@@ -5610,7 +5652,7 @@ html_template = f"""<!DOCTYPE html>
               <span>📈</span>
             </div>
             <div class="mt-1 flex items-baseline justify-between gap-1">
-              <span class="text-lg font-bold font-mono text-slate-900">${{h.cagr_receita_pct > 0 ? '+' : ''}}${{h.cagr_receita_pct}}%</span>
+              <span class="text-lg font-bold font-mono text-slate-900">${{h.cagr_receita_pct > 0 ? '+' : ''}}${{formatNumberBR(h.cagr_receita_pct, 1, '%')}}</span>
               <span class="text-[10px] px-2 py-0.5 rounded-full font-bold font-mono border ${{cagrRecColor}} whitespace-nowrap">
                 ${{h.cagr_receita_pct >= 10 ? 'Forte Expansão' : (h.cagr_receita_pct >= 0 ? 'Crescimento Real' : 'Contração')}}
               </span>
@@ -5638,7 +5680,7 @@ html_template = f"""<!DOCTYPE html>
               <span>⚖️</span>
             </div>
             <div class="mt-1 flex items-baseline justify-between gap-1">
-              <span class="text-lg font-bold font-mono text-slate-900">${{h.cagr_lucro_pct > 0 ? '+' : ''}}${{h.cagr_lucro_pct}}%</span>
+              <span class="text-lg font-bold font-mono text-slate-900">${{h.cagr_lucro_pct > 0 ? '+' : ''}}${{formatNumberBR(h.cagr_lucro_pct, 1, '%')}}</span>
               <span class="text-[10px] px-2 py-0.5 rounded-full font-bold font-mono border ${{cagrLucColor}} whitespace-nowrap">
                 ${{h.estabilidade_margens}}
               </span>
