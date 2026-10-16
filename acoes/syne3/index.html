@@ -1175,28 +1175,30 @@
       return baseExp;
     }
 
-    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada (4 Status Oficiais)
     function sanitizeStockValuation(s) {
       if (!s) return;
+      if (s.entry_tag === 'PASSIVO_DESCOBERTO' || s.entry_tag === 'ND_PREJUIZO' || !s.pl || s.pl <= 0) return;
       const expPL = calcAdjustedFairPL(s);
-      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
-      const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
-
-      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
-      const det = s.details || {};
-      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
-      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
-      const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
-
-      if ((isAbove || isLowPL || isNetCashBonus) && (s.entry_tag === 'ESTICADA' || (s.entry_status && s.entry_status.includes('ELEVADOS')))) {
-        if (s.pl && s.pl <= 10.0) {
+      const isAbove = s.pl < expPL;
+      if (isAbove) {
+        if (s.pl <= 11.0) {
           s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 VALUATION ATRATIVO';
+          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
         } else {
+          s.entry_tag = 'DESCONTO_MOAT';
+          s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
+          s.entry_color = '#0284C7';
+        }
+      } else {
+        if (s.pl > 15.0) {
+          s.entry_tag = 'ESTICADA';
+          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+          s.entry_color = '#EF4444';
+        } else {
           s.entry_tag = 'PRECO_JUSTO';
-          s.entry_status = '🟡 VALUATION EM LINHA';
+          s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
           s.entry_color = '#F59E0B';
         }
       }
@@ -1205,10 +1207,57 @@
       APP_DATA.stocks.forEach(sanitizeStockValuation);
     }
 
-    // Rótulos e Categorias Institucionais Munger da Ação (Status Pills Minimalistas)
+    // =========================================================================
+    // FUNÇÕES AUXILIARES DE CRITÉRIOS UNIFICADOS (CAIXA LÍQUIDO & DIVIDENDOS)
+    // =========================================================================
+    function isNetCashStock(s) {
+      if (!s) return false;
+      const NON_NET_CASH = new Set(['RCSL4', 'IRBR3']);
+      if (NON_NET_CASH.has(s.ticker)) return false;
+      if (s.entry_tag === 'PASSIVO_DESCOBERTO' || (s.pvp !== null && s.pvp <= 0)) return false;
+      const det = s.details || {};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const db = (det.divida_bruta !== null && det.divida_bruta !== undefined) ? Number(det.divida_bruta) : null;
+      const disp = (det.disponibilidades !== null && det.disponibilidades !== undefined) ? Number(det.disponibilidades) : null;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const rVal = Number(s.roic || s.roe || 0);
+
+      if (s.is_financial) {
+        const sec = (s.setor || '') + ' ' + (s.subsetor || '') + ' ' + (det.subsetor || '');
+        const isBank = sec.includes('Bancos') || ['ITUB4', 'ITUB3', 'BBDC4', 'BBDC3', 'BBAS3', 'SANB11', 'BPAC11', 'ABCB4', 'BRSR6', 'BMGB4', 'BPAN4', 'PINE4', 'BGIP4', 'BMEB4', 'BEES3'].includes(s.ticker);
+        if (isBank) return false;
+        return (dl !== null && dl <= 0 && (disp > 0 || db === 0)) || ['B3SA3', 'PSSA3', 'BBSE3', 'CXSE3', 'WIZC3'].includes(s.ticker);
+      }
+
+      const strictNetCash = (dl !== null && dl <= 0) || (dle !== null && dle <= 0) || (disp !== null && db !== null && disp >= db && disp > 0);
+      const nearZeroNetCash = (dle !== null && dle > 0 && dle <= 0.15 && (s.quality_score || 0) >= 65 && rVal >= 0.12);
+      return strictNetCash || nearZeroNetCash;
+    }
+
+    function isConsistentDividendStock(s) {
+      if (!s) return false;
+      if (s.entry_tag === 'PASSIVO_DESCOBERTO' || s.entry_tag === 'ND_PREJUIZO') return false;
+      const dy = Number(s.div_yield || 0);
+      if (dy < 0.06) return false;
+      const pl = s.pl !== null && s.pl !== undefined ? Number(s.pl) : null;
+      if (!pl || pl <= 0) return false;
+      const payout = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
+      const dle = s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined ? Number(s.div_liq_ebitda) : null;
+      const healthyPayout = (payout === null) || (payout > 0 && payout <= 105.0);
+      const safeDebt = s.is_financial || isNetCashStock(s) || (dle === null || dle <= 3.2);
+      return healthyPayout && safeDebt && (s.quality_score || 0) >= 52.0;
+    }
+
+    // Rótulos e Categorias Institucionais Munger da Ação (Sem exclusão mútua que esconda empresas dos filtros)
     function getStockCategories(s) {
       const cats = [];
       if (!s) return cats;
+
+      const dl = (s.details && s.details.divida_liquida !== null) ? Number(s.details.divida_liquida) : null;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const isNetCash = isNetCashStock(s);
+      const rVal = Number(s.roic || 0);
+      const eVal = Number(s.roe || 0);
 
       // 1. GRUPO: QUALIDADE & BALANÇO
       if (s.is_financial) {
@@ -1220,15 +1269,18 @@
           ledClass: 'bg-indigo-500',
           bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
         });
+        if (isNetCash) {
+          cats.push({
+            id: 'CAT_NET_CASH',
+            group: 'QUALIDADE',
+            label: 'Caixa Líquido (Dívida Zero)',
+            shortLabel: 'Caixa Líquido',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          });
+        }
       } else {
-        const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
-        const dle = s.div_liq_ebitda;
-        const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
-        const rVal = Number(s.roic || 0);
-        const eVal = Number(s.roe || 0);
-
-        // Regra 2: Alerta Crítico de Alavancagem (Caso VVEO3, ROMI3, etc.)
-        const isCriticalDebt = !s.is_financial && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        const isCriticalDebt = dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
         if (isCriticalDebt) {
           cats.push({
             id: 'CAT_CRITICAL_LEVERAGE',
@@ -1240,7 +1292,6 @@
           });
         }
 
-        // Regra 4: Compounder Premium (Caso WEGE3)
         const isSafeDebt = isNetCash || (dle !== null && dle < 0.5);
         const isEliteCompounder = (s.quality_score >= 82.0) && (rVal >= 0.20) && isSafeDebt && (s.pl !== null && s.pl > 20.0);
         if (isEliteCompounder) {
@@ -1254,7 +1305,6 @@
           });
         }
 
-        // Regra 3 anterior: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
         if (isNetCash && (rVal > eVal + 0.03)) {
           cats.push({
             id: 'CAT_NET_CASH_STRUCT',
@@ -1264,7 +1314,8 @@
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           });
-        } else if (isNetCash) {
+        }
+        if (isNetCash) {
           cats.push({
             id: 'CAT_NET_CASH',
             group: 'QUALIDADE',
@@ -1273,7 +1324,7 @@
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           });
-        } else if (dle !== null && dle > 2.5 && !isCriticalDebt) {
+        } else if (dle !== null && dle > 2.5) {
           cats.push({
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -1293,7 +1344,6 @@
           });
         }
 
-        // Operação Positiva • Pressão Financeira (Caso RAPT4 / USIM3)
         const evEbVal = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
         if (rVal >= 0.08 && evEbVal !== null && evEbVal > 0 && evEbVal <= 10.0 && (eVal < 0 || (s.pl !== null && s.pl < 0)) && !isCriticalDebt) {
           cats.push({
@@ -1307,7 +1357,6 @@
         }
       }
 
-      // Regra 3: Tags Contextuais de Qualidade Setorial (Cíclicas, Incorporadoras)
       const cyclicalSectors = new Set(["Mineração", "Siderurgia e Metalurgia", "Petróleo, Gás e Biocombustíveis", "Material de Transporte", "Máquinas e Equipamentos"]);
       const cyclicalTickers = new Set(["VALE3", "RECV3", "POMO4", "POMO3", "ROMI3", "GOAU4", "GOAU3", "GGBR4", "GGBR3", "CSNA3", "USIM3", "USIM5", "PRIO3", "BRAV3", "PETR3", "PETR4", "TUPY3", "FESA4", "CBAV3", "KEPL3", "RAPT4", "FRAS3"]);
       if (cyclicalSectors.has(s.setor) || cyclicalTickers.has(s.ticker)) {
@@ -1333,10 +1382,7 @@
         });
       }
 
-      // Qualidade: Tier 1 & Super ROIC
-      const roicOrRoe = s.roic || s.roe || 0;
-      const isEliteCompCheck = (s.quality_score >= 82.0) && (Number(s.roic || 0) >= 0.20) && (s.pl !== null && s.pl > 20.0);
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15 && !isEliteCompCheck) {
+      if ((s.quality_score || 0) >= 80.0) {
         cats.push({
           id: 'CAT_TIER1',
           group: 'QUALIDADE',
@@ -1345,7 +1391,8 @@
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
         });
-      } else if (!s.is_financial && s.roic >= 0.18 && !isEliteCompCheck) {
+      }
+      if (!s.is_financial && s.roic !== null && s.roic >= 0.18) {
         cats.push({
           id: 'CAT_HIGH_ROIC',
           group: 'QUALIDADE',
@@ -1386,7 +1433,7 @@
       const eValNum = Number(s.roe || 0);
       const detVal = s.details || {};
       const dlValNum = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
-      const isNetCashVal = (dlValNum !== null && dlValNum < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
+      const isNetCashVal = isNetCash;
       let mcapNum = detVal.valor_mercado ? Number(detVal.valor_mercado) : null;
       if (!mcapNum && cot > 0 && detVal.nro_acoes) {
         mcapNum = cot * Number(detVal.nro_acoes);
@@ -1396,7 +1443,26 @@
       const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
       const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
 
-      // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Casos BMOB3, LAVV3, LREN3)
+      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {
+        cats.push({
+          id: 'CAT_DISCOUNT',
+          group: 'VALUATION',
+          label: 'Múltiplos Atrativos (P/L ≤ 11x)',
+          shortLabel: 'Múltiplos Atrativos',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-semibold'
+        });
+      } else if (s.entry_tag === 'DESCONTO_MOAT') {
+        cats.push({
+          id: 'CAT_DESCONTO_MOAT',
+          group: 'VALUATION',
+          label: 'Desconto Relativo ao Moat (P/L > 11x)',
+          shortLabel: 'Desconto ao Moat',
+          ledClass: 'bg-sky-600',
+          bgClass: 'bg-sky-50/90 text-sky-950 border border-sky-300/90 font-semibold'
+        });
+      }
+
       const isStrongCashEv = !s.is_financial && (
         (isNetCashVal && (cashRatioVal >= 0.10 || dispRatioVal >= 0.15)) ||
         (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 4.5) ||
@@ -1413,7 +1479,6 @@
         });
       }
 
-      // Regra 3: Holding • Desconto Estrutural (Casos GOAU4, ITSA4, BRAP4)
       const holdingTickers = new Set(["GOAU4", "GOAU3", "ITSA4", "ITSA3", "BRAP4", "BRAP3", "SIMH3", "CSAN3", "ALUP11"]);
       if (holdingTickers.has(s.ticker)) {
         cats.push({
@@ -1429,8 +1494,7 @@
       if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {
         const graham = Math.sqrt(22.5 * lpa * vpa);
         if (graham > cot * 1.15) {
-          // Regra 1: Trava de Qualidade Graham
-          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12);
+          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12 && !s.is_financial);
           const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 60);
           if (condG1 || condG2) {
             cats.push({
@@ -1457,10 +1521,9 @@
       if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {
         const bazin = (cot * s.div_yield) / 0.06;
         if (bazin > cot * 1.15) {
-          // Regra 4: Trava de Segurança Bazin
           const payoutNum = (s.payout_implicito !== null && s.payout_implicito !== undefined) ? Number(s.payout_implicito) : null;
           const dleNum = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0);
+          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0) || (!s.pl || s.pl <= 0);
           if (isBazinWarning) {
             cats.push({
               id: 'CAT_BAZIN_WARNING',
@@ -1495,12 +1558,14 @@
 
       // Momento de Resultados
       if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {
-        const seasonalSectors = new Set(["Comércio", "Comércio e Distribuição", "Tecidos, Vestuário e Calçados", "Agropecuária", "Alimentos Processados", "Açúcar e Álcool"]);
-        const seasonalTickers = new Set(["LREN3", "RIAA3", "ARZZ3", "SOMA3", "AZZA3", "VIVA3", "LJQQ3", "MGLU3", "BHIA3", "CEAB3", "AGRO3", "SLCE3", "TTEN3", "SOJA3", "SMTO3", "JALL3", "CAML3", "MDIA3"]);
+        const seasonalSectors = new Set(["Comércio", "Comércio e Distribuição", "Tecidos, Vestuário e Calçados", "Agropecuária", "Alimentos Processados", "Açúcar e Álcool", "Consumo Cíclico"]);
+        const seasonalTickers = new Set(["LREN3", "RIAA3", "ALOS3", "MULT3", "IGTI11", "ARZZ3", "SOMA3", "AZZA3", "VIVA3", "GUAR3", "LJQQ3", "MGLU3", "BHIA3", "CEAB3", "AGRO3", "SLCE3", "TTEN3", "SOJA3", "SMTO3", "JALL3", "CAML3", "MDIA3"]);
         const sub = (s.details && s.details.subsetor) ? s.details.subsetor : '';
         const isSeasonal = seasonalSectors.has(s.setor) || seasonalTickers.has(s.ticker) || sub.includes('Moda') || sub.includes('Vestuário') || sub.includes('Calçados') || (s.setor && s.setor.includes('Varejo'));
+        const l12 = (s.details && s.details.lucro_liq_12m) || 0;
+        const l3 = (s.details && s.details.lucro_liq_3m) || 0;
 
-        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {
+        if (s.run_rate_div_pct >= 15.0 && s.run_rate_div_pct <= 160.0 && s.pl_run_rate < s.pl * 0.88 && l12 > 0 && l3 > 0) {
           cats.push({
             id: 'CAT_EXPANSION',
             group: 'VALUATION',
@@ -1532,13 +1597,13 @@
         }
       }
 
-      // Proventos & Payout (Bazin Blindado vs Clássico)
+      // Proventos & Payout (Bazin Blindado + Dividendos Consistentes sem exclusão mútua)
       const dyVal = Number(s.div_yield || 0);
       const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
       const dleVal = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
       const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
       const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
-      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
+      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe && (s.pl !== null && s.pl > 0);
 
       if (isBazinBlindado) {
         cats.push({
@@ -1549,11 +1614,12 @@
           ledClass: 'bg-emerald-600',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
         });
-      } else if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {
+      }
+      if (isConsistentDividendStock(s)) {
         cats.push({
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
-          label: 'Dividendos Consistentes (> 6%)',
+          label: 'Dividendos Consistentes (≥ 6%)',
           shortLabel: 'Dividendos Consistentes',
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
@@ -1569,7 +1635,6 @@
         });
       }
 
-      // Risco de Ciclo
       if (s.is_commodity_peak) {
         cats.push({
           id: 'CAT_COMMODITY_PEAK',
@@ -1582,6 +1647,19 @@
       }
 
       return cats;
+    }
+
+    // Categorias deduplicadas apenas para exibição visual (evitando pílulas redundantes)
+    function getDisplayStockCategories(s) {
+      const cats = getStockCategories(s);
+      const ids = new Set(cats.map(c => c.id));
+      return cats.filter(c => {
+        if (c.id === 'CAT_NET_CASH' && ids.has('CAT_NET_CASH_STRUCT')) return false;
+        if (c.id === 'CAT_HIGH_DEBT' && ids.has('CAT_CRITICAL_LEVERAGE')) return false;
+        if (c.id === 'CAT_DIVIDENDS' && ids.has('CAT_BAZIN_ARMORED')) return false;
+        if (c.id === 'CAT_HIGH_ROIC' && ids.has('CAT_ELITE_COMPOUNDER')) return false;
+        return true;
+      });
     }
 
     // Diagnóstico Executivo Didático em Linguagem Humana
@@ -1902,6 +1980,12 @@
         diagBoxClass = 'bg-white/95 border-emerald-200/90 text-slate-800 shadow-2xs';
         diagTitleClass = 'text-emerald-950';
         diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-emerald-700 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
+      } else if (s.entry_tag === 'DESCONTO_MOAT') {
+        heroBgClass = 'bg-sky-50/70 border-sky-300 shadow-xs';
+        entryBadgeClass = 'bg-sky-600 text-white font-bold shadow-2xs';
+        diagBoxClass = 'bg-white/95 border-sky-200/90 text-slate-800 shadow-2xs';
+        diagTitleClass = 'text-sky-950';
+        diagIconSvg = '<svg class="w-4 h-4 stroke-[1.75] inline-block text-sky-600 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v1m0 0a2 2 0 002 2h0a2 2 0 002-2m-4 0h4m-4 0v-1m0-9a4 4 0 018 0c0 2.22-1.206 3.48-2 4.5-.33.424-.5 1-.5 1.5h-3c0-.5-.17-1.076-.5-1.5C9.206 12.48 8 11.22 8 9a4 4 0 014-4z"/></svg>';
       } else if (s.entry_tag === 'PRECO_JUSTO') {
         heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
         entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';
@@ -1920,33 +2004,43 @@
       const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
 
-      if (isAbove) {
-        if (s.pl && s.pl <= 11.0) {
-          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
-          s.entry_color = '#10B981';
-          heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
-          entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
+      if (s.pl && s.pl > 0 && s.entry_tag !== 'PASSIVO_DESCOBERTO' && s.entry_tag !== 'ND_PREJUIZO') {
+        if (isAbove) {
+          if (s.pl <= 11.0) {
+            s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+            s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
+            s.entry_color = '#10B981';
+            heroBgClass = 'bg-emerald-50/70 border-emerald-300 shadow-xs';
+            entryBadgeClass = 'bg-emerald-600 text-white font-bold shadow-2xs';
+            diagBoxClass = 'bg-white/95 border-emerald-200/90 text-slate-800 shadow-2xs';
+            diagTitleClass = 'text-emerald-950';
+          } else {
+            s.entry_tag = 'DESCONTO_MOAT';
+            s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
+            s.entry_color = '#0284C7';
+            heroBgClass = 'bg-sky-50/70 border-sky-300 shadow-xs';
+            entryBadgeClass = 'bg-sky-600 text-white font-bold shadow-2xs';
+            diagBoxClass = 'bg-white/95 border-sky-200/90 text-slate-800 shadow-2xs';
+            diagTitleClass = 'text-sky-950';
+          }
         } else {
-          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
-          s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
-          s.entry_color = '#0284C7';
-          heroBgClass = 'bg-sky-50/70 border-sky-300 shadow-xs';
-          entryBadgeClass = 'bg-sky-600 text-white font-bold shadow-2xs';
-        }
-      } else {
-        if (s.pl && s.pl > 15.0) {
-          s.entry_tag = 'ESTICADA';
-          s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
-          s.entry_color = '#EF4444';
-          heroBgClass = 'bg-rose-50/70 border-rose-300 shadow-xs';
-          entryBadgeClass = 'bg-rose-600 text-white font-bold shadow-2xs';
-        } else {
-          s.entry_tag = 'PRECO_JUSTO';
-          s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
-          s.entry_color = '#F59E0B';
-          heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
-          entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';
+          if (s.pl > 15.0) {
+            s.entry_tag = 'ESTICADA';
+            s.entry_status = '🔴 MÚLTIPLOS EXIGENTES';
+            s.entry_color = '#EF4444';
+            heroBgClass = 'bg-rose-50/70 border-rose-300 shadow-xs';
+            entryBadgeClass = 'bg-rose-600 text-white font-bold shadow-2xs';
+            diagBoxClass = 'bg-white/95 border-rose-200/90 text-slate-800 shadow-2xs';
+            diagTitleClass = 'text-rose-950';
+          } else {
+            s.entry_tag = 'PRECO_JUSTO';
+            s.entry_status = '🟡 PRÊMIO SOBRE A CURVA';
+            s.entry_color = '#F59E0B';
+            heroBgClass = 'bg-amber-50/70 border-amber-300 shadow-xs';
+            entryBadgeClass = 'bg-amber-500 text-white font-bold shadow-2xs';
+            diagBoxClass = 'bg-white/95 border-amber-200/90 text-slate-800 shadow-2xs';
+            diagTitleClass = 'text-amber-950';
+          }
         }
       }
 
@@ -1958,7 +2052,7 @@
 
       const scoreBadgeClass = 'bg-white/95 text-slate-900 border-slate-300 shadow-2xs';
 
-      const categories = getStockCategories(s);
+      const categories = getDisplayStockCategories(s);
       const qualityCats = categories.filter(c => c.group === 'QUALIDADE').slice(0, 4);
       const valuationCats = categories.filter(c => c.group === 'VALUATION').slice(0, 4);
 

@@ -742,13 +742,16 @@ html_template = f"""<!DOCTYPE html>
                 Top 15 Pesos (62,5%)
               </button>
               <button onclick="setHomeIbovFilter('ASSIMETRIA')" id="hibov-flt-ASSIMETRIA" class="hibov-btn px-2.5 py-1 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-900 font-semibold hover:bg-emerald-100 transition cursor-pointer">
-                🟢 Múltiplos Descontados (<span id="hibov-cnt-assimetria">14</span>)
+                🟢 Múltiplos Atrativos (<span id="hibov-cnt-assimetria">14</span>)
+              </button>
+              <button onclick="setHomeIbovFilter('DESCONTO_MOAT')" id="hibov-flt-DESCONTO_MOAT" class="hibov-btn px-2.5 py-1 rounded-lg border border-sky-300 bg-sky-50 text-sky-900 font-semibold hover:bg-sky-100 transition cursor-pointer">
+                🔵 Desconto ao Moat (<span id="hibov-cnt-desconto">10</span>)
               </button>
               <button onclick="setHomeIbovFilter('PRECO_JUSTO')" id="hibov-flt-PRECO_JUSTO" class="hibov-btn px-2.5 py-1 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 font-semibold hover:bg-amber-100 transition cursor-pointer">
-                🟡 Valuation em Linha (<span id="hibov-cnt-precojusto">28</span>)
+                🟡 Prêmio s/ Curva (<span id="hibov-cnt-precojusto">18</span>)
               </button>
               <button onclick="setHomeIbovFilter('ESTICADA')" id="hibov-flt-ESTICADA" class="hibov-btn px-2.5 py-1 rounded-lg border border-rose-300 bg-rose-50 text-rose-900 font-semibold hover:bg-rose-100 transition cursor-pointer">
-                🔴 Múltiplos Elevados (<span id="hibov-cnt-esticada">34</span>)
+                🔴 Múltiplos Exigentes (<span id="hibov-cnt-esticada">34</span>)
               </button>
             </div>
             <div class="relative w-full sm:w-48">
@@ -987,8 +990,13 @@ html_template = f"""<!DOCTYPE html>
               </button>
 
               <button id="btn-mat-CAT_DISCOUNT" onclick="setMatrixFilter('CAT_DISCOUNT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>🟢</span><span>Múltiplos Descontados</span></span>
+                <span class="flex items-center gap-2"><span>🟢</span><span>Múltiplos Atrativos</span></span>
                 <span class="bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-discount">--</span>
+              </button>
+
+              <button id="btn-mat-CAT_DESCONTO_MOAT" onclick="setMatrixFilter('CAT_DESCONTO_MOAT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-sky-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
+                <span class="flex items-center gap-2"><span>🔵</span><span>Desconto ao Moat</span></span>
+                <span class="bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-desconto-moat">--</span>
               </button>
 
               <button id="btn-mat-CAT_NET_CASH" onclick="setMatrixFilter('CAT_NET_CASH')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-800 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
@@ -1107,6 +1115,8 @@ html_template = f"""<!DOCTYPE html>
           <div class="relative inline-flex items-center">
             <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="" disabled selected>+ Mais Filtros...</option>
+              <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
+              <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
               <option value="CAT_CRITICAL_LEVERAGE">🚨 Risco Alavancagem (Balanço Pressionado)</option>
               <option value="CAT_ELITE_COMPOUNDER">👑 Compounder Premium (Qualidade Extrema)</option>
               <option value="CAT_STRONG_NET_CASH_EV">💎 Forte Caixa Líquido • Olhar EV/EBITDA</option>
@@ -1473,14 +1483,6 @@ html_template = f"""<!DOCTYPE html>
       if (!s) return;
       const expPL = calcAdjustedFairPL(s);
       const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
-      const isLowPL = s.pl && s.pl > 0 && s.pl <= 12.0 && (!s.pl_run_rate || s.pl_run_rate <= 12.0);
-
-      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      const eveb = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
-      const det = s.details || {{}};
-      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
-      const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
-      const isNetCashBonus = (!s.is_financial) && isNetCash && (eveb !== null && eveb > 0 && eveb <= 6.0) && (s.pl !== null && s.pl <= 16.5);
 
       if (isAbove) {{
         if (s.pl && s.pl <= 11.0) {{
@@ -1488,7 +1490,7 @@ html_template = f"""<!DOCTYPE html>
           s.entry_status = '🟢 MÚLTIPLOS ATRATIVOS';
           s.entry_color = '#10B981';
         }} else {{
-          s.entry_tag = 'ASSIMETRIA_FAVORAVEL';
+          s.entry_tag = 'DESCONTO_MOAT';
           s.entry_status = '🔵 DESCONTO RELATIVO AO MOAT';
           s.entry_color = '#0284C7';
         }}
@@ -1676,6 +1678,31 @@ html_template = f"""<!DOCTYPE html>
       return 'text-rose-700 font-bold';
     }}
 
+    // =========================================================================
+    // PREDICADOS UNIFICADOS DE FILTRAGEM CFA / MUNGER (100% CONSISTENTES)
+    // =========================================================================
+    function isNetCashStock(s) {{
+      if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      if (s.is_financial) {{
+        // Seguradoras, Bolsas (B3) e Corretoras não-bancárias que operam com Caixa Líquido / Dívida Zero
+        return dl !== null && dl <= 0 && (Number(s.roe || 0) > 0);
+      }}
+      if (dle !== null && dle > 0.15) return false;
+      return (dl !== null && dl <= 0) || (dle !== null && dle <= 0.15);
+    }}
+
+    function isConsistentDividendStock(s) {{
+      if (!s || s.div_yield === null || s.div_yield < 0.06) return false;
+      if (s.pl !== null && s.pl <= 0) return false;
+      if (s.roe !== null && s.roe <= 0) return false;
+      const p = s.payout_implicito;
+      if (p !== null && p !== undefined && (p <= 0 || p > 105)) return false;
+      return true;
+    }}
+
     function getFilteredStocks() {{
       const require1M = document.getElementById('chkLiquidity1M') ? document.getElementById('chkLiquidity1M').checked : true;
       const requireLatestBal = document.getElementById('chkLatestBalance') ? document.getElementById('chkLatestBalance').checked : true;
@@ -1718,23 +1745,35 @@ html_template = f"""<!DOCTYPE html>
           if (!match) return false;
         }}
 
-        // Presets Munger / Moat Terminal
+        // Presets Munger / Moat Terminal Unificados
         if (currentFilter === 'ALL') return true;
         if (currentFilter === 'IBOV') return !!s.is_ibov;
-        if (currentFilter === 'TIER1' || currentFilter === 'CAT_TIER1') return s.quality_score >= 80.0;
+        if (currentFilter === 'TIER1' || currentFilter === 'CAT_TIER1') return (s.quality_score || 0) >= 80.0;
         if (currentFilter === 'DIVIDENDS' || currentFilter === 'CAT_DIVIDENDS') {{
-          return (s.div_yield !== null && s.div_yield >= 0.05) || getStockCategories(s).some(c => c.id === 'CAT_DIVIDENDS');
+          return isConsistentDividendStock(s);
         }}
         if (currentFilter === 'NET_CASH' || currentFilter === 'CAT_NET_CASH') {{
-          return (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0) || (s.details && s.details.divida_liquida !== null && s.details.divida_liquida <= 0);
+          return isNetCashStock(s);
         }}
-        if (currentFilter === 'ASYMMETRY') return s.quality_score >= 75.0 && s.pl > 0 && s.pl < 8.0;
-        if (currentFilter === 'NTNB' || currentFilter === 'CAT_SPREAD_NTNB') return s.ey_spread !== null && s.ey_spread >= 5.0;
-        if (currentFilter === 'CAT_EXPANSION') return s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0;
-        if (currentFilter === 'CAT_DECELERATION') return s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0;
-        if (currentFilter === 'CAT_HIGH_DEBT') return s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5 && !s.is_financial;
-        if (currentFilter === 'CAT_CLEAN_EARNINGS') return !s.is_distorted && (s.years_consecutive_profit >= 5 || !s.has_loss_history);
-        if (currentFilter === 'CAT_HIGH_ROIC') return (s.roic !== null && s.roic >= 0.18) || (s.is_financial && s.roe >= 0.18);
+        if (currentFilter === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
+        if (currentFilter === 'NTNB' || currentFilter === 'CAT_SPREAD_NTNB') {{
+          return s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0));
+        }}
+        if (currentFilter === 'CAT_EXPANSION') {{
+          return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88);
+        }}
+        if (currentFilter === 'CAT_DECELERATION') {{
+          return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25);
+        }}
+        if (currentFilter === 'CAT_HIGH_DEBT') {{
+          return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
+        }}
+        if (currentFilter === 'CAT_CLEAN_EARNINGS') {{
+          return !s.is_distorted && !!(s.historical_5y && s.historical_5y.is_all_profitable);
+        }}
+        if (currentFilter === 'CAT_HIGH_ROIC') {{
+          return (!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18);
+        }}
         if (currentFilter === 'CAT_FINANCIAL') return !!s.is_financial;
         if (currentFilter === 'CAT_GRAHAM') {{
           return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
@@ -1760,9 +1799,12 @@ html_template = f"""<!DOCTYPE html>
           return true;
         }}
 
-        // Filtro Estratégico: Múltiplos Descontados
+        // Filtros Estratégicos de Valuation (Verde e Azul)
         if (currentFilter === 'CAT_DISCOUNT') {{
           return s.entry_tag === 'ASSIMETRIA_FAVORAVEL';
+        }}
+        if (currentFilter === 'CAT_DESCONTO_MOAT') {{
+          return s.entry_tag === 'DESCONTO_MOAT';
         }}
 
         // Filtros dos Quadrantes 2x2
@@ -1798,10 +1840,17 @@ html_template = f"""<!DOCTYPE html>
       }});
     }}
 
-    // Rótulos e Categorias Institucionais Munger da Ação (Status Pills Minimalistas)
+    // Rótulos e Categorias Institucionais Munger da Ação (Sem Exclusão Mútua Indevida)
     function getStockCategories(s) {{
       const cats = [];
       if (!s) return cats;
+
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const isNetCash = isNetCashStock(s);
+      const rVal = Number(s.roic || 0);
+      const eVal = Number(s.roe || 0);
 
       // 1. GRUPO: QUALIDADE & BALANÇO
       if (s.is_financial) {{
@@ -1813,15 +1862,19 @@ html_template = f"""<!DOCTYPE html>
           ledClass: 'bg-indigo-500',
           bgClass: 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium'
         }});
+        if (isNetCash) {{
+          cats.push({{
+            id: 'CAT_NET_CASH',
+            group: 'QUALIDADE',
+            label: 'Caixa Líquido (Dívida Zero)',
+            shortLabel: 'Caixa Líquido',
+            ledClass: 'bg-emerald-500',
+            bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          }});
+        }}
       }} else {{
-        const dl = (s.details && s.details.divida_liquida !== null) ? s.details.divida_liquida : null;
-        const dle = s.div_liq_ebitda;
-        const isNetCash = (dl !== null && dl < 0) || (dle !== null && dle < 0);
-        const rVal = Number(s.roic || 0);
-        const eVal = Number(s.roe || 0);
-
         // Regra 2: Alerta Crítico de Alavancagem (Caso VVEO3, ROMI3, etc.)
-        const isCriticalDebt = !s.is_financial && dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
+        const isCriticalDebt = dle !== null && (dle >= 3.5 || (dle >= 2.5 && (eVal < 0 || (s.pl !== null && s.pl < 0))));
         if (isCriticalDebt) {{
           cats.push({{
             id: 'CAT_CRITICAL_LEVERAGE',
@@ -1847,7 +1900,7 @@ html_template = f"""<!DOCTYPE html>
           }});
         }}
 
-        // Regra 3 anterior: Diagnóstico Positivo de Caixa Líquido Estrutural (Caso LREN3)
+        // Diagnóstico de Caixa Líquido Estrutural (ROIC > ROE + 3%) e Caixa Líquido Geral (Não-Excludentes!)
         if (isNetCash && (rVal > eVal + 0.03)) {{
           cats.push({{
             id: 'CAT_NET_CASH_STRUCT',
@@ -1857,7 +1910,8 @@ html_template = f"""<!DOCTYPE html>
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (isNetCash) {{
+        }}
+        if (isNetCash) {{
           cats.push({{
             id: 'CAT_NET_CASH',
             group: 'QUALIDADE',
@@ -1866,7 +1920,7 @@ html_template = f"""<!DOCTYPE html>
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (dle !== null && dle > 2.5 && !isCriticalDebt) {{
+        }} else if (dle !== null && dle > 2.5) {{
           cats.push({{
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -1926,10 +1980,8 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      // Qualidade: Tier 1 & Super ROIC
-      const roicOrRoe = s.roic || s.roe || 0;
-      const isEliteCompCheck = (s.quality_score >= 82.0) && (Number(s.roic || 0) >= 0.20) && (s.pl !== null && s.pl > 20.0);
-      if (s.quality_score >= 80 && roicOrRoe >= 0.15 && !isEliteCompCheck) {{
+      // Qualidade: Tier 1 & Super ROIC (Independentes para não excluir WEGE3 ou Tier 1 do filtro Super ROIC!)
+      if ((s.quality_score || 0) >= 80.0) {{
         cats.push({{
           id: 'CAT_TIER1',
           group: 'QUALIDADE',
@@ -1938,7 +1990,8 @@ html_template = f"""<!DOCTYPE html>
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
         }});
-      }} else if (!s.is_financial && s.roic >= 0.18 && !isEliteCompCheck) {{
+      }}
+      if ((!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18)) {{
         cats.push({{
           id: 'CAT_HIGH_ROIC',
           group: 'QUALIDADE',
@@ -1972,19 +2025,18 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       // 2. GRUPO: VALUATION & MOMENTO
-      const lpa = (s.details && s.details.lpa) ? Number(s.details.lpa) : null;
-      const vpa = (s.details && s.details.vpa) ? Number(s.details.vpa) : null;
+      const lpa = (det.lpa) ? Number(det.lpa) : null;
+      const vpa = (det.vpa) ? Number(det.vpa) : null;
       const cot = Number(s.cotacao);
       const rValNum = Number(s.roic || 0);
       const eValNum = Number(s.roe || 0);
-      const detVal = s.details || {{}};
-      const dlValNum = (detVal.divida_liquida !== null && detVal.divida_liquida !== undefined) ? Number(detVal.divida_liquida) : null;
-      const isNetCashVal = (dlValNum !== null && dlValNum < 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0);
-      let mcapNum = detVal.valor_mercado ? Number(detVal.valor_mercado) : null;
-      if (!mcapNum && cot > 0 && detVal.nro_acoes) {{
-        mcapNum = cot * Number(detVal.nro_acoes);
+      const dlValNum = dl;
+      const isNetCashVal = isNetCash;
+      let mcapNum = det.valor_mercado ? Number(det.valor_mercado) : null;
+      if (!mcapNum && cot > 0 && det.nro_acoes) {{
+        mcapNum = cot * Number(det.nro_acoes);
       }}
-      const dispNum = detVal.disponibilidades ? Number(detVal.disponibilidades) : 0;
+      const dispNum = det.disponibilidades ? Number(det.disponibilidades) : 0;
       const cashRatioVal = (mcapNum && dlValNum !== null && dlValNum < 0) ? (-dlValNum / mcapNum) : 0;
       const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
       const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
@@ -1992,7 +2044,7 @@ html_template = f"""<!DOCTYPE html>
       // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Casos BMOB3, LAVV3, LREN3)
       const isStrongCashEv = !s.is_financial && (
         (isNetCashVal && (cashRatioVal >= 0.10 || dispRatioVal >= 0.15)) ||
-        (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 4.5) ||
+        (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 6.0) ||
         (s.ticker === 'LAVV3')
       );
       if (isStrongCashEv) {{
@@ -2051,7 +2103,7 @@ html_template = f"""<!DOCTYPE html>
         if (bazin > cot * 1.15) {{
           // Regra 4: Trava de Segurança Bazin
           const payoutNum = (s.payout_implicito !== null && s.payout_implicito !== undefined) ? Number(s.payout_implicito) : null;
-          const dleNum = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+          const dleNum = dle;
           const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0);
           if (isBazinWarning) {{
             cats.push({{
@@ -2074,7 +2126,7 @@ html_template = f"""<!DOCTYPE html>
           }}
         }}
       }}
-      if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || s.pl <= 15.0)) {{
+      if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0))) {{
         cats.push({{
           id: 'CAT_SPREAD_NTNB',
           group: 'VALUATION',
@@ -2086,7 +2138,7 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       // Momento de Resultados
-      if (s.pl && s.pl_run_rate && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
+      if (s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
         if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
           cats.push({{
             id: 'CAT_EXPANSION',
@@ -2108,10 +2160,10 @@ html_template = f"""<!DOCTYPE html>
         }}
       }}
 
-      // Proventos & Payout (Bazin Blindado vs Clássico)
+      // Proventos & Payout (Bazin Blindado e Dividendos > 6% não-excludentes!)
       const dyVal = Number(s.div_yield || 0);
       const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
-      const dleVal = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const dleVal = dle;
       const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
       const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
       const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
@@ -2125,7 +2177,8 @@ html_template = f"""<!DOCTYPE html>
           ledClass: 'bg-emerald-600',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
         }});
-      }} else if (s.div_yield !== null && s.div_yield >= 0.05 && s.payout_implicito !== null && s.payout_implicito >= 30 && s.payout_implicito <= 88) {{
+      }}
+      if (isConsistentDividendStock(s)) {{
         cats.push({{
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
@@ -2158,6 +2211,19 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       return cats;
+    }}
+
+    // Deduplicação visual de pills na linha da tabela para evitar tags redundantes lado a lado
+    function getDisplayStockCategories(s) {{
+      const all = getStockCategories(s);
+      const ids = new Set(all.map(c => c.id));
+      return all.filter(c => {{
+        if (c.id === 'CAT_NET_CASH' && ids.has('CAT_NET_CASH_STRUCT')) return false;
+        if (c.id === 'CAT_DIVIDENDS' && ids.has('CAT_BAZIN_ARMORED')) return false;
+        if (c.id === 'CAT_HIGH_DEBT' && ids.has('CAT_CRITICAL_LEVERAGE')) return false;
+        if (c.id === 'CAT_HIGH_ROIC' && (ids.has('CAT_TIER1') || ids.has('CAT_ELITE_COMPOUNDER'))) return false;
+        return true;
+      }});
     }}
 
     function updateFilterCounts() {{
@@ -2208,13 +2274,13 @@ html_template = f"""<!DOCTYPE html>
       const sbUltra = document.getElementById('sb-cnt-ultra');
       if (sbUltra) sbUltra.innerText = cntUltra;
 
-      const cntT1 = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_TIER1')).length;
+      const cntT1 = basePool.filter(s => (s.quality_score || 0) >= 80.0).length;
       const elT1 = document.getElementById('cnt-TIER1');
       if (elT1) elT1.innerText = cntT1;
       const sbT1 = document.getElementById('sb-cnt-tier1');
       if (sbT1) sbT1.innerText = cntT1;
 
-      const cntCash = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_NET_CASH')).length;
+      const cntCash = basePool.filter(s => isNetCashStock(s)).length;
       const elCash = document.getElementById('cnt-NET_CASH');
       if (elCash) elCash.innerText = cntCash;
       const sbCash = document.getElementById('sb-cnt-cash');
@@ -2224,7 +2290,7 @@ html_template = f"""<!DOCTYPE html>
       const sbExp = document.getElementById('sb-cnt-exp');
       if (sbExp) sbExp.innerText = cntExp;
 
-      const cntDiv = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_DIVIDENDS')).length;
+      const cntDiv = basePool.filter(s => isConsistentDividendStock(s)).length;
       const elDiv = document.getElementById('cnt-CAT_DIVIDENDS') || document.getElementById('cnt-DIVIDENDS');
       if (elDiv) elDiv.innerText = cntDiv;
       const sbDiv = document.getElementById('sb-cnt-div');
@@ -2243,19 +2309,20 @@ html_template = f"""<!DOCTYPE html>
       const sbUnivM = document.getElementById('sidebarUniverseCountMobile');
       if (sbUnivM) sbUnivM.innerText = basePool.length;
 
-      // Atualizar contadores da Matriz e Filtros Estratégicos
+      // Atualizar contadores da Matriz e Filtros Estratégicos (100% sincronizados)
       const cntDiscount = basePool.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL').length;
-      const cntExpansion = basePool.filter(s => s.run_rate_div_pct && s.run_rate_div_pct >= 15.0).length;
-      const cntDivs = basePool.filter(s => s.div_yield && s.div_yield >= 0.05).length;
+      const cntDescontoMoat = basePool.filter(s => s.entry_tag === 'DESCONTO_MOAT').length;
 
       const elDiscount = document.getElementById('stat-mat-discount');
       if (elDiscount) elDiscount.innerText = cntDiscount;
+      const elDescontoMoat = document.getElementById('stat-mat-desconto-moat');
+      if (elDescontoMoat) elDescontoMoat.innerText = cntDescontoMoat;
       const elMatSpread = document.getElementById('stat-mat-spread');
       if (elMatSpread) elMatSpread.innerText = cntSpread;
       const elExp = document.getElementById('stat-expansion');
-      if (elExp) elExp.innerText = cntExpansion;
+      if (elExp) elExp.innerText = cntExp;
       const elDivs = document.getElementById('stat-dividends');
-      if (elDivs) elDivs.innerText = cntDivs;
+      if (elDivs) elDivs.innerText = cntDiv;
 
       const elMatAll = document.getElementById('stat-mat-all');
       if (elMatAll) elMatAll.innerText = basePool.length;
@@ -2558,25 +2625,35 @@ html_template = f"""<!DOCTYPE html>
         icon: '🏆',
         rationale: 'Empresas de alta rentabilidade sobre capital (ROIC/ROE elevado), barreiras de entrada comprovadas, sólida alocação de capital e Moat Score ≥ 80.'
       }},
+      'CAT_DISCOUNT': {{
+        name: 'Múltiplos Atrativos (P/L ≤ 11x)',
+        icon: '🟢',
+        rationale: 'Ações negociando Acima da Curva (Desconto de Valuation) com múltiplo P/L absoluto igual ou inferior a 11,0x.'
+      }},
+      'CAT_DESCONTO_MOAT': {{
+        name: 'Desconto Relativo ao Moat (P/L > 11x)',
+        icon: '🔵',
+        rationale: 'Empresas de alta qualidade (Compounders) negociando com P/L > 11,0x, porém abaixo do seu P/L Justo Teórico Ajustado pelo Moat Score (Acima da Curva).'
+      }},
       'CAT_DIVIDENDS': {{
-        name: 'Dividendos Consistentes (> 6%)',
+        name: 'Dividendos Consistentes (≥ 6%)',
         icon: '💰',
-        rationale: 'Ações com Dividend Yield superior a 5%-6% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
+        rationale: 'Ações lucrativas com Dividend Yield ≥ 6,0% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
       }},
       'DIVIDENDS': {{
-        name: 'Dividendos Consistentes (> 6%)',
+        name: 'Dividendos Consistentes (≥ 6%)',
         icon: '💰',
-        rationale: 'Ações com Dividend Yield superior a 5%-6% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
+        rationale: 'Ações lucrativas com Dividend Yield ≥ 6,0% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
       }},
       'CAT_NET_CASH': {{
         name: 'Caixa Líquido (Dívida Zero)',
         icon: '🛡️',
-        rationale: 'Empresas não-financeiras cujas disponibilidades financeiras superam a totalidade de suas dívidas brutas (Dívida Líquida ≤ 0).'
+        rationale: 'Empresas cujas disponibilidades financeiras superam suas dívidas brutas (Dívida Líquida ≤ 0) ou possuem alavancagem líquida residual (≤ 0,15x EBITDA por arrendamento IFRS-16).'
       }},
       'NET_CASH': {{
         name: 'Caixa Líquido (Dívida Zero)',
         icon: '🛡️',
-        rationale: 'Empresas não-financeiras cujas disponibilidades financeiras superam a totalidade de suas dívidas brutas (Dívida Líquida ≤ 0).'
+        rationale: 'Empresas cujas disponibilidades financeiras superam suas dívidas brutas (Dívida Líquida ≤ 0) ou possuem alavancagem líquida residual (≤ 0,15x EBITDA por arrendamento IFRS-16).'
       }},
       'CAT_EXPANSION': {{
         name: 'Lucro Acelerando (Expansão 2T26)',
@@ -2971,7 +3048,7 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function updateMatrixFilterButtons() {{
-      const btnKeys = ['ALL', 'CAT_TIER1', 'CAT_DISCOUNT', 'CAT_NET_CASH', 'CAT_EXPANSION', 'CAT_DIVIDENDS', 'CAT_SPREAD_NTNB'];
+      const btnKeys = ['ALL', 'CAT_TIER1', 'CAT_DISCOUNT', 'CAT_DESCONTO_MOAT', 'CAT_NET_CASH', 'CAT_EXPANSION', 'CAT_DIVIDENDS', 'CAT_SPREAD_NTNB'];
       btnKeys.forEach(k => {{
         const btn = document.getElementById('btn-mat-' + k);
         if (btn) {{
@@ -3108,13 +3185,13 @@ html_template = f"""<!DOCTYPE html>
         }}).join('');
       }}
 
-      // 2. Top 5 Munger Score (Empresas Wide Moat com Valuation Equilibrado: Score >= 80, Spread >= +1.5%, Dívida <= 2.5x)
-      const allMunger = validStocks.filter(s => s.quality_score >= 80 && s.ey_spread !== null && s.ey_spread >= 1.5 && (s.is_financial || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 2.5)));
+      // 2. Top 5 Munger Score (Empresas Wide Moat Tier 1: Score >= 80, alinhado 100% com CAT_TIER1)
+      const allMunger = validStocks.filter(s => (s.quality_score || 0) >= 80.0);
       const topMunger = dedupPreferLiquid(
-        allMunger,
+        allMunger.filter(s => s.ey_spread !== null && s.ey_spread >= 1.5 && (s.is_financial || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 2.5))),
         (a, b) => {{
           if (b.quality_score !== a.quality_score) return b.quality_score - a.quality_score;
-          return b.ey_spread - a.ey_spread;
+          return (b.ey_spread || 0) - (a.ey_spread || 0);
         }}
       ).slice(0, 5);
 
@@ -3144,11 +3221,11 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      // 3. Top 5 Múltiplos Descontados (Rigor Fundamentalista: Quality Score >= 75, P/L 3x a 15x, Spread >= +3.0%, Dívida <= 3.0x, sem distorção)
-      const allSpread = validStocks.filter(s => s.quality_score >= 75 && s.pl !== null && s.pl >= 3.0 && s.pl <= 15.0 && s.ey_spread !== null && s.ey_spread >= 3.0 && (s.is_financial || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 3.0)) && !s.is_distorted);
+      // 3. Top 5 Múltiplos Atrativos (Alinhado com CAT_DISCOUNT, ordenando no card pelas melhores de qualidade/spread)
+      const allSpread = validStocks.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL');
       const topSpread = dedupPreferLiquid(
-        allSpread,
-        (a, b) => b.ey_spread - a.ey_spread
+        allSpread.filter(s => s.quality_score >= 70 && s.pl !== null && s.pl >= 3.0 && s.pl <= 15.0 && (s.is_financial || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 3.0)) && !s.is_distorted),
+        (a, b) => (b.ey_spread || 0) - (a.ey_spread || 0)
       ).slice(0, 5);
 
       const cntCatAsymm = document.getElementById('cnt-cat-asymm');
@@ -3177,10 +3254,10 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      // 4. Top 5 Proventos Sustentáveis (Vacas Leiteiras: DY > 6% e até 13%, Payout entre 35% e 85%, ROIC/ROE >= 12%, Score >= 70)
-      const allDiv = validStocks.filter(s => s.div_yield !== null && s.div_yield > 0.06 && s.div_yield <= 0.13 && s.payout_implicito !== null && s.payout_implicito >= 35 && s.payout_implicito <= 85 && (s.roic || s.roe || 0) >= 0.12 && s.quality_score >= 70 && (s.is_financial || (s.div_liq_ebitda !== null && s.div_liq_ebitda <= 3.0)));
+      // 4. Top 5 Proventos Sustentáveis (Alinhado 100% com isConsistentDividendStock / CAT_DIVIDENDS)
+      const allDiv = validStocks.filter(s => isConsistentDividendStock(s));
       const topDiv = dedupPreferLiquid(
-        allDiv,
+        allDiv.filter(s => s.div_yield <= 0.14 && s.payout_implicito !== null && s.payout_implicito >= 35 && s.payout_implicito <= 85 && (s.roic || s.roe || 0) >= 0.12 && s.quality_score >= 70),
         (a, b) => b.div_yield - a.div_yield
       ).slice(0, 5);
 
@@ -3210,18 +3287,10 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      // 5. Radar de Virada de Ciclo (Run-Rate 2T26 Anualizado vs LTM)
-      const allAccel = validStocks.filter(s => {{
-        if (!s.pl || !s.pl_run_rate || s.run_rate_div_pct === null || s.run_rate_div_pct === undefined) return false;
-        if (s.pl < 3.0 || s.pl > 45.0) return false;
-        if (s.pl_run_rate < 2.0 || s.pl_run_rate > 80.0) return false;
-        const l12 = (s.details && s.details.lucro_liq_12m) || 0;
-        const l3 = (s.details && s.details.lucro_liq_3m) || 0;
-        if (l12 < 30000000 || l3 <= 0) return false;
-        return s.run_rate_div_pct >= 15.0 && s.run_rate_div_pct <= 120.0 && s.pl_run_rate < s.pl * 0.85;
-      }});
+      // 5. Radar de Virada de Ciclo (Run-Rate 2T26 Anualizado vs LTM - alinhado 100% com CAT_EXPANSION e CAT_DECELERATION)
+      const allAccel = validStocks.filter(s => getStockCategories(s).some(c => c.id === 'CAT_EXPANSION'));
       const accelerating = dedupPreferLiquid(
-        allAccel,
+        allAccel.filter(s => s.pl >= 3.0 && s.pl <= 45.0 && s.pl_run_rate >= 2.0 && s.pl_run_rate <= 80.0 && ((s.details && s.details.lucro_liq_12m) || 0) >= 30000000),
         (a, b) => b.run_rate_div_pct - a.run_rate_div_pct
       ).slice(0, 4);
 
@@ -3249,21 +3318,10 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      const allDecel = validStocks.filter(s => {{
-        if (!s.pl || !s.pl_run_rate || s.run_rate_div_pct === null || s.run_rate_div_pct === undefined) return false;
-        if (s.pl < 3.0 || s.pl > 45.0) return false;
-        if (s.pl_run_rate < 2.0 || s.pl_run_rate > 80.0) return false;
-        const l12 = (s.details && s.details.lucro_liq_12m) || 0;
-        const l3 = (s.details && s.details.lucro_liq_3m) || 0;
-        if (l12 < 30000000 || l3 <= 0) return false;
-        const seasonalSectors = new Set(["Consumo Cíclico", "Tecidos, Vestuário e Calçados", "Comércio", "Agropecuária", "Alimentos Processados"]);
-        const seasonalTickers = new Set(["LREN3", "RIAA3", "ALOS3", "MULT3", "IGTI11", "ARZZ3", "SOMA3", "VIVA3", "AZZA3", "GUAR3", "CEAB3", "AGRO3", "SLCE3", "SMTO3", "SOJA3"]);
-        if (seasonalSectors.has(s.setor) || seasonalTickers.has(s.ticker)) return false;
-        return s.run_rate_div_pct <= -25.0 && s.run_rate_div_pct >= -70.0 && s.pl_run_rate > s.pl * 1.25;
-      }});
+      const allDecel = validStocks.filter(s => getStockCategories(s).some(c => c.id === 'CAT_DECELERATION'));
       const decelerating = dedupPreferLiquid(
-        allDecel,
-        (a, b) => a.run_rate_div_pct - b.run_rate_div_pct
+        allDecel.filter(s => s.pl >= 3.0 && s.pl <= 45.0 && s.pl_run_rate >= 2.0 && s.pl_run_rate <= 80.0 && ((s.details && s.details.lucro_liq_12m) || 0) >= 30000000),
+        (a, b) => (a.run_rate_div_pct || 0) - (b.run_rate_div_pct || 0)
       ).slice(0, 4);
 
       const cntCatDecel = document.getElementById('cnt-cat-decel');
@@ -3290,8 +3348,8 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      // 6. Solvência e Anti-Fragilidade (Sensibilidade à Selic Alta)
-      const allNetCash = validStocks.filter(s => s.div_liq_ebitda !== null && s.div_liq_ebitda < -0.1 && !s.is_financial);
+      // 6. Solvência e Anti-Fragilidade (Alinhado 100% com isNetCashStock / CAT_NET_CASH e CAT_HIGH_DEBT)
+      const allNetCash = validStocks.filter(s => isNetCashStock(s));
       const netCash = dedupPreferLiquid(
         allNetCash,
         (a, b) => (b.quality_score || 0) - (a.quality_score || 0)
@@ -3312,7 +3370,7 @@ html_template = f"""<!DOCTYPE html>
                   <span class="text-[10px] text-slate-600 font-sans truncate max-w-[85px]" title="${{s.empresa}}">${{s.empresa}}</span>
                 </div>
                 <div class="text-[10px] text-slate-700 font-mono mt-0.5 font-medium">
-                  ROIC: <b class="text-slate-900 font-bold">${{formatPercent(s.roic || s.roe)}}</b>
+                  ${{s.is_financial ? 'ROE' : 'ROIC'}}: <b class="text-slate-900 font-bold">${{formatPercent(s.roic || s.roe)}}</b>
                 </div>
               </div>
             </div>
@@ -3321,7 +3379,7 @@ html_template = f"""<!DOCTYPE html>
         `).join('');
       }}
 
-      const allHighDebt = validStocks.filter(s => s.div_liq_ebitda !== null && s.div_liq_ebitda > 3.2 && !s.is_financial);
+      const allHighDebt = validStocks.filter(s => s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5 && !s.is_financial);
       const highDebt = dedupPreferLiquid(
         allHighDebt,
         (a, b) => b.div_liq_ebitda - a.div_liq_ebitda
@@ -3406,11 +3464,14 @@ html_template = f"""<!DOCTYPE html>
 
       // Atualiza contadores dos botões de filtro
       const nAssimetria = ibovStocks.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL').length;
+      const nDescontoMoat = ibovStocks.filter(s => s.entry_tag === 'DESCONTO_MOAT').length;
       const nPrecoJusto = ibovStocks.filter(s => s.entry_tag === 'PRECO_JUSTO').length;
       const nEsticada = ibovStocks.filter(s => s.entry_tag === 'ESTICADA').length;
 
       const elAss = document.getElementById('hibov-cnt-assimetria');
       if (elAss) elAss.innerText = nAssimetria;
+      const elDesc = document.getElementById('hibov-cnt-desconto');
+      if (elDesc) elDesc.innerText = nDescontoMoat;
       const elPj = document.getElementById('hibov-cnt-precojusto');
       if (elPj) elPj.innerText = nPrecoJusto;
       const elEst = document.getElementById('hibov-cnt-esticada');
@@ -3432,6 +3493,8 @@ html_template = f"""<!DOCTYPE html>
         filtered = ibovStocks.slice(0, 15);
       }} else if (currentHomeIbovFilter === 'ASSIMETRIA') {{
         filtered = ibovStocks.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL');
+      }} else if (currentHomeIbovFilter === 'DESCONTO_MOAT') {{
+        filtered = ibovStocks.filter(s => s.entry_tag === 'DESCONTO_MOAT');
       }} else if (currentHomeIbovFilter === 'PRECO_JUSTO') {{
         filtered = ibovStocks.filter(s => s.entry_tag === 'PRECO_JUSTO');
       }} else if (currentHomeIbovFilter === 'ESTICADA') {{
@@ -3462,15 +3525,19 @@ html_template = f"""<!DOCTYPE html>
         if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {{
           entryBg = 'bg-emerald-50/60 hover:bg-emerald-50 border-emerald-200/80';
           dotColor = 'bg-emerald-500';
-          entryLabel = 'Múltiplos Descontados';
+          entryLabel = 'Múltiplos Atrativos';
+        }} else if (s.entry_tag === 'DESCONTO_MOAT') {{
+          entryBg = 'bg-sky-50/60 hover:bg-sky-50 border-sky-200/80';
+          dotColor = 'bg-sky-600';
+          entryLabel = 'Desconto Relativo ao Moat';
         }} else if (s.entry_tag === 'ESTICADA') {{
           entryBg = 'bg-rose-50/40 hover:bg-rose-50 border-rose-200/80';
           dotColor = 'bg-rose-500';
-          entryLabel = 'Múltiplos Elevados';
+          entryLabel = 'Múltiplos Exigentes';
         }} else if (s.entry_tag === 'PRECO_JUSTO') {{
           entryBg = 'bg-amber-50/40 hover:bg-amber-50 border-amber-200/80';
           dotColor = 'bg-amber-500';
-          entryLabel = 'Valuation em Linha';
+          entryLabel = 'Prêmio sobre a Curva';
         }}
 
         const dyVal = s.div_yield ? (s.div_yield * 100).toFixed(1).replace('.', ',') + '%' : '0,0%';
@@ -3478,7 +3545,7 @@ html_template = f"""<!DOCTYPE html>
         const weightVal = s.ibov_weight ? (s.ibov_weight * 100).toFixed(2).replace('.', ',') + '%' : '--';
 
         return `
-          <div onclick="selectTickerAndNavigate('${{s.ticker}}')" class="${{entryBg}} border rounded-xl p-2.5 transition duration-150 cursor-pointer shadow-2xs group flex flex-col justify-between" title="${{s.empresa}} - Clique para abrir o Dossiê 360°">
+          <div onclick="selectTickerAndNavigate('${{s.ticker}}')" class="${{entryBg}} border rounded-xl p-2.5 transition duration-150 cursor-pointer shadow-2xs group flex flex-col justify-between" title="${{s.empresa}} (${{entryLabel}}) - Clique para abrir o Dossiê 360°">
             <div class="flex items-start justify-between gap-1 mb-1.5">
               <div>
                 <div class="flex items-center gap-1.5">
@@ -4196,9 +4263,9 @@ html_template = f"""<!DOCTYPE html>
         // Dívida Líquida
         let debtDisplay = 'N/D';
         let debtClass = getColorDebt(s.div_liq_ebitda, s.is_financial);
-        if (s.is_financial) {{
+        if (s.is_financial && !isNetCashStock(s)) {{
           debtDisplay = '<span class="text-[10px] text-[#004B49] font-semibold">Banco (Basileia)</span>';
-        }} else if ((s.details && s.details.divida_liquida !== null && s.details.divida_liquida <= 0) || (s.div_liq_ebitda !== null && s.div_liq_ebitda < 0)) {{
+        }} else if (isNetCashStock(s)) {{
           debtDisplay = '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC]">Caixa Líq.</span>';
         }} else if (s.div_liq_ebitda !== null) {{
           debtDisplay = formatNumberBR(s.div_liq_ebitda, 1, 'x');
@@ -4209,8 +4276,8 @@ html_template = f"""<!DOCTYPE html>
           ? 'bg-[#E6F4F1] text-[#004B49] border border-[#BCE5DC] font-bold' 
           : (s.quality_score >= 65 ? 'bg-amber-50 text-amber-900 border border-amber-300 font-bold' : 'bg-slate-50 text-slate-700 border border-slate-200');
 
-        // Categorias atribuídas (Status Pills Minimalistas)
-        const categories = getStockCategories(s);
+        // Categorias atribuídas (Status Pills Minimalistas deduplicadas para exibição limpa)
+        const categories = getDisplayStockCategories(s);
         const tagsHtml = categories.slice(0, 4).map(c => `
           <button onclick="event.stopPropagation(); setFilter('${{c.id}}')" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9.5px] font-mono font-medium ${{c.bgClass}} hover:brightness-95 transition cursor-pointer" title="Filtrar por ${{c.label}}">
             <span class="w-1.5 h-1.5 rounded-full ${{c.ledClass}} inline-block"></span>
@@ -4501,12 +4568,15 @@ html_template = f"""<!DOCTYPE html>
         // Modo 0: Valuation & Múltiplos
         if (matrixColorMode === 'asymmetry') {{
           if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {{
-            return {{ fill: '#10B981', stroke: '#6EE7B7' }}; // 🟢 Verde Esmeralda: Múltiplos Descontados
+            return {{ fill: '#10B981', stroke: '#6EE7B7' }}; // 🟢 Verde Esmeralda: Múltiplos Atrativos (P/L <= 11x)
+          }}
+          if (s.entry_tag === 'DESCONTO_MOAT') {{
+            return {{ fill: '#0284C7', stroke: '#7DD3FC' }}; // 🔵 Azul: Desconto Relativo ao Moat (P/L > 11x)
           }}
           if (s.entry_tag === 'ESTICADA') {{
-            return {{ fill: '#EF4444', stroke: '#FCA5A5' }}; // 🔴 Vermelho: Múltiplos Elevados
+            return {{ fill: '#EF4444', stroke: '#FCA5A5' }}; // 🔴 Vermelho: Múltiplos Exigentes
           }}
-          return {{ fill: '#F59E0B', stroke: '#FDE68A' }};   // 🟡 Âmbar: Valuation em Linha
+          return {{ fill: '#F59E0B', stroke: '#FDE68A' }};   // 🟡 Âmbar: Prêmio sobre a Curva
         }}
 
         // Modo 1: Momento 2T26 (Run-Rate vs 12m)
@@ -4745,13 +4815,16 @@ html_template = f"""<!DOCTYPE html>
       if (matrixColorMode === 'asymmetry') {{
         leg.innerHTML = `
           <div class="flex items-center justify-between text-xs py-0.5">
-            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-emerald-900 font-bold">Múltiplos Descontados</span></span>
+            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-emerald-900 font-bold">Múltiplos Atrativos (P/L ≤ 11x)</span></span>
           </div>
           <div class="flex items-center justify-between text-xs py-0.5">
-            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-500"></span><span class="text-amber-900 font-semibold">Valuation em Linha</span></span>
+            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-sky-600"></span><span class="text-sky-900 font-bold">Desconto Relativo ao Moat</span></span>
           </div>
           <div class="flex items-center justify-between text-xs py-0.5">
-            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span><span class="text-rose-900 font-bold">Múltiplos Elevados</span></span>
+            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-500"></span><span class="text-amber-900 font-semibold">Prêmio s/ Curva (P/L ≤ 15x)</span></span>
+          </div>
+          <div class="flex items-center justify-between text-xs py-0.5">
+            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span><span class="text-rose-900 font-bold">Múltiplos Exigentes</span></span>
           </div>
           <div class="flex items-center justify-between text-xs py-0.5">
             <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-900"></span><span class="text-red-900 font-semibold">Prejuízo</span></span>
@@ -5139,7 +5212,7 @@ html_template = f"""<!DOCTYPE html>
       if (!s) return;
 
       const volStr = formatBillions(s.liq_2m);
-      const categories = getStockCategories(s);
+      const categories = getDisplayStockCategories(s);
       const qualityCats = categories.filter(c => c.group === 'QUALIDADE').slice(0, 4);
       const valuationCats = categories.filter(c => c.group === 'VALUATION').slice(0, 4);
 
@@ -5392,7 +5465,7 @@ html_template = f"""<!DOCTYPE html>
       `;
 
       // Síntese Fundamentalista
-      const diagTitleColor = s.entry_color === '#10E79D' ? '#047857' : (s.entry_color === '#FBBF24' ? '#B45309' : (s.entry_color === '#F43F5E' ? '#BE123C' : '#1E293B'));
+      const diagTitleColor = (s.entry_color === '#10E79D' || s.entry_color === '#10B981') ? '#047857' : (s.entry_color === '#0284C7' ? '#0369A1' : ((s.entry_color === '#FBBF24' || s.entry_color === '#F59E0B') ? '#B45309' : ((s.entry_color === '#F43F5E' || s.entry_color === '#EF4444') ? '#BE123C' : '#1E293B')));
       document.getElementById('sinteseStatusBanner').innerHTML = `
         <div class="p-3.5 rounded-xl border text-xs backdrop-blur-md" style="background-color: ${{s.entry_color}}14; border-color: ${{s.entry_color}}44;">
           <div class="font-bold font-mono text-sm" style="color: ${{diagTitleColor}};">${{s.entry_status}}</div>
