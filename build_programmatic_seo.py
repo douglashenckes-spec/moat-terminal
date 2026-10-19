@@ -936,6 +936,10 @@ def generate_acoes_directory(stocks, base_dir, today_str):
   <meta property="og:url" content="https://moatterminal.com.br/acoes/">
   <meta property="og:title" content="Ações B3: Lista Completa de Empresas, Setores e Valuation 2026 • Moat Terminal">
   <meta property="og:description" content="Guia completo de {len(stocks)} ações listadas na bolsa brasileira B3 com múltiplos de Graham, Bazin, ROIC e Moat Score.">
+  <meta property="og:image" content="https://moatterminal.com.br/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="MOAT TERMINAL">
   <meta property="og:locale" content="pt_BR">
 
@@ -943,6 +947,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ações B3: Diretório Completo de Empresas • Moat Terminal">
   <meta name="twitter:description" content="Consulte todas as ações da B3 organizadas por setor com análise de valor intrínseco Graham e Preço Teto Bazin.">
+  <meta name="twitter:image" content="https://moatterminal.com.br/assets/og-image.png">
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -1457,10 +1462,14 @@ def build_programmatic_seo():
         # Meta tags ricas de SEO focadas em alta intenção de busca (High-CTR)
         canonical_url = f"https://moatterminal.com.br/acoes/{ticker_lower}/"
         short_name = get_short_trading_name(ticker, empresa)
-        page_title = f"{ticker} • {short_name} • Moat Terminal"
+        if s.get("edgePlacement") == "left_loss" or (s.get("pl") is not None and s.get("pl") <= 0):
+            page_title = f"{ticker} ({short_name}): Análise de Balanço, Riscos e Valuation • Moat Terminal"
+            og_title = f"{ticker} ({short_name}): Análise e Riscos do Balanço • Moat Terminal"
+        else:
+            page_title = f"{ticker} ({short_name}): Análise, Preço Justo Graham e Dividendos • Moat Terminal"
+            og_title = f"{ticker} ({short_name}): Análise, Preço Justo e Dividendos • Moat Terminal"
         rent_metric_label = f"ROE {roe_str}" if is_fin else f"ROIC {roic_str}"
         meta_desc = f"Análise fundamentalista de {short_name} ({ticker}): Preço Justo de Graham ({graham_str}), Preço Teto Bazin 6% ({bazin_str}), Moat Score {score_str}/100 ({quality_tier}), {rent_metric_label} e dividendos. Veja se {ticker} vale a pena em 2026."
-        og_title = f"{ticker} • {short_name} • Moat Terminal"
         og_desc = f"Análise de {short_name} ({ticker}): Preço Graham {graham_str}, Preço Bazin {bazin_str}, Moat Score {score_str}/100 ({quality_tier}), {rent_metric_label}. Indicadores e valuation da B3."
 
         # Textos das 4 perguntas e respostas para o FAQ Schema.org
