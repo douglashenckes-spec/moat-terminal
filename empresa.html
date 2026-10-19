@@ -341,7 +341,7 @@
 
           <div class="flex items-center justify-between pt-1 text-[11px] font-mono border-t border-slate-100">
             <span class="text-slate-500">Universo: <b class="text-slate-800" id="miniMatrixPeerCount">75+ empresas</b></span>
-            <a href="/?view=matrix" target="_blank" class="text-[#004B49] hover:text-emerald-800 font-bold hover:underline inline-flex items-center gap-1">
+            <a href="/index.html?workspace=matrix" id="miniMatrixFullMatrixLink" class="text-[#004B49] hover:text-emerald-800 font-bold hover:underline inline-flex items-center gap-1">
               Explorar Matriz Completa ➜
             </a>
           </div>
@@ -2672,8 +2672,13 @@
       const badge = document.getElementById('miniMatrixQuadrantBadge');
       const rationale = document.getElementById('miniMatrixRationale');
       const peerCountSpan = document.getElementById('miniMatrixPeerCount');
+      const matrixLink = document.getElementById('miniMatrixFullMatrixLink');
       const s = currentStock;
       if (!svg || !s) return;
+
+      if (matrixLink && s.ticker) {
+        matrixLink.href = `/index.html?workspace=matrix&ticker=${encodeURIComponent(s.ticker)}`;
+      }
 
       const allStocks = (APP_DATA.searchIndex && APP_DATA.searchIndex.length > 10) ? APP_DATA.searchIndex : (APP_DATA.stocks || []);
       const validPeers = allStocks.filter(item => item.pl !== null && item.pl > 0 && item.pl <= 35.0);
