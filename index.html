@@ -950,7 +950,7 @@
           <div class="lg:hidden absolute bottom-3 right-3 z-20 flex flex-col items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl shadow-lg border border-slate-200/90 font-mono text-xs select-none">
             <button type="button" onclick="zoomMatrix(1.35)" class="w-8 h-8 flex items-center justify-center text-slate-800 active:bg-slate-200 active:scale-95 rounded-lg font-bold text-base transition cursor-pointer" title="Aproximar">+</button>
             <button type="button" onclick="zoomMatrix(0.74)" class="w-8 h-8 flex items-center justify-center text-slate-800 active:bg-slate-200 active:scale-95 rounded-lg font-bold text-base transition cursor-pointer" title="Afastar">−</button>
-            <button type="button" onclick="resetMatrixZoom()" class="px-1.5 py-1 flex items-center justify-center text-[10px] text-slate-700 active:bg-slate-200 rounded-lg font-bold border-t border-slate-200 transition cursor-pointer" title="Redefinir Zoom">
+            <button id="matrixMobileResetBtn" type="button" onclick="resetMatrixZoom()" class="px-1.5 py-1 flex items-center justify-center text-[10px] text-slate-700 active:bg-slate-200 rounded-lg font-bold border-t border-slate-200 transition cursor-pointer" title="Redefinir Zoom">
               <span id="matrixMobileZoomPercent">100%</span>
             </button>
           </div>
@@ -4144,11 +4144,24 @@
     }
 
     function updateZoomLabel() {
+      const isZoomed = matrixZoom > 1.05;
       const pct = Math.round(matrixZoom * 100) + '%';
       const lbl = document.getElementById('matrixZoomLabel');
-      if (lbl) lbl.innerText = pct;
+      if (lbl) lbl.innerText = matrixZoom.toFixed(1) + 'x';
       const mobLbl = document.getElementById('matrixMobileZoomPercent');
-      if (mobLbl) mobLbl.innerText = pct;
+      if (mobLbl) {
+        mobLbl.innerHTML = isZoomed ? `↺ ${pct}` : pct;
+      }
+      const mobResetBtn = document.getElementById('matrixMobileResetBtn');
+      if (mobResetBtn) {
+        if (isZoomed) {
+          mobResetBtn.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+          mobResetBtn.classList.remove('text-slate-700');
+        } else {
+          mobResetBtn.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-300');
+          mobResetBtn.classList.add('text-slate-700');
+        }
+      }
     }
 
     function hideMatrixTouchHint() {
@@ -4798,44 +4811,61 @@
         }
       }
 
-      // Classificar empresas por relevância e liquidez para smart labeling adaptativo
+      // Classificar empresas por relevância e liquidez para rotulação inteligente anti-colisão
       const sortedByRelevance = [...stocks].sort((a, b) => {
         const valA = ((a.details && a.details.valor_mercado) || a.liq_2m || 0);
         const valB = ((b.details && b.details.valor_mercado) || b.liq_2m || 0);
         return valB - valA;
       });
 
-      let labelMax = 25;
-      if (matrixZoom >= 3.0) labelMax = 999;
-      else if (matrixZoom >= 2.0) labelMax = 120;
-      else if (matrixZoom >= 1.5) labelMax = 65;
-      else if (matrixZoom >= 1.2) labelMax = 40;
+      // Quantidade de Tickers visíveis conforme o nível de zoom
+      let tickerMax = 28;
+      if (matrixZoom >= 3.0) tickerMax = 999;
+      else if (matrixZoom >= 2.0) tickerMax = 120;
+      else if (matrixZoom >= 1.5) tickerMax = 65;
+      else if (matrixZoom >= 1.2) tickerMax = 42;
 
-      // Deduplicação inteligente de labels por empresa (prioriza a classe mais negociada, ex: ITUB4 vs ITUB3)
-      const seenBase = new Set();
-      const topStocksSet = new Set();
+      // Nome da empresa é exibido para o topo do mercado (evita sobreposição em clusters densos)
+      let nameMax = 14;
+      if (matrixZoom >= 3.5) nameMax = 42;
+      else if (matrixZoom >= 2.2) nameMax = 24;
+      else if (matrixZoom >= 1.5) nameMax = 18;
+
+      const seenBaseTicker = new Set();
+      const topTickerSet = new Set();
       for (const s of sortedByRelevance) {
         const base = s.ticker.substring(0, 4);
-        if (!seenBase.has(base)) {
-          seenBase.add(base);
-          topStocksSet.add(s.ticker);
-          if (topStocksSet.size >= labelMax) break;
+        if (!seenBaseTicker.has(base)) {
+          seenBaseTicker.add(base);
+          topTickerSet.add(s.ticker);
+          if (topTickerSet.size >= tickerMax) break;
+        }
+      }
+
+      const seenBaseName = new Set();
+      const topNameSet = new Set();
+      for (const s of sortedByRelevance) {
+        const base = s.ticker.substring(0, 4);
+        if (!seenBaseName.has(base)) {
+          seenBaseName.add(base);
+          topNameSet.add(s.ticker);
+          if (topNameSet.size >= nameMax) break;
         }
       }
 
       let selectedGroup = null;
 
-      // Tipografia Adaptativa ao Zoom (fontes grandes e legíveis no zoom in)
+      // Tipografia Adaptativa Equilibrada (confortável, nítida e proporcional)
       const zoomFactor = Math.max(1.0, matrixZoom);
-      const tickerFontSize = Math.round(15.5 + Math.min(zoomFactor - 1, 3.5) * 5.5);
-      const nameFontSize = Math.round(11.5 + Math.min(zoomFactor - 1, 3.5) * 3.8);
-      const strokeTicker = (tickerFontSize * 0.25).toFixed(1);
-      const strokeName = (nameFontSize * 0.22).toFixed(1);
+      const tickerFontSize = Math.round(14.5 + Math.min(zoomFactor - 1, 3.0) * 3.5);
+      const nameFontSize = Math.round(11.0 + Math.min(zoomFactor - 1, 3.0) * 2.2);
+      const strokeTicker = (tickerFontSize * 0.22).toFixed(1);
+      const strokeName = (nameFontSize * 0.20).toFixed(1);
 
-      const selBadgeW = Math.round(136 + Math.min(zoomFactor - 1, 3.5) * 40);
-      const selBadgeH = Math.round(36 + Math.min(zoomFactor - 1, 3.5) * 14);
-      const selTickerSize = Math.round(15 + Math.min(zoomFactor - 1, 3.5) * 6);
-      const selNameSize = Math.round(12 + Math.min(zoomFactor - 1, 3.5) * 4);
+      const selBadgeW = Math.round(126 + Math.min(zoomFactor - 1, 3.0) * 30);
+      const selBadgeH = Math.round(34 + Math.min(zoomFactor - 1, 3.0) * 10);
+      const selTickerSize = Math.round(14.5 + Math.min(zoomFactor - 1, 3.0) * 4);
+      const selNameSize = Math.round(11.5 + Math.min(zoomFactor - 1, 3.0) * 3);
 
       stocks.forEach(s => {
         const isLeftLoss = (s.edgePlacement === 'left_loss');
@@ -4880,7 +4910,8 @@
         }
 
         const isSelected = s.ticker === selectedTicker;
-        const shouldShowLabel = isSelected || topStocksSet.has(s.ticker);
+        const showTicker = isSelected || topTickerSet.has(s.ticker);
+        const showFullName = isSelected || (topNameSet.has(s.ticker) && matrixZoom < 4.0);
 
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         g.style.cursor = 'pointer';
@@ -4961,17 +4992,28 @@
           selectedGroup = g;
         } else {
           let labelHtml = '';
-          if (shouldShowLabel) {
-            const isNearTop = (cy - r - tickerFontSize - nameFontSize - 12 < padT);
-            const lbl1Y = isNearTop ? (cy + r + tickerFontSize + 4) : (cy - r - nameFontSize - 7);
-            const lbl2Y = isNearTop ? (cy + r + tickerFontSize + nameFontSize + 8) : (cy - r - 5);
+          if (showTicker) {
+            if (showFullName) {
+              const isNearTop = (cy - r - tickerFontSize - nameFontSize - 10 < padT);
+              const lbl1Y = isNearTop ? (cy + r + tickerFontSize + 3) : (cy - r - nameFontSize - 6);
+              const lbl2Y = isNearTop ? (cy + r + tickerFontSize + nameFontSize + 7) : (cy - r - 4);
 
-            labelHtml = `
-              <g class="pointer-events-none select-none">
-                <text x="${cx}" y="${lbl1Y}" text-anchor="middle" fill="#0F172A" font-size="${tickerFontSize}" font-family="JetBrains Mono" font-weight="900" stroke="#FFFFFF" stroke-width="${strokeTicker}" paint-order="stroke fill" stroke-linejoin="round">${s.ticker}</text>
-                <text x="${cx}" y="${lbl2Y}" text-anchor="middle" fill="#0284C7" font-size="${nameFontSize}" font-family="Inter" font-weight="700" stroke="#FFFFFF" stroke-width="${strokeName}" paint-order="stroke fill" stroke-linejoin="round">${shortName}</text>
-              </g>
-            `;
+              labelHtml = `
+                <g class="pointer-events-none select-none">
+                  <text x="${cx}" y="${lbl1Y}" text-anchor="middle" fill="#0F172A" font-size="${tickerFontSize}" font-family="JetBrains Mono" font-weight="900" stroke="#FFFFFF" stroke-width="${strokeTicker}" paint-order="stroke fill" stroke-linejoin="round">${s.ticker}</text>
+                  <text x="${cx}" y="${lbl2Y}" text-anchor="middle" fill="#0284C7" font-size="${nameFontSize}" font-family="Inter" font-weight="700" stroke="#FFFFFF" stroke-width="${strokeName}" paint-order="stroke fill" stroke-linejoin="round">${shortName}</text>
+                </g>
+              `;
+            } else {
+              const isNearTop = (cy - r - tickerFontSize - 8 < padT);
+              const lblY = isNearTop ? (cy + r + tickerFontSize + 3) : (cy - r - 5);
+
+              labelHtml = `
+                <g class="pointer-events-none select-none">
+                  <text x="${cx}" y="${lblY}" text-anchor="middle" fill="#0F172A" font-size="${tickerFontSize}" font-family="JetBrains Mono" font-weight="900" stroke="#FFFFFF" stroke-width="${strokeTicker}" paint-order="stroke fill" stroke-linejoin="round">${s.ticker}</text>
+                </g>
+              `;
+            }
           }
           g.innerHTML = `
             ${warningRingHtml}
@@ -5232,6 +5274,16 @@
         if (!e.target.closest('g[data-ticker]')) {
           closeMobileSelectedCard();
           hideMatrixTooltip();
+        }
+      });
+
+      // Duplo clique no canvas (Desktop): zoom in inteligente no ponto ou reset se já com zoom
+      svg.addEventListener('dblclick', (e) => {
+        if (e.target.closest('g[data-ticker]')) return;
+        if (matrixZoom <= 1.25) {
+          smoothAnimateZoom(2.4, e.clientX, e.clientY);
+        } else {
+          smoothAnimateZoom(1.0);
         }
       });
 
@@ -5550,17 +5602,17 @@
           isPanDragging = false;
           isPageScrolling = false;
 
-          // Detecção de Duplo Toque Rápido (Double-Tap)
+          // Detecção de Duplo Toque Rápido (Double-Tap Mobile)
           const tapDuration = Date.now() - touchStartTime;
-          if (!hasMovedDuringPan && tapDuration < 260) {
+          if (!hasMovedDuringPan && tapDuration < 280) {
             const now = Date.now();
             const timeDiff = now - lastTapTime;
             const dist = Math.hypot(touchStartX - lastTapX, touchStartY - lastTapY);
 
-            if (timeDiff > 40 && timeDiff < 320 && dist < 32) {
+            if (timeDiff > 40 && timeDiff < 360 && dist < 36) {
               lastTapTime = 0;
               if (matrixZoom <= 1.25) {
-                smoothAnimateZoom(2.5, touchStartX, touchStartY);
+                smoothAnimateZoom(2.4, touchStartX, touchStartY);
               } else {
                 smoothAnimateZoom(1.0);
               }
