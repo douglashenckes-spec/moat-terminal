@@ -4113,10 +4113,26 @@ html_template = f"""<!DOCTYPE html>
 
         updateZoomLabel();
 
-        const viewport = document.getElementById('matrixDynamicViewport');
-        if (viewport && startZoom > 0) {{
+        const bubbles = document.getElementById('matrixBubblesGroup');
+        if (bubbles && startZoom > 0) {{
           const relScale = matrixZoom / startZoom;
-          viewport.setAttribute('transform', 
+          const kids = bubbles.children;
+          for (let i = 0; i < kids.length; i++) {{
+            const el = kids[i];
+            const x0 = Number(el.dataset.cx);
+            const y0 = Number(el.dataset.cy);
+            if (!isNaN(x0) && !isNaN(y0)) {{
+              const shiftX = (relScale - 1) * (x0 - mouseSvgX);
+              const shiftY = (relScale - 1) * (y0 - mouseSvgY);
+              el.setAttribute('transform', `translate(${{shiftX.toFixed(1)}}, ${{shiftY.toFixed(1)}})`);
+            }}
+          }}
+        }}
+
+        const bgLayer = document.getElementById('matrixBackgroundLayer');
+        if (bgLayer && startZoom > 0) {{
+          const relScale = matrixZoom / startZoom;
+          bgLayer.setAttribute('transform', 
             `translate(${{mouseSvgX.toFixed(2)}}, ${{mouseSvgY.toFixed(2)}}) scale(${{relScale.toFixed(4)}}) translate(${{-mouseSvgX.toFixed(2)}}, ${{-mouseSvgY.toFixed(2)}})`
           );
         }}
@@ -4128,7 +4144,11 @@ html_template = f"""<!DOCTYPE html>
           matrixZoom = finalZoom;
           matrixCenterX = targetCenterX;
           matrixCenterY = targetCenterY;
-          if (viewport) viewport.removeAttribute('transform');
+          if (bgLayer) bgLayer.removeAttribute('transform');
+          if (bubbles) {{
+            const kids = bubbles.children;
+            for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
+          }}
           updateZoomLabel();
           renderMatrix();
         }}
@@ -4604,16 +4624,16 @@ html_template = f"""<!DOCTYPE html>
       }}
 
       function calcRadius(s) {{
-        if (matrixBubbleMetric === 'fixed') return 6.5;
+        if (matrixBubbleMetric === 'fixed') return 7.5;
         if (matrixBubbleMetric === 'mcap') {{
           const v = (s.details && s.details.valor_mercado) || 0;
-          return 5.0 + Math.sqrt(Math.max(0, v) / maxBubbleVal) * 14.0;
+          return 6.5 + Math.sqrt(Math.max(0, v) / maxBubbleVal) * 7.0;
         }}
         if (matrixBubbleMetric === 'volume') {{
           const v = s.liq_2m || 0;
-          return 5.0 + Math.sqrt(Math.max(0, v) / maxBubbleVal) * 14.0;
+          return 6.5 + Math.sqrt(Math.max(0, v) / maxBubbleVal) * 7.0;
         }}
-        return 6.5;
+        return 7.5;
       }}
 
       // Limiares dos 4 Quadrantes Estratégicos 2x2 (Tier 1: 80 pts | NTN-B: 6,5% a.a. / 15,38x)
@@ -4628,9 +4648,10 @@ html_template = f"""<!DOCTYPE html>
           </clipPath>
         </defs>
 
-        <!-- ÁREA DO GRÁFICO RESTRITA PELO CLIPPATH COM ACELERAÇÃO DE HARDWARE -->
+        <!-- ÁREA DO GRÁFICO RESTRITA PELO CLIPPATH -->
         <g clip-path="url(#matrixPlotArea)">
-          <g id="matrixDynamicViewport">
+          <!-- Camada de Fundo, Cortes e Watermarks -->
+          <g id="matrixBackgroundLayer">
             <!-- Fundo Branco Base Clean -->
             <rect x="${{padL - 3000}}" y="${{padT - 3000}}" width="6000" height="6000" fill="#FFFFFF" />
 
@@ -4672,10 +4693,10 @@ html_template = f"""<!DOCTYPE html>
             <line x1="${{padL + 26}}" y1="${{padT}}" x2="${{padL + 26}}" y2="${{padT + innerH}}" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,3" />
             <text x="${{padL + 17}}" y="${{padT + innerH / 2}}" text-anchor="middle" fill="#991B1B" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(-90 ${{padL + 17}} ${{padT + innerH / 2}})">BORDA: PREJUÍZO LTM</text>
             ` : ''}}
-
-            <!-- Grupo das Bolhas e Rótulos Integrado ao Viewport Dinâmico -->
-            <g id="matrixBubblesGroup"></g>
           </g>
+
+          <!-- Grupo das Bolhas e Rótulos (mantém raio constante sem inflar) -->
+          <g id="matrixBubblesGroup"></g>
         </g>
       `;
 
@@ -4828,6 +4849,18 @@ html_template = f"""<!DOCTYPE html>
 
       let selectedGroup = null;
 
+      // Tipografia Adaptativa ao Zoom (fontes grandes e legíveis no zoom in)
+      const zoomFactor = Math.max(1.0, matrixZoom);
+      const tickerFontSize = Math.round(15.5 + Math.min(zoomFactor - 1, 3.5) * 5.5);
+      const nameFontSize = Math.round(11.5 + Math.min(zoomFactor - 1, 3.5) * 3.8);
+      const strokeTicker = (tickerFontSize * 0.25).toFixed(1);
+      const strokeName = (nameFontSize * 0.22).toFixed(1);
+
+      const selBadgeW = Math.round(136 + Math.min(zoomFactor - 1, 3.5) * 40);
+      const selBadgeH = Math.round(36 + Math.min(zoomFactor - 1, 3.5) * 14);
+      const selTickerSize = Math.round(15 + Math.min(zoomFactor - 1, 3.5) * 6);
+      const selNameSize = Math.round(12 + Math.min(zoomFactor - 1, 3.5) * 4);
+
       stocks.forEach(s => {{
         const isLeftLoss = (s.edgePlacement === 'left_loss');
         const isEdge = isLeftLoss;
@@ -4876,6 +4909,10 @@ html_template = f"""<!DOCTYPE html>
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         g.style.cursor = 'pointer';
         g.setAttribute('data-ticker', s.ticker);
+        g.dataset.cx = cx;
+        g.dataset.cy = cy;
+        g.dataset.r = r;
+
         g.onclick = () => {{
           if (hasMovedDuringPan) return;
           selectTicker(s.ticker);
@@ -4927,37 +4964,36 @@ html_template = f"""<!DOCTYPE html>
         let shortName = rawName.replace(/\\s*(ON|PN|UNT|S\\/A|S\\.A\\.|NM|N1|N2).*$/i, '').trim();
         if (shortName.length > 13) shortName = shortName.substring(0, 12) + '…';
 
-        // Detecção de proximidade da borda superior para não cortar rótulos
-        const isNearTop = (cy - r - 42 < padT);
-
         if (isSelected) {{
-          const rectY = isNearTop ? (cy + r + 10) : (cy - r - 44);
-          const text1Y = isNearTop ? (cy + r + 26) : (cy - r - 28);
-          const text2Y = isNearTop ? (cy + r + 39) : (cy - r - 14);
+          const isNearTop = (cy - r - selBadgeH - 8 < padT);
+          const rectY = isNearTop ? (cy + r + 10) : (cy - r - selBadgeH - 6);
+          const text1Y = rectY + selBadgeH * 0.44;
+          const text2Y = rectY + selBadgeH * 0.82;
 
           g.innerHTML = `
             ${{warningRingHtml}}
             ${{edgeRingHtml}}
             <circle cx="${{cx}}" cy="${{cy}}" r="${{Math.max(r + 12, 22)}}" fill="transparent" stroke="none" class="hitbox-bubble" />
-            <circle cx="${{cx}}" cy="${{cy}}" r="${{r + 9}}" fill="none" stroke="#F59E0B" stroke-width="3" class="animate-pulse pointer-events-none" />
+            <circle cx="${{cx}}" cy="${{cy}}" r="${{r + 8}}" fill="none" stroke="#F59E0B" stroke-width="3" class="animate-pulse pointer-events-none" />
             <circle cx="${{cx}}" cy="${{cy}}" r="${{r}}" fill="${{fillColor}}" stroke="#FFFFFF" stroke-width="3" class="main-bubble" />
             <g class="pointer-events-none select-none">
-              <rect x="${{cx - 68}}" y="${{rectY}}" width="136" height="34" rx="6" fill="#080A0F" fill-opacity="0.95" stroke="#F59E0B" stroke-width="2" />
-              <text x="${{cx}}" y="${{text1Y}}" text-anchor="middle" fill="#FBBF24" font-size="14" font-family="JetBrains Mono" font-weight="900">📍 ${{s.ticker}}</text>
-              <text x="${{cx}}" y="${{text2Y}}" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="Inter" font-weight="700">${{shortName}}</text>
+              <rect x="${{cx - selBadgeW / 2}}" y="${{rectY}}" width="${{selBadgeW}}" height="${{selBadgeH}}" rx="6" fill="#080A0F" fill-opacity="0.95" stroke="#F59E0B" stroke-width="2" />
+              <text x="${{cx}}" y="${{text1Y}}" text-anchor="middle" fill="#FBBF24" font-size="${{selTickerSize}}" font-family="JetBrains Mono" font-weight="900">📍 ${{s.ticker}}</text>
+              <text x="${{cx}}" y="${{text2Y}}" text-anchor="middle" fill="#F8FAFC" font-size="${{selNameSize}}" font-family="Inter" font-weight="700">${{shortName}}</text>
             </g>
           `;
           selectedGroup = g;
         }} else {{
           let labelHtml = '';
           if (shouldShowLabel) {{
-            const lbl1Y = isNearTop ? (cy + r + 18) : (cy - r - 16);
-            const lbl2Y = isNearTop ? (cy + r + 32) : (cy - r - 2);
+            const isNearTop = (cy - r - tickerFontSize - nameFontSize - 12 < padT);
+            const lbl1Y = isNearTop ? (cy + r + tickerFontSize + 4) : (cy - r - nameFontSize - 7);
+            const lbl2Y = isNearTop ? (cy + r + tickerFontSize + nameFontSize + 8) : (cy - r - 5);
 
             labelHtml = `
               <g class="pointer-events-none select-none">
-                <text x="${{cx}}" y="${{lbl1Y}}" text-anchor="middle" fill="#0F172A" font-size="14" font-family="JetBrains Mono" font-weight="800" stroke="#FFFFFF" stroke-width="3.5" paint-order="stroke fill" stroke-linejoin="round">${{s.ticker}}</text>
-                <text x="${{cx}}" y="${{lbl2Y}}" text-anchor="middle" fill="#0284C7" font-size="11.5" font-family="Inter" font-weight="700" stroke="#FFFFFF" stroke-width="2.8" paint-order="stroke fill" stroke-linejoin="round">${{shortName}}</text>
+                <text x="${{cx}}" y="${{lbl1Y}}" text-anchor="middle" fill="#0F172A" font-size="${{tickerFontSize}}" font-family="JetBrains Mono" font-weight="900" stroke="#FFFFFF" stroke-width="${{strokeTicker}}" paint-order="stroke fill" stroke-linejoin="round">${{s.ticker}}</text>
+                <text x="${{cx}}" y="${{lbl2Y}}" text-anchor="middle" fill="#0284C7" font-size="${{nameFontSize}}" font-family="Inter" font-weight="700" stroke="#FFFFFF" stroke-width="${{strokeName}}" paint-order="stroke fill" stroke-linejoin="round">${{shortName}}</text>
               </g>
             `;
           }}
@@ -5255,10 +5291,10 @@ html_template = f"""<!DOCTYPE html>
             requestAnimationFrame(() => {{
               rafPending = false;
               if (!isMouseDragging) return;
-              const viewport = document.getElementById('matrixDynamicViewport');
-              if (viewport) {{
-                viewport.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
-              }}
+              const bgLayer = document.getElementById('matrixBackgroundLayer');
+              if (bgLayer) bgLayer.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
+              const bubblesGroup = document.getElementById('matrixBubblesGroup');
+              if (bubblesGroup) bubblesGroup.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
             }});
           }}
         }}
@@ -5283,8 +5319,10 @@ html_template = f"""<!DOCTYPE html>
             matrixCenterX = panStartCenterX - (panCurDxSvg / innerW) * spanX;
             matrixCenterY = panStartCenterY + (panCurDySvg / innerH) * spanY;
 
-            const viewport = document.getElementById('matrixDynamicViewport');
-            if (viewport) viewport.removeAttribute('transform');
+            const bgLayer = document.getElementById('matrixBackgroundLayer');
+            if (bgLayer) bgLayer.removeAttribute('transform');
+            const bubblesGroup = document.getElementById('matrixBubblesGroup');
+            if (bubblesGroup) bubblesGroup.removeAttribute('transform');
             renderMatrix();
           }}
         }}
@@ -5321,8 +5359,8 @@ html_template = f"""<!DOCTYPE html>
           pinchCurDxSvg = 0;
           pinchCurDySvg = 0;
 
-          const viewport = document.getElementById('matrixDynamicViewport');
-          if (viewport) viewport.style.transition = 'none';
+          const bgLayer = document.getElementById('matrixBackgroundLayer');
+          if (bgLayer) bgLayer.style.transition = 'none';
         }} else if (e.touches.length === 1) {{
           isPinching = false;
           hasMovedDuringPan = false;
@@ -5381,15 +5419,35 @@ html_template = f"""<!DOCTYPE html>
               requestAnimationFrame(() => {{
                 rafPending = false;
                 if (!isPinching) return;
-                const viewport = document.getElementById('matrixDynamicViewport');
-                if (viewport) {{
-                  viewport.setAttribute('transform', 
+
+                // Move os fundos e cortes
+                const bgLayer = document.getElementById('matrixBackgroundLayer');
+                if (bgLayer) {{
+                  bgLayer.setAttribute('transform', 
                     `translate(${{pinchCurDxSvg.toFixed(2)}}, ${{pinchCurDySvg.toFixed(2)}}) ` +
                     `translate(${{pinchAnchorSvgX.toFixed(2)}}, ${{pinchAnchorSvgY.toFixed(2)}}) ` +
                     `scale(${{pinchCurScale.toFixed(4)}}) ` +
                     `translate(${{-pinchAnchorSvgX.toFixed(2)}}, ${{-pinchAnchorSvgY.toFixed(2)}})`
                   );
                 }}
+
+                // Move as bolhas mantendo o raio fixo e constante (SEM inflar nem mudar de escala)
+                const bubblesGroup = document.getElementById('matrixBubblesGroup');
+                if (bubblesGroup) {{
+                  const kids = bubblesGroup.children;
+                  for (let i = 0; i < kids.length; i++) {{
+                    const el = kids[i];
+                    const x0 = Number(el.dataset.cx);
+                    const y0 = Number(el.dataset.cy);
+                    if (!isNaN(x0) && !isNaN(y0)) {{
+                      const shiftX = (pinchCurScale - 1) * (x0 - pinchAnchorSvgX) + pinchCurDxSvg;
+                      const shiftY = (pinchCurScale - 1) * (y0 - pinchAnchorSvgY) + pinchCurDySvg;
+                      el.setAttribute('transform', `translate(${{shiftX.toFixed(1)}}, ${{shiftY.toFixed(1)}})`);
+                    }}
+                  }}
+                }}
+
+                // Feedback visual instantâneo de zoom
                 const livePercent = Math.round(pinchStartZoom * pinchCurScale * 100);
                 const mobBadge = document.getElementById('matrixMobileZoomPercent');
                 if (mobBadge) mobBadge.innerText = livePercent + '%';
@@ -5441,10 +5499,10 @@ html_template = f"""<!DOCTYPE html>
               requestAnimationFrame(() => {{
                 rafPending = false;
                 if (!isPanDragging) return;
-                const viewport = document.getElementById('matrixDynamicViewport');
-                if (viewport) {{
-                  viewport.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
-                }}
+                const bgLayer = document.getElementById('matrixBackgroundLayer');
+                if (bgLayer) bgLayer.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
+                const bubblesGroup = document.getElementById('matrixBubblesGroup');
+                if (bubblesGroup) bubblesGroup.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
               }});
             }}
           }}
@@ -5489,8 +5547,14 @@ html_template = f"""<!DOCTYPE html>
               matrixZoom = finalZoom;
             }}
 
-            const viewport = document.getElementById('matrixDynamicViewport');
-            if (viewport) viewport.removeAttribute('transform');
+            const bgLayer = document.getElementById('matrixBackgroundLayer');
+            if (bgLayer) bgLayer.removeAttribute('transform');
+            const bubblesGroup = document.getElementById('matrixBubblesGroup');
+            if (bubblesGroup) {{
+              const kids = bubblesGroup.children;
+              for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
+              bubblesGroup.removeAttribute('transform');
+            }}
             updateZoomLabel();
             renderMatrix();
           }} else if (isPanDragging && hasMovedDuringPan) {{
@@ -5500,8 +5564,10 @@ html_template = f"""<!DOCTYPE html>
             matrixCenterX = panStartCenterX - (panCurDxSvg / innerW) * spanX;
             matrixCenterY = panStartCenterY + (panCurDySvg / innerH) * spanY;
 
-            const viewport = document.getElementById('matrixDynamicViewport');
-            if (viewport) viewport.removeAttribute('transform');
+            const bgLayer = document.getElementById('matrixBackgroundLayer');
+            if (bgLayer) bgLayer.removeAttribute('transform');
+            const bubblesGroup = document.getElementById('matrixBubblesGroup');
+            if (bubblesGroup) bubblesGroup.removeAttribute('transform');
             renderMatrix();
           }}
 
