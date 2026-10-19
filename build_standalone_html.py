@@ -4049,23 +4049,102 @@ html_template = f"""<!DOCTYPE html>
       }});
     }}
 
+    let matrixAnimFrame = null;
+
+    function smoothAnimateZoom(targetZoom, clientX, clientY, durationMs = 220) {{
+      if (matrixAnimFrame) cancelAnimationFrame(matrixAnimFrame);
+
+      const isPl = currentXMetric === 'pl';
+      const baseXMin = 0;
+      const baseXMax = isPl ? 35.0 : 25.0;
+      const baseYMin = 20.0;
+      const baseYMax = 100.0;
+
+      const padL = 70, padR = 30, padT = 35, padB = 55;
+      const w = 1200, h = 700;
+      const innerW = w - padL - padR;
+      const innerH = h - padT - padB;
+
+      const svg = document.getElementById('matrixSvg');
+      if (!svg) return;
+      const rect = svg.getBoundingClientRect();
+      const mouseSvgX = clientX !== undefined ? ((clientX - rect.left) / rect.width) * w : (padL + innerW / 2);
+      const mouseSvgY = clientY !== undefined ? ((clientY - rect.top) / rect.height) * h : (padT + innerH / 2);
+
+      const startZoom = matrixZoom;
+      const finalZoom = Math.min(8.0, Math.max(1.0, targetZoom));
+      const startCenterX = matrixCenterX;
+      const startCenterY = matrixCenterY;
+
+      let targetCenterX, targetCenterY;
+      if (finalZoom === 1.0) {{
+        targetCenterX = (baseXMax + baseXMin) / 2;
+        targetCenterY = (baseYMax + baseYMin) / 2;
+      }} else {{
+        const oldSpanX = (baseXMax - baseXMin) / startZoom;
+        const oldSpanY = (baseYMax - baseYMin) / startZoom;
+        const curXMin = startCenterX - oldSpanX / 2;
+        const curYMin = startCenterY - oldSpanY / 2;
+
+        const dataX = curXMin + ((mouseSvgX - padL) / innerW) * oldSpanX;
+        const dataY = curYMin + (1 - (mouseSvgY - padT) / innerH) * oldSpanY;
+
+        const newSpanX = (baseXMax - baseXMin) / finalZoom;
+        const newSpanY = (baseYMax - baseYMin) / finalZoom;
+
+        const normX = Math.max(0, Math.min(1, (mouseSvgX - padL) / innerW));
+        const normY = Math.max(0, Math.min(1, 1 - (mouseSvgY - padT) / innerH));
+
+        targetCenterX = dataX + (0.5 - normX) * newSpanX;
+        targetCenterY = dataY + (0.5 - normY) * newSpanY;
+      }}
+
+      const startTime = performance.now();
+      const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+      function step(now) {{
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / durationMs);
+        const ease = easeOut(progress);
+
+        matrixZoom = startZoom + (finalZoom - startZoom) * ease;
+        matrixCenterX = startCenterX + (targetCenterX - startCenterX) * ease;
+        matrixCenterY = startCenterY + (targetCenterY - startCenterY) * ease;
+
+        updateZoomLabel();
+
+        const viewport = document.getElementById('matrixDynamicViewport');
+        if (viewport && startZoom > 0) {{
+          const relScale = matrixZoom / startZoom;
+          viewport.setAttribute('transform', 
+            `translate(${{mouseSvgX.toFixed(2)}}, ${{mouseSvgY.toFixed(2)}}) scale(${{relScale.toFixed(4)}}) translate(${{-mouseSvgX.toFixed(2)}}, ${{-mouseSvgY.toFixed(2)}})`
+          );
+        }}
+
+        if (progress < 1) {{
+          matrixAnimFrame = requestAnimationFrame(step);
+        }} else {{
+          matrixAnimFrame = null;
+          matrixZoom = finalZoom;
+          matrixCenterX = targetCenterX;
+          matrixCenterY = targetCenterY;
+          if (viewport) viewport.removeAttribute('transform');
+          updateZoomLabel();
+          renderMatrix();
+        }}
+      }}
+      matrixAnimFrame = requestAnimationFrame(step);
+    }}
+
     function zoomMatrix(factor) {{
       const svg = document.getElementById('matrixSvg');
       if (!svg) return;
       const rect = svg.getBoundingClientRect();
-      zoomMatrixAt(factor, rect.left + rect.width / 2, rect.top + rect.height / 2);
+      smoothAnimateZoom(matrixZoom * factor, rect.left + rect.width / 2, rect.top + rect.height / 2);
     }}
 
     function resetMatrixZoom() {{
-      matrixZoom = 1.0;
-      const isPl = currentXMetric === 'pl';
-      const baseXMax = isPl ? 35.0 : 25.0;
-      matrixCenterX = baseXMax / 2;
-      matrixCenterY = (100.0 + 20.0) / 2;
-      updateZoomLabel();
-      const svg = document.getElementById('matrixSvg');
-      if (svg) svg.style.cursor = 'crosshair';
-      renderMatrix();
+      smoothAnimateZoom(1.0);
     }}
 
     function updateZoomLabel() {{
@@ -4126,59 +4205,11 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function zoomMatrixTo(targetZoom, clientX, clientY) {{
-      const isPl = currentXMetric === 'pl';
-      const baseXMin = 0;
-      const baseXMax = isPl ? 35.0 : 25.0;
-      const baseYMin = 20.0;
-      const baseYMax = 100.0;
-
-      const padL = 70, padR = 30, padT = 35, padB = 55;
-      const w = 1200, h = 700;
-      const innerW = w - padL - padR;
-      const innerH = h - padT - padB;
-
-      const oldZoom = matrixZoom;
-      let newZoom = Math.min(8.0, Math.max(1.0, targetZoom));
-      if (Math.abs(newZoom - oldZoom) < 0.003) return;
-
-      const svg = document.getElementById('matrixSvg');
-      if (!svg) return;
-      const rect = svg.getBoundingClientRect();
-      const mouseSvgX = ((clientX - rect.left) / rect.width) * w;
-      const mouseSvgY = ((clientY - rect.top) / rect.height) * h;
-
-      if (newZoom === 1.0) {{
-        matrixZoom = 1.0;
-        matrixCenterX = (baseXMax + baseXMin) / 2;
-        matrixCenterY = (baseYMax + baseYMin) / 2;
-        svg.style.cursor = 'crosshair';
-      }} else {{
-        const oldSpanX = (baseXMax - baseXMin) / oldZoom;
-        const oldSpanY = (baseYMax - baseYMin) / oldZoom;
-        const curXMin = matrixCenterX - oldSpanX / 2;
-        const curYMin = matrixCenterY - oldSpanY / 2;
-
-        const dataX = curXMin + ((mouseSvgX - padL) / innerW) * oldSpanX;
-        const dataY = curYMin + (1 - (mouseSvgY - padT) / innerH) * oldSpanY;
-
-        const newSpanX = (baseXMax - baseXMin) / newZoom;
-        const newSpanY = (baseYMax - baseYMin) / newZoom;
-
-        const normX = Math.max(0, Math.min(1, (mouseSvgX - padL) / innerW));
-        const normY = Math.max(0, Math.min(1, 1 - (mouseSvgY - padT) / innerH));
-
-        matrixCenterX = dataX + (0.5 - normX) * newSpanX;
-        matrixCenterY = dataY + (0.5 - normY) * newSpanY;
-        matrixZoom = newZoom;
-        if (!isPanning) svg.style.cursor = 'grab';
-      }}
-
-      updateZoomLabel();
-      renderMatrix();
+      smoothAnimateZoom(targetZoom, clientX, clientY, 200);
     }}
 
     function zoomMatrixAt(factor, clientX, clientY) {{
-      zoomMatrixTo(matrixZoom * factor, clientX, clientY);
+      smoothAnimateZoom(matrixZoom * factor, clientX, clientY, 200);
     }}
 
     function selectTicker(t) {{
@@ -4597,49 +4628,54 @@ html_template = f"""<!DOCTYPE html>
           </clipPath>
         </defs>
 
-        <!-- ÁREA DO GRÁFICO RESTRITA PELO CLIPPATH -->
+        <!-- ÁREA DO GRÁFICO RESTRITA PELO CLIPPATH COM ACELERAÇÃO DE HARDWARE -->
         <g clip-path="url(#matrixPlotArea)">
-          <!-- Fundo Branco Base Clean -->
-          <rect x="${{padL - 3000}}" y="${{padT - 3000}}" width="6000" height="6000" fill="#FFFFFF" />
+          <g id="matrixDynamicViewport">
+            <!-- Fundo Branco Base Clean -->
+            <rect x="${{padL - 3000}}" y="${{padT - 3000}}" width="6000" height="6000" fill="#FFFFFF" />
 
-          <!-- Linhas Divisórias dos 4 Quadrantes 2x2 com Cortes NTN-B & Tier 1 -->
-          <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
-          <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="2" stroke-dasharray="6,4" opacity="0.75" />
+            <!-- Linhas Divisórias dos 4 Quadrantes 2x2 com Cortes NTN-B & Tier 1 -->
+            <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
+            <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="2" stroke-dasharray="6,4" opacity="0.75" />
 
-          <!-- Badges Visuais nos Cortes NTN-B e Tier 1 -->
-          <g class="pointer-events-none select-none">
-            <rect x="${{padL + 12}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11))}}" width="180" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
-            <text x="${{padL + 18}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11)) + 15}}" fill="#065F46" font-size="11" font-family="JetBrains Mono" font-weight="800">Corte Tier 1: Moat ≥ 80 pts</text>
+            <!-- Badges Visuais nos Cortes NTN-B e Tier 1 -->
+            <g class="pointer-events-none select-none">
+              <rect x="${{padL + 12}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11))}}" width="180" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
+              <text x="${{padL + 18}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11)) + 15}}" fill="#065F46" font-size="11" font-family="JetBrains Mono" font-weight="800">Corte Tier 1: Moat ≥ 80 pts</text>
 
-            <rect x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97))}}" y="${{padT + innerH - 26}}" width="195" height="22" rx="4" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
-            <text x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97)) + 97}}" y="${{padT + innerH - 11}}" text-anchor="middle" fill="#0369A1" font-size="10.5" font-family="JetBrains Mono" font-weight="800">Corte NTN-B: 6,5% | P/L 15,4x</text>
+              <rect x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97))}}" y="${{padT + innerH - 26}}" width="195" height="22" rx="4" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
+              <text x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97)) + 97}}" y="${{padT + innerH - 11}}" text-anchor="middle" fill="#0369A1" font-size="10.5" font-family="JetBrains Mono" font-weight="800">Corte NTN-B: 6,5% | P/L 15,4x</text>
+            </g>
+
+            <!-- Rótulos dos Quadrantes 2x2 (Watermarks Institucionais) -->
+            <g class="pointer-events-none select-none">
+              <!-- Q1: Superior Esquerdo -->
+              <text x="${{padL + 18}}" y="${{padT + 24}}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q1: COMPOUNDERS DESCONTADAS</text>
+              <text x="${{padL + 18}}" y="${{padT + 40}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Acima da NTN-B)' : 'EY ≥ 6,5% (Acima da NTN-B)'}}</text>
+
+              <!-- Q2: Superior Direito -->
+              <text x="${{padL + innerW - 18}}" y="${{padT + 24}}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q2: QUALIDADE COM PRÊMIO</text>
+              <text x="${{padL + innerW - 18}}" y="${{padT + 40}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L > 15,4x (Abaixo da NTN-B)' : 'EY < 6,5%'}}</text>
+
+              <!-- Q3: Inferior Esquerdo -->
+              <text x="${{padL + 18}}" y="${{padT + innerH - 34}}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q3: MÚLTIPLOS ATRATIVOS / RETORNO CÍCLICO</text>
+              <text x="${{padL + 18}}" y="${{padT + innerH - 18}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Atenção a Value Trap)' : 'EY ≥ 6,5%'}}</text>
+
+              <!-- Q4: Inferior Direito -->
+              <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 34}}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q4: VALUATION ELEVADO / BAIXA PROTEÇÃO</text>
+              <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 18}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L > 15,4x' : 'EY < 6,5%'}}</text>
+            </g>
+
+            ${{showMatrixEdges ? `
+            <!-- Faixa Indicadora de Borda Esquerda (Prejuízo LTM) -->
+            <rect x="${{padL}}" y="${{padT}}" width="26" height="${{innerH}}" fill="#FEE2E2" opacity="0.38" />
+            <line x1="${{padL + 26}}" y1="${{padT}}" x2="${{padL + 26}}" y2="${{padT + innerH}}" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,3" />
+            <text x="${{padL + 17}}" y="${{padT + innerH / 2}}" text-anchor="middle" fill="#991B1B" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(-90 ${{padL + 17}} ${{padT + innerH / 2}})">BORDA: PREJUÍZO LTM</text>
+            ` : ''}}
+
+            <!-- Grupo das Bolhas e Rótulos Integrado ao Viewport Dinâmico -->
+            <g id="matrixBubblesGroup"></g>
           </g>
-
-          <!-- Rótulos dos Quadrantes 2x2 (Watermarks Institucionais) -->
-          <g class="pointer-events-none select-none">
-            <!-- Q1: Superior Esquerdo -->
-            <text x="${{padL + 18}}" y="${{padT + 24}}" fill="#059669" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q1: COMPOUNDERS DESCONTADAS</text>
-            <text x="${{padL + 18}}" y="${{padT + 40}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Acima da NTN-B)' : 'EY ≥ 6,5% (Acima da NTN-B)'}}</text>
-
-            <!-- Q2: Superior Direito -->
-            <text x="${{padL + innerW - 18}}" y="${{padT + 24}}" text-anchor="end" fill="#0284C7" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q2: QUALIDADE COM PRÊMIO</text>
-            <text x="${{padL + innerW - 18}}" y="${{padT + 40}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score ≥ 80 pts | ${{isPl ? 'P/L > 15,4x (Abaixo da NTN-B)' : 'EY < 6,5%'}}</text>
-
-            <!-- Q3: Inferior Esquerdo -->
-            <text x="${{padL + 18}}" y="${{padT + innerH - 34}}" fill="#D97706" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q3: MÚLTIPLOS ATRATIVOS / RETORNO CÍCLICO</text>
-            <text x="${{padL + 18}}" y="${{padT + innerH - 18}}" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L ≤ 15,4x (Atenção a Value Trap)' : 'EY ≥ 6,5%'}}</text>
-
-            <!-- Q4: Inferior Direito -->
-            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 34}}" text-anchor="end" fill="#E11D48" font-size="13" font-family="JetBrains Mono" font-weight="800" opacity="0.85">Q4: VALUATION ELEVADO / BAIXA PROTEÇÃO</text>
-            <text x="${{padL + innerW - 18}}" y="${{padT + innerH - 18}}" text-anchor="end" fill="#475569" font-size="11" font-family="Inter" font-weight="600" opacity="0.8">Score < 80 pts | ${{isPl ? 'P/L > 15,4x' : 'EY < 6,5%'}}</text>
-          </g>
-
-          ${{showMatrixEdges ? `
-          <!-- Faixa Indicadora de Borda Esquerda (Prejuízo LTM) -->
-          <rect x="${{padL}}" y="${{padT}}" width="26" height="${{innerH}}" fill="#FEE2E2" opacity="0.38" />
-          <line x1="${{padL + 26}}" y1="${{padT}}" x2="${{padL + 26}}" y2="${{padT + innerH}}" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,3" />
-          <text x="${{padL + 17}}" y="${{padT + innerH / 2}}" text-anchor="middle" fill="#991B1B" font-size="10" font-family="JetBrains Mono" font-weight="800" transform="rotate(-90 ${{padL + 17}} ${{padT + innerH / 2}})">BORDA: PREJUÍZO LTM</text>
-          ` : ''}}
         </g>
       `;
 
@@ -4694,10 +4730,7 @@ html_template = f"""<!DOCTYPE html>
       svg.innerHTML = svgHtml;
 
       // Group para as bolhas contidas dentro da área de plot
-      const bubblesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      bubblesGroup.id = 'matrixBubblesGroup';
-      bubblesGroup.setAttribute('clip-path', 'url(#matrixPlotArea)');
-      svg.appendChild(bubblesGroup);
+      const bubblesGroup = document.getElementById('matrixBubblesGroup');
 
       let nAbove = 0, nBelow = 0, nExp = 0, nDiv = 0;
       let visibleCount = 0;
@@ -4952,6 +4985,9 @@ html_template = f"""<!DOCTYPE html>
 
       // Atualizar Legenda Dinâmica
       updateMatrixLegend();
+
+      // Sincronizar touch-action com base no nível de zoom
+      svg.style.touchAction = matrixZoom > 1.05 ? 'none' : 'pan-y';
     }}
 
     // ATUALIZAR LEGENDA DINÂMICA DA MATRIZ
@@ -5146,71 +5182,37 @@ html_template = f"""<!DOCTYPE html>
       const svg = document.getElementById('matrixSvg');
       if (!svg) return;
 
-      // Mouse events (Desktop)
-      svg.addEventListener('mousedown', (e) => {{
-        if (e.button !== 0) return;
-        isPanning = true;
-        hasMovedDuringPan = false;
-        panStartX = e.clientX;
-        panStartY = e.clientY;
-        panStartCenterX = matrixCenterX;
-        panStartCenterY = matrixCenterY;
-        svg.style.cursor = 'grabbing';
-      }});
-
-      window.addEventListener('mousemove', (e) => {{
-        if (!isPanning) return;
-        const dx = e.clientX - panStartX;
-        const dy = e.clientY - panStartY;
-
-        if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {{
-          hasMovedDuringPan = true;
-          const isPl = currentXMetric === 'pl';
-          const baseXMax = isPl ? 35.0 : 25.0;
-          const baseXMin = 0;
-          const baseYMax = 100.0;
-          const baseYMin = 20.0;
-
-          const padL = 70, padR = 30, padT = 35, padB = 55;
-          const innerW = 1200 - padL - padR;
-          const innerH = 700 - padT - padB;
-
-          const spanX = (baseXMax - baseXMin) / matrixZoom;
-          const spanY = (baseYMax - baseYMin) / matrixZoom;
-
-          const dataDx = (dx / innerW) * spanX;
-          const dataDy = (dy / innerH) * spanY;
-
-          matrixCenterX = panStartCenterX - dataDx;
-          matrixCenterY = panStartCenterY + dataDy;
-
-          renderMatrix();
-        }}
-      }});
-
-      window.addEventListener('mouseup', () => {{
-        if (isPanning) {{
-          isPanning = false;
-          svg.style.cursor = matrixZoom > 1.05 ? 'grab' : 'crosshair';
-        }}
-      }});
-
-      // =========================================================================
-      // 📱 SUPORTE MOBILE COMPLETO: PINCH-TO-ZOOM (PINÇA), PAN & DOUBLE-TAP
-      // =========================================================================
+      // Variáveis de controle de gestos táteis e aceleração por GPU
       let isPinching = false;
       let pinchStartDist = 0;
       let pinchStartZoom = 1.0;
-      let pinchAnchorClientX = 0;
-      let pinchAnchorClientY = 0;
+      let pinchAnchorSvgX = 0;
+      let pinchAnchorSvgY = 0;
+      let pinchAnchorScreenX = 0;
+      let pinchAnchorScreenY = 0;
+      let pinchCurScale = 1.0;
+      let pinchCurDxSvg = 0;
+      let pinchCurDySvg = 0;
+
+      let isPanDragging = false;
+      let isMouseDragging = false;
+      let panStartScreenX = 0;
+      let panStartScreenY = 0;
+      let panStartCenterX = matrixCenterX;
+      let panStartCenterY = matrixCenterY;
+      let panCurDxSvg = 0;
+      let panCurDySvg = 0;
 
       let touchStartTime = 0;
       let touchStartX = 0;
       let touchStartY = 0;
+      let touchIntentLocked = false;
+      let isPageScrolling = false;
+
       let lastTapTime = 0;
       let lastTapX = 0;
       let lastTapY = 0;
-      let touchRafPending = false;
+      let rafPending = false;
 
       // Toque em área vazia fecha o card mobile e tooltip
       svg.addEventListener('click', (e) => {{
@@ -5221,132 +5223,228 @@ html_template = f"""<!DOCTYPE html>
         }}
       }});
 
+      // ---------------------------------------------------------
+      // MOUSE EVENTS (Desktop Drag com aceleração por GPU)
+      // ---------------------------------------------------------
+      svg.addEventListener('mousedown', (e) => {{
+        if (e.button !== 0) return;
+        if (matrixAnimFrame) cancelAnimationFrame(matrixAnimFrame);
+        isMouseDragging = true;
+        hasMovedDuringPan = false;
+        panStartScreenX = e.clientX;
+        panStartScreenY = e.clientY;
+        panStartCenterX = matrixCenterX;
+        panStartCenterY = matrixCenterY;
+        panCurDxSvg = 0;
+        panCurDySvg = 0;
+        svg.style.cursor = 'grabbing';
+      }});
+
+      window.addEventListener('mousemove', (e) => {{
+        if (!isMouseDragging) return;
+        const dx = e.clientX - panStartScreenX;
+        const dy = e.clientY - panStartScreenY;
+        if (Math.hypot(dx, dy) > 3) {{
+          hasMovedDuringPan = true;
+          const rect = svg.getBoundingClientRect();
+          panCurDxSvg = (dx / rect.width) * 1200;
+          panCurDySvg = (dy / rect.height) * 700;
+
+          if (!rafPending) {{
+            rafPending = true;
+            requestAnimationFrame(() => {{
+              rafPending = false;
+              if (!isMouseDragging) return;
+              const viewport = document.getElementById('matrixDynamicViewport');
+              if (viewport) {{
+                viewport.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
+              }}
+            }});
+          }}
+        }}
+      }});
+
+      window.addEventListener('mouseup', () => {{
+        if (isMouseDragging) {{
+          isMouseDragging = false;
+          svg.style.cursor = matrixZoom > 1.05 ? 'grab' : 'crosshair';
+          if (hasMovedDuringPan) {{
+            const padL = 70, padR = 30, padT = 35, padB = 55;
+            const innerW = 1200 - padL - padR;
+            const innerH = 700 - padT - padB;
+            const isPl = currentXMetric === 'pl';
+            const baseXMax = isPl ? 35.0 : 25.0;
+            const baseXMin = 0;
+            const baseYMax = 100.0;
+            const baseYMin = 20.0;
+            const spanX = (baseXMax - baseXMin) / matrixZoom;
+            const spanY = (baseYMax - baseYMin) / matrixZoom;
+
+            matrixCenterX = panStartCenterX - (panCurDxSvg / innerW) * spanX;
+            matrixCenterY = panStartCenterY + (panCurDySvg / innerH) * spanY;
+
+            const viewport = document.getElementById('matrixDynamicViewport');
+            if (viewport) viewport.removeAttribute('transform');
+            renderMatrix();
+          }}
+        }}
+      }});
+
+      // ---------------------------------------------------------
+      // TOUCH EVENTS (Mobile Multi-Touch Pinch & Pan a 120 FPS)
+      // ---------------------------------------------------------
       svg.addEventListener('touchstart', (e) => {{
         hideMatrixTouchHint();
+        if (matrixAnimFrame) cancelAnimationFrame(matrixAnimFrame);
 
         if (e.touches.length === 2) {{
-          // Gesto de pinça com 2 dedos iniciado
           isPinching = true;
-          isPanning = false;
+          isPanDragging = false;
           hasMovedDuringPan = true;
+          touchIntentLocked = true;
+          isPageScrolling = false;
           hideMatrixTooltip();
 
           const t0 = e.touches[0];
           const t1 = e.touches[1];
           pinchStartDist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
-          pinchAnchorClientX = (t0.clientX + t1.clientX) / 2;
-          pinchAnchorClientY = (t0.clientY + t1.clientY) / 2;
+          const midScreenX = (t0.clientX + t1.clientX) / 2;
+          const midScreenY = (t0.clientY + t1.clientY) / 2;
+
+          const rect = svg.getBoundingClientRect();
+          pinchAnchorSvgX = ((midScreenX - rect.left) / rect.width) * 1200;
+          pinchAnchorSvgY = ((midScreenY - rect.top) / rect.height) * 700;
+          pinchAnchorScreenX = midScreenX;
+          pinchAnchorScreenY = midScreenY;
           pinchStartZoom = matrixZoom;
-          panStartX = pinchAnchorClientX;
-          panStartY = pinchAnchorClientY;
-          panStartCenterX = matrixCenterX;
-          panStartCenterY = matrixCenterY;
+          pinchCurScale = 1.0;
+          pinchCurDxSvg = 0;
+          pinchCurDySvg = 0;
+
+          const viewport = document.getElementById('matrixDynamicViewport');
+          if (viewport) viewport.style.transition = 'none';
         }} else if (e.touches.length === 1) {{
           isPinching = false;
           hasMovedDuringPan = false;
           touchStartTime = Date.now();
           touchStartX = e.touches[0].clientX;
           touchStartY = e.touches[0].clientY;
-          panStartX = touchStartX;
-          panStartY = touchStartY;
+          panStartScreenX = touchStartX;
+          panStartScreenY = touchStartY;
           panStartCenterX = matrixCenterX;
           panStartCenterY = matrixCenterY;
+          panCurDxSvg = 0;
+          panCurDySvg = 0;
+          touchIntentLocked = false;
+          isPageScrolling = false;
 
-          // Se estiver com zoom aplicado, 1 dedo faz pan do gráfico
           if (matrixZoom > 1.05) {{
-            isPanning = true;
+            isPanDragging = true;
+            touchIntentLocked = true;
           }} else {{
-            isPanning = false;
+            isPanDragging = false;
           }}
         }}
       }}, {{ passive: true }});
 
       window.addEventListener('touchmove', (e) => {{
-        // CASO A: PINCH-TO-ZOOM (2 DEDOS)
+        const svgEl = document.getElementById('matrixSvg');
+        if (!svgEl) return;
+        const rect = svgEl.getBoundingClientRect();
+
+        // 1. PINCH-TO-ZOOM (2 DEDOS)
         if (isPinching && e.touches.length === 2) {{
           if (e.cancelable) e.preventDefault();
 
           const t0 = e.touches[0];
           const t1 = e.touches[1];
           const curDist = Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
-          const curMidX = (t0.clientX + t1.clientX) / 2;
-          const curMidY = (t0.clientY + t1.clientY) / 2;
+          const curMidScreenX = (t0.clientX + t1.clientX) / 2;
+          const curMidScreenY = (t0.clientY + t1.clientY) / 2;
 
           if (pinchStartDist > 0) {{
-            const scale = curDist / pinchStartDist;
-            const targetZoom = Math.min(8.0, Math.max(1.0, pinchStartZoom * scale));
+            let scale = curDist / pinchStartDist;
+            const liveZoom = Math.min(8.5, Math.max(0.85, pinchStartZoom * scale));
+            scale = liveZoom / pinchStartZoom;
 
-            if (!touchRafPending) {{
-              touchRafPending = true;
+            const dxScreen = curMidScreenX - pinchAnchorScreenX;
+            const dyScreen = curMidScreenY - pinchAnchorScreenY;
+            const dxSvg = (dxScreen / rect.width) * 1200;
+            const dySvg = (dyScreen / rect.height) * 700;
+
+            pinchCurScale = scale;
+            pinchCurDxSvg = dxSvg;
+            pinchCurDySvg = dySvg;
+
+            if (!rafPending) {{
+              rafPending = true;
               requestAnimationFrame(() => {{
-                touchRafPending = false;
-                zoomMatrixTo(targetZoom, curMidX, curMidY);
-
-                // Deslocamento de arrasto simultâneo enquanto pinça
-                const dx = curMidX - panStartX;
-                const dy = curMidY - panStartY;
-                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {{
-                  const isPl = currentXMetric === 'pl';
-                  const baseXMax = isPl ? 35.0 : 25.0;
-                  const baseXMin = 0;
-                  const baseYMax = 100.0;
-                  const baseYMin = 20.0;
-                  const padL = 70, padR = 30, padT = 35, padB = 55;
-                  const innerW = 1200 - padL - padR;
-                  const innerH = 700 - padT - padB;
-                  const spanX = (baseXMax - baseXMin) / matrixZoom;
-                  const spanY = (baseYMax - baseYMin) / matrixZoom;
-                  matrixCenterX = matrixCenterX - (dx / innerW) * spanX * 0.4;
-                  matrixCenterY = matrixCenterY + (dy / innerH) * spanY * 0.4;
-                  panStartX = curMidX;
-                  panStartY = curMidY;
-                  renderMatrix();
+                rafPending = false;
+                if (!isPinching) return;
+                const viewport = document.getElementById('matrixDynamicViewport');
+                if (viewport) {{
+                  viewport.setAttribute('transform', 
+                    `translate(${{pinchCurDxSvg.toFixed(2)}}, ${{pinchCurDySvg.toFixed(2)}}) ` +
+                    `translate(${{pinchAnchorSvgX.toFixed(2)}}, ${{pinchAnchorSvgY.toFixed(2)}}) ` +
+                    `scale(${{pinchCurScale.toFixed(4)}}) ` +
+                    `translate(${{-pinchAnchorSvgX.toFixed(2)}}, ${{-pinchAnchorSvgY.toFixed(2)}})`
+                  );
                 }}
+                const livePercent = Math.round(pinchStartZoom * pinchCurScale * 100);
+                const mobBadge = document.getElementById('matrixMobileZoomPercent');
+                if (mobBadge) mobBadge.innerText = livePercent + '%';
+                const topBadge = document.getElementById('matrixZoomLabel');
+                if (topBadge) topBadge.innerText = (livePercent / 100).toFixed(1) + 'x';
               }});
             }}
           }}
           return;
         }}
 
-        // CASO B: PAN COM 1 DEDO QUANDO ZOOM ESTÁ APLICADO
+        // 2. PAN COM 1 DEDO
         if (!isPinching && e.touches.length === 1) {{
           const curX = e.touches[0].clientX;
           const curY = e.touches[0].clientY;
-          const dx = curX - panStartX;
-          const dy = curY - panStartY;
-          const distFromStart = Math.hypot(curX - touchStartX, curY - touchStartY);
+          const deltaX = curX - touchStartX;
+          const deltaY = curY - touchStartY;
 
-          if (distFromStart > 5) {{
-            hasMovedDuringPan = true;
+          if (!touchIntentLocked) {{
+            if (Math.hypot(deltaX, deltaY) > 6) {{
+              touchIntentLocked = true;
+              if (matrixZoom <= 1.05 && Math.abs(deltaY) > Math.abs(deltaX)) {{
+                isPageScrolling = true;
+                isPanDragging = false;
+                return;
+              }} else if (matrixZoom > 1.05) {{
+                isPageScrolling = false;
+                isPanDragging = true;
+                hasMovedDuringPan = true;
+              }}
+            }} else {{
+              return;
+            }}
           }}
 
-          if (matrixZoom > 1.05 && isPanning) {{
+          if (isPageScrolling) return;
+
+          if (isPanDragging && matrixZoom > 1.05) {{
             if (e.cancelable) e.preventDefault();
+            hasMovedDuringPan = true;
 
-            if (!touchRafPending) {{
-              touchRafPending = true;
+            const dxSvg = ((curX - panStartScreenX) / rect.width) * 1200;
+            const dySvg = ((curY - panStartScreenY) / rect.height) * 700;
+            panCurDxSvg = dxSvg;
+            panCurDySvg = dySvg;
+
+            if (!rafPending) {{
+              rafPending = true;
               requestAnimationFrame(() => {{
-                touchRafPending = false;
-                const isPl = currentXMetric === 'pl';
-                const baseXMax = isPl ? 35.0 : 25.0;
-                const baseXMin = 0;
-                const baseYMax = 100.0;
-                const baseYMin = 20.0;
-
-                const padL = 70, padR = 30, padT = 35, padB = 55;
-                const innerW = 1200 - padL - padR;
-                const innerH = 700 - padT - padB;
-
-                const spanX = (baseXMax - baseXMin) / matrixZoom;
-                const spanY = (baseYMax - baseYMin) / matrixZoom;
-
-                const dataDx = (dx / innerW) * spanX;
-                const dataDy = (dy / innerH) * spanY;
-
-                matrixCenterX = panStartCenterX - dataDx;
-                matrixCenterY = panStartCenterY + dataDy;
-
-                renderMatrix();
+                rafPending = false;
+                if (!isPanDragging) return;
+                const viewport = document.getElementById('matrixDynamicViewport');
+                if (viewport) {{
+                  viewport.setAttribute('transform', `translate(${{panCurDxSvg.toFixed(2)}}, ${{panCurDySvg.toFixed(2)}})`);
+                }}
               }});
             }}
           }}
@@ -5355,44 +5453,88 @@ html_template = f"""<!DOCTYPE html>
 
       window.addEventListener('touchend', (e) => {{
         if (e.touches.length === 0) {{
-          isPinching = false;
-          isPanning = false;
+          const padL = 70, padR = 30, padT = 35, padB = 55;
+          const innerW = 1200 - padL - padR;
+          const innerH = 700 - padT - padB;
+          const isPl = currentXMetric === 'pl';
+          const baseXMax = isPl ? 35.0 : 25.0;
+          const baseXMin = 0;
+          const baseYMax = 100.0;
+          const baseYMin = 20.0;
 
-          // Detecção de Duplo Toque Rápido (Double-Tap) para Zoom Smart
+          if (isPinching) {{
+            isPinching = false;
+            const finalZoom = Math.min(8.0, Math.max(1.0, pinchStartZoom * pinchCurScale));
+            if (finalZoom <= 1.05) {{
+              matrixZoom = 1.0;
+              matrixCenterX = (baseXMax + baseXMin) / 2;
+              matrixCenterY = (baseYMax + baseYMin) / 2;
+            }} else {{
+              const oldSpanX = (baseXMax - baseXMin) / pinchStartZoom;
+              const oldSpanY = (baseYMax - baseYMin) / pinchStartZoom;
+              const curXMin = matrixCenterX - oldSpanX / 2;
+              const curYMin = matrixCenterY - oldSpanY / 2;
+
+              const dataX = curXMin + ((pinchAnchorSvgX - padL) / innerW) * oldSpanX;
+              const dataY = curYMin + (1 - (pinchAnchorSvgY - padT) / innerH) * oldSpanY;
+
+              const newSpanX = (baseXMax - baseXMin) / finalZoom;
+              const newSpanY = (baseYMax - baseYMin) / finalZoom;
+
+              const offSvgX = (pinchAnchorSvgX + pinchCurDxSvg) - (padL + innerW / 2);
+              const offSvgY = (pinchAnchorSvgY + pinchCurDySvg) - (padT + innerH / 2);
+
+              matrixCenterX = dataX - (offSvgX / innerW) * newSpanX;
+              matrixCenterY = dataY + (offSvgY / innerH) * newSpanY;
+              matrixZoom = finalZoom;
+            }}
+
+            const viewport = document.getElementById('matrixDynamicViewport');
+            if (viewport) viewport.removeAttribute('transform');
+            updateZoomLabel();
+            renderMatrix();
+          }} else if (isPanDragging && hasMovedDuringPan) {{
+            isPanDragging = false;
+            const spanX = (baseXMax - baseXMin) / matrixZoom;
+            const spanY = (baseYMax - baseYMin) / matrixZoom;
+            matrixCenterX = panStartCenterX - (panCurDxSvg / innerW) * spanX;
+            matrixCenterY = panStartCenterY + (panCurDySvg / innerH) * spanY;
+
+            const viewport = document.getElementById('matrixDynamicViewport');
+            if (viewport) viewport.removeAttribute('transform');
+            renderMatrix();
+          }}
+
+          isPanDragging = false;
+          isPageScrolling = false;
+
+          // Detecção de Duplo Toque Rápido (Double-Tap)
           const tapDuration = Date.now() - touchStartTime;
-          if (!hasMovedDuringPan && tapDuration < 280) {{
+          if (!hasMovedDuringPan && tapDuration < 260) {{
             const now = Date.now();
             const timeDiff = now - lastTapTime;
             const dist = Math.hypot(touchStartX - lastTapX, touchStartY - lastTapY);
 
             if (timeDiff > 40 && timeDiff < 320 && dist < 32) {{
-              // Double-Tap executado!
-              if (matrixZoom <= 1.25) {{
-                zoomMatrixAt(2.4, touchStartX, touchStartY);
-              }} else {{
-                resetMatrixZoom();
-              }}
               lastTapTime = 0;
+              if (matrixZoom <= 1.25) {{
+                smoothAnimateZoom(2.5, touchStartX, touchStartY);
+              }} else {{
+                smoothAnimateZoom(1.0);
+              }}
             }} else {{
               lastTapTime = now;
               lastTapX = touchStartX;
               lastTapY = touchStartY;
             }}
           }}
-        }} else if (e.touches.length === 1) {{
-          // Transição de 2 dedos para 1 dedo
-          isPinching = false;
-          panStartX = e.touches[0].clientX;
-          panStartY = e.touches[0].clientY;
-          panStartCenterX = matrixCenterX;
-          panStartCenterY = matrixCenterY;
         }}
       }});
 
       svg.addEventListener('wheel', (e) => {{
         e.preventDefault();
         const factor = e.deltaY < 0 ? 1.15 : 0.87;
-        zoomMatrixAt(factor, e.clientX, e.clientY);
+        smoothAnimateZoom(matrixZoom * factor, e.clientX, e.clientY, 150);
       }}, {{ passive: false }});
     }}
 
