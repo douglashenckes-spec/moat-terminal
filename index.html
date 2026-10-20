@@ -1460,12 +1460,12 @@
     let matrixBubbleMetric = 'mcap'; // 'fixed', 'mcap', 'volume'
     let matrixColorMode = 'asymmetry'; // 'asymmetry', 'momentum', 'dividend', 'sector', 'relative'
     let matrixZoom = 1.0;
-    let matrixCenterX = 12.5;
+    let matrixCenterX = 17.5;
     let matrixCenterY = 60.0;
     let isPanning = false;
     let panStartX = 0;
     let panStartY = 0;
-    let panStartCenterX = 12.5;
+    let panStartCenterX = 17.5;
     let panStartCenterY = 60.0;
     let hasMovedDuringPan = false;
     let showMatrixEdges = false;
@@ -3955,7 +3955,7 @@
       if (metric === 'pl') {
         if (btnPl) btnPl.className = 'px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-900 font-bold border border-amber-300';
         if (btnEy) btnEy.className = 'px-2.5 py-0.5 rounded-md text-slate-600 hover:text-slate-900 font-medium';
-        if (lblAxis) lblAxis.innerText = 'P/L (0-25x)';
+        if (lblAxis) lblAxis.innerText = 'P/L (0-35x)';
       } else {
         if (btnPl) btnPl.className = 'px-2.5 py-0.5 rounded-md text-slate-600 hover:text-slate-900 font-medium';
         if (btnEy) btnEy.className = 'px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-900 font-bold border border-amber-300';
@@ -4030,54 +4030,108 @@
       });
     }
 
-    let matrixAnimFrame = null;
-
-    function smoothAnimateZoom(targetZoom, clientX, clientY, durationMs = 220) {
-      if (matrixAnimFrame) cancelAnimationFrame(matrixAnimFrame);
-
+    function getMatrixBaseConfig() {
       const isPl = currentXMetric === 'pl';
       const baseXMin = 0;
       const baseXMax = isPl ? 35.0 : 25.0;
       const baseYMin = 20.0;
       const baseYMax = 100.0;
+      const baseSpanX = baseXMax - baseXMin;
+      const baseSpanY = baseYMax - baseYMin;
+      const baseCenterX = (baseXMax + baseXMin) / 2;
+      const baseCenterY = (baseYMax + baseYMin) / 2;
+      return { isPl, baseXMin, baseXMax, baseYMin, baseYMax, baseSpanX, baseSpanY, baseCenterX, baseCenterY };
+    }
 
+    function calcMatrixZoomTarget(targetZoom, clientX, clientY) {
+      const cfg = getMatrixBaseConfig();
       const padL = 70, padR = 30, padT = 35, padB = 55;
       const w = 1200, h = 700;
       const innerW = w - padL - padR;
       const innerH = h - padT - padB;
 
-      const svg = document.getElementById('matrixSvg');
-      if (!svg) return;
-      const rect = svg.getBoundingClientRect();
-      const mouseSvgX = clientX !== undefined ? ((clientX - rect.left) / rect.width) * w : (padL + innerW / 2);
-      const mouseSvgY = clientY !== undefined ? ((clientY - rect.top) / rect.height) * h : (padT + innerH / 2);
-
-      const startZoom = matrixZoom;
       const finalZoom = Math.min(8.0, Math.max(1.0, targetZoom));
+
+      if (finalZoom <= 1.01) {
+        return {
+          zoom: 1.0,
+          centerX: cfg.baseCenterX,
+          centerY: cfg.baseCenterY
+        };
+      }
+
+      const svg = document.getElementById('matrixSvg');
+      let focalSvgX = padL + innerW / 2;
+      let focalSvgY = padT + innerH / 2;
+
+      if (svg && clientX !== undefined && clientY !== undefined) {
+        const rect = svg.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          focalSvgX = Math.max(padL, Math.min(padL + innerW, ((clientX - rect.left) / rect.width) * w));
+          focalSvgY = Math.max(padT, Math.min(padT + innerH, ((clientY - rect.top) / rect.height) * h));
+        }
+      }
+
+      const curSpanX = cfg.baseSpanX / matrixZoom;
+      const curSpanY = cfg.baseSpanY / matrixZoom;
+      const curXMin = matrixCenterX - curSpanX / 2;
+      const curYMin = matrixCenterY - curSpanY / 2;
+
+      const normX = (focalSvgX - padL) / innerW;
+      const normY = 1.0 - (focalSvgY - padT) / innerH;
+
+      const dataX = curXMin + normX * curSpanX;
+      const dataY = curYMin + normY * curSpanY;
+
+      const newSpanX = cfg.baseSpanX / finalZoom;
+      const newSpanY = cfg.baseSpanY / finalZoom;
+
+      let targetCenterX = dataX + (0.5 - normX) * newSpanX;
+      let targetCenterY = dataY + (0.5 - normY) * newSpanY;
+
+      // Protecao de borda contra afastamento excessivo da area de dados
+      const marginX = newSpanX * 0.45;
+      const marginY = newSpanY * 0.45;
+      targetCenterX = Math.max(cfg.baseXMin - marginX, Math.min(cfg.baseXMax + marginX, targetCenterX));
+      targetCenterY = Math.max(cfg.baseYMin - marginY, Math.min(cfg.baseYMax + marginY, targetCenterY));
+
+      return {
+        zoom: finalZoom,
+        centerX: targetCenterX,
+        centerY: targetCenterY
+      };
+    }
+
+    let matrixAnimFrame = null;
+
+    function smoothAnimateZoom(targetZoom, clientX, clientY, durationMs = 180) {
+      if (matrixAnimFrame) {
+        cancelAnimationFrame(matrixAnimFrame);
+        matrixAnimFrame = null;
+      }
+
+      // Limpar eventuais transformacoes de GPU ativas
+      const bgLayer = document.getElementById('matrixBackgroundLayer');
+      if (bgLayer) bgLayer.removeAttribute('transform');
+      const bubbles = document.getElementById('matrixBubblesGroup');
+      if (bubbles) {
+        bubbles.removeAttribute('transform');
+        const kids = bubbles.children;
+        for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
+      }
+
+      const target = calcMatrixZoomTarget(targetZoom, clientX, clientY);
+      const startZoom = matrixZoom;
+      const finalZoom = target.zoom;
       const startCenterX = matrixCenterX;
       const startCenterY = matrixCenterY;
+      const targetCenterX = target.centerX;
+      const targetCenterY = target.centerY;
 
-      let targetCenterX, targetCenterY;
-      if (finalZoom === 1.0) {
-        targetCenterX = (baseXMax + baseXMin) / 2;
-        targetCenterY = (baseYMax + baseYMin) / 2;
-      } else {
-        const oldSpanX = (baseXMax - baseXMin) / startZoom;
-        const oldSpanY = (baseYMax - baseYMin) / startZoom;
-        const curXMin = startCenterX - oldSpanX / 2;
-        const curYMin = startCenterY - oldSpanY / 2;
-
-        const dataX = curXMin + ((mouseSvgX - padL) / innerW) * oldSpanX;
-        const dataY = curYMin + (1 - (mouseSvgY - padT) / innerH) * oldSpanY;
-
-        const newSpanX = (baseXMax - baseXMin) / finalZoom;
-        const newSpanY = (baseYMax - baseYMin) / finalZoom;
-
-        const normX = Math.max(0, Math.min(1, (mouseSvgX - padL) / innerW));
-        const normY = Math.max(0, Math.min(1, 1 - (mouseSvgY - padT) / innerH));
-
-        targetCenterX = dataX + (0.5 - normX) * newSpanX;
-        targetCenterY = dataY + (0.5 - normY) * newSpanY;
+      if (Math.abs(finalZoom - startZoom) < 0.005 &&
+          Math.abs(targetCenterX - startCenterX) < 0.005 &&
+          Math.abs(targetCenterY - startCenterY) < 0.005) {
+        return;
       }
 
       const startTime = performance.now();
@@ -4093,30 +4147,7 @@
         matrixCenterY = startCenterY + (targetCenterY - startCenterY) * ease;
 
         updateZoomLabel();
-
-        const bubbles = document.getElementById('matrixBubblesGroup');
-        if (bubbles && startZoom > 0) {
-          const relScale = matrixZoom / startZoom;
-          const kids = bubbles.children;
-          for (let i = 0; i < kids.length; i++) {
-            const el = kids[i];
-            const x0 = Number(el.dataset.cx);
-            const y0 = Number(el.dataset.cy);
-            if (!isNaN(x0) && !isNaN(y0)) {
-              const shiftX = (relScale - 1) * (x0 - mouseSvgX);
-              const shiftY = (relScale - 1) * (y0 - mouseSvgY);
-              el.setAttribute('transform', `translate(${shiftX.toFixed(1)}, ${shiftY.toFixed(1)})`);
-            }
-          }
-        }
-
-        const bgLayer = document.getElementById('matrixBackgroundLayer');
-        if (bgLayer && startZoom > 0) {
-          const relScale = matrixZoom / startZoom;
-          bgLayer.setAttribute('transform', 
-            `translate(${mouseSvgX.toFixed(2)}, ${mouseSvgY.toFixed(2)}) scale(${relScale.toFixed(4)}) translate(${-mouseSvgX.toFixed(2)}, ${-mouseSvgY.toFixed(2)})`
-          );
-        }
+        renderMatrix();
 
         if (progress < 1) {
           matrixAnimFrame = requestAnimationFrame(step);
@@ -4125,23 +4156,16 @@
           matrixZoom = finalZoom;
           matrixCenterX = targetCenterX;
           matrixCenterY = targetCenterY;
-          if (bgLayer) bgLayer.removeAttribute('transform');
-          if (bubbles) {
-            const kids = bubbles.children;
-            for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
-          }
           updateZoomLabel();
           renderMatrix();
         }
       }
+
       matrixAnimFrame = requestAnimationFrame(step);
     }
 
     function zoomMatrix(factor) {
-      const svg = document.getElementById('matrixSvg');
-      if (!svg) return;
-      const rect = svg.getBoundingClientRect();
-      smoothAnimateZoom(matrixZoom * factor, rect.left + rect.width / 2, rect.top + rect.height / 2);
+      smoothAnimateZoom(matrixZoom * factor);
     }
 
     function resetMatrixZoom() {
@@ -4594,13 +4618,14 @@
       const innerW = w - padL - padR;
       const innerH = h - padT - padB;
 
-      const baseXMin = 0;
-      const baseXMax = isPl ? 35.0 : 25.0;
-      const baseYMin = 20.0;
-      const baseYMax = 100.0;
+      const cfg = getMatrixBaseConfig();
+      const baseXMin = cfg.baseXMin;
+      const baseXMax = cfg.baseXMax;
+      const baseYMin = cfg.baseYMin;
+      const baseYMax = cfg.baseYMax;
 
-      const spanX = (baseXMax - baseXMin) / matrixZoom;
-      const spanY = (baseYMax - baseYMin) / matrixZoom;
+      const spanX = cfg.baseSpanX / matrixZoom;
+      const spanY = cfg.baseSpanY / matrixZoom;
       const curXMin = matrixCenterX - spanX / 2;
       const curXMax = matrixCenterX + spanX / 2;
       const curYMin = matrixCenterY - spanY / 2;
@@ -5341,16 +5366,17 @@
             const padL = 70, padR = 30, padT = 35, padB = 55;
             const innerW = 1200 - padL - padR;
             const innerH = 700 - padT - padB;
-            const isPl = currentXMetric === 'pl';
-            const baseXMax = isPl ? 35.0 : 25.0;
-            const baseXMin = 0;
-            const baseYMax = 100.0;
-            const baseYMin = 20.0;
-            const spanX = (baseXMax - baseXMin) / matrixZoom;
-            const spanY = (baseYMax - baseYMin) / matrixZoom;
+            const cfg = getMatrixBaseConfig();
+            const spanX = cfg.baseSpanX / matrixZoom;
+            const spanY = cfg.baseSpanY / matrixZoom;
 
             matrixCenterX = panStartCenterX - (panCurDxSvg / innerW) * spanX;
             matrixCenterY = panStartCenterY + (panCurDySvg / innerH) * spanY;
+
+            const marginX = spanX * 0.45;
+            const marginY = spanY * 0.45;
+            matrixCenterX = Math.max(cfg.baseXMin - marginX, Math.min(cfg.baseXMax + marginX, matrixCenterX));
+            matrixCenterY = Math.max(cfg.baseYMin - marginY, Math.min(cfg.baseYMax + marginY, matrixCenterY));
 
             const bgLayer = document.getElementById('matrixBackgroundLayer');
             if (bgLayer) bgLayer.removeAttribute('transform');
@@ -5556,21 +5582,22 @@
           if (isPinching) {
             isPinching = false;
             const finalZoom = Math.min(8.0, Math.max(1.0, pinchStartZoom * pinchCurScale));
+            const cfg = getMatrixBaseConfig();
             if (finalZoom <= 1.05) {
               matrixZoom = 1.0;
-              matrixCenterX = (baseXMax + baseXMin) / 2;
-              matrixCenterY = (baseYMax + baseYMin) / 2;
+              matrixCenterX = cfg.baseCenterX;
+              matrixCenterY = cfg.baseCenterY;
             } else {
-              const oldSpanX = (baseXMax - baseXMin) / pinchStartZoom;
-              const oldSpanY = (baseYMax - baseYMin) / pinchStartZoom;
+              const oldSpanX = cfg.baseSpanX / pinchStartZoom;
+              const oldSpanY = cfg.baseSpanY / pinchStartZoom;
               const curXMin = matrixCenterX - oldSpanX / 2;
               const curYMin = matrixCenterY - oldSpanY / 2;
 
               const dataX = curXMin + ((pinchAnchorSvgX - padL) / innerW) * oldSpanX;
               const dataY = curYMin + (1 - (pinchAnchorSvgY - padT) / innerH) * oldSpanY;
 
-              const newSpanX = (baseXMax - baseXMin) / finalZoom;
-              const newSpanY = (baseYMax - baseYMin) / finalZoom;
+              const newSpanX = cfg.baseSpanX / finalZoom;
+              const newSpanY = cfg.baseSpanY / finalZoom;
 
               const offSvgX = (pinchAnchorSvgX + pinchCurDxSvg) - (padL + innerW / 2);
               const offSvgY = (pinchAnchorSvgY + pinchCurDySvg) - (padT + innerH / 2);
@@ -5630,10 +5657,46 @@
         }
       });
 
+      let wheelRaf = null;
+      let targetWheelZoom = null;
+      let targetWheelClientX = null;
+      let targetWheelClientY = null;
+
       svg.addEventListener('wheel', (e) => {
         e.preventDefault();
-        const factor = e.deltaY < 0 ? 1.15 : 0.87;
-        smoothAnimateZoom(matrixZoom * factor, e.clientX, e.clientY, 150);
+        if (matrixAnimFrame) {
+          cancelAnimationFrame(matrixAnimFrame);
+          matrixAnimFrame = null;
+        }
+
+        const bgLayer = document.getElementById('matrixBackgroundLayer');
+        if (bgLayer && bgLayer.hasAttribute('transform')) bgLayer.removeAttribute('transform');
+        const bubblesGroup = document.getElementById('matrixBubblesGroup');
+        if (bubblesGroup && bubblesGroup.hasAttribute('transform')) {
+          bubblesGroup.removeAttribute('transform');
+          const kids = bubblesGroup.children;
+          for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
+        }
+
+        const factor = e.deltaY < 0 ? 1.15 : (1.0 / 1.15);
+        const currentTarget = (targetWheelZoom !== null) ? targetWheelZoom : matrixZoom;
+        targetWheelZoom = Math.min(8.0, Math.max(1.0, currentTarget * factor));
+        targetWheelClientX = e.clientX;
+        targetWheelClientY = e.clientY;
+
+        if (!wheelRaf) {
+          wheelRaf = requestAnimationFrame(() => {
+            wheelRaf = null;
+            if (targetWheelZoom === null) return;
+            const target = calcMatrixZoomTarget(targetWheelZoom, targetWheelClientX, targetWheelClientY);
+            targetWheelZoom = null;
+            matrixZoom = target.zoom;
+            matrixCenterX = target.centerX;
+            matrixCenterY = target.centerY;
+            updateZoomLabel();
+            renderMatrix();
+          });
+        }
       }, { passive: false });
     }
 
