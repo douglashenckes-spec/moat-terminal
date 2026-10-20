@@ -110,9 +110,8 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     cagr_rec = max(-0.30, min(0.45, cagr_rec))
 
     # 2. Receita Líquida Atual (LTM 2026 Fundamentus)
-    rec_ltm = float(det_entry.get("receita_liq_12m") or row_dict.get("receita_liq") or 0.0)
-    if rec_ltm <= 0:
-        rec_ltm = float(det_entry.get("valor_mercado") or 1e9) * 0.35
+    rec_fundamentus = float(det_entry.get("receita_liq_12m") or row_dict.get("receita_liq") or 0.0)
+    has_real_rec = rec_fundamentus > 0
 
     # 3. Lucro Líquido Atual (LTM 2026 Fundamentus)
     lucro_ltm = float(det_entry.get("lucro_liq_12m") or (row_dict.get("lucro_liq") if row_dict.get("lucro_liq") is not None else 0.0))
@@ -134,14 +133,28 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
 
     # 6. Carregar demonstrações financeiras oficiais auditadas (2022-2025)
     hist_cache = get_historical_cache().get(ticker, {})
-
-    # Detectar se a empresa reporta em USD (ex: VALE3, PETR4, EMBJ3)
-    fx_factor = 1.0
     rec_2025 = hist_cache.get("2025", {}).get("receita")
-    if rec_2025 and rec_2025 > 0 and rec_ltm > 0:
+
+    if has_real_rec:
+        rec_ltm = rec_fundamentus
+    elif rec_2025 and rec_2025 > 0:
+        lucro_2025 = hist_cache.get("2025", {}).get("lucro_liquido")
+        if lucro_2025 and lucro_2025 > 0 and lucro_ltm > 0:
+            rec_ltm = float(rec_2025) * (lucro_ltm / float(lucro_2025))
+        else:
+            rec_ltm = float(rec_2025) * (1.0 + max(0.0, min(0.15, cagr_rec)))
+    else:
+        rec_ltm = float(det_entry.get("valor_mercado") or 1e9) * 0.35
+
+    # Detectar se a empresa reporta em USD (apenas mineradoras/petrolíferas/aero com demonstrações oficiais em USD)
+    USD_REPORTING_TICKERS = {"VALE3", "PETR4", "PETR3", "EMBJ3", "AURA33"}
+    fx_factor = 1.0
+    if ticker in USD_REPORTING_TICKERS and rec_2025 and rec_2025 > 0 and has_real_rec:
         ratio = rec_ltm / float(rec_2025)
         if 4.0 <= ratio <= 7.5:
             fx_factor = ratio
+        else:
+            fx_factor = 5.5
 
     rev_series = []
     lucro_series = []

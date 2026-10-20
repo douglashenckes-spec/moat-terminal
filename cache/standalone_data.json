@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "19/10/2026 22:06:45",
+  "audit_timestamp": "20/10/2026 16:45:02",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "2T26",
   "total_stocks": 204,
@@ -1859,7 +1859,7 @@
           148380000000.0,
           158568000000.0,
           165243000000.0,
-          190963150000.0
+          171711705174.22
         ],
         "lucro_liquido": [
           29207000000.0,
@@ -1882,7 +1882,7 @@
           0.0929,
           0.065
         ],
-        "cagr_receita_pct": 8.8,
+        "cagr_receita_pct": 5.9,
         "cagr_lucro_pct": 12.4,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Alta Estabilidade 💎",
@@ -2030,7 +2030,7 @@
           148380000000.0,
           158568000000.0,
           165243000000.0,
-          208870900000.0
+          171711705174.22
         ],
         "lucro_liquido": [
           29207000000.0,
@@ -2053,7 +2053,7 @@
           0.0859,
           0.0601
         ],
-        "cagr_receita_pct": 11.2,
+        "cagr_receita_pct": 5.9,
         "cagr_lucro_pct": 12.4,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Alta Estabilidade 💎",
@@ -2372,7 +2372,7 @@
           32229615000.0,
           37783193000.0,
           51966892000.0,
-          110132400000.0
+          59306658865.73
         ],
         "lucro_liquido": [
           7841837000.0,
@@ -2395,10 +2395,10 @@
           0.0178,
           0.018
         ],
-        "cagr_receita_pct": 39.1,
+        "cagr_receita_pct": 19.2,
         "cagr_lucro_pct": 23.4,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -3565,17 +3565,17 @@
           "2026 (LTM)"
         ],
         "receita": [
-          21076459755.21,
-          23005315420.93,
-          25142779071.34,
-          27852300000.0,
-          27852300000.0
+          4643615000.0,
+          5068585000.0,
+          5539516000.0,
+          6136484000.0,
+          6253527530.26
         ],
         "lucro_liquido": [
-          28124315080.83,
-          36070799193.3,
-          39502816068.92,
-          40927891689.56,
+          6196415000.0,
+          7947203000.0,
+          8703353000.0,
+          9017329000.0,
           9189320000.0
         ],
         "roic_roe": [
@@ -3592,8 +3592,8 @@
           0.1034,
           0.1129
         ],
-        "cagr_receita_pct": 7.2,
-        "cagr_lucro_pct": -24.4,
+        "cagr_receita_pct": 7.7,
+        "cagr_lucro_pct": 10.4,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
         "is_all_profitable": true
@@ -3911,7 +3911,7 @@
           1994378000.0,
           2326341000.0,
           2458103000.0,
-          21651000000.0
+          2590643389.56
         ],
         "lucro_liquido": [
           3008963000.0,
@@ -3934,7 +3934,7 @@
           0.06,
           0.0643
         ],
-        "cagr_receita_pct": 80.0,
+        "cagr_receita_pct": 11.3,
         "cagr_lucro_pct": 10.7,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
@@ -4937,7 +4937,7 @@
           39965346000.0,
           48518147000.0,
           46680266000.0,
-          37923900000.0
+          116706558814.16
         ],
         "lucro_liquido": [
           6936588000.0,
@@ -4960,10 +4960,10 @@
           0.0644,
           0.0792
         ],
-        "cagr_receita_pct": -3.2,
+        "cagr_receita_pct": 28.2,
         "cagr_lucro_pct": 22.3,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -5108,7 +5108,7 @@
           39965346000.0,
           48518147000.0,
           46680266000.0,
-          37831850000.0
+          116706558814.16
         ],
         "lucro_liquido": [
           6936588000.0,
@@ -5131,10 +5131,10 @@
           0.0673,
           0.0828
         ],
-        "cagr_receita_pct": -3.2,
+        "cagr_receita_pct": 28.2,
         "cagr_lucro_pct": 22.3,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -5279,7 +5279,7 @@
           39965346000.0,
           48518147000.0,
           46680266000.0,
-          37398900000.0
+          116706558814.16
         ],
         "lucro_liquido": [
           6936588000.0,
@@ -5302,10 +5302,10 @@
           0.0704,
           0.0866
         ],
-        "cagr_receita_pct": -3.5,
+        "cagr_receita_pct": 28.2,
         "cagr_lucro_pct": 22.3,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -5450,7 +5450,7 @@
           98334177000.0,
           105330174000.0,
           117814239000.0,
-          71771350000.0
+          258775555435.01
         ],
         "lucro_liquido": [
           10106323000.0,
@@ -5473,10 +5473,10 @@
           0.0881,
           0.0779
         ],
-        "cagr_receita_pct": -9.9,
+        "cagr_receita_pct": 24.2,
         "cagr_lucro_pct": 25.1,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -5621,7 +5621,7 @@
           98334177000.0,
           105330174000.0,
           117814239000.0,
-          80965500000.0
+          258775555435.01
         ],
         "lucro_liquido": [
           10106323000.0,
@@ -5644,10 +5644,10 @@
           0.0859,
           0.076
         ],
-        "cagr_receita_pct": -7.1,
+        "cagr_receita_pct": 24.2,
         "cagr_lucro_pct": 25.1,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -5963,7 +5963,7 @@
           3654407000.0,
           4660451000.0,
           5501811000.0,
-          2890184500.0
+          5978690856.69
         ],
         "lucro_liquido": [
           200571000.0,
@@ -5986,10 +5986,10 @@
           0.0003,
           0.0408
         ],
-        "cagr_receita_pct": -0.8,
+        "cagr_receita_pct": 18.9,
         "cagr_lucro_pct": 42.1,
         "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Resiliente 🟢",
+        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -6476,7 +6476,7 @@
           611065000.0,
           786828000.0,
           1769366000.0,
-          1224839000.0
+          2403953152.07
         ],
         "lucro_liquido": [
           40900000.0,
@@ -6499,7 +6499,7 @@
           0.024,
           0.0446
         ],
-        "cagr_receita_pct": 44.1,
+        "cagr_receita_pct": 70.6,
         "cagr_lucro_pct": 80.0,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
@@ -7160,7 +7160,7 @@
           2260275000.0,
           2445525000.0,
           2778394000.0,
-          2575779500.0
+          2827944799.18
         ],
         "lucro_liquido": [
           800234000.0,
@@ -7183,7 +7183,7 @@
           0.0901,
           0.0902
         ],
-        "cagr_receita_pct": 3.9,
+        "cagr_receita_pct": 6.3,
         "cagr_lucro_pct": 6.3,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Alta Estabilidade 💎",
@@ -7502,7 +7502,7 @@
           125465944000.0,
           144836573000.0,
           147119627000.0,
-          52812550000.0
+          155555741035.58
         ],
         "lucro_liquido": [
           30897625000.0,
@@ -7525,7 +7525,7 @@
           0.0494,
           0.0288
         ],
-        "cagr_receita_pct": -19.1,
+        "cagr_receita_pct": 6.0,
         "cagr_lucro_pct": -17.3,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
@@ -7844,7 +7844,7 @@
           7533871000.0,
           8411365000.0,
           8841695000.0,
-          2414786500.0
+          7902936869.2
         ],
         "lucro_liquido": [
           714934000.0,
@@ -7867,7 +7867,7 @@
           0.0913,
           0.0876
         ],
-        "cagr_receita_pct": -23.9,
+        "cagr_receita_pct": 2.4,
         "cagr_lucro_pct": 21.0,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
@@ -9041,7 +9041,7 @@
           4039999000.0,
           4648889000.0,
           4566050000.0,
-          1565606000.0
+          5090699678.87
         ],
         "lucro_liquido": [
           60342000.0,
@@ -9064,7 +9064,7 @@
           0.0767,
           0.0726
         ],
-        "cagr_receita_pct": -18.9,
+        "cagr_receita_pct": 8.9,
         "cagr_lucro_pct": 79.4,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
@@ -23914,17 +23914,17 @@
           "2026 (LTM)"
         ],
         "receita": [
-          7616453034.04,
-          8701896740.42,
-          9369427677.44,
-          9940200000.0,
+          1854392000.0,
+          2118667000.0,
+          2281192000.0,
+          2420159000.0,
           9940200000.0
         ],
         "lucro_liquido": [
-          1502678779.37,
-          2100423417.97,
-          2214810352.87,
-          2392761101.23,
+          365860000.0,
+          511394000.0,
+          539244000.0,
+          582570000.0,
           1054000000.0
         ],
         "roic_roe": [
@@ -23941,8 +23941,8 @@
           0.054,
           0.0139
         ],
-        "cagr_receita_pct": 6.9,
-        "cagr_lucro_pct": -8.5,
+        "cagr_receita_pct": 52.2,
+        "cagr_lucro_pct": 30.3,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Resiliente 🟢",
         "is_all_profitable": true
@@ -29557,17 +29557,17 @@
           "2026 (LTM)"
         ],
         "receita": [
-          17048267680.03,
-          8849143305.96,
-          5689264652.75,
-          2915405500.0,
-          2915405500.0
+          3779622000.0,
+          1961866000.0,
+          1261317000.0,
+          646349000.0,
+          690596704.55
         ],
         "lucro_liquido": [
-          16813956851.81,
-          8554841833.13,
-          5377543340.12,
-          2467252831.92,
+          3727675000.0,
+          1896619000.0,
+          1192208000.0,
+          546993000.0,
           584439000.0
         ],
         "roic_roe": [
@@ -29584,8 +29584,8 @@
           0.1625,
           0.1169
         ],
-        "cagr_receita_pct": -35.7,
-        "cagr_lucro_pct": -50.0,
+        "cagr_receita_pct": -34.6,
+        "cagr_lucro_pct": -37.1,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Cíclica / Sensível ao Ciclo ⚠️",
         "is_all_profitable": true
