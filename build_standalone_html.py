@@ -33,6 +33,9 @@ html_template = f"""<!DOCTYPE html>
   <meta name="author" content="MOAT TERMINAL">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://moatterminal.com.br/">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
   <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
   <meta property="og:type" content="website">
@@ -4089,10 +4092,28 @@ html_template = f"""<!DOCTYPE html>
       let focalSvgY = padT + innerH / 2;
 
       if (svg && clientX !== undefined && clientY !== undefined) {{
-        const rect = svg.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) {{
-          focalSvgX = Math.max(padL, Math.min(padL + innerW, ((clientX - rect.left) / rect.width) * w));
-          focalSvgY = Math.max(padT, Math.min(padT + innerH, ((clientY - rect.top) / rect.height) * h));
+        try {{
+          const pt = svg.createSVGPoint();
+          pt.x = clientX;
+          pt.y = clientY;
+          const ctm = svg.getScreenCTM();
+          if (ctm) {{
+            const svgP = pt.matrixTransform(ctm.inverse());
+            focalSvgX = Math.max(padL, Math.min(padL + innerW, svgP.x));
+            focalSvgY = Math.max(padT, Math.min(padT + innerH, svgP.y));
+          }} else {{
+            const rect = svg.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {{
+              focalSvgX = Math.max(padL, Math.min(padL + innerW, ((clientX - rect.left) / rect.width) * w));
+              focalSvgY = Math.max(padT, Math.min(padT + innerH, ((clientY - rect.top) / rect.height) * h));
+            }}
+          }}
+        }} catch (err) {{
+          const rect = svg.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {{
+            focalSvgX = Math.max(padL, Math.min(padL + innerW, ((clientX - rect.left) / rect.width) * w));
+            focalSvgY = Math.max(padT, Math.min(padT + innerH, ((clientY - rect.top) / rect.height) * h));
+          }}
         }}
       }}
 
@@ -5686,8 +5707,10 @@ html_template = f"""<!DOCTYPE html>
       let targetWheelClientX = null;
       let targetWheelClientY = null;
 
-      svg.addEventListener('wheel', (e) => {{
+      function handleMatrixWheel(e) {{
         e.preventDefault();
+        e.stopPropagation();
+
         if (matrixAnimFrame) {{
           cancelAnimationFrame(matrixAnimFrame);
           matrixAnimFrame = null;
@@ -5702,9 +5725,22 @@ html_template = f"""<!DOCTYPE html>
           for (let i = 0; i < kids.length; i++) kids[i].removeAttribute('transform');
         }}
 
-        const factor = e.deltaY < 0 ? 1.15 : (1.0 / 1.15);
+        let normalizedDelta = -e.deltaY;
+        if (e.deltaMode === 1) normalizedDelta *= 33;
+        else if (e.deltaMode === 2) normalizedDelta *= 400;
+
+        const clampedDelta = Math.max(-250, Math.min(250, normalizedDelta));
+        const factor = Math.exp(clampedDelta * 0.0018);
+
         const currentTarget = (targetWheelZoom !== null) ? targetWheelZoom : matrixZoom;
-        targetWheelZoom = Math.min(8.0, Math.max(1.0, currentTarget * factor));
+        let nextZoom = currentTarget * factor;
+        if (factor > 1.0) {{
+          nextZoom = Math.max(currentTarget * 1.08, nextZoom);
+        }} else if (factor < 1.0) {{
+          nextZoom = Math.min(currentTarget * 0.92, nextZoom);
+        }}
+
+        targetWheelZoom = Math.min(8.0, Math.max(1.0, nextZoom));
         targetWheelClientX = e.clientX;
         targetWheelClientY = e.clientY;
 
@@ -5721,7 +5757,13 @@ html_template = f"""<!DOCTYPE html>
             renderMatrix();
           }});
         }}
-      }}, {{ passive: false }});
+      }}
+
+      svg.addEventListener('wheel', handleMatrixWheel, {{ passive: false }});
+      const matrixCont = document.getElementById('matrixContainer');
+      if (matrixCont && matrixCont !== svg) {{
+        matrixCont.addEventListener('wheel', handleMatrixWheel, {{ passive: false }});
+      }}
     }}
 
     // RENDERIZADOR DE GAUGES ANALÓGICOS BLOOMBERG CALIBRADOS COM BENCHMARKS
