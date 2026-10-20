@@ -11772,5 +11772,63 @@
         "Giro Ativos": "-"
       }
     }
+  },
+  "VVEO3": {
+    "cached_time": 1792458406.1381164,
+    "data": {
+      "ticker": "VVEO3",
+      "audit_timestamp": "19/10/2026 22:06:46",
+      "audit_source": "Fundamentus (detalhes.php?papel=VVEO3)",
+      "empresa": "VIVEO ON NM",
+      "setor": "Comércio e Distribuição",
+      "subsetor": "Medicamentos e Outros Produtos",
+      "tipo": "ON NM",
+      "data_ult_cot": "19/10/2026",
+      "min_52sem": 0.56,
+      "max_52sem": 1.84,
+      "valor_mercado": 332505000.0,
+      "valor_firma": 3246660000.0,
+      "nro_acoes": 322821000.0,
+      "ult_balanco": "30/06/2026",
+      "ativo_total": 8760100000.0,
+      "disponibilidades": 450958000.0,
+      "ativo_circulante": 4474660000.0,
+      "divida_bruta": 3365110000.0,
+      "divida_liquida": 2914150000.0,
+      "patrimonio_liquido": 1822550000.0,
+      "receita_liq_12m": 11708600000.0,
+      "ebit_12m": 424748000.0,
+      "lucro_liq_12m": 56871000.0,
+      "receita_liq_3m": 2910170000.0,
+      "ebit_3m": 139392000.0,
+      "lucro_liq_3m": -34652000.0,
+      "lpa": 0.18,
+      "vpa": 5.65,
+      "raw_indicators": {
+        "Indicadores fundamentalistas": "Indicadores fundamentalistas",
+        "P/L": "5.85",
+        "LPA": "0.18",
+        "P/VP": "0.18",
+        "VPA": "5.65",
+        "P/EBIT": "0.78",
+        "Marg. Bruta": "15,3%",
+        "PSR": "0.03",
+        "Marg. EBIT": "3,6%",
+        "P/Ativos": "0.04",
+        "Marg. Líquida": "0,5%",
+        "P/Cap. Giro": "0.18",
+        "EBIT / Ativo": "4,8%",
+        "P/Ativ Circ Liq": "-0.14",
+        "ROIC": "6,5%",
+        "Div. Yield": "0,0%",
+        "ROE": "3,1%",
+        "EV / EBITDA": "4.19",
+        "Liquidez Corr": "1.72",
+        "EV / EBIT": "7.64",
+        "Dív Líq / Patrim": "1.60",
+        "Cres. Rec (5a)": "12,2%",
+        "Giro Ativos": "1.34"
+      }
+    }
   }
 }
