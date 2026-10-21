@@ -66,7 +66,11 @@ def classify_balance_sheet_recency(date_str: str) -> Tuple[bool, str]:
         return False, date_str
 
     if year >= 2026:
-        if month >= 6:
+        if month >= 12:
+            return True, "4T26 (Vigente)"
+        elif month >= 9:
+            return True, "3T26 (Vigente)"
+        elif month >= 6:
             return True, "2T26 (Vigente)"
         elif month >= 3:
             return False, "1T26 (Defasado)"
@@ -327,13 +331,22 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         if not ticker:
             continue
 
-        det_entry = details_cache.get(ticker, {}).get("data")
-        if not det_entry or force_details:
+        cache_item = details_cache.get(ticker, {})
+        det_entry = cache_item.get("data")
+        cached_ts = cache_item.get("cached_time", 0)
+        now_ts = time.time()
+
+        # No CI (GitHub Actions 3x/dia) ou se force_details=True: atualiza tickers com cache > 24h para capturar novos balanços da temporada
+        is_stale = (now_ts - cached_ts) > (24 * 3600)
+        should_fetch = (not det_entry) or force_details or (is_ci and is_stale)
+
+        if should_fetch:
             try:
-                det_entry = fetch_fundamentus_ticker_details(ticker, force_refresh=force_details)
+                det_entry = fetch_fundamentus_ticker_details(ticker, force_refresh=True)
             except Exception as e:
                 logger.warning("Erro ao coletar detalhes de %s: %s", ticker, e)
-                det_entry = {}
+                if not det_entry:
+                    det_entry = {}
 
         sector = det_entry.get("setor") or row_dict.get("setor", "Industria / Geral")
         subsetor = det_entry.get("subsetor") or "Geral"
@@ -466,10 +479,13 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
 
     stocks_payload.sort(key=lambda s: s["quality_score"], reverse=True)
 
+    has_3t = any("3T26" in (s.get("tri_balanco") or "") for s in stocks_payload)
+    latest_quarter_detected = "3T26" if has_3t else "2T26"
+
     raw_dataset = {
         "audit_timestamp": audit_timestamp,
         "ntn_b_benchmark": NTN_B_BENCHMARK,
-        "latest_quarter": "2T26",
+        "latest_quarter": latest_quarter_detected,
         "total_stocks": len(stocks_payload),
         "total_ibov": sum(1 for s in stocks_payload if s.get("is_ibov")),
         "total_liquid_1m": sum(1 for s in stocks_payload if s["is_liquid_1m"]),

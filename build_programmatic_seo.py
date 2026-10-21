@@ -1429,6 +1429,7 @@ def build_programmatic_seo():
         pvp_str = format_mult(pvp_val) if pvp_val is not None else "N/D"
         dy_str = format_pct(dy_val)
         cot_str = format_curr(cotacao)
+        tri_balanco = s.get("tri_balanco", "Vigente")
         val_merc_str = format_billions(val_mercado)
         val_firma_str = format_billions(val_firma)
         div_str = format_number_br(div_liq_ebitda, 2, "x") if div_liq_ebitda is not None else "N/D"
@@ -1699,7 +1700,7 @@ def build_programmatic_seo():
           <div class="flex flex-col min-w-0">
             <div class="flex flex-wrap items-center gap-2">
               <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">{ticker}</h1>
-              <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white text-slate-800 border border-slate-200">2T26 Auditado</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white text-slate-800 border border-slate-200">{tri_balanco}</span>
               <span class="text-xs px-3 py-0.5 rounded-full font-sans font-semibold {entry_badge_bg}">{entry_status}</span>
               {curve_badge_html}
               <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white text-slate-800 border border-slate-200">{quality_tier}</span>
@@ -1937,7 +1938,7 @@ def build_programmatic_seo():
               Veredito de Valuation &amp; Análise de {empresa} ({ticker})
             </h2>
             <p class="text-xs sm:text-sm text-slate-500 font-sans mt-0.5">
-              Consolidação analítica baseada em demonstrativos contábeis oficiais auditados (CVM 2T26).
+              Consolidação analítica baseada em demonstrativos contábeis oficiais auditados (CVM {tri_balanco}).
             </p>
           </div>
           <a href="/acoes/" class="text-xs font-mono font-bold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1.5 rounded-xl hover:bg-[#DCF0EC] transition flex items-center gap-1.5">
@@ -2019,7 +2020,7 @@ def build_programmatic_seo():
           <h2 class="text-lg font-serif font-bold text-slate-900">Perguntas Frequentes sobre {empresa} ({ticker})</h2>
           <p class="text-xs text-slate-500 font-sans mt-0.5">Respostas fundamentadas nos demonstrativos contábeis e no modelo de vantagens competitivas.</p>
         </div>
-        <span class="text-[10px] font-mono text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1 rounded-full font-bold">2T26 CVM Auditado</span>
+        <span class="text-[10px] font-mono text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1 rounded-full font-bold">{tri_balanco} CVM Auditado</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -340,7 +340,7 @@ html_template = f"""<!DOCTYPE html>
             <span class="font-medium hidden sm:inline text-slate-600">Economic Moats &amp; Capital Allocation</span>
             <span class="text-slate-300 hidden sm:inline">•</span>
             <span class="text-emerald-700 font-mono font-semibold flex items-center gap-1 whitespace-nowrap">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> 2T26 CVM
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00A887] animate-pulse"></span> <span id="topbar-quarter-badge">CVM Auditado</span>
             </span>
           </div>
         </div>
@@ -480,7 +480,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="relative z-10 max-w-4xl space-y-5">
             <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-[#E6F4F1] border border-[#BCE5DC] text-[#004B49] text-xs font-mono font-bold tracking-wider uppercase">
               <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse"></span>
-              <span>Inteligência Estratégica B3 • 2T26 Auditado</span>
+              <span id="heroQuarterBadge">Inteligência Estratégica B3 • CVM Auditado</span>
             </div>
             
             <h1 class="text-3xl sm:text-5xl lg:text-6xl font-editorial font-bold text-slate-950 tracking-tight leading-[1.12]">
@@ -1102,7 +1102,7 @@ html_template = f"""<!DOCTYPE html>
                 <select id="sel-bubble-color" onchange="switchBubbleColor(this.value)" class="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-slate-900 font-bold text-[11px] focus:outline-none cursor-pointer max-w-[140px]">
                   <option value="asymmetry" selected>Valuation</option>
                   <option value="quadrant">Quadrantes 2x2</option>
-                  <option value="momentum">Momento 2T26</option>
+                  <option value="momentum">Momento Trimestral</option>
                   <option value="dividend">Dividend Yield</option>
                   <option value="sector">Setores B3</option>
                 </select>
@@ -1174,8 +1174,8 @@ html_template = f"""<!DOCTYPE html>
               <option value="CAT_CYCLICAL_CAPEX">🏭 Cíclico • Intensivo em Capex</option>
               <option value="CAT_REAL_ESTATE_POC">🏗️ Contabilidade POC (Incorporadoras)</option>
               <option value="CAT_HOLDING_DISCOUNT">🏛️ Holding • Desconto Estrutural</option>
-              <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão 2T26)</option>
-              <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração 2T26)</option>
+              <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão Trimestral)</option>
+              <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração Trimestral)</option>
               <option value="CAT_NET_CASH">🛡️ Caixa Líquido (Dívida Zero)</option>
               <option value="CAT_NET_CASH_STRUCT">🛡️ Caixa Líquido Estrutural</option>
               <option value="CAT_HIGH_DEBT">🚨 Alavancagem Alta (Crítica > 2.5x)</option>
@@ -1215,7 +1215,7 @@ html_template = f"""<!DOCTYPE html>
             </label>
             <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="recency">
               <input type="checkbox" id="chkLatestBalance" checked onchange="toggleGatekeeper()" class="w-3.5 h-3.5 rounded text-emerald-600 border-slate-300">
-              <span class="text-[11px]">2T26</span>
+              <span class="text-[11px]" id="chkBalLabel">Vigente</span>
               <span class="info-badge cursor-pointer">ⓘ</span>
             </label>
             <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="tag_along">
@@ -1585,6 +1585,14 @@ html_template = f"""<!DOCTYPE html>
           bdt.innerText = 'Auditado recentemente';
         }}
       }}
+      const lq = APP_DATA.latest_quarter || '3T26';
+      const topBadge = document.getElementById('topbar-quarter-badge');
+      if (topBadge) topBadge.innerText = lq + ' CVM';
+      const heroBadge = document.getElementById('heroQuarterBadge');
+      if (heroBadge) heroBadge.innerText = 'Inteligência Estratégica B3 • ' + lq + ' Auditado';
+      const chkLbl = document.getElementById('chkBalLabel');
+      if (chkLbl) chkLbl.innerText = lq;
+
       const liq = document.getElementById('cnt-liq-badge');
       if (liq) liq.innerText = APP_DATA.stocks.filter(s => s.is_liquid_1m).length;
       const bal = document.getElementById('cnt-bal-badge');
@@ -2202,11 +2210,12 @@ html_template = f"""<!DOCTYPE html>
 
       // Momento de Resultados
       if (s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
+        const triLbl = s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestral';
         if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
           cats.push({{
             id: 'CAT_EXPANSION',
             group: 'VALUATION',
-            label: 'Lucro Acelerando (Expansão 2T26)',
+            label: 'Lucro Acelerando (Expansão ' + triLbl + ')',
             shortLabel: 'Lucro Acelerando',
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
@@ -2215,7 +2224,7 @@ html_template = f"""<!DOCTYPE html>
           cats.push({{
             id: 'CAT_DECELERATION',
             group: 'VALUATION',
-            label: 'Lucro em Retração (Desaceleração 2T26)',
+            label: 'Lucro em Retração (Desaceleração ' + triLbl + ')',
             shortLabel: 'Lucro em Retração',
             ledClass: 'bg-amber-500',
             bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
@@ -5169,7 +5178,7 @@ html_template = f"""<!DOCTYPE html>
             <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-500"></span><span class="text-orange-900 font-semibold">Comprimindo (&le; -20%)</span></span>
           </div>
           <div class="flex items-center justify-between text-xs py-0.5">
-            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span><span class="text-rose-900 font-bold">Prejuízo 2T26</span></span>
+            <span class="inline-flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-rose-500"></span><span class="text-rose-900 font-bold">Prejuízo Recente (3M)</span></span>
           </div>
         `;
       }} else if (matrixColorMode === 'dividend') {{
@@ -5270,7 +5279,7 @@ html_template = f"""<!DOCTYPE html>
         </div>
         <div class="text-slate-700">• Quality Score: <b class="text-slate-900 font-bold">${{formatNumberBR(s.quality_score, 1)}}/100</b> (${{s.quality_tier.split(':')[0]}})</div>
         <div class="text-slate-700">• P/L (12m): <b class="text-slate-900 font-bold">${{plDisplay}}</b> (P/L Teórico Ajustado: <b class="text-emerald-800 font-bold">${{formatNumberBR(expPL, 1, 'x')}}</b>)</div>
-        <div class="text-slate-700">• Momento 2T26: ${{momTag}}</div>
+        <div class="text-slate-700">• Momento (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestre'}}): ${{momTag}}</div>
         <div class="text-slate-700">• Earnings Yield: <b class="text-slate-900 font-bold">${{formatPercent(s.earnings_yield_pct/100)}}</b> (Spread NTN-B: <b class="${{getColorSpread(s.ey_spread)}}">${{spreadStr}}</b>)</div>
         <div class="text-slate-700">• ROIC: <b class="text-slate-900 font-bold">${{s.is_financial ? 'N/A' : formatPercent(s.roic)}}</b> | ROE: <b class="text-slate-900 font-bold">${{formatPercent(s.roe)}}</b> | DY: <b class="text-emerald-800 font-bold">${{formatPercent(s.div_yield)}}</b></div>
         <div class="mt-1 text-[11px] font-sans font-semibold text-emerald-800">${{s.entry_status}}</div>
@@ -6065,7 +6074,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Valor de Mercado:</span> <b class="text-slate-900 font-bold">${{formatBillions(s.details.valor_mercado)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Valor da Firma (EV):</span> <b class="text-slate-900 font-bold">${{formatBillions(s.details.valor_firma)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L (12M LTM):</span> <b class="${{getColorPl(s.pl)}} font-bold">${{formatMultiple(s.pl)}}</b></div>
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L Run-Rate (2T26):</span> <b class="${{getColorPl(s.pl_run_rate)}} font-bold">${{s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D'}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L Run-Rate (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : '3M'}}):</span> <b class="${{getColorPl(s.pl_run_rate)}} font-bold">${{s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D'}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/VP:</span> <b class="text-slate-800 font-bold">${{formatMultiple(s.pvp)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">EV / EBITDA:</span> <b class="text-slate-800 font-bold">${{s.is_financial ? 'N/A (Bancos)' : formatMultiple(s.ev_ebitda)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">ROIC (Capital Investido):</span> <b class="${{s.is_financial ? 'text-slate-400 font-normal' : getColorRoic(s.roic)}} font-bold">${{s.is_financial ? 'N/A (Bancos)' : formatPercent(s.roic)}}</b></div>
@@ -6101,30 +6110,30 @@ html_template = f"""<!DOCTYPE html>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Receita Líquida (12m):</span> <b class="text-slate-900 font-bold">${{formatBillions(s.details.receita_liq_12m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">EBIT Operacional (12m):</span> <b class="${{s.details.ebit_12m < 0 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold'}}">${{formatBillions(s.details.ebit_12m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro Líquido (12m):</span> <b class="${{s.details.lucro_liq_12m < 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}}">${{formatBillions(s.details.lucro_liq_12m)}}</b></div>
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro Trimestre (2T26):</span> <b class="${{s.details.lucro_liq_3m < 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}}">${{formatBillions(s.details.lucro_liq_3m)}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro Trimestre (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : '3M'}}):</span> <b class="${{s.details.lucro_liq_3m < 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}}">${{formatBillions(s.details.lucro_liq_3m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">LPA (Lucro por Ação):</span> <b class="text-slate-800 font-bold">${{formatCurrency(s.details.lpa)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Margem Bruta:</span> <b class="${{s.mrg_bruta < 0 ? 'text-rose-700 font-bold' : 'text-slate-800 font-bold'}}">${{formatPercent(s.mrg_bruta)}}</b></div>
             <div class="flex justify-between py-0.5"><span class="text-slate-600 font-sans font-medium">Margem Líquida:</span> <b class="${{getColorMrgLiq(s.mrg_liq)}} font-bold">${{formatPercent(s.mrg_liq)}}</b></div>
           </div>
         </div>
 
-        <!-- Card 4: Auditoria de Recorrência (2T26 vs 12M) -->
+        <!-- Card 4: Auditoria de Recorrência (Trimestre vs 12M) -->
         <div class="glass-card rounded-xl p-4 flex flex-col gap-2 border border-slate-200">
           <div class="flex justify-between items-center border-b border-slate-200 pb-1.5">
             <span class="font-bold text-indigo-900 text-xs flex items-center gap-1.5 font-sans">
-              <span><svg class="w-3.5 h-3.5 stroke-[1.75] inline-block text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-7-5l7-13 7 13M5 16h14M3 19h4m10 0h4"/></svg></span> Auditoria de Recorrência (2T26 vs 12M)
+              <span><svg class="w-3.5 h-3.5 stroke-[1.75] inline-block text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-7-5l7-13 7 13M5 16h14M3 19h4m10 0h4"/></svg></span> Auditoria de Recorrência (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestre'}} vs 12M)
             </span>
             <span class="text-[10px] px-2 py-0.5 rounded-full font-bold font-mono ${{s.is_distorted ? 'bg-purple-100 text-purple-900 border border-purple-300 font-bold' : (s.details.lucro_liq_3m < 0 ? 'bg-rose-100 text-rose-900 border border-rose-300 font-bold' : 'bg-emerald-100 text-emerald-900 border border-emerald-300 font-bold')}}">
               ${{s.distortion_label}}
             </span>
           </div>
           <div class="space-y-1 text-[11px] font-mono">
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro 3M (2T26):</span> <b class="${{s.details.lucro_liq_3m < 0 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold'}}">${{formatBillions(s.details.lucro_liq_3m)}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro 3M (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : '3M'}}):</span> <b class="${{s.details.lucro_liq_3m < 0 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold'}}">${{formatBillions(s.details.lucro_liq_3m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">Lucro 12M (LTM):</span> <b class="${{s.details.lucro_liq_12m < 0 ? 'text-rose-700 font-bold' : 'text-slate-900 font-bold'}}">${{formatBillions(s.details.lucro_liq_12m)}}</b></div>
             <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L LTM Histórico:</span> <b class="${{getColorPl(s.pl)}} font-semibold">${{formatMultiple(s.pl)}}</b></div>
-            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L Run-Rate 2T26:</span> <b class="${{getColorPl(s.pl_run_rate)}} font-semibold">${{s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'Prej/ND'}}</b></div>
+            <div class="flex justify-between py-0.5 border-b border-slate-200/60"><span class="text-slate-600 font-sans font-medium">P/L Run-Rate (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Run-Rate'}}):</span> <b class="${{getColorPl(s.pl_run_rate)}} font-semibold">${{s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'Prej/ND'}}</b></div>
             <div class="text-[10px] text-slate-600 font-sans pt-1 leading-relaxed font-medium">
-              ${{s.is_distorted ? '⚠️ <b>Aviso Contábil:</b> Divergência relevante entre o lucro recente e os últimos 12 meses. O múltiplo LTM pode carregar efeito de one-off não recorrente.' : '💎 <b>Consistência Contábil:</b> O ritmo de lucro do 2T26 anualizado acompanha o histórico de 12 meses sem distorções anormais de ciclo.'}}
+              ${{s.is_distorted ? '⚠️ <b>Aviso Contábil:</b> Divergência relevante entre o lucro recente e os últimos 12 meses. O múltiplo LTM pode carregar efeito de one-off não recorrente.' : '💎 <b>Consistência Contábil:</b> O ritmo de lucro do ' + (s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'trimestre recente') + ' anualizado acompanha o histórico de 12 meses sem distorções anormais de ciclo.'}}
             </div>
           </div>
         </div>
@@ -6216,7 +6225,7 @@ html_template = f"""<!DOCTYPE html>
             </div>
 
             <div class="p-2 rounded-lg bg-white border border-slate-200 shadow-2xs">
-              <div class="text-[10px] text-slate-700 font-bold">5. Recorrência 2T26</div>
+              <div class="text-[10px] text-slate-700 font-bold">5. Recorrência (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Tri'}})</div>
               <div class="font-bold ${{isCleanEarnings ? 'text-emerald-800' : 'text-purple-800'}} flex items-center justify-between">
                 <span>${{isCleanEarnings ? 'Lucro Limpo' : 'Distorção'}}</span>
                 <span>${{isCleanEarnings ? '✅' : '⚠️'}}</span>
@@ -6230,7 +6239,7 @@ html_template = f"""<!DOCTYPE html>
                 <span>${{isSafeCycle ? 'Ciclo Seguro' : 'Pico de Ciclo'}}</span>
                 <span>${{isSafeCycle ? '✅' : '⚠️'}}</span>
               </div>
-              <div class="text-[9px] text-slate-500 font-sans">${{isSafeCycle ? 'Fora de risco agudo' : 'Desaceleração 2T26'}}</div>
+              <div class="text-[9px] text-slate-500 font-sans">${{isSafeCycle ? 'Fora de risco agudo' : 'Desaceleração Trimestral'}}</div>
             </div>
           </div>
         </div>
@@ -6669,7 +6678,7 @@ html_template = f"""<!DOCTYPE html>
           {{ label: 'Rentabilidade', score: rentScore, desc: formatPercent(s.roic || s.roe), ...getPillarInfo(rentScore) }},
           {{ label: 'Dividendos', score: divScore, desc: formatPercent(s.div_yield), ...getPillarInfo(divScore) }},
           {{ label: 'Saúde Fin.', score: solScore, desc: s.is_financial ? 'Basileia Ok' : (s.div_liq_ebitda !== null ? (s.div_liq_ebitda < 0 ? 'Caixa Líq.' : formatNumberBR(s.div_liq_ebitda, 1, 'x')) : 'N/D'), ...getPillarInfo(solScore) }},
-          {{ label: 'Consistência', score: consScore, desc: s.is_distorted ? 'Distorção' : 'Lucro 2T26 Ok', ...getPillarInfo(consScore) }}
+          {{ label: 'Consistência', score: consScore, desc: s.is_distorted ? 'Distorção' : 'Lucro ' + (s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Tri') + ' Ok', ...getPillarInfo(consScore) }}
         ];
 
         pillarsGrid.innerHTML = pillarCards.map(c => `
@@ -6807,8 +6816,8 @@ html_template = f"""<!DOCTYPE html>
         foot: 'P/L baixo + ROIC alto = Combinação clássica de Charlie Munger'
       }},
       pl_run_rate: {{
-        title: '⏱️ P/L Run-Rate (Ritmo Anualizado 2T26)',
-        desc: 'Anualização do último trimestre reportado (4x). Em setores com forte sazonalidade de 4T (Varejo) ou safra (Agro), compare sempre com o P/L LTM.',
+        title: '⏱️ P/L Run-Rate (Ritmo Anualizado do Trimestre Recente)',
+        desc: 'Anualização do último trimestre reportado (4x lucro trimestral). Identifica aceleração ou desaceleração recente em tempo real antes do mercado.',
         foot: 'Antecipa viradas de ciclo antes do mercado geral • Atenção à sazonalidade'
       }},
       graham: {{
@@ -6867,8 +6876,8 @@ html_template = f"""<!DOCTYPE html>
         foot: 'Padrão mínimo institucional para liquidez de carteira'
       }},
       recency: {{
-        title: '📅 Tempestividade do Balanço (2T26 Vigente)',
-        desc: 'Filtra companhias que já reportaram o balanço mais recente auditado pela CVM (2T26), evitando avaliar ações com demonstrações defasadas.',
+        title: '📅 Tempestividade do Balanço (Demonstrativo Vigente CVM)',
+        desc: 'Filtra companhias que estão com seus demonstrativos mais recentes em dia perante o calendário regulatório da CVM (3T26 / 2T26), eliminando empresas com balanços defasados.',
         foot: 'Garante 100% de precisão nos números correntes'
       }},
       tag_along: {{

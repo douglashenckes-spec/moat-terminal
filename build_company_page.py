@@ -250,7 +250,7 @@ def build_company_page():
         </button>
         <span class="text-[11px] font-sans font-semibold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1.5 sm:py-2 rounded-xl hidden md:inline-flex items-center gap-1.5 shadow-xs flex-shrink-0">
           <span class="w-2 h-2 rounded-full bg-[#00A887] animate-pulse"></span>
-          Base 2T26 CVM Auditada
+          <span id="topbarBalancoBadge">CVM Auditada</span>
         </span>
       </div>
 
@@ -411,7 +411,7 @@ def build_company_page():
           <div class="flex items-center justify-between border-b border-slate-200 pb-2">
             <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <svg class="w-4 h-4 stroke-[1.75] text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Balanço Auditado (2T26) &amp; Leitura dos Números
+              <span id="balancoAuditadoHeading">Balanço Auditado CVM &amp; Leitura dos Números</span>
             </span>
             <span class="text-[10px] text-indigo-900 bg-indigo-50 border border-indigo-200 font-mono font-bold px-2 py-0.5 rounded-full">Auditoria CVM</span>
           </div>
@@ -1085,11 +1085,12 @@ def build_company_page():
         const l12 = (s.details && s.details.lucro_liq_12m) || 0;
         const l3 = (s.details && s.details.lucro_liq_3m) || 0;
 
+        const triLbl = s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestral';
         if (s.run_rate_div_pct >= 15.0 && s.run_rate_div_pct <= 160.0 && s.pl_run_rate < s.pl * 0.88 && l12 > 0 && l3 > 0) {{
           cats.push({{
             id: 'CAT_EXPANSION',
             group: 'VALUATION',
-            label: 'Lucro Acelerando (Expansão 2T26)',
+            label: 'Lucro Acelerando (Expansão ' + triLbl + ')',
             shortLabel: 'Lucro Acelerando',
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
@@ -1108,7 +1109,7 @@ def build_company_page():
             cats.push({{
               id: 'CAT_DECELERATION',
               group: 'VALUATION',
-              label: 'Queda de Run-Rate (Desaceleração 2T26)',
+              label: 'Queda de Run-Rate (Desaceleração ' + triLbl + ')',
               shortLabel: 'Queda Run-Rate',
               ledClass: 'bg-rose-500',
               bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
@@ -1597,7 +1598,7 @@ def build_company_page():
             <div class="flex flex-col min-w-0">
               <div class="flex flex-wrap items-center gap-2">
                 <h1 class="text-2xl sm:text-3xl font-bold font-editorial text-slate-900 tracking-wide">${{s.ticker}}</h1>
-                <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white/90 text-slate-800 border border-slate-200">2T26 Vigente</span>
+                <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-white/90 text-slate-800 border border-slate-200">${{s.tri_balanco || 'Vigente'}}</span>
                 <span class="text-xs px-3 py-0.5 rounded-full font-sans ${{entryBadgeClass}}">${{s.entry_status}}</span>
                 ${{curveBadge}}
                 ${{s.is_distorted ? '<span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">' + (s.distortion_label || 'Distorção Contábil') + '</span>' : ''}}
@@ -1689,7 +1690,7 @@ def build_company_page():
 
       const items = [
         {{ label: 'P/L Histórico', val: formatMultiple(s.pl), desc: 'Preço sobre Lucro LTM', color: 'text-slate-900', tip: 'pl_ltm' }},
-        {{ label: 'P/L Run-Rate', val: s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D', desc: 'Ritmo anualizado 2T26', color: s.pl_run_rate && s.pl && s.pl_run_rate < s.pl ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'pl_run_rate' }},
+        {{ label: 'P/L Run-Rate', val: s.pl_run_rate ? formatMultiple(s.pl_run_rate) : 'N/D', desc: 'Ritmo anualizado ' + (s.tri_balanco ? s.tri_balanco.split(' ')[0] : '3M'), color: s.pl_run_rate && s.pl && s.pl_run_rate < s.pl ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'pl_run_rate' }},
         {{ label: 'P / VP', val: formatMultiple(s.pvp), desc: 'Preço sobre Patrimônio', color: 'text-slate-900', tip: 'pvp' }},
         {{ label: 'EV / EBITDA', val: s.is_financial ? 'N/A' : (s.ev_ebitda !== null ? formatMultiple(s.ev_ebitda) : 'N/D'), desc: 'Múltiplo da Firma', color: 'text-slate-900', tip: 'ev_ebitda' }},
         {{ label: 'ROIC Operacional', val: s.is_financial ? 'N/A (Bancos)' : formatPercent(s.roic), desc: 'Retorno Capital Investido (NOPAT/CI)', color: (!s.is_financial && s.roic >= 0.15) ? 'text-emerald-800 font-bold' : 'text-slate-900', tip: 'roic' }},
@@ -2367,7 +2368,7 @@ def build_company_page():
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Receita Líquida (12m):</span> <b>${{formatBillions(d.receita_liq_12m)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">EBIT Operacional:</span> <b>${{formatBillions(d.ebit_12m)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Líquido (12m):</span> <b class="text-emerald-800 font-bold">${{formatBillions(d.lucro_liq_12m)}}</b></div>
-          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Trimestre (2T26):</span> <b>${{formatBillions(d.lucro_liq_3m)}}</b></div>
+          <div class="flex justify-between"><span class="text-slate-600 font-sans">Lucro Trimestre (${{s.tri_balanco ? s.tri_balanco.split(' ')[0] : '3M'}}):</span> <b>${{formatBillions(d.lucro_liq_3m)}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">LPA (Lucro por Ação):</span> <b>${{d.lpa ? formatCurrency(d.lpa) : 'N/D'}}</b></div>
           <div class="flex justify-between"><span class="text-slate-600 font-sans">Payout Médio Implícito:</span> <b>${{s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}}</b></div>
         </div>
@@ -2397,7 +2398,7 @@ def build_company_page():
       const isDefensiveCycle = isDefensiveExplicit || (h && h.estabilidade_margens && (h.estabilidade_margens.includes('Resiliente') || h.estabilidade_margens.includes('Alta Estabilidade')));
       const cycleConsistencyText = isCyclicAsset 
         ? 'Cíclica / Sensível ao Ciclo ⚠️' 
-        : (isDefensiveCycle ? 'Resiliente / Recorrente 🟢' : (!s.is_distorted ? 'Lucro 2T26 Recorrente' : 'Atenção a One-offs'));
+        : (isDefensiveCycle ? 'Resiliente / Recorrente 🟢' : (!s.is_distorted ? ('Lucro ' + (s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Tri') + ' Recorrente') : 'Atenção a One-offs'));
 
       document.getElementById('companyCfaVerdictBox').innerHTML = `
         <div class="p-4 rounded-xl border ${{verdictBgClass}} font-sans space-y-2.5 transition-colors duration-200">
@@ -2574,7 +2575,7 @@ def build_company_page():
         formatPercent(s.roic || s.roe),
         formatPercent(s.div_yield),
         s.is_financial ? 'Basileia Ok' : (s.details && s.details.divida_liquida <= 0 ? 'Caixa Líq.' : (s.div_liq_ebitda !== null ? formatNumberBR(s.div_liq_ebitda, 1, 'x') : 'N/D')),
-        s.is_distorted ? 'Distorção' : 'Lucro 2T26 Ok'
+        s.is_distorted ? 'Distorção' : ('Lucro ' + (s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Tri') + ' Ok')
       ];
       const r = 90;
       const angleStep = (Math.PI * 2) / 5;
@@ -3057,8 +3058,8 @@ def build_company_page():
         foot: 'P/L baixo + ROIC alto = Combinação clássica de Charlie Munger'
       }},
       pl_run_rate: {{
-        title: '⏱️ P/L Run-Rate (Ritmo Anualizado 2T26)',
-        desc: 'Anualização do último trimestre reportado (4x). Em setores com forte sazonalidade de 4T (Varejo) ou safra (Agro), compare sempre com o P/L LTM.',
+        title: '⏱️ P/L Run-Rate (Ritmo Anualizado do Trimestre Recente)',
+        desc: 'Anualização do último trimestre reportado (4x lucro trimestral). Identifica aceleração ou desaceleração recente em tempo real antes do mercado.',
         foot: 'Antecipa viradas de ciclo antes do mercado geral • Atenção à sazonalidade'
       }},
       graham: {{
@@ -3122,8 +3123,8 @@ def build_company_page():
         foot: 'Padrão mínimo institucional para liquidez de carteira'
       }},
       recency: {{
-        title: '📅 Tempestividade do Balanço (2T26 Vigente)',
-        desc: 'Filtra companhias que já reportaram o balanço mais recente auditado pela CVM (2T26), evitando avaliar ações com demonstrações defasadas.',
+        title: '📅 Tempestividade do Balanço (Demonstrativo Vigente CVM)',
+        desc: 'Filtra companhias que estão com seus demonstrativos mais recentes em dia perante o calendário regulatório da CVM (3T26 / 2T26), eliminando empresas com balanços defasados.',
         foot: 'Garante 100% de precisão nos números correntes'
       }},
       tag_along: {{
@@ -3186,13 +3187,14 @@ def build_company_page():
         if (key === 'pl_run_rate') {{
           let mathLines = [];
           const l_anual = l3m ? l3m * 4 : null;
+          const triLbl = s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestre';
           if (l3m && l_anual) {{
-            mathLines.push(`• Lucro 2T26 Anualizado: 4 × ${{formatBillions(l3m)}} = <b class="text-emerald-300">${{formatBillions(l_anual)}}</b>`);
+            mathLines.push(`• Lucro ${{triLbl}} Anualizado: 4 × ${{formatBillions(l3m)}} = <b class="text-emerald-300">${{formatBillions(l_anual)}}</b>`);
           }}
           if (mcap && l_anual) {{
             mathLines.push(`• M.Cap ÷ Lucro Run-Rate: ${{formatBillions(mcap)}} ÷ ${{formatBillions(l_anual)}} = <b class="text-emerald-300 font-bold">${{formatNumberBR(pl_rr ? pl_rr : (mcap/l_anual), 2, 'x')}}</b>`);
           }} else if (pl_rr) {{
-            mathLines.push(`• Ritmo 2T26: <b class="text-emerald-300 font-bold">${{formatNumberBR(pl_rr, 2, 'x')}}</b> (vs P/L LTM de ${{pl ? formatNumberBR(pl, 2, 'x') : 'N/D'}})`);
+            mathLines.push(`• Ritmo ${{triLbl}}: <b class="text-emerald-300 font-bold">${{formatNumberBR(pl_rr, 2, 'x')}}</b> (vs P/L LTM de ${{pl ? formatNumberBR(pl, 2, 'x') : 'N/D'}})`);
           }}
           if (s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
             const divPct = Number(s.run_rate_div_pct);
