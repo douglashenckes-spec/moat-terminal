@@ -415,7 +415,7 @@ html_template = f"""<!DOCTYPE html>
             <div class="text-slate-200 text-[11px] space-y-1">
               <div class="font-mono font-bold text-white text-xs" id="badgeUpdateDateTime">--/--/---- às 07:20</div>
               <p class="text-slate-400 leading-tight text-[10.5px]">
-                Rotina processada diariamente na nuvem (07:20, 13:20 e 19:20 BRT).
+                Rotina processada 4x ao dia na nuvem (07:20, 13:20, 19:20 e 22:30 BRT).
               </p>
             </div>
             <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">

@@ -336,9 +336,20 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         cached_ts = cache_item.get("cached_time", 0)
         now_ts = time.time()
 
-        # No CI (GitHub Actions 3x/dia) ou se force_details=True: atualiza tickers com cache > 24h para capturar novos balanços da temporada
-        is_stale = (now_ts - cached_ts) > (24 * 3600)
-        should_fetch = (not det_entry) or force_details or (is_ci and is_stale)
+        # Detector Inteligente de Novo Balanço Publicado:
+        # 1. Se patrimônio líquido da tabela geral divergir do cache detalhado: novo balanço cadastrado no Fundamentus!
+        row_pl = float(row_dict.get("patrim_liq") or 0.0)
+        det_pl = float((det_entry or {}).get("patrimonio_liquido") or 0.0)
+        has_pl_divergence = bool(det_entry and (row_pl > 0 and det_pl > 0) and abs(row_pl - det_pl) > 1000.0)
+
+        # 2. Se a ação ainda aguarda balanço 3T26 e o cache tem mais de 6h em ambiente CI da nuvem
+        is_prior_quarter = bool(det_entry and ("30/09/2026" not in str(det_entry.get("ult_balanco", ""))))
+        is_stale_season = bool(is_ci and is_prior_quarter and ((now_ts - cached_ts) > (6 * 3600)))
+
+        # 3. Cache padrão com mais de 24h
+        is_stale_default = (now_ts - cached_ts) > (24 * 3600)
+
+        should_fetch = (not det_entry) or force_details or has_pl_divergence or is_stale_season or (is_ci and is_stale_default)
 
         if should_fetch:
             try:
