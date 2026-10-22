@@ -340,11 +340,9 @@ def build_company_page():
             <span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-900 border-emerald-200">--</span>
           </div>
 
-          <!-- SVG Container da Mini Matriz -->
-          <div class="relative w-full h-56 bg-slate-50/70 rounded-xl border border-slate-200/80 p-2 overflow-hidden flex items-center justify-center">
-            <svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
-              <!-- Injetado dinamicamente via JS / Pre-renderizado SSR -->
-            </svg>
+          <!-- Grid Conceitual dos 4 Quadrantes Estratégicos -->
+          <div id="miniMatrixGridContainer" class="w-full space-y-2">
+            <!-- Injetado dinamicamente via JS -->
           </div>
 
           <!-- Diagnóstico e Rationale do Quadrante -->
@@ -456,28 +454,6 @@ def build_company_page():
           </thead>
           <tbody id="sectorPeersTableBody" class="divide-y divide-slate-100 font-sans"></tbody>
         </table>
-      </div>
-    </div>
-
-    <!-- ESPAÇO PUBLICITÁRIO / PARCERIAS ESTRATÉGICAS (GOOGLE ADSENSE / AFILIADOS CORRETORAS) -->
-    <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-2">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-1.5 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-        <span class="flex items-center gap-1.5"><span class="text-amber-500">📢</span> PUBLICIDADE &amp; PARCERIAS ESTRATÉGICAS</span>
-        <span class="text-slate-400 hover:text-slate-600 transition">Espaço Patrocinado</span>
-      </div>
-      <div id="ad-slot-company" class="min-h-[80px] w-full flex flex-col md:flex-row items-center justify-between gap-3 p-3.5 rounded-lg bg-slate-50 border border-dashed border-slate-300 text-slate-600">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-base flex-shrink-0">
-            📊
-          </div>
-          <div>
-            <div class="font-bold text-xs text-slate-800 font-mono">Espaço Reservado para Google AdSense ou Corretora Parceira</div>
-            <div class="text-[11px] text-slate-500">Banner responsivo pronto para receber o bloco do AdSense (728x90 / 320x50) ou links de corretoras (BTG Pactual, Avenue, Nomad, etc.).</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <span class="px-2.5 py-1 rounded bg-white border border-slate-200 text-[10px] font-mono text-slate-500 font-medium">Slot: #AD-DOSSIER-BANNER</span>
-        </div>
       </div>
     </div>
 
@@ -2682,13 +2658,13 @@ def build_company_page():
     // 📊 MINI-MATRIZ ESTRATÉGICA 2X2 (POSICIONAMENTO RELATIVO NO UNIVERSO B3)
     // =========================================================================
     function renderMiniMatrix() {{
-      const svg = document.getElementById('miniMatrixSvg');
+      const container = document.getElementById('miniMatrixGridContainer');
       const badge = document.getElementById('miniMatrixQuadrantBadge');
       const rationale = document.getElementById('miniMatrixRationale');
       const peerCountSpan = document.getElementById('miniMatrixPeerCount');
       const matrixLink = document.getElementById('miniMatrixFullMatrixLink');
       const s = currentStock;
-      if (!svg || !s) return;
+      if (!s) return;
 
       if (matrixLink && s.ticker) {{
         matrixLink.href = `/index.html?workspace=matrix&ticker=${{encodeURIComponent(s.ticker)}}`;
@@ -2701,21 +2677,8 @@ def build_company_page():
         peerCountSpan.innerText = `${{validPeers.length}} empresas líquidas`;
       }}
 
-      const padL = 40, padR = 15, padT = 18, padB = 26;
-      const w = 400, h = 220;
-      const innerW = w - padL - padR;
-      const innerH = h - padT - padB;
-
-      const minX = 0, maxX = 30.0;
-      const minY = 20.0, maxY = 100.0;
-
-      const scaleX = (x) => padL + (Math.min(Math.max(x - minX, 0), maxX - minX) / (maxX - minX)) * innerW;
-      const scaleY = (y) => padT + innerH - (Math.min(Math.max(y - minY, 0), maxY - minY) / (maxY - minY)) * innerH;
-
       const limiarQuality = 80.0;
       const limiarValuation = 15.38; // NTN-B 6,5% a.a. real
-      const yCross = scaleY(limiarQuality);
-      const xCross = scaleX(limiarValuation);
 
       const hasNegativeEarnings = (s.pl === null || s.pl === undefined || Number(s.pl) <= 0);
       const sPl = !hasNegativeEarnings ? Number(s.pl) : null;
@@ -2734,6 +2697,11 @@ def build_company_page():
       const sPlStr = sPl !== null ? formatNumberBR(sPl, 1) : 'Prejuízo (N/D)';
       const expPLStr = formatNumberBR(expPL, 1);
       const sEyStr = (sPl !== null && sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'Negativo / N/D');
+
+      const isQ1 = isHighQuality && isLowPl;
+      const isQ2 = isHighQuality && !isLowPl;
+      const isQ3 = !isHighQuality && isLowPl;
+      const isQ4 = (!isHighQuality && !isLowPl) || hasNegativeEarnings;
 
       if (hasNegativeEarnings) {{
         quadName = 'Q4: Prejuízo / Sem Base P/L';
@@ -2765,87 +2733,55 @@ def build_company_page():
         rationale.innerHTML = quadExplanation;
       }}
 
-      // Renderizar o SVG
-      const targetCx = scaleX(sPl !== null ? sPl : 28.5);
-      const targetCy = scaleY(sScore);
-      const isNearTop = (targetCy - 22 < padT);
-      const pillY = isNearTop ? targetCy + 9 : targetCy - 22;
-      const textY = isNearTop ? targetCy + 20 : targetCy - 11;
+      if (container) {{
+        container.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 text-left font-sans select-none">
+            <!-- Q1: Compounder Descontada (Top-Left) -->
+            <div class="p-2.5 rounded-xl border transition-all ${{isQ1 ? 'bg-emerald-50/90 border-emerald-400 ring-2 ring-emerald-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'}} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${{isQ1 ? 'text-emerald-950 font-extrabold' : 'text-slate-500'}} uppercase">Q1 • Compounder</span>
+                ${{isQ1 ? `<span class="text-[8.5px] font-mono font-extrabold bg-emerald-700 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${{s.ticker}}</span>` : ''}}
+              </div>
+              <div class="text-[10.5px] ${{isQ1 ? 'text-emerald-950 font-bold' : 'text-slate-600 font-medium'}} leading-tight mt-1">Wide Moat • Preço com Desconto</div>
+              <div class="text-[9px] font-mono ${{isQ1 ? 'text-emerald-700 font-bold' : 'text-slate-400'}} mt-0.5">Score ≥ 80 | P/L ≤ 15,4x</div>
+            </div>
 
-      let svgHtml = `
-        <defs>
-          <clipPath id="miniMatrixClip">
-            <rect x="${{padL}}" y="${{padT}}" width="${{innerW}}" height="${{innerH}}" rx="3" />
-          </clipPath>
-        </defs>
+            <!-- Q2: Qualidade c/ Prêmio (Top-Right) -->
+            <div class="p-2.5 rounded-xl border transition-all ${{isQ2 ? 'bg-sky-50/90 border-sky-400 ring-2 ring-sky-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'}} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${{isQ2 ? 'text-sky-950 font-extrabold' : 'text-slate-500'}} uppercase">Q2 • Prêmio</span>
+                ${{isQ2 ? `<span class="text-[8.5px] font-mono font-extrabold bg-sky-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${{s.ticker}}</span>` : ''}}
+              </div>
+              <div class="text-[10.5px] ${{isQ2 ? 'text-sky-950 font-bold' : 'text-slate-600 font-medium'}} leading-tight mt-1">Wide Moat • Múltiplos Exigentes</div>
+              <div class="text-[9px] font-mono ${{isQ2 ? 'text-sky-700 font-bold' : 'text-slate-400'}} mt-0.5">Score ≥ 80 | P/L &gt; 15,4x</div>
+            </div>
 
-        <!-- Fundo e Cortes -->
-        <g clip-path="url(#miniMatrixClip)">
-          <rect x="${{padL}}" y="${{padT}}" width="${{innerW}}" height="${{innerH}}" fill="#FAFAF8" />
+            <!-- Q3: Múltiplos Baixos / Cíclica (Bottom-Left) -->
+            <div class="p-2.5 rounded-xl border transition-all ${{isQ3 ? 'bg-amber-50/90 border-amber-400 ring-2 ring-amber-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'}} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${{isQ3 ? 'text-amber-950 font-extrabold' : 'text-slate-500'}} uppercase">Q3 • Múltiplos Baixos</span>
+                ${{isQ3 ? `<span class="text-[8.5px] font-mono font-extrabold bg-amber-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${{s.ticker}}</span>` : ''}}
+              </div>
+              <div class="text-[10.5px] ${{isQ3 ? 'text-amber-950 font-bold' : 'text-slate-600 font-medium'}} leading-tight mt-1">Múltiplos Baixos • Sensível a Ciclo</div>
+              <div class="text-[9px] font-mono ${{isQ3 ? 'text-amber-700 font-bold' : 'text-slate-400'}} mt-0.5">Score &lt; 80 | P/L ≤ 15,4x</div>
+            </div>
 
-          <!-- Quadrantes com Tonalidades Suaves -->
-          <rect x="${{padL}}" y="${{padT}}" width="${{xCross - padL}}" height="${{yCross - padT}}" fill="#10B981" fill-opacity="0.08" />
-          <rect x="${{xCross}}" y="${{padT}}" width="${{padL + innerW - xCross}}" height="${{yCross - padT}}" fill="#0284C7" fill-opacity="0.04" />
-          <rect x="${{padL}}" y="${{yCross}}" width="${{xCross - padL}}" height="${{padT + innerH - yCross}}" fill="#F59E0B" fill-opacity="0.04" />
-          <rect x="${{xCross}}" y="${{yCross}}" width="${{padL + innerW - xCross}}" height="${{padT + innerH - yCross}}" fill="#EF4444" fill-opacity="0.04" />
-
-          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
-          <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-          <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-
-          <!-- Rótulos Sutis de Quadrantes -->
-          <text x="${{padL + 6}}" y="${{padT + 12}}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
-          <text x="${{padL + innerW - 6}}" y="${{padT + 12}}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
-          <text x="${{padL + 6}}" y="${{padT + innerH - 6}}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
-          <text x="${{padL + innerW - 6}}" y="${{padT + innerH - 6}}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
-
-          <!-- Pontos de Background dos Pares do Universo Coberto -->
-          <g>
-            ${{validPeers.filter(p => p.ticker !== s.ticker).map(p => {{
-              const px = scaleX(p.pl);
-              const py = scaleY(p.quality_score || 50);
-              const titlePl = (p.pl && p.pl > 0) ? formatNumberBR(p.pl, 1) : 'N/D';
-              const titleScore = formatNumberBR(p.quality_score || 0, 0);
-              return `<circle cx="${{px.toFixed(1)}}" cy="${{py.toFixed(1)}}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>${{p.ticker}}: P/L ${{titlePl}}x | Score ${{titleScore}}</title></circle>`;
-            }}).join('')}}
-          </g>
-
-          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
-          <g class="cursor-pointer">
-            <!-- Anel Externo com Efeito Ripple Pulsante -->
-            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
-              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
-            <!-- Ponto Central -->
-            <circle cx="${{targetCx.toFixed(1)}}" cy="${{targetCy.toFixed(1)}}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
-            <!-- Callout do Ticker -->
-            <rect x="${{(targetCx - 20).toFixed(1)}}" y="${{pillY.toFixed(1)}}" width="40" height="13" rx="3" fill="#004B49" />
-            <text x="${{targetCx.toFixed(1)}}" y="${{textY.toFixed(1)}}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">${{s.ticker}}</text>
-          </g>
-        </g>
-
-        <!-- Eixos Principais e Legendas -->
-        <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{padL + innerW}}" y2="${{padT + innerH}}" stroke="#94A3B8" stroke-width="1.5" />
-        <line x1="${{padL}}" y1="${{padT}}" x2="${{padL}}" y2="${{padT + innerH}}" stroke="#94A3B8" stroke-width="1.5" />
-
-        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
-        <text x="${{padL - 4}}" y="${{scaleY(100) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
-        <text x="${{padL - 4}}" y="${{yCross + 3}}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
-        <text x="${{padL - 4}}" y="${{scaleY(50) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
-        <text x="${{padL - 4}}" y="${{scaleY(20) + 3}}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
-
-        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
-        <text x="${{padL}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
-        <text x="${{xCross.toFixed(1)}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
-        <text x="${{padL + innerW}}" y="${{padT + innerH + 12}}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
-
-        <!-- Legenda Inferior do Eixo X -->
-        <text x="${{padL + innerW / 2}}" y="${{h - 4}}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
-      `;
-
-      svg.innerHTML = svgHtml;
+            <!-- Q4: Risco / Esticada (Bottom-Right) -->
+            <div class="p-2.5 rounded-xl border transition-all ${{isQ4 ? 'bg-rose-50/90 border-rose-400 ring-2 ring-rose-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'}} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${{isQ4 ? 'text-rose-950 font-extrabold' : 'text-slate-500'}} uppercase">Q4 • Risco / Esticada</span>
+                ${{isQ4 ? `<span class="text-[8.5px] font-mono font-extrabold bg-rose-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${{s.ticker}}</span>` : ''}}
+              </div>
+              <div class="text-[10.5px] ${{isQ4 ? 'text-rose-950 font-bold' : 'text-slate-600 font-medium'}} leading-tight mt-1">Sem Moat • Múltiplos Elevados</div>
+              <div class="text-[9px] font-mono ${{isQ4 ? 'text-rose-700 font-bold' : 'text-slate-400'}} mt-0.5">Score &lt; 80 | P/L &gt; 15,4x</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-mono">
+            <span class="text-slate-500">Coordenadas:</span>
+            <span class="font-bold text-slate-800">Moat Score <b class="text-[#004B49]">${{sScoreStr}}</b> • P/L <b class="text-[#004B49]">${{sPlStr}}x</b></span>
+          </div>
+        `;
+      }}
     }}
 
     // Busca de Ações no Header com Navegação por Teclado

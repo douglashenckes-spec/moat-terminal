@@ -571,74 +571,9 @@
             <span id="miniMatrixQuadrantBadge" class="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded-full border bg-rose-50 text-rose-900 border-rose-300">Q4: Valuation Elevado / Baixo Moat</span>
           </div>
 
-          <!-- SVG Container da Mini Matriz -->
-          <div class="relative w-full h-56 bg-slate-50/70 rounded-xl border border-slate-200/80 p-2 overflow-hidden flex items-center justify-center">
-            <svg id="miniMatrixSvg" class="w-full h-full select-none" viewBox="0 0 400 220">
-        <defs>
-          <clipPath id="miniMatrixClip">
-            <rect x="40" y="18" width="345" height="176" rx="3" />
-          </clipPath>
-        </defs>
-
-        <!-- Fundo e Cortes -->
-        <g clip-path="url(#miniMatrixClip)">
-          <rect x="40" y="18" width="345" height="176" fill="#FAFAF8" />
-
-          <!-- Quadrantes com Tonalidades Suaves -->
-          <rect x="40" y="18" width="176.9" height="44.0" fill="#10B981" fill-opacity="0.08" />
-          <rect x="216.9" y="18" width="168.1" height="44.0" fill="#0284C7" fill-opacity="0.04" />
-          <rect x="40" y="62.0" width="176.9" height="132.0" fill="#F59E0B" fill-opacity="0.04" />
-          <rect x="216.9" y="62.0" width="168.1" height="132.0" fill="#EF4444" fill-opacity="0.04" />
-
-          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
-          <line x1="40" y1="62.0" x2="385" y2="62.0" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-          <line x1="216.9" y1="18" x2="216.9" y2="194" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-
-          <!-- Rótulos Sutis de Quadrantes -->
-          <text x="46" y="30" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
-          <text x="379" y="30" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
-          <text x="46" y="188" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
-          <text x="379" y="188" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
-
-          <!-- Pontos de Background dos Pares do Universo Coberto -->
-          <g>
-            <circle cx="216.8" cy="29.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TFCO4: P/L 15,4x | Score 95</title></circle><circle cx="190.7" cy="30.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TGMA3: P/L 13,1x | Score 94</title></circle><circle cx="385.0" cy="33.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>WEGE3: P/L 32,7x | Score 93</title></circle><circle cx="236.7" cy="35.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TOTS3: P/L 17,1x | Score 92</title></circle><circle cx="126.8" cy="36.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LEVE3: P/L 7,5x | Score 92</title></circle><circle cx="137.5" cy="37.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MILS3: P/L 8,5x | Score 91</title></circle><circle cx="145.6" cy="40.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CURY3: P/L 9,2x | Score 90</title></circle><circle cx="155.7" cy="41.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LREN3: P/L 10,1x | Score 89</title></circle><circle cx="95.2" cy="44.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>POMO3: P/L 4,8x | Score 88</title></circle><circle cx="99.2" cy="44.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>POMO4: P/L 5,2x | Score 88</title></circle><circle cx="172.7" cy="45.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITUB4: P/L 11,5x | Score 88</title></circle><circle cx="183.6" cy="45.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITUB3: P/L 12,5x | Score 88</title></circle><circle cx="201.6" cy="46.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MULT3: P/L 14,1x | Score 87</title></circle><circle cx="240.9" cy="46.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BPAC11: P/L 17,5x | Score 87</title></circle><circle cx="298.2" cy="49.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>B3SA3: P/L 22,4x | Score 86</title></circle><circle cx="104.6" cy="49.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VULC3: P/L 5,6x | Score 86</title></circle><circle cx="168.1" cy="50.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VIVA3: P/L 11,1x | Score 85</title></circle><circle cx="102.1" cy="50.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PLPL3: P/L 5,4x | Score 85</title></circle><circle cx="146.3" cy="50.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PSSA3: P/L 9,2x | Score 85</title></circle><circle cx="224.7" cy="53.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ABEV3: P/L 16,1x | Score 84</title></circle><circle cx="142.8" cy="55.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBSE3: P/L 8,9x | Score 83</title></circle><circle cx="72.7" cy="55.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VTRU3: P/L 2,8x | Score 83</title></circle><circle cx="202.4" cy="55.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CXSE3: P/L 14,1x | Score 83</title></circle><circle cx="152.2" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITSA4: P/L 9,8x | Score 83</title></circle><circle cx="152.4" cy="55.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ITSA3: P/L 9,8x | Score 83</title></circle><circle cx="164.9" cy="56.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>INTB3: P/L 10,9x | Score 83</title></circle><circle cx="275.5" cy="57.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RDOR3: P/L 20,5x | Score 82</title></circle><circle cx="168.2" cy="58.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FIQE3: P/L 11,2x | Score 82</title></circle><circle cx="118.0" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB3: P/L 6,8x | Score 81</title></circle><circle cx="118.5" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB11: P/L 6,8x | Score 81</title></circle><circle cx="119.0" cy="59.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SANB4: P/L 6,9x | Score 81</title></circle><circle cx="134.8" cy="60.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBDC3: P/L 8,2x | Score 81</title></circle><circle cx="147.5" cy="60.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBDC4: P/L 9,3x | Score 81</title></circle><circle cx="272.5" cy="62.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AURA33: P/L 20,2x | Score 80</title></circle><circle cx="179.0" cy="63.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMEB4: P/L 12,1x | Score 79</title></circle><circle cx="122.7" cy="64.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VLID3: P/L 7,2x | Score 79</title></circle><circle cx="136.0" cy="64.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CSED3: P/L 8,3x | Score 79</title></circle><circle cx="121.3" cy="64.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PINE4: P/L 7,1x | Score 79</title></circle><circle cx="361.3" cy="65.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FRAS3: P/L 27,9x | Score 79</title></circle><circle cx="241.0" cy="65.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALPA4: P/L 17,5x | Score 78</title></circle><circle cx="130.6" cy="66.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ABCB4: P/L 7,9x | Score 78</title></circle><circle cx="265.6" cy="66.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ASAI3: P/L 19,6x | Score 78</title></circle><circle cx="129.9" cy="67.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CEAB3: P/L 7,8x | Score 77</title></circle><circle cx="150.2" cy="67.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BBAS3: P/L 9,6x | Score 77</title></circle><circle cx="173.9" cy="68.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIN3: P/L 11,6x | Score 77</title></circle><circle cx="95.8" cy="69.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRSR6: P/L 4,8x | Score 77</title></circle><circle cx="364.4" cy="69.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RADL3: P/L 28,2x | Score 76</title></circle><circle cx="137.5" cy="70.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SEER3: P/L 8,5x | Score 76</title></circle><circle cx="107.4" cy="76.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>WIZC3: P/L 5,9x | Score 73</title></circle><circle cx="187.7" cy="78.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>UGPA3: P/L 12,8x | Score 73</title></circle><circle cx="104.7" cy="81.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PETR4: P/L 5,6x | Score 71</title></circle><circle cx="112.1" cy="81.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PETR3: P/L 6,3x | Score 71</title></circle><circle cx="125.7" cy="82.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMGB4: P/L 7,5x | Score 71</title></circle><circle cx="150.5" cy="83.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CPFE3: P/L 9,6x | Score 70</title></circle><circle cx="335.4" cy="83.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VAMO3: P/L 25,7x | Score 70</title></circle><circle cx="109.7" cy="84.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TEND3: P/L 6,1x | Score 70</title></circle><circle cx="362.2" cy="86.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VALE3: P/L 28,0x | Score 69</title></circle><circle cx="148.7" cy="88.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BEEF3: P/L 9,4x | Score 68</title></circle><circle cx="92.3" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>JHSF3: P/L 4,5x | Score 66</title></circle><circle cx="105.5" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MDNE3: P/L 5,7x | Score 66</title></circle><circle cx="108.9" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EUCA4: P/L 6,0x | Score 66</title></circle><circle cx="132.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GMAT3: P/L 8,0x | Score 66</title></circle><circle cx="145.2" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALUP11: P/L 9,2x | Score 66</title></circle><circle cx="157.8" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>KEPL3: P/L 10,2x | Score 66</title></circle><circle cx="162.2" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MOTV3: P/L 10,6x | Score 66</title></circle><circle cx="166.4" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>HYPE3: P/L 11,0x | Score 66</title></circle><circle cx="184.4" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PGMN3: P/L 12,6x | Score 66</title></circle><circle cx="184.8" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRBI11: P/L 12,6x | Score 66</title></circle><circle cx="186.3" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BLAU3: P/L 12,7x | Score 66</title></circle><circle cx="194.4" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GGPS3: P/L 13,4x | Score 66</title></circle><circle cx="204.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SBSP3: P/L 14,3x | Score 66</title></circle><circle cx="209.5" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RANI3: P/L 14,7x | Score 66</title></circle><circle cx="212.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MATD3: P/L 15,0x | Score 66</title></circle><circle cx="213.2" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>IGTI11: P/L 15,1x | Score 66</title></circle><circle cx="239.6" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RENT3: P/L 17,4x | Score 66</title></circle><circle cx="246.3" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BMOB3: P/L 17,9x | Score 66</title></circle><circle cx="254.9" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CSMG3: P/L 18,7x | Score 66</title></circle><circle cx="292.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FLRY3: P/L 21,9x | Score 66</title></circle><circle cx="304.7" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SMFT3: P/L 23,0x | Score 66</title></circle><circle cx="342.7" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>UNIP6: P/L 26,3x | Score 66</title></circle><circle cx="343.1" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR4: P/L 26,4x | Score 66</title></circle><circle cx="352.1" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR11: P/L 27,1x | Score 66</title></circle><circle cx="385.0" cy="91.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SAPR3: P/L 30,3x | Score 66</title></circle><circle cx="126.1" cy="92.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RECV3: P/L 7,5x | Score 66</title></circle><circle cx="149.9" cy="92.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>COGN3: P/L 9,6x | Score 66</title></circle><circle cx="376.3" cy="92.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RAIL3: P/L 29,2x | Score 66</title></circle><circle cx="168.6" cy="93.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EGIE3: P/L 11,2x | Score 66</title></circle><circle cx="348.4" cy="93.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PRNR3: P/L 26,8x | Score 66</title></circle><circle cx="140.1" cy="94.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VBBR3: P/L 8,7x | Score 65</title></circle><circle cx="224.8" cy="96.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PRIO3: P/L 16,1x | Score 64</title></circle><circle cx="195.1" cy="96.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ANIM3: P/L 13,5x | Score 64</title></circle><circle cx="297.7" cy="98.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ENGI11: P/L 22,4x | Score 63</title></circle><circle cx="355.1" cy="100.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>OPCT3: P/L 27,4x | Score 62</title></circle><circle cx="385.0" cy="100.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>YDUQ3: P/L 35,0x | Score 62</title></circle><circle cx="306.9" cy="106.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GGBR4: P/L 23,2x | Score 60</title></circle><circle cx="268.4" cy="106.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GOAU4: P/L 19,9x | Score 60</title></circle><circle cx="240.9" cy="108.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PASS3: P/L 17,5x | Score 59</title></circle><circle cx="119.8" cy="110.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>DIRR3: P/L 6,9x | Score 58</title></circle><circle cx="233.2" cy="110.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CPLE3: P/L 16,8x | Score 58</title></circle><circle cx="241.5" cy="111.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PNVL3: P/L 17,5x | Score 58</title></circle><circle cx="265.6" cy="111.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MOVI3: P/L 19,6x | Score 58</title></circle><circle cx="123.6" cy="111.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ISAE4: P/L 7,3x | Score 58</title></circle><circle cx="372.0" cy="111.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EMBJ3: P/L 28,9x | Score 58</title></circle><circle cx="61.3" cy="112.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALLD3: P/L 1,9x | Score 57</title></circle><circle cx="124.8" cy="112.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIG4: P/L 7,4x | Score 57</title></circle><circle cx="167.5" cy="112.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CMIG3: P/L 11,1x | Score 57</title></circle><circle cx="292.2" cy="112.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SLCE3: P/L 21,9x | Score 57</title></circle><circle cx="221.0" cy="113.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VIVT3: P/L 15,7x | Score 57</title></circle><circle cx="114.9" cy="113.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SBFG3: P/L 6,5x | Score 57</title></circle><circle cx="125.9" cy="113.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>PFRM3: P/L 7,5x | Score 57</title></circle><circle cx="82.3" cy="113.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>RIAA3: P/L 3,7x | Score 57</title></circle><circle cx="273.3" cy="113.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MYPK3: P/L 20,3x | Score 57</title></circle><circle cx="136.3" cy="114.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CLSC4: P/L 8,4x | Score 56</title></circle><circle cx="137.2" cy="114.1" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LAVV3: P/L 8,4x | Score 56</title></circle><circle cx="158.8" cy="115.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MDIA3: P/L 10,3x | Score 56</title></circle><circle cx="126.5" cy="116.6" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>GRND3: P/L 7,5x | Score 55</title></circle><circle cx="123.6" cy="119.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CYRE4: P/L 7,3x | Score 54</title></circle><circle cx="128.0" cy="119.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CYRE3: P/L 7,7x | Score 54</title></circle><circle cx="310.6" cy="119.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AUAU3: P/L 23,5x | Score 54</title></circle><circle cx="136.9" cy="119.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TRIS3: P/L 8,4x | Score 54</title></circle><circle cx="166.7" cy="120.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SYNE3: P/L 11,0x | Score 53</title></circle><circle cx="140.2" cy="120.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SMTO3: P/L 8,7x | Score 53</title></circle><circle cx="261.5" cy="120.7" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ALOS3: P/L 19,3x | Score 53</title></circle><circle cx="181.1" cy="121.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CBAV3: P/L 12,3x | Score 53</title></circle><circle cx="239.1" cy="122.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AZZA3: P/L 17,3x | Score 53</title></circle><circle cx="115.4" cy="123.2" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SUZB3: P/L 6,6x | Score 52</title></circle><circle cx="154.1" cy="124.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EZTC3: P/L 9,9x | Score 52</title></circle><circle cx="107.5" cy="124.9" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>EVEN3: P/L 5,9x | Score 51</title></circle><circle cx="120.0" cy="125.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MLAS3: P/L 7,0x | Score 51</title></circle><circle cx="223.4" cy="128.4" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>FESA4: P/L 15,9x | Score 50</title></circle><circle cx="69.0" cy="129.5" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LIGT3: P/L 2,5x | Score 49</title></circle><circle cx="198.0" cy="129.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AXIA3: P/L 13,7x | Score 49</title></circle><circle cx="123.8" cy="130.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>SHUL4: P/L 7,3x | Score 49</title></circle><circle cx="106.0" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MELK3: P/L 5,7x | Score 45</title></circle><circle cx="106.6" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>VVEO3: P/L 5,8x | Score 45</title></circle><circle cx="112.7" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>MTRE3: P/L 6,3x | Score 45</title></circle><circle cx="122.3" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>LOGG3: P/L 7,2x | Score 45</title></circle><circle cx="126.8" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ROMI3: P/L 7,5x | Score 45</title></circle><circle cx="148.9" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE3: P/L 9,5x | Score 45</title></circle><circle cx="150.6" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>HBRE3: P/L 9,6x | Score 45</title></circle><circle cx="151.1" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE4: P/L 9,7x | Score 45</title></circle><circle cx="151.8" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TAEE11: P/L 9,7x | Score 45</title></circle><circle cx="176.4" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>TTEN3: P/L 11,9x | Score 45</title></circle><circle cx="241.6" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>ECOR3: P/L 17,5x | Score 45</title></circle><circle cx="385.0" cy="139.0" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>CAML3: P/L 32,9x | Score 45</title></circle><circle cx="181.2" cy="140.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRAP3: P/L 12,3x | Score 44</title></circle><circle cx="195.1" cy="140.3" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>BRAP4: P/L 13,5x | Score 44</title></circle><circle cx="82.9" cy="169.8" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>AZUL3: P/L 3,7x | Score 31</title></circle>
-          </g>
-
-          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
-          <g class="cursor-pointer">
-            <!-- Anel Externo com Efeito Ripple Pulsante -->
-            <circle cx="315.5" cy="92.1" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
-              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="315.5" cy="92.1" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
-            <!-- Ponto Central -->
-            <circle cx="315.5" cy="92.1" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
-            <!-- Callout do Ticker -->
-            <rect x="295.5" y="70.1" width="40" height="13" rx="3" fill="#004B49" />
-            <text x="315.5" y="81.1" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">QUAL3</text>
-          </g>
-        </g>
-
-        <!-- Eixos Principais e Legendas -->
-        <line x1="40" y1="194" x2="385" y2="194" stroke="#94A3B8" stroke-width="1.5" />
-        <line x1="40" y1="18" x2="40" y2="194" stroke="#94A3B8" stroke-width="1.5" />
-
-        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
-        <text x="36" y="21.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
-        <text x="36" y="65.0" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
-        <text x="36" y="131.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
-        <text x="36" y="197.0" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
-
-        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
-        <text x="40" y="206" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
-        <text x="216.9" y="206" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
-        <text x="385" y="206" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
-
-        <!-- Legenda Inferior do Eixo X -->
-        <text x="212.5" y="216" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
-      </svg>
+          <!-- Grid Conceitual dos 4 Quadrantes Estratégicos -->
+          <div id="miniMatrixGridContainer" class="w-full space-y-2">
+            <!-- Injetado dinamicamente via JS -->
           </div>
 
           <!-- Diagnóstico e Rationale do Quadrante -->
@@ -751,30 +686,8 @@
       </div>
     </div>
 
-    <!-- ESPAÇO PUBLICITÁRIO / PARCERIAS ESTRATÉGICAS (GOOGLE ADSENSE / AFILIADOS CORRETORAS) -->
-    <div class="glass-card rounded-2xl p-5 border border-slate-200 space-y-2">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-1.5 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-        <span class="flex items-center gap-1.5"><span class="text-amber-500">📢</span> PUBLICIDADE &amp; PARCERIAS ESTRATÉGICAS</span>
-        <span class="text-slate-400 hover:text-slate-600 transition">Espaço Patrocinado</span>
-      </div>
-      <div id="ad-slot-company" class="min-h-[80px] w-full flex flex-col md:flex-row items-center justify-between gap-3 p-3.5 rounded-lg bg-slate-50 border border-dashed border-slate-300 text-slate-600">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-base flex-shrink-0">
-            📊
-          </div>
-          <div>
-            <div class="font-bold text-xs text-slate-800 font-mono">Espaço Reservado para Google AdSense ou Corretora Parceira</div>
-            <div class="text-[11px] text-slate-500">Banner responsivo pronto para receber o bloco do AdSense (728x90 / 320x50) ou links de corretoras (BTG Pactual, Avenue, Nomad, etc.).</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
-          <span class="px-2.5 py-1 rounded bg-white border border-slate-200 text-[10px] font-mono text-slate-500 font-medium">Slot: #AD-DOSSIER-BANNER</span>
-        </div>
-      </div>
-    </div>
-
   
-    <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO, GRAHAM, BAZIN & PARES SETORIAIS -->
+    <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO & PARES SETORIAIS -->
     <section class="mt-8 pt-8 border-t border-slate-200 space-y-6">
       
       <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
@@ -790,51 +703,6 @@
           <a href="/acoes/" class="text-xs font-mono font-bold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1.5 rounded-xl hover:bg-[#DCF0EC] transition flex items-center gap-1.5">
             <span>← Ver Todas as Empresas</span>
           </a>
-        </div>
-
-        <!-- Grid de Modelos Clássicos de Valuation -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Card Graham -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Justo Graham</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold">
-                +40,2% vs cotação
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">R$ 3,09</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              Com cotação atual de R$ 2,20 contra o valor intrínseco teórico de R$ 3,09, o papel negocia com margem de segurança de 40,2% segundo o método clássico de Benjamin Graham.
-            </p>
-          </div>
-
-          <!-- Card Bazin -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Teto Bazin (6%)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 font-bold">
-                Abaixo do Teto
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">R$ 0,15</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              Pelo critério de Décio Bazin (piso de 6% a.a.), o preço teto calculado é de R$ 0,15. Para capturar 6% em dividendos, a cotação de equilíbrio situa-se neste teto.
-            </p>
-          </div>
-
-          <!-- Card NTN-B -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Spread Real NTN-B</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold bg-amber-100 text-amber-800">
-                Abaixo do IPCA+
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">-2,3% a.a.</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              Earnings Yield da companhia contra a taxa real da NTN-B 2035 do Tesouro Direto (~6,5% a.a. acima do IPCA).
-            </p>
-          </div>
         </div>
 
         
@@ -940,48 +808,60 @@
     </section>
 
 
-    <!-- SEÇÃO DIDÁTICA DE PERGUNTAS FREQUENTES (FAQ & RESPOSTAS ESTRUTURADAS PARA O GOOGLE E IA) -->
+    <!-- SEÇÃO DIDÁTICA DE PERGUNTAS FREQUENTES (FAQ ACCORDION & ESTRUTURA PARA GOOGLE E IA) -->
     <section class="mt-8 pt-8 border-t border-slate-200 space-y-4">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 class="text-lg font-serif font-bold text-slate-900">Perguntas Frequentes sobre QUALICORP ON NM (QUAL3)</h2>
-          <p class="text-xs text-slate-500 font-sans mt-0.5">Respostas fundamentadas nos demonstrativos contábeis e no modelo de vantagens competitivas.</p>
+          <p class="text-xs text-slate-500 font-sans mt-0.5">Respostas estruturadas com base nos demonstrativos oficiais e metodologia Munger.</p>
         </div>
         <span class="text-[10px] font-mono text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1 rounded-full font-bold">2T26 (Vigente) CVM Auditado</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-[#00A887] flex-shrink-0"></span>
-            Qual é o Fosso Econômico (Economic Moat) da QUALICORP ON NM (QUAL3)?
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">A QUALICORP ON NM (QUAL3) possui um Moat Score de 66,3/100, classificado no Tier 2: Empresa Sólida / Saudável. A empresa atua no setor de Serv.Méd.Hospit. Análises e Diagnósticos (Serv.Méd.Hospit. Análises e Diagnósticos) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal.</p>
-        </div>
+      <div class="space-y-2.5">
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]" open>
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#00A887] flex-shrink-0"></span>
+              Qual é o Fosso Econômico (Economic Moat) da QUALICORP ON NM (QUAL3)?
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">A QUALICORP ON NM (QUAL3) possui um Moat Score de 66,3/100, classificado no Tier 2: Empresa Sólida / Saudável. A empresa atua no setor de Serv.Méd.Hospit. Análises e Diagnósticos (Serv.Méd.Hospit. Análises e Diagnósticos) com indicadores auditados de rentabilidade sobre capital e consistência de balanço no Moat Terminal.</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-600 flex-shrink-0"></span>
-            Qual é a rentabilidade e o ROIC de QUAL3?
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">QUAL3 entrega atualmente um ROIC de 22,6% e um ROE de 2,0%. Rentabilidade estrutural genuína, impulsionada pela operação e baixa dependência de alavancagem financeira para remunerar o capital dos acionistas com folga sobre o custo de capital da economia.</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 flex-shrink-0"></span>
+              Qual é a rentabilidade e o ROIC de QUAL3?
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">QUAL3 entrega atualmente um ROIC de 22,6% e um ROE de 2,0%. Rentabilidade estrutural genuína, impulsionada pela operação e baixa dependência de alavancagem financeira para remunerar o capital dos acionistas com folga sobre o custo de capital da economia.</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-indigo-600 flex-shrink-0"></span>
-            Quanto QUAL3 paga de dividendos e qual o Preço Teto Bazin?
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">Atualmente, QUAL3 apresenta um Dividend Yield de 0,4%. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de R$ 0,15 (margem de -93,2% vs cotação). A distribuição de proventos depende da geração de caixa livre e política de payout.</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-600 flex-shrink-0"></span>
+              Quanto QUAL3 paga de dividendos e qual o Preço Teto Bazin?
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">Atualmente, QUAL3 apresenta um Dividend Yield de 0,4%. Pelo método de Décio Bazin (exigência de 6% de dividendo anual), o Preço Teto calculado é de R$ 0,15 (margem de -93,2% vs cotação). A distribuição de proventos depende da geração de caixa livre e política de payout.</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-amber-600 flex-shrink-0"></span>
-            Qual é o Valor Intrínseco de Graham e múltiplos de QUAL3 hoje?
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para QUAL3 é de R$ 3,09 (+40,2% vs cotação). Negociada a P/L 23,96x e P/VP 0,47x, a ação oferece Spread de Earnings Yield de -2,3% a.a. sobre o juro real da NTN-B.</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-600 flex-shrink-0"></span>
+              Qual é o Valor Intrínseco de Graham e múltiplos de QUAL3 hoje?
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">Pela fórmula clássica de Benjamin Graham (V = √(22,5 × LPA × VPA)), o Preço Justo estimado para QUAL3 é de R$ 3,09 (+40,2% vs cotação). Negociada a P/L 23,96x e P/VP 0,47x, a ação oferece Spread de Earnings Yield de -2,3% a.a. sobre o juro real da NTN-B.</p>
+        </details>
       </div>
     </section>
 
@@ -3188,13 +3068,13 @@
     // 📊 MINI-MATRIZ ESTRATÉGICA 2X2 (POSICIONAMENTO RELATIVO NO UNIVERSO B3)
     // =========================================================================
     function renderMiniMatrix() {
-      const svg = document.getElementById('miniMatrixSvg');
+      const container = document.getElementById('miniMatrixGridContainer');
       const badge = document.getElementById('miniMatrixQuadrantBadge');
       const rationale = document.getElementById('miniMatrixRationale');
       const peerCountSpan = document.getElementById('miniMatrixPeerCount');
       const matrixLink = document.getElementById('miniMatrixFullMatrixLink');
       const s = currentStock;
-      if (!svg || !s) return;
+      if (!s) return;
 
       if (matrixLink && s.ticker) {
         matrixLink.href = `/index.html?workspace=matrix&ticker=${encodeURIComponent(s.ticker)}`;
@@ -3207,21 +3087,8 @@
         peerCountSpan.innerText = `${validPeers.length} empresas líquidas`;
       }
 
-      const padL = 40, padR = 15, padT = 18, padB = 26;
-      const w = 400, h = 220;
-      const innerW = w - padL - padR;
-      const innerH = h - padT - padB;
-
-      const minX = 0, maxX = 30.0;
-      const minY = 20.0, maxY = 100.0;
-
-      const scaleX = (x) => padL + (Math.min(Math.max(x - minX, 0), maxX - minX) / (maxX - minX)) * innerW;
-      const scaleY = (y) => padT + innerH - (Math.min(Math.max(y - minY, 0), maxY - minY) / (maxY - minY)) * innerH;
-
       const limiarQuality = 80.0;
       const limiarValuation = 15.38; // NTN-B 6,5% a.a. real
-      const yCross = scaleY(limiarQuality);
-      const xCross = scaleX(limiarValuation);
 
       const hasNegativeEarnings = (s.pl === null || s.pl === undefined || Number(s.pl) <= 0);
       const sPl = !hasNegativeEarnings ? Number(s.pl) : null;
@@ -3240,6 +3107,11 @@
       const sPlStr = sPl !== null ? formatNumberBR(sPl, 1) : 'Prejuízo (N/D)';
       const expPLStr = formatNumberBR(expPL, 1);
       const sEyStr = (sPl !== null && sPl > 0 ? formatNumberBR(100.0 / sPl, 1, '%') : 'Negativo / N/D');
+
+      const isQ1 = isHighQuality && isLowPl;
+      const isQ2 = isHighQuality && !isLowPl;
+      const isQ3 = !isHighQuality && isLowPl;
+      const isQ4 = (!isHighQuality && !isLowPl) || hasNegativeEarnings;
 
       if (hasNegativeEarnings) {
         quadName = 'Q4: Prejuízo / Sem Base P/L';
@@ -3271,87 +3143,55 @@
         rationale.innerHTML = quadExplanation;
       }
 
-      // Renderizar o SVG
-      const targetCx = scaleX(sPl !== null ? sPl : 28.5);
-      const targetCy = scaleY(sScore);
-      const isNearTop = (targetCy - 22 < padT);
-      const pillY = isNearTop ? targetCy + 9 : targetCy - 22;
-      const textY = isNearTop ? targetCy + 20 : targetCy - 11;
+      if (container) {
+        container.innerHTML = `
+          <div class="grid grid-cols-2 gap-2 text-left font-sans select-none">
+            <!-- Q1: Compounder Descontada (Top-Left) -->
+            <div class="p-2.5 rounded-xl border transition-all ${isQ1 ? 'bg-emerald-50/90 border-emerald-400 ring-2 ring-emerald-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${isQ1 ? 'text-emerald-950 font-extrabold' : 'text-slate-500'} uppercase">Q1 • Compounder</span>
+                ${isQ1 ? `<span class="text-[8.5px] font-mono font-extrabold bg-emerald-700 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${s.ticker}</span>` : ''}
+              </div>
+              <div class="text-[10.5px] ${isQ1 ? 'text-emerald-950 font-bold' : 'text-slate-600 font-medium'} leading-tight mt-1">Wide Moat • Preço com Desconto</div>
+              <div class="text-[9px] font-mono ${isQ1 ? 'text-emerald-700 font-bold' : 'text-slate-400'} mt-0.5">Score ≥ 80 | P/L ≤ 15,4x</div>
+            </div>
 
-      let svgHtml = `
-        <defs>
-          <clipPath id="miniMatrixClip">
-            <rect x="${padL}" y="${padT}" width="${innerW}" height="${innerH}" rx="3" />
-          </clipPath>
-        </defs>
+            <!-- Q2: Qualidade c/ Prêmio (Top-Right) -->
+            <div class="p-2.5 rounded-xl border transition-all ${isQ2 ? 'bg-sky-50/90 border-sky-400 ring-2 ring-sky-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${isQ2 ? 'text-sky-950 font-extrabold' : 'text-slate-500'} uppercase">Q2 • Prêmio</span>
+                ${isQ2 ? `<span class="text-[8.5px] font-mono font-extrabold bg-sky-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${s.ticker}</span>` : ''}
+              </div>
+              <div class="text-[10.5px] ${isQ2 ? 'text-sky-950 font-bold' : 'text-slate-600 font-medium'} leading-tight mt-1">Wide Moat • Múltiplos Exigentes</div>
+              <div class="text-[9px] font-mono ${isQ2 ? 'text-sky-700 font-bold' : 'text-slate-400'} mt-0.5">Score ≥ 80 | P/L &gt; 15,4x</div>
+            </div>
 
-        <!-- Fundo e Cortes -->
-        <g clip-path="url(#miniMatrixClip)">
-          <rect x="${padL}" y="${padT}" width="${innerW}" height="${innerH}" fill="#FAFAF8" />
+            <!-- Q3: Múltiplos Baixos / Cíclica (Bottom-Left) -->
+            <div class="p-2.5 rounded-xl border transition-all ${isQ3 ? 'bg-amber-50/90 border-amber-400 ring-2 ring-amber-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${isQ3 ? 'text-amber-950 font-extrabold' : 'text-slate-500'} uppercase">Q3 • Múltiplos Baixos</span>
+                ${isQ3 ? `<span class="text-[8.5px] font-mono font-extrabold bg-amber-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${s.ticker}</span>` : ''}
+              </div>
+              <div class="text-[10.5px] ${isQ3 ? 'text-amber-950 font-bold' : 'text-slate-600 font-medium'} leading-tight mt-1">Múltiplos Baixos • Sensível a Ciclo</div>
+              <div class="text-[9px] font-mono ${isQ3 ? 'text-amber-700 font-bold' : 'text-slate-400'} mt-0.5">Score &lt; 80 | P/L ≤ 15,4x</div>
+            </div>
 
-          <!-- Quadrantes com Tonalidades Suaves -->
-          <rect x="${padL}" y="${padT}" width="${xCross - padL}" height="${yCross - padT}" fill="#10B981" fill-opacity="0.08" />
-          <rect x="${xCross}" y="${padT}" width="${padL + innerW - xCross}" height="${yCross - padT}" fill="#0284C7" fill-opacity="0.04" />
-          <rect x="${padL}" y="${yCross}" width="${xCross - padL}" height="${padT + innerH - yCross}" fill="#F59E0B" fill-opacity="0.04" />
-          <rect x="${xCross}" y="${yCross}" width="${padL + innerW - xCross}" height="${padT + innerH - yCross}" fill="#EF4444" fill-opacity="0.04" />
-
-          <!-- Linhas Tracejadas de Corte NTN-B e Tier 1 -->
-          <line x1="${padL}" y1="${yCross}" x2="${padL + innerW}" y2="${yCross}" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-          <line x1="${xCross}" y1="${padT}" x2="${xCross}" y2="${padT + innerH}" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8" />
-
-          <!-- Rótulos Sutis de Quadrantes -->
-          <text x="${padL + 6}" y="${padT + 12}" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q1: Compounders</text>
-          <text x="${padL + innerW - 6}" y="${padT + 12}" text-anchor="end" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q2: Qualidade c/ Prêmio</text>
-          <text x="${padL + 6}" y="${padT + innerH - 6}" fill="#D97706" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q3: Múltiplos Baixos</text>
-          <text x="${padL + innerW - 6}" y="${padT + innerH - 6}" text-anchor="end" fill="#E11D48" font-size="8.5" font-family="JetBrains Mono" font-weight="800" opacity="0.75">Q4: Risco/Caro</text>
-
-          <!-- Pontos de Background dos Pares do Universo Coberto -->
-          <g>
-            ${validPeers.filter(p => p.ticker !== s.ticker).map(p => {
-              const px = scaleX(p.pl);
-              const py = scaleY(p.quality_score || 50);
-              const titlePl = (p.pl && p.pl > 0) ? formatNumberBR(p.pl, 1) : 'N/D';
-              const titleScore = formatNumberBR(p.quality_score || 0, 0);
-              return `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="#94A3B8" fill-opacity="0.5" stroke="#64748B" stroke-width="0.5"><title>${p.ticker}: P/L ${titlePl}x | Score ${titleScore}</title></circle>`;
-            }).join('')}
-          </g>
-
-          <!-- Ponto Pulsante em Destaque para o Ativo Atual -->
-          <g class="cursor-pointer">
-            <!-- Anel Externo com Efeito Ripple Pulsante -->
-            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="10" fill="none" stroke="#004B49" stroke-width="2" opacity="0.6">
-              <animate attributeName="r" values="6;16;6" dur="2s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.9;0.1;0.9" dur="2s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="8" fill="none" stroke="#00A887" stroke-width="1.5" opacity="0.8" />
-            <!-- Ponto Central -->
-            <circle cx="${targetCx.toFixed(1)}" cy="${targetCy.toFixed(1)}" r="5.5" fill="#004B49" stroke="#FFFFFF" stroke-width="2" />
-            <!-- Callout do Ticker -->
-            <rect x="${(targetCx - 20).toFixed(1)}" y="${pillY.toFixed(1)}" width="40" height="13" rx="3" fill="#004B49" />
-            <text x="${targetCx.toFixed(1)}" y="${textY.toFixed(1)}" text-anchor="middle" fill="#FFFFFF" font-size="8.5" font-family="JetBrains Mono" font-weight="800">${s.ticker}</text>
-          </g>
-        </g>
-
-        <!-- Eixos Principais e Legendas -->
-        <line x1="${padL}" y1="${padT + innerH}" x2="${padL + innerW}" y2="${padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
-        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + innerH}" stroke="#94A3B8" stroke-width="1.5" />
-
-        <!-- Ticks do Eixo Y (Moat: 20, 50, 80, 100) -->
-        <text x="${padL - 4}" y="${scaleY(100) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">100</text>
-        <text x="${padL - 4}" y="${yCross + 3}" text-anchor="end" fill="#059669" font-size="8.5" font-family="JetBrains Mono" font-weight="800">80</text>
-        <text x="${padL - 4}" y="${scaleY(50) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">50</text>
-        <text x="${padL - 4}" y="${scaleY(20) + 3}" text-anchor="end" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">20</text>
-
-        <!-- Ticks do Eixo X (P/L: 0x, 15,4x, 30x) -->
-        <text x="${padL}" y="${padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">0x</text>
-        <text x="${xCross.toFixed(1)}" y="${padT + innerH + 12}" text-anchor="middle" fill="#0284C7" font-size="8.5" font-family="JetBrains Mono" font-weight="800">15,4x</text>
-        <text x="${padL + innerW}" y="${padT + innerH + 12}" text-anchor="middle" fill="#64748B" font-size="8" font-family="JetBrains Mono" font-weight="600">30x</text>
-
-        <!-- Legenda Inferior do Eixo X -->
-        <text x="${padL + innerW / 2}" y="${h - 4}" text-anchor="middle" fill="#475569" font-size="8.5" font-family="JetBrains Mono" font-weight="700">P/L (Corte NTN-B: 15,4x)</text>
-      `;
-
-      svg.innerHTML = svgHtml;
+            <!-- Q4: Risco / Esticada (Bottom-Right) -->
+            <div class="p-2.5 rounded-xl border transition-all ${isQ4 ? 'bg-rose-50/90 border-rose-400 ring-2 ring-rose-300 shadow-xs' : 'bg-slate-50/50 border-slate-200/80 opacity-70'} flex flex-col justify-between min-h-[72px]">
+              <div class="flex items-center justify-between">
+                <span class="text-[9.5px] font-mono font-bold ${isQ4 ? 'text-rose-950 font-extrabold' : 'text-slate-500'} uppercase">Q4 • Risco / Esticada</span>
+                ${isQ4 ? `<span class="text-[8.5px] font-mono font-extrabold bg-rose-600 text-white px-1.5 py-0.2 rounded-full shadow-2xs">📍 ${s.ticker}</span>` : ''}
+              </div>
+              <div class="text-[10.5px] ${isQ4 ? 'text-rose-950 font-bold' : 'text-slate-600 font-medium'} leading-tight mt-1">Sem Moat • Múltiplos Elevados</div>
+              <div class="text-[9px] font-mono ${isQ4 ? 'text-rose-700 font-bold' : 'text-slate-400'} mt-0.5">Score &lt; 80 | P/L &gt; 15,4x</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-[11px] font-mono">
+            <span class="text-slate-500">Coordenadas:</span>
+            <span class="font-bold text-slate-800">Moat Score <b class="text-[#004B49]">${sScoreStr}</b> • P/L <b class="text-[#004B49]">${sPlStr}x</b></span>
+          </div>
+        `;
+      }
     }
 
     // Busca de Ações no Header com Navegação por Teclado

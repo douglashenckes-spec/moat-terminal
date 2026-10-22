@@ -1928,7 +1928,7 @@ def build_programmatic_seo():
         special_balance_note = "\n".join(special_notes)
 
         editorial_section_html = f"""
-    <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO, GRAHAM, BAZIN & PARES SETORIAIS -->
+    <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO & PARES SETORIAIS -->
     <section class="mt-8 pt-8 border-t border-slate-200 space-y-6">
       
       <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
@@ -1944,51 +1944,6 @@ def build_programmatic_seo():
           <a href="/acoes/" class="text-xs font-mono font-bold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1.5 rounded-xl hover:bg-[#DCF0EC] transition flex items-center gap-1.5">
             <span>← Ver Todas as Empresas</span>
           </a>
-        </div>
-
-        <!-- Grid de Modelos Clássicos de Valuation -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Card Graham -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Justo Graham</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full {graham_badge_class}">
-                {graham_badge}
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">{graham_str}</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              {graham_interpretation}
-            </p>
-          </div>
-
-          <!-- Card Bazin -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Preço Teto Bazin (6%)</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full {bazin_badge_class}">
-                {bazin_badge}
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">{bazin_str}</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              {bazin_interpretation}
-            </p>
-          </div>
-
-          <!-- Card NTN-B -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-900 uppercase">Spread Real NTN-B</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full font-bold { 'bg-emerald-100 text-emerald-800' if ey_spread > 0 else 'bg-amber-100 text-amber-800' }">
-                { 'Prêmio Positivo' if ey_spread > 0 else 'Abaixo do IPCA+' }
-              </span>
-            </div>
-            <div class="text-xl font-bold font-mono text-slate-900">{ey_spread_str} a.a.</div>
-            <p class="text-xs text-slate-600 font-sans leading-relaxed">
-              Earnings Yield da companhia contra a taxa real da NTN-B 2035 do Tesouro Direto (~6,5% a.a. acima do IPCA).
-            </p>
-          </div>
         </div>
 
         {special_balance_note}
@@ -2011,50 +1966,62 @@ def build_programmatic_seo():
     </section>
 """
 
-        # Pre-rendered FAQ Accordion HTML
+        # Pre-rendered FAQ Accordion HTML (Recolhido com tags semânticas para Google e IA)
         faq_section_html = f"""
-    <!-- SEÇÃO DIDÁTICA DE PERGUNTAS FREQUENTES (FAQ & RESPOSTAS ESTRUTURADAS PARA O GOOGLE E IA) -->
+    <!-- SEÇÃO DIDÁTICA DE PERGUNTAS FREQUENTES (FAQ ACCORDION & ESTRUTURA PARA GOOGLE E IA) -->
     <section class="mt-8 pt-8 border-t border-slate-200 space-y-4">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 class="text-lg font-serif font-bold text-slate-900">Perguntas Frequentes sobre {empresa} ({ticker})</h2>
-          <p class="text-xs text-slate-500 font-sans mt-0.5">Respostas fundamentadas nos demonstrativos contábeis e no modelo de vantagens competitivas.</p>
+          <p class="text-xs text-slate-500 font-sans mt-0.5">Respostas estruturadas com base nos demonstrativos oficiais e metodologia Munger.</p>
         </div>
         <span class="text-[10px] font-mono text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-1 rounded-full font-bold">{tri_balanco} CVM Auditado</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-[#00A887] flex-shrink-0"></span>
-            {faq_q1}
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">{faq_a1}</p>
-        </div>
+      <div class="space-y-2.5">
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]" open>
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#00A887] flex-shrink-0"></span>
+              {faq_q1}
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">{faq_a1}</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-600 flex-shrink-0"></span>
-            {faq_q2}
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">{faq_a2}</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600 flex-shrink-0"></span>
+              {faq_q2}
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">{faq_a2}</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-indigo-600 flex-shrink-0"></span>
-            {faq_q3}
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">{faq_a3}</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-600 flex-shrink-0"></span>
+              {faq_q3}
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">{faq_a3}</p>
+        </details>
 
-        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
-          <h3 class="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-amber-600 flex-shrink-0"></span>
-            {faq_q4}
-          </h3>
-          <p class="text-xs text-slate-600 leading-relaxed font-sans">{faq_a4}</p>
-        </div>
+        <details class="group bg-white rounded-2xl border border-slate-200 p-4 shadow-3xs transition hover:border-[#004B49]">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-xs font-mono text-slate-900 select-none list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-600 flex-shrink-0"></span>
+              {faq_q4}
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform duration-200 text-xs">▼</span>
+          </summary>
+          <p class="text-xs text-slate-600 leading-relaxed font-sans pt-3 border-t border-slate-100 mt-2.5">{faq_a4}</p>
+        </details>
       </div>
     </section>
 """
