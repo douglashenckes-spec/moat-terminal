@@ -419,7 +419,7 @@ html_template = f"""<!DOCTYPE html>
               </p>
             </div>
             <div class="mt-2 pt-1.5 border-t border-slate-800 text-[9.5px] font-mono text-slate-400 flex items-center justify-between">
-              <span>Base CVM 2T26</span>
+              <span>Base CVM Vigente (2T/3T)</span>
               <span class="text-emerald-400 font-bold">Liquidez &gt; R$ 1M</span>
             </div>
           </div>
@@ -1166,6 +1166,8 @@ html_template = f"""<!DOCTYPE html>
           <div class="relative inline-flex items-center">
             <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="" disabled selected>+ Mais Filtros...</option>
+              <option value="CAT_3T26">⚡ Safra 3T26 (Recém-Divulgados CVM)</option>
+              <option value="CAT_2T26">📄 Base 2T26 (Aguardando 3T26)</option>
               <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
               <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
               <option value="CAT_CRITICAL_LEVERAGE">🚨 Risco Alavancagem (Balanço Pressionado)</option>
@@ -1215,7 +1217,7 @@ html_template = f"""<!DOCTYPE html>
             </label>
             <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="recency">
               <input type="checkbox" id="chkLatestBalance" checked onchange="toggleGatekeeper()" class="w-3.5 h-3.5 rounded text-emerald-600 border-slate-300">
-              <span class="text-[11px]" id="chkBalLabel">Vigente</span>
+              <span class="text-[11px]" id="chkBalLabel">Balanço Vigente</span>
               <span class="info-badge cursor-pointer">ⓘ</span>
             </label>
             <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="tag_along">
@@ -1284,7 +1286,7 @@ html_template = f"""<!DOCTYPE html>
           <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-500">
             <span>Fonte de dados: <b class="text-slate-800">CVM / Fundamentus</b></span>
             <span class="text-emerald-700 font-bold flex items-center gap-1 font-mono text-[10px]">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Auditado 2T26
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Auditado CVM Vigente
             </span>
           </div>
         </div>
@@ -1587,11 +1589,11 @@ html_template = f"""<!DOCTYPE html>
       }}
       const lq = APP_DATA.latest_quarter || '3T26';
       const topBadge = document.getElementById('topbar-quarter-badge');
-      if (topBadge) topBadge.innerText = lq + ' CVM';
+      if (topBadge) topBadge.innerText = 'Safra ' + lq + ' • CVM';
       const heroBadge = document.getElementById('heroQuarterBadge');
-      if (heroBadge) heroBadge.innerText = 'Inteligência Estratégica B3 • ' + lq + ' Auditado';
+      if (heroBadge) heroBadge.innerText = 'Inteligência Estratégica B3 • Base CVM Vigente';
       const chkLbl = document.getElementById('chkBalLabel');
-      if (chkLbl) chkLbl.innerText = lq;
+      if (chkLbl) chkLbl.innerText = 'Balanço Vigente';
 
       const liq = document.getElementById('cnt-liq-badge');
       if (liq) liq.innerText = APP_DATA.stocks.filter(s => s.is_liquid_1m).length;
@@ -1829,6 +1831,12 @@ html_template = f"""<!DOCTYPE html>
         if (currentFilter === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
         if (currentFilter === 'NTNB' || currentFilter === 'CAT_SPREAD_NTNB') {{
           return s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0));
+        }}
+        if (currentFilter === 'CAT_3T26') {{
+          return !!(s.tri_balanco && s.tri_balanco.includes('3T26'));
+        }}
+        if (currentFilter === 'CAT_2T26') {{
+          return !!(s.tri_balanco && s.tri_balanco.includes('2T26'));
         }}
         if (currentFilter === 'CAT_EXPANSION') {{
           return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88);
@@ -2727,13 +2735,23 @@ html_template = f"""<!DOCTYPE html>
         icon: '🛡️',
         rationale: 'Empresas cujas disponibilidades financeiras superam suas dívidas brutas (Dívida Líquida ≤ 0) ou possuem alavancagem líquida residual (≤ 0,15x EBITDA por arrendamento IFRS-16).'
       }},
+      'CAT_3T26': {{
+        name: 'Safra 3T26 (Recém-Divulgados CVM)',
+        icon: '⚡',
+        rationale: 'Companhias que já divulgaram seus demonstrativos financeiros oficiais do 3T26 perante a CVM na temporada atual de resultados.'
+      }},
+      'CAT_2T26': {{
+        name: 'Base 2T26 (Aguardando 3T26)',
+        icon: '📄',
+        rationale: 'Companhias com balanço vigente do 2T26, dentro do prazo regulatório legal da CVM aguardando a publicação do 3T26.'
+      }},
       'CAT_EXPANSION': {{
-        name: 'Lucro Acelerando (Expansão 2T26)',
+        name: 'Lucro Acelerando (Expansão Trimestral)',
         icon: '⚡',
         rationale: 'Empresas cujo lucro run-rate anualizado do trimestre mais recente supera em mais de 15% o lucro histórico dos últimos 12 meses (LTM).'
       }},
       'CAT_DECELERATION': {{
-        name: 'Lucro em Retração (Desaceleração 2T26)',
+        name: 'Lucro em Retração (Desaceleração Trimestral)',
         icon: '⚠️',
         rationale: 'Empresas cujo lucro run-rate anualizado do trimestre mais recente recuou mais de 20% frente à média dos últimos 12 meses.'
       }},
@@ -3722,13 +3740,33 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'O caixa líquido dilui aritmeticamente o ROE contábil, mas o ROIC elevado atesta a altíssima produtividade do capital investido na operação.'
       }},
       {{
+        id: 'CAT_3T26',
+        name: 'Safra 3T26 (Recém-Divulgados CVM)',
+        shortName: 'Safra 3T26',
+        icon: '⚡',
+        color: 'teal',
+        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
+        description: 'Companhias abertas que já publicaram os resultados auditados do 3T26 perante a CVM na temporada atual.',
+        rationale: 'Permite acompanhar em tempo real as empresas que inauguraram a temporada de resultados do terceiro trimestre com dados atualizados.'
+      }},
+      {{
+        id: 'CAT_2T26',
+        name: 'Base 2T26 (Aguardando 3T26)',
+        shortName: 'Base 2T26',
+        icon: '📄',
+        color: 'slate',
+        badgeClass: 'bg-slate-50 text-slate-950 border border-slate-300',
+        description: 'Companhias com balanço vigente do 2T26 dentro do calendário CVM aguardando a divulgação do 3T26.',
+        rationale: 'Universo de empresas ainda respaldado pelo 2T26 sem atrasos regulatórios.'
+      }},
+      {{
         id: 'CAT_EXPANSION',
-        name: 'Lucro Acelerando (Expansão 2T26)',
+        name: 'Lucro Acelerando (Expansão Trimestral)',
         shortName: 'Lucro Acelerando',
         icon: '⚡',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas cujo lucro líquido anualizado do 2T26 (Run-Rate) supera em mais de 15% a média dos últimos 12 meses acumulados.',
+        description: 'Empresas cujo lucro líquido anualizado do trimestre mais recente (Run-Rate) supera em mais de 15% a média dos últimos 12 meses acumulados.',
         rationale: 'Rastreador de aceleração operacional recente: identifica momento contábil positivo, expansão de margens e alavancagem operacional antes da reprecificação total pelo consenso.'
       }},
       {{
@@ -3853,7 +3891,7 @@ html_template = f"""<!DOCTYPE html>
       }},
       {{
         id: 'CAT_DECELERATION',
-        name: 'Lucro em Retração (Desaceleração 2T26)',
+        name: 'Lucro em Retração (Desaceleração Trimestral)',
         shortName: 'Lucro em Retração',
         icon: '⚠️',
         color: 'amber',
@@ -6877,7 +6915,7 @@ html_template = f"""<!DOCTYPE html>
       }},
       recency: {{
         title: '📅 Tempestividade do Balanço (Demonstrativo Vigente CVM)',
-        desc: 'Filtra companhias que estão com seus demonstrativos mais recentes em dia perante o calendário regulatório da CVM (3T26 / 2T26), eliminando empresas com balanços defasados.',
+        desc: 'Filtra companhias com demonstrativos mais recentes em dia perante a CVM (2T26 e 3T26 vigentes), eliminando empresas com balanços defasados (1T26 ou anteriores).',
         foot: 'Garante 100% de precisão nos números correntes'
       }},
       tag_along: {{
