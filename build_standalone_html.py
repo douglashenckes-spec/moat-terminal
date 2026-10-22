@@ -1197,7 +1197,7 @@ html_template = f"""<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Direita: Setor + Contadores + Critérios -->
+        <!-- Direita: Setor + Contador de Ativos -->
         <div class="flex items-center gap-2.5 flex-wrap">
           <div class="flex items-center gap-1.5">
             <span class="text-xs font-sans text-slate-400 font-semibold uppercase">Setor:</span>
@@ -1207,25 +1207,6 @@ html_template = f"""<!DOCTYPE html>
           </div>
 
           <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
-
-          <!-- Filtros de Qualidade Institucional (Compactos) -->
-          <div class="hidden xl:flex items-center gap-2.5 text-xs font-mono text-slate-600">
-            <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="liq">
-              <input type="checkbox" id="chkLiquidity1M" checked onchange="toggleGatekeeper()" class="w-3.5 h-3.5 rounded text-emerald-600 border-slate-300">
-              <span class="text-[11px]">Liq ≥ 1M</span>
-              <span class="info-badge cursor-pointer">ⓘ</span>
-            </label>
-            <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="recency">
-              <input type="checkbox" id="chkLatestBalance" checked onchange="toggleGatekeeper()" class="w-3.5 h-3.5 rounded text-emerald-600 border-slate-300">
-              <span class="text-[11px]" id="chkBalLabel">Balanço Vigente</span>
-              <span class="info-badge cursor-pointer">ⓘ</span>
-            </label>
-            <label class="flex items-center gap-1 cursor-pointer select-none" data-tooltip="tag_along">
-              <input type="checkbox" id="chkOnlyON" onchange="toggleGatekeeper()" class="w-3.5 h-3.5 rounded text-emerald-600 border-slate-300">
-              <span class="text-[11px]">Só ON</span>
-              <span class="info-badge cursor-pointer">ⓘ</span>
-            </label>
-          </div>
 
           <span class="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full" id="tableCountBadge">-- ativos</span>
         </div>
@@ -1473,6 +1454,7 @@ html_template = f"""<!DOCTYPE html>
   <script>
     let APP_DATA = {json_data_str};
     let currentFilter = 'ALL';
+    let activeFilters = new Set();
     let currentSector = 'ALL';
     let currentSortCol = 'quality_score';
     let currentSortAsc = false;
@@ -1776,36 +1758,75 @@ html_template = f"""<!DOCTYPE html>
       return true;
     }}
 
+    function matchesFilter(s, f) {{
+      if (!f || f === 'ALL') return true;
+      if (f === 'IBOV') return !!s.is_ibov;
+      if (f === 'TIER1' || f === 'CAT_TIER1') return (s.quality_score || 0) >= 80.0;
+      if (f === 'DIVIDENDS' || f === 'CAT_DIVIDENDS') return isConsistentDividendStock(s);
+      if (f === 'NET_CASH' || f === 'CAT_NET_CASH') return isNetCashStock(s);
+      if (f === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
+      if (f === 'NTNB' || f === 'CAT_SPREAD_NTNB') return s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0));
+      if (f === 'CAT_3T26') return !!(s.tri_balanco && s.tri_balanco.includes('3T26'));
+      if (f === 'CAT_2T26') return !!(s.tri_balanco && s.tri_balanco.includes('2T26'));
+      if (f === 'CAT_EXPANSION') return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88);
+      if (f === 'CAT_DECELERATION') return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25);
+      if (f === 'CAT_HIGH_DEBT') return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
+      if (f === 'CAT_CLEAN_EARNINGS') return !s.is_distorted && !!(s.historical_5y && s.historical_5y.is_all_profitable);
+      if (f === 'CAT_HIGH_ROIC') return (!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18);
+      if (f === 'CAT_FINANCIAL') return !!s.is_financial;
+      if (f === 'CAT_GRAHAM') return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
+      if (f === 'CAT_BAZIN') return getStockCategories(s).some(c => c.id === 'CAT_BAZIN');
+      if (f === 'CAT_ULTRA_CRITIC') {{
+        if ((s.quality_score || 0) < 75) return false;
+        if (s.is_distorted || s.is_commodity_peak) return false;
+        if (s.ey_spread === null || s.ey_spread < 1.5) return false;
+        if (s.is_financial) {{
+          if ((s.roe || 0) < 0.15) return false;
+        }} else {{
+          if (s.capital_intensity === null || s.capital_intensity < 0.75) return false;
+          const dl = s.details ? s.details.divida_liquida : null;
+          const dle = s.div_liq_ebitda;
+          const isSafeDebt = (dl !== null && dl <= 0) || (dle !== null && dle <= 1.0);
+          if (!isSafeDebt) return false;
+        }}
+        return true;
+      }}
+      if (f === 'CAT_DISCOUNT') return s.entry_tag === 'ASSIMETRIA_FAVORAVEL';
+      if (f === 'CAT_DESCONTO_MOAT') return s.entry_tag === 'DESCONTO_MOAT';
+      if (f === 'QUAD_Q1') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
+      if (f === 'QUAD_Q2') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 14.0);
+      if (f === 'QUAD_Q3') return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
+      if (f === 'QUAD_Q4') return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 14.0);
+      if (f === 'QUAD_ABOVE' || f === 'QUAD_FILE' || f === 'QUAD_BARGAIN') {{
+        if (!s.pl || s.pl <= 0) return false;
+        return s.pl < calcAdjustedFairPL(s);
+      }}
+      if (f === 'QUAD_BELOW' || f === 'QUAD_EXPENSIVE' || f === 'QUAD_TRAP') {{
+        if (!s.pl || s.pl <= 0) return true;
+        return s.pl >= calcAdjustedFairPL(s);
+      }}
+      if (f.startsWith('CAT_')) {{
+        const cats = getStockCategories(s);
+        return cats.some(c => c.id === f);
+      }}
+      return true;
+    }}
+
     function getFilteredStocks() {{
-      const require1M = document.getElementById('chkLiquidity1M') ? document.getElementById('chkLiquidity1M').checked : true;
-      const requireLatestBal = document.getElementById('chkLatestBalance') ? document.getElementById('chkLatestBalance').checked : true;
       const requireRecurring = document.getElementById('chkFilterDistortions') ? document.getElementById('chkFilterDistortions').checked : false;
       const requireAcidTest = document.getElementById('chkAcidTest') ? document.getElementById('chkAcidTest').checked : false;
-      const requireOnlyON = document.getElementById('chkOnlyON') ? document.getElementById('chkOnlyON').checked : false;
 
       return APP_DATA.stocks.filter(s => {{
-        // Gatekeeper 1: Liquidez >= 1M
-        if (require1M && !s.is_liquid_1m) return false;
+        // Base institucional: apenas universo líquido e com balanço em dia
+        if (!s.is_liquid_1m || !s.is_latest_balanco) return false;
 
-        // Gatekeeper 2: Balanço do Último Tri
-        if (requireLatestBal && !s.is_latest_balanco) return false;
-
-        // Gatekeeper 3: Apenas Lucros Recorrentes (Sem Distorções Trimestrais)
         if (requireRecurring && s.is_distorted) return false;
-
-        // Gatekeeper 4: Munger Acid Test (EBIT/EBITDA >= 75% ou Bancos ROE >= 15%)
         if (requireAcidTest) {{
           if (s.is_financial) {{
             if (!s.roe || s.roe < 0.15) return false;
           }} else {{
             if (s.capital_intensity === null || s.capital_intensity === undefined || s.capital_intensity < 0.75) return false;
           }}
-        }}
-
-        // Gatekeeper 5: Ações Ordinárias (ON - 100% Tag Along Legal)
-        if (requireOnlyON) {{
-          const tipo = (s.details && s.details.tipo) ? s.details.tipo.toUpperCase() : '';
-          if (!tipo.includes('ON')) return false;
         }}
 
         // Filtro Setorial
@@ -1818,103 +1839,19 @@ html_template = f"""<!DOCTYPE html>
           if (!match) return false;
         }}
 
-        // Presets Munger / Moat Terminal Unificados
-        if (currentFilter === 'ALL') return true;
-        if (currentFilter === 'IBOV') return !!s.is_ibov;
-        if (currentFilter === 'TIER1' || currentFilter === 'CAT_TIER1') return (s.quality_score || 0) >= 80.0;
-        if (currentFilter === 'DIVIDENDS' || currentFilter === 'CAT_DIVIDENDS') {{
-          return isConsistentDividendStock(s);
-        }}
-        if (currentFilter === 'NET_CASH' || currentFilter === 'CAT_NET_CASH') {{
-          return isNetCashStock(s);
-        }}
-        if (currentFilter === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
-        if (currentFilter === 'NTNB' || currentFilter === 'CAT_SPREAD_NTNB') {{
-          return s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0));
-        }}
-        if (currentFilter === 'CAT_3T26') {{
-          return !!(s.tri_balanco && s.tri_balanco.includes('3T26'));
-        }}
-        if (currentFilter === 'CAT_2T26') {{
-          return !!(s.tri_balanco && s.tri_balanco.includes('2T26'));
-        }}
-        if (currentFilter === 'CAT_EXPANSION') {{
-          return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88);
-        }}
-        if (currentFilter === 'CAT_DECELERATION') {{
-          return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25);
-        }}
-        if (currentFilter === 'CAT_HIGH_DEBT') {{
-          return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
-        }}
-        if (currentFilter === 'CAT_CLEAN_EARNINGS') {{
-          return !s.is_distorted && !!(s.historical_5y && s.historical_5y.is_all_profitable);
-        }}
-        if (currentFilter === 'CAT_HIGH_ROIC') {{
-          return (!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18);
-        }}
-        if (currentFilter === 'CAT_FINANCIAL') return !!s.is_financial;
-        if (currentFilter === 'CAT_GRAHAM') {{
-          return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
-        }}
-        if (currentFilter === 'CAT_BAZIN') {{
-          return getStockCategories(s).some(c => c.id === 'CAT_BAZIN');
-        }}
-
-        // 0. Categoria Ultra-Crítica (Régua Máxima Munger: Qualidade & Solvência)
-        if (currentFilter === 'CAT_ULTRA_CRITIC') {{
-          if ((s.quality_score || 0) < 75) return false;
-          if (s.is_distorted || s.is_commodity_peak) return false;
-          if (s.ey_spread === null || s.ey_spread < 1.5) return false;
-          if (s.is_financial) {{
-            if ((s.roe || 0) < 0.15) return false;
-          }} else {{
-            if (s.capital_intensity === null || s.capital_intensity < 0.75) return false;
-            const dl = s.details ? s.details.divida_liquida : null;
-            const dle = s.div_liq_ebitda;
-            const isSafeDebt = (dl !== null && dl <= 0) || (dle !== null && dle <= 1.0);
-            if (!isSafeDebt) return false;
+        // Interseção cumulativa (AND): se houver filtros ativos, precisa atender a TODOS
+        if (activeFilters.size > 0) {{
+          for (const f of activeFilters) {{
+            if (!matchesFilter(s, f)) return false;
           }}
           return true;
         }}
 
-        // Filtros Estratégicos de Valuation (Verde e Azul)
-        if (currentFilter === 'CAT_DISCOUNT') {{
-          return s.entry_tag === 'ASSIMETRIA_FAVORAVEL';
-        }}
-        if (currentFilter === 'CAT_DESCONTO_MOAT') {{
-          return s.entry_tag === 'DESCONTO_MOAT';
+        // Fallback para currentFilter único
+        if (currentFilter && currentFilter !== 'ALL' && currentFilter !== 'MULTI') {{
+          return matchesFilter(s, currentFilter);
         }}
 
-        // Filtros dos Quadrantes 2x2
-        if (currentFilter === 'QUAD_Q1') {{
-          return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
-        }}
-        if (currentFilter === 'QUAD_Q2') {{
-          return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 14.0);
-        }}
-        if (currentFilter === 'QUAD_Q3') {{
-          return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
-        }}
-        if (currentFilter === 'QUAD_Q4') {{
-          return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 14.0);
-        }}
-
-        // Filtros de quadrante na curva de regressão (Desconto vs Prêmio)
-        if (currentFilter === 'QUAD_ABOVE' || currentFilter === 'QUAD_FILE' || currentFilter === 'QUAD_BARGAIN') {{
-          if (!s.pl || s.pl <= 0) return false;
-          return s.pl < calcAdjustedFairPL(s);
-        }}
-        if (currentFilter === 'QUAD_BELOW' || currentFilter === 'QUAD_EXPENSIVE' || currentFilter === 'QUAD_TRAP') {{
-          if (!s.pl || s.pl <= 0) return true;
-          return s.pl >= calcAdjustedFairPL(s);
-        }}
-
-        // Enquadramentos / Categorias Institucionais Padronizadas
-        if (currentFilter.startsWith('CAT_')) {{
-          const cats = getStockCategories(s);
-          return cats.some(c => c.id === currentFilter);
-        }}
         return true;
       }});
     }}
@@ -2307,28 +2244,8 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function updateFilterCounts() {{
-      const require1M = document.getElementById('chkLiquidity1M') ? document.getElementById('chkLiquidity1M').checked : true;
-      const requireLatestBal = document.getElementById('chkLatestBalance') ? document.getElementById('chkLatestBalance').checked : true;
-      const requireRecurring = document.getElementById('chkFilterDistortions') ? document.getElementById('chkFilterDistortions').checked : false;
-      const requireAcidTest = document.getElementById('chkAcidTest') ? document.getElementById('chkAcidTest').checked : false;
-      const requireOnlyON = document.getElementById('chkOnlyON') ? document.getElementById('chkOnlyON').checked : false;
-
-      // Base qualificada pelos gatekeepers atuais e setor se selecionado
       const basePool = APP_DATA.stocks.filter(s => {{
-        if (require1M && !s.is_liquid_1m) return false;
-        if (requireLatestBal && !s.is_latest_balanco) return false;
-        if (requireRecurring && s.is_distorted) return false;
-        if (requireAcidTest) {{
-          if (s.is_financial) {{
-            if (!s.roe || s.roe < 0.15) return false;
-          }} else {{
-            if (s.capital_intensity === null || s.capital_intensity < 0.75) return false;
-          }}
-        }}
-        if (requireOnlyON) {{
-          const tipo = (s.details && s.details.tipo) ? s.details.tipo.toUpperCase() : '';
-          if (!tipo.includes('ON')) return false;
-        }}
+        if (!s.is_liquid_1m || !s.is_latest_balanco) return false;
         if (currentSector !== 'ALL' && s.setor !== currentSector) return false;
         return true;
       }});
@@ -2425,27 +2342,8 @@ html_template = f"""<!DOCTYPE html>
       const select = document.getElementById('sectorSelect');
       if (!select) return;
 
-      const require1M = document.getElementById('chkLiquidity1M') ? document.getElementById('chkLiquidity1M').checked : true;
-      const requireLatestBal = document.getElementById('chkLatestBalance') ? document.getElementById('chkLatestBalance').checked : true;
-      const requireRecurring = document.getElementById('chkFilterDistortions') ? document.getElementById('chkFilterDistortions').checked : false;
-      const requireAcidTest = document.getElementById('chkAcidTest') ? document.getElementById('chkAcidTest').checked : false;
-      const requireOnlyON = document.getElementById('chkOnlyON') ? document.getElementById('chkOnlyON').checked : false;
-
       const qualified = APP_DATA.stocks.filter(s => {{
-        if (require1M && !s.is_liquid_1m) return false;
-        if (requireLatestBal && !s.is_latest_balanco) return false;
-        if (requireRecurring && s.is_distorted) return false;
-        if (requireAcidTest) {{
-          if (s.is_financial) {{
-            if (!s.roe || s.roe < 0.15) return false;
-          }} else {{
-            if (s.capital_intensity === null || s.capital_intensity < 0.75) return false;
-          }}
-        }}
-        if (requireOnlyON) {{
-          const tipo = (s.details && s.details.tipo) ? s.details.tipo.toUpperCase() : '';
-          if (!tipo.includes('ON')) return false;
-        }}
+        if (!s.is_liquid_1m || !s.is_latest_balanco) return false;
         return true;
       }});
 
@@ -2487,17 +2385,76 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function setFilter(f) {{
-      currentFilter = f;
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById('flt-' + f);
-      if (activeBtn) activeBtn.classList.add('active');
-      const secSel = document.getElementById('secondaryCategorySelect');
-      if (secSel) {{
-        const hasOpt = Array.from(secSel.options).some(o => o.value === f);
-        secSel.value = hasOpt ? f : '';
+      if (!f || f === 'ALL') {{
+        activeFilters.clear();
+        currentFilter = 'ALL';
+      }} else {{
+        if (activeFilters.has(f)) {{
+          activeFilters.delete(f);
+        }} else {{
+          activeFilters.add(f);
+        }}
+        currentFilter = activeFilters.size === 0 ? 'ALL' : (activeFilters.size === 1 ? Array.from(activeFilters)[0] : 'MULTI');
       }}
+      updateFilterButtonsVisualState();
       renderActiveFilterChips();
       render();
+    }}
+
+    function removeFilter(f) {{
+      activeFilters.delete(f);
+      currentFilter = activeFilters.size === 0 ? 'ALL' : (activeFilters.size === 1 ? Array.from(activeFilters)[0] : 'MULTI');
+      updateFilterButtonsVisualState();
+      renderActiveFilterChips();
+      render();
+    }}
+
+    function clearAllScannerFilters() {{
+      activeFilters.clear();
+      currentFilter = 'ALL';
+      currentSector = 'ALL';
+      searchQuery = '';
+      const inp = document.getElementById('searchInput');
+      if (inp) inp.value = '';
+      const sSec = document.getElementById('sectorSelect');
+      if (sSec) sSec.value = 'ALL';
+      updateFilterButtonsVisualState();
+      renderActiveFilterChips();
+      render();
+    }}
+
+    function updateFilterButtonsVisualState() {{
+      const btnAll = document.getElementById('flt-ALL');
+      if (btnAll) {{
+        if (activeFilters.size === 0) {{
+          btnAll.classList.add('active');
+        }} else {{
+          btnAll.classList.remove('active');
+        }}
+      }}
+
+      const presetIds = ['IBOV', 'CAT_TIER1', 'CAT_DIVIDENDS', 'CAT_NET_CASH'];
+      presetIds.forEach(id => {{
+        const btn = document.getElementById('flt-' + id);
+        if (btn) {{
+          if (activeFilters.has(id)) {{
+            btn.classList.add('active');
+          }} else {{
+            btn.classList.remove('active');
+          }}
+        }}
+      }});
+
+      const secSel = document.getElementById('secondaryCategorySelect');
+      if (secSel) {{
+        if (activeFilters.size === 1) {{
+          const single = Array.from(activeFilters)[0];
+          const hasOpt = Array.from(secSel.options).some(o => o.value === single);
+          secSel.value = hasOpt ? single : '';
+        }} else {{
+          secSel.value = '';
+        }}
+      }}
     }}
 
     function handleSearch() {{
@@ -2871,14 +2828,25 @@ html_template = f"""<!DOCTYPE html>
       
       const chips = [];
 
-      // Filtro de Categoria
-      if (currentFilter !== 'ALL') {{
+      // Filtros de Categoria (Multi-Filtro Ativo)
+      if (activeFilters.size > 0) {{
+        activeFilters.forEach(f => {{
+          const meta = BASE_FILTER_META[f] || (typeof PORTFOLIO_CATEGORIES !== 'undefined' && PORTFOLIO_CATEGORIES.find(c => c.id === f) ? {{ icon: PORTFOLIO_CATEGORIES.find(c => c.id === f).icon, name: PORTFOLIO_CATEGORIES.find(c => c.id === f).name }} : {{ icon: '🏷️', name: f }});
+          chips.push(`
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-950 font-bold border border-emerald-300 shadow-2xs text-xs">
+              <span>${{meta.icon || '🏷️'}}</span>
+              <span>${{meta.name || f}}</span>
+              <button onclick="removeFilter('${{f}}')" class="hover:bg-emerald-200 text-emerald-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-0.5 cursor-pointer" title="Remover este filtro">✕</button>
+            </span>
+          `);
+        }});
+      }} else if (currentFilter && currentFilter !== 'ALL' && currentFilter !== 'MULTI') {{
         const meta = BASE_FILTER_META[currentFilter] || {{ icon: '🏷️', name: currentFilter }};
         chips.push(`
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-950 font-bold border border-emerald-300 shadow-2xs">
-            <span>${{meta.icon}}</span>
-            <span>Filtro: ${{meta.name}}</span>
-            <button onclick="setFilter('ALL')" class="hover:bg-emerald-200 text-emerald-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-1 cursor-pointer" title="Remover filtro">✕</button>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-950 font-bold border border-emerald-300 shadow-2xs text-xs">
+            <span>${{meta.icon || '🏷️'}}</span>
+            <span>${{meta.name || currentFilter}}</span>
+            <button onclick="setFilter('ALL')" class="hover:bg-emerald-200 text-emerald-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-0.5 cursor-pointer" title="Remover filtro">✕</button>
           </span>
         `);
       }}
@@ -2886,10 +2854,10 @@ html_template = f"""<!DOCTYPE html>
       // Filtro de Setor
       if (currentSector !== 'ALL') {{
         chips.push(`
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-950 font-bold border border-indigo-200 shadow-2xs">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-950 font-bold border border-indigo-200 shadow-2xs text-xs">
             <span>🏢</span>
             <span>Setor: ${{currentSector}}</span>
-            <button onclick="handleSectorChange('ALL')" class="hover:bg-indigo-100 text-indigo-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-1 cursor-pointer" title="Remover filtro de setor">✕</button>
+            <button onclick="handleSectorChange('ALL')" class="hover:bg-indigo-100 text-indigo-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-0.5 cursor-pointer" title="Remover filtro de setor">✕</button>
           </span>
         `);
       }}
@@ -2897,18 +2865,18 @@ html_template = f"""<!DOCTYPE html>
       // Filtro de Busca por Texto
       if (searchQuery) {{
         chips.push(`
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-950 font-bold border border-amber-300 shadow-2xs">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-950 font-bold border border-amber-300 shadow-2xs text-xs">
             <span>🔍</span>
             <span>Busca: "${{searchQuery}}"</span>
-            <button onclick="clearSearchFilter()" class="hover:bg-amber-100 text-amber-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-1 cursor-pointer" title="Limpar busca">✕</button>
+            <button onclick="clearSearchFilter()" class="hover:bg-amber-100 text-amber-800 rounded-full w-4 h-4 inline-flex items-center justify-center text-xs ml-0.5 cursor-pointer" title="Limpar busca">✕</button>
           </span>
         `);
       }}
 
       if (chips.length > 0) {{
         chips.push(`
-          <button onclick="resetData()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 hover:underline px-2 py-1 cursor-pointer">
-            Limpar Todos os Filtros
+          <button onclick="clearAllScannerFilters()" class="text-xs font-semibold text-rose-700 hover:text-rose-900 hover:underline px-2 py-1 cursor-pointer flex items-center gap-1">
+            <span>✕ Limpar Todos</span>
           </button>
         `);
         container.innerHTML = chips.join('');
@@ -3042,8 +3010,15 @@ html_template = f"""<!DOCTYPE html>
 
     function setFilterAndGoTable(f) {{
       closeDossierDrawer();
-      setFilter(f);
+      activeFilters.clear();
+      if (f && f !== 'ALL') {{
+        activeFilters.add(f);
+      }}
+      currentFilter = (f && f !== 'ALL') ? f : 'ALL';
+      updateFilterButtonsVisualState();
       switchWorkspace('table');
+      renderActiveFilterChips();
+      render();
       const tb = document.getElementById('global-filters-toolbar');
       if (tb) tb.scrollIntoView({{ behavior: 'smooth' }});
     }}
@@ -6807,20 +6782,18 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function resetData() {{
+      activeFilters.clear();
       currentFilter = 'ALL';
       currentSector = 'ALL';
       searchQuery = '';
-      document.getElementById('searchInput').value = '';
-      document.getElementById('chkLiquidity1M').checked = true;
-      document.getElementById('chkLatestBalance').checked = true;
-      const chkDist = document.getElementById('chkFilterDistortions');
-      if (chkDist) chkDist.checked = false;
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('flt-ALL').classList.add('active');
+      const inp = document.getElementById('searchInput');
+      if (inp) inp.value = '';
+      updateFilterButtonsVisualState();
       updateSectorDropdown();
       resetMatrixZoom();
       selectTicker(APP_DATA.stocks[0].ticker);
       switchWorkspace('home');
+      renderActiveFilterChips();
       render();
       hideToast();
     }}
