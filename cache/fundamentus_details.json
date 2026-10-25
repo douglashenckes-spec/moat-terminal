@@ -1,9 +1,9 @@
 {
   "PFRM3": {
-    "cached_time": 1792850551.4356687,
+    "cached_time": 1792887757.0866897,
     "data": {
       "ticker": "PFRM3",
-      "audit_timestamp": "24/10/2026 11:02:31",
+      "audit_timestamp": "24/10/2026 21:22:37",
       "audit_source": "Fundamentus (detalhes.php?papel=PFRM3)",
       "empresa": "PROFARMA ON NM",
       "setor": "Comércio e Distribuição",
@@ -58,10 +58,10 @@
     }
   },
   "MATD3": {
-    "cached_time": 1792850579.4878936,
+    "cached_time": 1792887783.8731973,
     "data": {
       "ticker": "MATD3",
-      "audit_timestamp": "24/10/2026 11:02:59",
+      "audit_timestamp": "24/10/2026 21:23:03",
       "audit_source": "Fundamentus (detalhes.php?papel=MATD3)",
       "empresa": "MATER DEI ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -116,10 +116,10 @@
     }
   },
   "DXCO3": {
-    "cached_time": 1792850510.964076,
+    "cached_time": 1792887719.0567603,
     "data": {
       "ticker": "DXCO3",
-      "audit_timestamp": "24/10/2026 11:01:50",
+      "audit_timestamp": "24/10/2026 21:21:59",
       "audit_source": "Fundamentus (detalhes.php?papel=DXCO3)",
       "empresa": "DEXCO ON",
       "setor": "Madeira e Papel",
@@ -174,10 +174,10 @@
     }
   },
   "SIMH3": {
-    "cached_time": 1792850511.5948398,
+    "cached_time": 1792887719.6427054,
     "data": {
       "ticker": "SIMH3",
-      "audit_timestamp": "24/10/2026 11:01:51",
+      "audit_timestamp": "24/10/2026 21:21:59",
       "audit_source": "Fundamentus (detalhes.php?papel=SIMH3)",
       "empresa": "SIMPAR ON NM",
       "setor": "Holdings Diversificadas",
@@ -232,10 +232,10 @@
     }
   },
   "IRBR3": {
-    "cached_time": 1792850512.229255,
+    "cached_time": 1792887720.1265378,
     "data": {
       "ticker": "IRBR3",
-      "audit_timestamp": "24/10/2026 11:01:52",
+      "audit_timestamp": "24/10/2026 21:22:00",
       "audit_source": "Fundamentus (detalhes.php?papel=IRBR3)",
       "empresa": "IRBBRASIL RE ON NM",
       "setor": "Previdência e Seguros",
@@ -290,10 +290,10 @@
     }
   },
   "HBSA3": {
-    "cached_time": 1792850513.5764065,
+    "cached_time": 1792887721.3179898,
     "data": {
       "ticker": "HBSA3",
-      "audit_timestamp": "24/10/2026 11:01:53",
+      "audit_timestamp": "24/10/2026 21:22:01",
       "audit_source": "Fundamentus (detalhes.php?papel=HBSA3)",
       "empresa": "HIDROVIAS ON NM",
       "setor": "Transporte",
@@ -348,10 +348,10 @@
     }
   },
   "JSLG3": {
-    "cached_time": 1792850512.846304,
+    "cached_time": 1792887720.7208173,
     "data": {
       "ticker": "JSLG3",
-      "audit_timestamp": "24/10/2026 11:01:52",
+      "audit_timestamp": "24/10/2026 21:22:00",
       "audit_source": "Fundamentus (detalhes.php?papel=JSLG3)",
       "empresa": "JULIO SIMOES ON NM",
       "setor": "Transporte",
@@ -406,10 +406,10 @@
     }
   },
   "HAPV3": {
-    "cached_time": 1792850514.210867,
+    "cached_time": 1792887721.8080769,
     "data": {
       "ticker": "HAPV3",
-      "audit_timestamp": "24/10/2026 11:01:54",
+      "audit_timestamp": "24/10/2026 21:22:01",
       "audit_source": "Fundamentus (detalhes.php?papel=HAPV3)",
       "empresa": "HAPVIDA ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -464,10 +464,10 @@
     }
   },
   "AGRO3": {
-    "cached_time": 1792850514.821396,
+    "cached_time": 1792887722.407025,
     "data": {
       "ticker": "AGRO3",
-      "audit_timestamp": "24/10/2026 11:01:54",
+      "audit_timestamp": "24/10/2026 21:22:02",
       "audit_source": "Fundamentus (detalhes.php?papel=AGRO3)",
       "empresa": "BRASILAGRO ON NM",
       "setor": "Agropecuária",
@@ -522,10 +522,10 @@
     }
   },
   "JALL3": {
-    "cached_time": 1792850515.310431,
+    "cached_time": 1792887723.0255506,
     "data": {
       "ticker": "JALL3",
-      "audit_timestamp": "24/10/2026 11:01:55",
+      "audit_timestamp": "24/10/2026 21:22:03",
       "audit_source": "Fundamentus (detalhes.php?papel=JALL3)",
       "empresa": "JALLESMACHAD ON NM",
       "setor": "Alimentos Processados",
@@ -580,10 +580,10 @@
     }
   },
   "AURE3": {
-    "cached_time": 1792850515.7954357,
+    "cached_time": 1792887723.504254,
     "data": {
       "ticker": "AURE3",
-      "audit_timestamp": "24/10/2026 11:01:55",
+      "audit_timestamp": "24/10/2026 21:22:03",
       "audit_source": "Fundamentus (detalhes.php?papel=AURE3)",
       "empresa": "AUREN ON NM",
       "setor": "Energia Elétrica",
@@ -638,10 +638,10 @@
     }
   },
   "LWSA3": {
-    "cached_time": 1792850516.3969188,
+    "cached_time": 1792887723.983455,
     "data": {
       "ticker": "LWSA3",
-      "audit_timestamp": "24/10/2026 11:01:56",
+      "audit_timestamp": "24/10/2026 21:22:03",
       "audit_source": "Fundamentus (detalhes.php?papel=LWSA3)",
       "empresa": "LOCAWEB ON NM",
       "setor": "Programas e Serviços",
@@ -696,10 +696,10 @@
     }
   },
   "CVCB3": {
-    "cached_time": 1792850518.8826826,
+    "cached_time": 1792887725.9803143,
     "data": {
       "ticker": "CVCB3",
-      "audit_timestamp": "24/10/2026 11:01:58",
+      "audit_timestamp": "24/10/2026 21:22:05",
       "audit_source": "Fundamentus (detalhes.php?papel=CVCB3)",
       "empresa": "CVC BRASIL ON NM",
       "setor": "Viagens e Lazer",
@@ -754,10 +754,10 @@
     }
   },
   "RAPT4": {
-    "cached_time": 1792850517.0312433,
+    "cached_time": 1792887724.4507904,
     "data": {
       "ticker": "RAPT4",
-      "audit_timestamp": "24/10/2026 11:01:57",
+      "audit_timestamp": "24/10/2026 21:22:04",
       "audit_source": "Fundamentus (detalhes.php?papel=RAPT4)",
       "empresa": "RANDON S.A. IMPLEMENTOS E PARTICIPAÇÕES PN N1",
       "setor": "Material de Transporte",
@@ -812,10 +812,10 @@
     }
   },
   "MRVE3": {
-    "cached_time": 1792850517.6405811,
+    "cached_time": 1792887725.0369413,
     "data": {
       "ticker": "MRVE3",
-      "audit_timestamp": "24/10/2026 11:01:57",
+      "audit_timestamp": "24/10/2026 21:22:05",
       "audit_source": "Fundamentus (detalhes.php?papel=MRVE3)",
       "empresa": "MRV ON NM",
       "setor": "Construção Civil",
@@ -870,10 +870,10 @@
     }
   },
   "DASA3": {
-    "cached_time": 1792850518.265992,
+    "cached_time": 1792887725.5090976,
     "data": {
       "ticker": "DASA3",
-      "audit_timestamp": "24/10/2026 11:01:58",
+      "audit_timestamp": "24/10/2026 21:22:05",
       "audit_source": "Fundamentus (detalhes.php?papel=DASA3)",
       "empresa": "DIAGNOSTICOS DA AMERICA SA ON",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -928,10 +928,10 @@
     }
   },
   "CASH3": {
-    "cached_time": 1792850519.4878955,
+    "cached_time": 1792887726.4516268,
     "data": {
       "ticker": "CASH3",
-      "audit_timestamp": "24/10/2026 11:01:59",
+      "audit_timestamp": "24/10/2026 21:22:06",
       "audit_source": "Fundamentus (detalhes.php?papel=CASH3)",
       "empresa": "MELIUZ ON NM",
       "setor": "Programas e Serviços",
@@ -986,10 +986,10 @@
     }
   },
   "AZTE3": {
-    "cached_time": 1792850520.4993162,
+    "cached_time": 1792887727.3929105,
     "data": {
       "ticker": "AZTE3",
-      "audit_timestamp": "24/10/2026 11:02:00",
+      "audit_timestamp": "24/10/2026 21:22:07",
       "audit_source": "Fundamentus (detalhes.php?papel=AZTE3)",
       "empresa": "AZT ENERGIA ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -1044,10 +1044,10 @@
     }
   },
   "AMER3": {
-    "cached_time": 1792850519.9817994,
+    "cached_time": 1792887726.9174592,
     "data": {
       "ticker": "AMER3",
-      "audit_timestamp": "24/10/2026 11:01:59",
+      "audit_timestamp": "24/10/2026 21:22:06",
       "audit_source": "Fundamentus (detalhes.php?papel=AMER3)",
       "empresa": "AMERICANAS ON",
       "setor": "Comércio",
@@ -1102,10 +1102,10 @@
     }
   },
   "NATU3": {
-    "cached_time": 1792850521.1072254,
+    "cached_time": 1792887727.8572583,
     "data": {
       "ticker": "NATU3",
-      "audit_timestamp": "24/10/2026 11:02:01",
+      "audit_timestamp": "24/10/2026 21:22:07",
       "audit_source": "Fundamentus (detalhes.php?papel=NATU3)",
       "empresa": "NATURA COSMETICOS SA ON",
       "setor": "Produtos de Uso Pessoal e de Limpeza",
@@ -1160,10 +1160,10 @@
     }
   },
   "USIM5": {
-    "cached_time": 1792850521.786459,
+    "cached_time": 1792887728.3239033,
     "data": {
       "ticker": "USIM5",
-      "audit_timestamp": "24/10/2026 11:02:01",
+      "audit_timestamp": "24/10/2026 21:22:08",
       "audit_source": "Fundamentus (detalhes.php?papel=USIM5)",
       "empresa": "USIMINAS PNA N1",
       "setor": "Siderurgia e Metalurgia",
@@ -1218,10 +1218,10 @@
     }
   },
   "USIM3": {
-    "cached_time": 1792850523.0424614,
+    "cached_time": 1792887729.4055836,
     "data": {
       "ticker": "USIM3",
-      "audit_timestamp": "24/10/2026 11:02:03",
+      "audit_timestamp": "24/10/2026 21:22:09",
       "audit_source": "Fundamentus (detalhes.php?papel=USIM3)",
       "empresa": "USIMINAS ON N1",
       "setor": "Siderurgia e Metalurgia",
@@ -1276,10 +1276,10 @@
     }
   },
   "CSNA3": {
-    "cached_time": 1792850523.5240574,
+    "cached_time": 1792887729.8743331,
     "data": {
       "ticker": "CSNA3",
-      "audit_timestamp": "24/10/2026 11:02:03",
+      "audit_timestamp": "24/10/2026 21:22:09",
       "audit_source": "Fundamentus (detalhes.php?papel=CSNA3)",
       "empresa": "CSN ON",
       "setor": "Siderurgia e Metalurgia",
@@ -1334,10 +1334,10 @@
     }
   },
   "TUPY3": {
-    "cached_time": 1792850522.4094765,
+    "cached_time": 1792887728.93192,
     "data": {
       "ticker": "TUPY3",
-      "audit_timestamp": "24/10/2026 11:02:02",
+      "audit_timestamp": "24/10/2026 21:22:08",
       "audit_source": "Fundamentus (detalhes.php?papel=TUPY3)",
       "empresa": "TUPY ON",
       "setor": "Material de Transporte",
@@ -1392,10 +1392,10 @@
     }
   },
   "CSAN3": {
-    "cached_time": 1792850524.5019462,
+    "cached_time": 1792887730.951051,
     "data": {
       "ticker": "CSAN3",
-      "audit_timestamp": "24/10/2026 11:02:04",
+      "audit_timestamp": "24/10/2026 21:22:10",
       "audit_source": "Fundamentus (detalhes.php?papel=CSAN3)",
       "empresa": "COSAN SA INDUSTRIA E COMERCIO ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -1450,10 +1450,10 @@
     }
   },
   "OBTC3": {
-    "cached_time": 1792850526.0933886,
+    "cached_time": 1792887732.5906765,
     "data": {
       "ticker": "OBTC3",
-      "audit_timestamp": "24/10/2026 11:02:06",
+      "audit_timestamp": "24/10/2026 21:22:12",
       "audit_source": "Fundamentus (detalhes.php?papel=OBTC3)",
       "empresa": "ORANJEBTC ON",
       "setor": "Diversos",
@@ -1508,10 +1508,10 @@
     }
   },
   "RCSL4": {
-    "cached_time": 1792850525.6084142,
+    "cached_time": 1792887732.1213863,
     "data": {
       "ticker": "RCSL4",
-      "audit_timestamp": "24/10/2026 11:02:05",
+      "audit_timestamp": "24/10/2026 21:22:12",
       "audit_source": "Fundamentus (detalhes.php?papel=RCSL4)",
       "empresa": "RECRUSUL PN",
       "setor": "Material de Transporte",
@@ -1566,10 +1566,10 @@
     }
   },
   "LJQQ3": {
-    "cached_time": 1792850524.010312,
+    "cached_time": 1792887730.48573,
     "data": {
       "ticker": "LJQQ3",
-      "audit_timestamp": "24/10/2026 11:02:04",
+      "audit_timestamp": "24/10/2026 21:22:10",
       "audit_source": "Fundamentus (detalhes.php?papel=LJQQ3)",
       "empresa": "QUERO-QUERO ON NM",
       "setor": "Comércio",
@@ -1624,10 +1624,10 @@
     }
   },
   "AMOB3": {
-    "cached_time": 1792850526.5604043,
+    "cached_time": 1792887733.1737201,
     "data": {
       "ticker": "AMOB3",
-      "audit_timestamp": "24/10/2026 11:02:06",
+      "audit_timestamp": "24/10/2026 21:22:13",
       "audit_source": "Fundamentus (detalhes.php?papel=AMOB3)",
       "empresa": "AUTOMOB ON NM",
       "setor": "Automóveis e Motocicletas",
@@ -1682,10 +1682,10 @@
     }
   },
   "AZEV3": {
-    "cached_time": 1792850524.986436,
+    "cached_time": 1792887731.5394073,
     "data": {
       "ticker": "AZEV3",
-      "audit_timestamp": "24/10/2026 11:02:04",
+      "audit_timestamp": "24/10/2026 21:22:11",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV3)",
       "empresa": "AZEVEDO & TRAVASSOS ON",
       "setor": "Construção e Engenharia",
@@ -1740,10 +1740,10 @@
     }
   },
   "PCAR3": {
-    "cached_time": 1792850527.5179367,
+    "cached_time": 1792887734.1092014,
     "data": {
       "ticker": "PCAR3",
-      "audit_timestamp": "24/10/2026 11:02:07",
+      "audit_timestamp": "24/10/2026 21:22:14",
       "audit_source": "Fundamentus (detalhes.php?papel=PCAR3)",
       "empresa": "PÃO DE AÇÚCAR ON",
       "setor": "Comércio e Distribuição",
@@ -1798,10 +1798,10 @@
     }
   },
   "BRKM5": {
-    "cached_time": 1792850528.0204496,
+    "cached_time": 1792887734.5775292,
     "data": {
       "ticker": "BRKM5",
-      "audit_timestamp": "24/10/2026 11:02:08",
+      "audit_timestamp": "24/10/2026 21:22:14",
       "audit_source": "Fundamentus (detalhes.php?papel=BRKM5)",
       "empresa": "BRASKEM PNA N1",
       "setor": "Químicos",
@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1792850528.5097864,
+    "cached_time": 1792887735.045827,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "24/10/2026 11:02:08",
+      "audit_timestamp": "24/10/2026 21:22:15",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -1914,10 +1914,10 @@
     }
   },
   "AZEV4": {
-    "cached_time": 1792850528.9770346,
+    "cached_time": 1792887735.5104709,
     "data": {
       "ticker": "AZEV4",
-      "audit_timestamp": "24/10/2026 11:02:08",
+      "audit_timestamp": "24/10/2026 21:22:15",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV4)",
       "empresa": "AZEVEDO & TRAVASSOS PN",
       "setor": "Construção e Engenharia",
@@ -1972,10 +1972,10 @@
     }
   },
   "RAIZ4": {
-    "cached_time": 1792850529.4747708,
+    "cached_time": 1792887735.9809735,
     "data": {
       "ticker": "RAIZ4",
-      "audit_timestamp": "24/10/2026 11:02:09",
+      "audit_timestamp": "24/10/2026 21:22:15",
       "audit_source": "Fundamentus (detalhes.php?papel=RAIZ4)",
       "empresa": "RAIZEN PN N2",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1792850530.4292748,
+    "cached_time": 1792887736.9164264,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "24/10/2026 11:02:10",
+      "audit_timestamp": "24/10/2026 21:22:16",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1792850529.9587045,
+    "cached_time": 1792887736.4488537,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "24/10/2026 11:02:09",
+      "audit_timestamp": "24/10/2026 21:22:16",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1792850530.8984842,
+    "cached_time": 1792887737.3793452,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "24/10/2026 11:02:10",
+      "audit_timestamp": "24/10/2026 21:22:17",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -2204,10 +2204,10 @@
     }
   },
   "ALLD3": {
-    "cached_time": 1792850531.389133,
+    "cached_time": 1792887737.8456569,
     "data": {
       "ticker": "ALLD3",
-      "audit_timestamp": "24/10/2026 11:02:11",
+      "audit_timestamp": "24/10/2026 21:22:17",
       "audit_source": "Fundamentus (detalhes.php?papel=ALLD3)",
       "empresa": "ALLIED ON NM",
       "setor": "Comércio",
@@ -2262,10 +2262,10 @@
     }
   },
   "VTRU3": {
-    "cached_time": 1792850532.3550675,
+    "cached_time": 1792887738.782742,
     "data": {
       "ticker": "VTRU3",
-      "audit_timestamp": "24/10/2026 11:02:12",
+      "audit_timestamp": "24/10/2026 21:22:18",
       "audit_source": "Fundamentus (detalhes.php?papel=VTRU3)",
       "empresa": "VITRUEDUCA ON NM",
       "setor": "Diversos",
@@ -2320,10 +2320,10 @@
     }
   },
   "LIGT3": {
-    "cached_time": 1792850531.8714445,
+    "cached_time": 1792887738.3138092,
     "data": {
       "ticker": "LIGT3",
-      "audit_timestamp": "24/10/2026 11:02:11",
+      "audit_timestamp": "24/10/2026 21:22:18",
       "audit_source": "Fundamentus (detalhes.php?papel=LIGT3)",
       "empresa": "LIGHT SA ON",
       "setor": "Energia Elétrica",
@@ -2378,10 +2378,10 @@
     }
   },
   "RIAA3": {
-    "cached_time": 1792850533.4753313,
+    "cached_time": 1792887739.7207794,
     "data": {
       "ticker": "RIAA3",
-      "audit_timestamp": "24/10/2026 11:02:13",
+      "audit_timestamp": "24/10/2026 21:22:19",
       "audit_source": "Fundamentus (detalhes.php?papel=RIAA3)",
       "empresa": "RIACHUELO ON NM",
       "setor": "Comércio",
@@ -2436,10 +2436,10 @@
     }
   },
   "JHSF3": {
-    "cached_time": 1792850533.968194,
+    "cached_time": 1792887740.198247,
     "data": {
       "ticker": "JHSF3",
-      "audit_timestamp": "24/10/2026 11:02:13",
+      "audit_timestamp": "24/10/2026 21:22:20",
       "audit_source": "Fundamentus (detalhes.php?papel=JHSF3)",
       "empresa": "JHSF Part ON NM",
       "setor": "Construção Civil",
@@ -2494,10 +2494,10 @@
     }
   },
   "AZUL3": {
-    "cached_time": 1792850532.845189,
+    "cached_time": 1792887739.2541428,
     "data": {
       "ticker": "AZUL3",
-      "audit_timestamp": "24/10/2026 11:02:12",
+      "audit_timestamp": "24/10/2026 21:22:19",
       "audit_source": "Fundamentus (detalhes.php?papel=AZUL3)",
       "empresa": "AZUL ON N2",
       "setor": "Transporte",
@@ -2552,10 +2552,10 @@
     }
   },
   "POMO3": {
-    "cached_time": 1792850534.4550238,
+    "cached_time": 1792887740.6710038,
     "data": {
       "ticker": "POMO3",
-      "audit_timestamp": "24/10/2026 11:02:14",
+      "audit_timestamp": "24/10/2026 21:22:20",
       "audit_source": "Fundamentus (detalhes.php?papel=POMO3)",
       "empresa": "MARCOPOLO ON",
       "setor": "Material de Transporte",
@@ -2610,10 +2610,10 @@
     }
   },
   "BRSR6": {
-    "cached_time": 1792850534.9227939,
+    "cached_time": 1792887741.143207,
     "data": {
       "ticker": "BRSR6",
-      "audit_timestamp": "24/10/2026 11:02:14",
+      "audit_timestamp": "24/10/2026 21:22:21",
       "audit_source": "Fundamentus (detalhes.php?papel=BRSR6)",
       "empresa": "BANRISUL S/A PNB",
       "setor": "Intermediários Financeiros",
@@ -2668,10 +2668,10 @@
     }
   },
   "POMO4": {
-    "cached_time": 1792850535.4185708,
+    "cached_time": 1792887741.6142108,
     "data": {
       "ticker": "POMO4",
-      "audit_timestamp": "24/10/2026 11:02:15",
+      "audit_timestamp": "24/10/2026 21:22:21",
       "audit_source": "Fundamentus (detalhes.php?papel=POMO4)",
       "empresa": "MARCOPOLO PN N2",
       "setor": "Material de Transporte",
@@ -2726,10 +2726,10 @@
     }
   },
   "VULC3": {
-    "cached_time": 1792850536.3633347,
+    "cached_time": 1792887742.549352,
     "data": {
       "ticker": "VULC3",
-      "audit_timestamp": "24/10/2026 11:02:16",
+      "audit_timestamp": "24/10/2026 21:22:22",
       "audit_source": "Fundamentus (detalhes.php?papel=VULC3)",
       "empresa": "VULCABRAS S/A. ON",
       "setor": "Tecidos, Vestuário e Calçados",
@@ -2784,10 +2784,10 @@
     }
   },
   "PETR4": {
-    "cached_time": 1792850537.8378723,
+    "cached_time": 1792887743.9634268,
     "data": {
       "ticker": "PETR4",
-      "audit_timestamp": "24/10/2026 11:02:17",
+      "audit_timestamp": "24/10/2026 21:22:23",
       "audit_source": "Fundamentus (detalhes.php?papel=PETR4)",
       "empresa": "PETROBRAS PN",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -2842,10 +2842,10 @@
     }
   },
   "MDNE3": {
-    "cached_time": 1792850536.8577662,
+    "cached_time": 1792887743.0218284,
     "data": {
       "ticker": "MDNE3",
-      "audit_timestamp": "24/10/2026 11:02:16",
+      "audit_timestamp": "24/10/2026 21:22:23",
       "audit_source": "Fundamentus (detalhes.php?papel=MDNE3)",
       "empresa": "MOURA DUBEUX ON NM",
       "setor": "Construção Civil",
@@ -2900,10 +2900,10 @@
     }
   },
   "EUCA4": {
-    "cached_time": 1792850538.804952,
+    "cached_time": 1792887744.8971035,
     "data": {
       "ticker": "EUCA4",
-      "audit_timestamp": "24/10/2026 11:02:18",
+      "audit_timestamp": "24/10/2026 21:22:24",
       "audit_source": "Fundamentus (detalhes.php?papel=EUCA4)",
       "empresa": "EUCATEX PN",
       "setor": "Madeira e Papel",
@@ -2958,10 +2958,10 @@
     }
   },
   "PLPL3": {
-    "cached_time": 1792850537.3536515,
+    "cached_time": 1792887743.4954565,
     "data": {
       "ticker": "PLPL3",
-      "audit_timestamp": "24/10/2026 11:02:17",
+      "audit_timestamp": "24/10/2026 21:22:23",
       "audit_source": "Fundamentus (detalhes.php?papel=PLPL3)",
       "empresa": "PLANOEPLANO ON NM",
       "setor": "Construção Civil",
@@ -3016,10 +3016,10 @@
     }
   },
   "SBFG3": {
-    "cached_time": 1792850540.7410307,
+    "cached_time": 1792887746.7613113,
     "data": {
       "ticker": "SBFG3",
-      "audit_timestamp": "24/10/2026 11:02:20",
+      "audit_timestamp": "24/10/2026 21:22:26",
       "audit_source": "Fundamentus (detalhes.php?papel=SBFG3)",
       "empresa": "GRUPO SBF ON",
       "setor": "Comércio",
@@ -3074,10 +3074,10 @@
     }
   },
   "EVEN3": {
-    "cached_time": 1792850540.2636757,
+    "cached_time": 1792887746.2974727,
     "data": {
       "ticker": "EVEN3",
-      "audit_timestamp": "24/10/2026 11:02:20",
+      "audit_timestamp": "24/10/2026 21:22:26",
       "audit_source": "Fundamentus (detalhes.php?papel=EVEN3)",
       "empresa": "Even ON NM",
       "setor": "Construção Civil",
@@ -3132,10 +3132,10 @@
     }
   },
   "MELK3": {
-    "cached_time": 1792850539.300879,
+    "cached_time": 1792887745.3661394,
     "data": {
       "ticker": "MELK3",
-      "audit_timestamp": "24/10/2026 11:02:19",
+      "audit_timestamp": "24/10/2026 21:22:25",
       "audit_source": "Fundamentus (detalhes.php?papel=MELK3)",
       "empresa": "MELNICK ON NM",
       "setor": "Construção Civil",
@@ -3190,10 +3190,10 @@
     }
   },
   "MLAS3": {
-    "cached_time": 1792850544.150009,
+    "cached_time": 1792887750.060638,
     "data": {
       "ticker": "MLAS3",
-      "audit_timestamp": "24/10/2026 11:02:24",
+      "audit_timestamp": "24/10/2026 21:22:30",
       "audit_source": "Fundamentus (detalhes.php?papel=MLAS3)",
       "empresa": "MULTILASER ON NM",
       "setor": "Computadores e Equipamentos",
@@ -3248,10 +3248,10 @@
     }
   },
   "PINE4": {
-    "cached_time": 1792850544.647022,
+    "cached_time": 1792887750.5293999,
     "data": {
       "ticker": "PINE4",
-      "audit_timestamp": "24/10/2026 11:02:24",
+      "audit_timestamp": "24/10/2026 21:22:30",
       "audit_source": "Fundamentus (detalhes.php?papel=PINE4)",
       "empresa": "Pine PN",
       "setor": "Intermediários Financeiros",
@@ -3306,10 +3306,10 @@
     }
   },
   "PETR3": {
-    "cached_time": 1792850541.2257013,
+    "cached_time": 1792887747.2347238,
     "data": {
       "ticker": "PETR3",
-      "audit_timestamp": "24/10/2026 11:02:21",
+      "audit_timestamp": "24/10/2026 21:22:27",
       "audit_source": "Fundamentus (detalhes.php?papel=PETR3)",
       "empresa": "PETROBRAS ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -3364,10 +3364,10 @@
     }
   },
   "MTRE3": {
-    "cached_time": 1792850543.6601756,
+    "cached_time": 1792887749.5822682,
     "data": {
       "ticker": "MTRE3",
-      "audit_timestamp": "24/10/2026 11:02:23",
+      "audit_timestamp": "24/10/2026 21:22:29",
       "audit_source": "Fundamentus (detalhes.php?papel=MTRE3)",
       "empresa": "MITRE REALTY ON NM",
       "setor": "Construção Civil",
@@ -3422,10 +3422,10 @@
     }
   },
   "TEND3": {
-    "cached_time": 1792850539.7693553,
+    "cached_time": 1792887745.8329036,
     "data": {
       "ticker": "TEND3",
-      "audit_timestamp": "24/10/2026 11:02:19",
+      "audit_timestamp": "24/10/2026 21:22:25",
       "audit_source": "Fundamentus (detalhes.php?papel=TEND3)",
       "empresa": "Tenda ON NM",
       "setor": "Construção Civil",
@@ -3480,10 +3480,10 @@
     }
   },
   "LOGG3": {
-    "cached_time": 1792850547.092944,
+    "cached_time": 1792887752.8703146,
     "data": {
       "ticker": "LOGG3",
-      "audit_timestamp": "24/10/2026 11:02:27",
+      "audit_timestamp": "24/10/2026 21:22:32",
       "audit_source": "Fundamentus (detalhes.php?papel=LOGG3)",
       "empresa": "LOG COM PROP ON NM",
       "setor": "Exploração de Imóveis",
@@ -3538,10 +3538,10 @@
     }
   },
   "VLID3": {
-    "cached_time": 1792850546.602629,
+    "cached_time": 1792887752.4035618,
     "data": {
       "ticker": "VLID3",
-      "audit_timestamp": "24/10/2026 11:02:26",
+      "audit_timestamp": "24/10/2026 21:22:32",
       "audit_source": "Fundamentus (detalhes.php?papel=VLID3)",
       "empresa": "VALID ON NM",
       "setor": "Serviços Diversos",
@@ -3596,10 +3596,10 @@
     }
   },
   "GRND3": {
-    "cached_time": 1792850548.0276964,
+    "cached_time": 1792887753.8065312,
     "data": {
       "ticker": "GRND3",
-      "audit_timestamp": "24/10/2026 11:02:28",
+      "audit_timestamp": "24/10/2026 21:22:33",
       "audit_source": "Fundamentus (detalhes.php?papel=GRND3)",
       "empresa": "GRENDENE SA ON",
       "setor": "Tecidos, Vestuário e Calçados",
@@ -3654,10 +3654,10 @@
     }
   },
   "SUZB3": {
-    "cached_time": 1792850542.6970544,
+    "cached_time": 1792887748.6396613,
     "data": {
       "ticker": "SUZB3",
-      "audit_timestamp": "24/10/2026 11:02:22",
+      "audit_timestamp": "24/10/2026 21:22:28",
       "audit_source": "Fundamentus (detalhes.php?papel=SUZB3)",
       "empresa": "Suzano Papel ON",
       "setor": "Madeira e Papel",
@@ -3712,10 +3712,10 @@
     }
   },
   "SHUL4": {
-    "cached_time": 1792850545.1523707,
+    "cached_time": 1792887750.9935012,
     "data": {
       "ticker": "SHUL4",
-      "audit_timestamp": "24/10/2026 11:02:25",
+      "audit_timestamp": "24/10/2026 21:22:30",
       "audit_source": "Fundamentus (detalhes.php?papel=SHUL4)",
       "empresa": "SCHULZ PN",
       "setor": "Máquinas e Equipamentos",
@@ -3770,10 +3770,10 @@
     }
   },
   "CEAB3": {
-    "cached_time": 1792850550.949009,
+    "cached_time": 1792887756.6177623,
     "data": {
       "ticker": "CEAB3",
-      "audit_timestamp": "24/10/2026 11:02:30",
+      "audit_timestamp": "24/10/2026 21:22:36",
       "audit_source": "Fundamentus (detalhes.php?papel=CEAB3)",
       "empresa": "CEA MODAS ON NM",
       "setor": "Comércio",
@@ -3828,10 +3828,10 @@
     }
   },
   "WIZC3": {
-    "cached_time": 1792850538.3204176,
+    "cached_time": 1792887744.4274726,
     "data": {
       "ticker": "WIZC3",
-      "audit_timestamp": "24/10/2026 11:02:18",
+      "audit_timestamp": "24/10/2026 21:22:24",
       "audit_source": "Fundamentus (detalhes.php?papel=WIZC3)",
       "empresa": "WIZ CO ON",
       "setor": "Previdência e Seguros",
@@ -3886,10 +3886,10 @@
     }
   },
   "RECV3": {
-    "cached_time": 1792850550.4500432,
+    "cached_time": 1792887756.145163,
     "data": {
       "ticker": "RECV3",
-      "audit_timestamp": "24/10/2026 11:02:30",
+      "audit_timestamp": "24/10/2026 21:22:36",
       "audit_source": "Fundamentus (detalhes.php?papel=RECV3)",
       "empresa": "PETRORECONCA ON NM",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -3944,10 +3944,10 @@
     }
   },
   "SANB4": {
-    "cached_time": 1792850543.1751282,
+    "cached_time": 1792887749.111323,
     "data": {
       "ticker": "SANB4",
-      "audit_timestamp": "24/10/2026 11:02:23",
+      "audit_timestamp": "24/10/2026 21:22:29",
       "audit_source": "Fundamentus (detalhes.php?papel=SANB4)",
       "empresa": "SANTANDER PN",
       "setor": "Intermediários Financeiros",
@@ -4002,10 +4002,10 @@
     }
   },
   "DIRR3": {
-    "cached_time": 1792850545.6298938,
+    "cached_time": 1792887751.4649136,
     "data": {
       "ticker": "DIRR3",
-      "audit_timestamp": "24/10/2026 11:02:25",
+      "audit_timestamp": "24/10/2026 21:22:31",
       "audit_source": "Fundamentus (detalhes.php?papel=DIRR3)",
       "empresa": "Direcional Engenharia ON NM",
       "setor": "Construção Civil",
@@ -4060,10 +4060,10 @@
     }
   },
   "SANB11": {
-    "cached_time": 1792850542.194985,
+    "cached_time": 1792887748.1699796,
     "data": {
       "ticker": "SANB11",
-      "audit_timestamp": "24/10/2026 11:02:22",
+      "audit_timestamp": "24/10/2026 21:22:28",
       "audit_source": "Fundamentus (detalhes.php?papel=SANB11)",
       "empresa": "SANTANDER UNT",
       "setor": "Intermediários Financeiros",
@@ -4118,10 +4118,10 @@
     }
   },
   "SANB3": {
-    "cached_time": 1792850541.72192,
+    "cached_time": 1792887747.7029774,
     "data": {
       "ticker": "SANB3",
-      "audit_timestamp": "24/10/2026 11:02:21",
+      "audit_timestamp": "24/10/2026 21:22:27",
       "audit_source": "Fundamentus (detalhes.php?papel=SANB3)",
       "empresa": "SANTANDER ON",
       "setor": "Intermediários Financeiros",
@@ -4176,10 +4176,10 @@
     }
   },
   "LAVV3": {
-    "cached_time": 1792850554.9989278,
+    "cached_time": 1792887760.3600469,
     "data": {
       "ticker": "LAVV3",
-      "audit_timestamp": "24/10/2026 11:02:34",
+      "audit_timestamp": "24/10/2026 21:22:40",
       "audit_source": "Fundamentus (detalhes.php?papel=LAVV3)",
       "empresa": "LAVVI ON NM",
       "setor": "Construção Civil",
@@ -4234,10 +4234,10 @@
     }
   },
   "LEVE3": {
-    "cached_time": 1792850548.520576,
+    "cached_time": 1792887754.2735603,
     "data": {
       "ticker": "LEVE3",
-      "audit_timestamp": "24/10/2026 11:02:28",
+      "audit_timestamp": "24/10/2026 21:22:34",
       "audit_source": "Fundamentus (detalhes.php?papel=LEVE3)",
       "empresa": "MAHLE METAL LEVE ON",
       "setor": "Automóveis e Motocicletas",
@@ -4292,10 +4292,10 @@
     }
   },
   "CYRE4": {
-    "cached_time": 1792850549.0130212,
+    "cached_time": 1792887754.7425244,
     "data": {
       "ticker": "CYRE4",
-      "audit_timestamp": "24/10/2026 11:02:29",
+      "audit_timestamp": "24/10/2026 21:22:34",
       "audit_source": "Fundamentus (detalhes.php?papel=CYRE4)",
       "empresa": "CYRELA BRAZIL REALTY PN",
       "setor": "Construção Civil",
@@ -4350,10 +4350,10 @@
     }
   },
   "BMGB4": {
-    "cached_time": 1792850549.4825406,
+    "cached_time": 1792887755.2124057,
     "data": {
       "ticker": "BMGB4",
-      "audit_timestamp": "24/10/2026 11:02:29",
+      "audit_timestamp": "24/10/2026 21:22:35",
       "audit_source": "Fundamentus (detalhes.php?papel=BMGB4)",
       "empresa": "BANCO BMG PN N1",
       "setor": "Intermediários Financeiros",
@@ -4408,10 +4408,10 @@
     }
   },
   "CSED3": {
-    "cached_time": 1792850553.0223866,
+    "cached_time": 1792887758.4911067,
     "data": {
       "ticker": "CSED3",
-      "audit_timestamp": "24/10/2026 11:02:33",
+      "audit_timestamp": "24/10/2026 21:22:38",
       "audit_source": "Fundamentus (detalhes.php?papel=CSED3)",
       "empresa": "CRUZEIRO EDU ON NM",
       "setor": "Diversos",
@@ -4466,10 +4466,10 @@
     }
   },
   "ABCB4": {
-    "cached_time": 1792850551.9417892,
+    "cached_time": 1792887757.5548558,
     "data": {
       "ticker": "ABCB4",
-      "audit_timestamp": "24/10/2026 11:02:31",
+      "audit_timestamp": "24/10/2026 21:22:37",
       "audit_source": "Fundamentus (detalhes.php?papel=ABCB4)",
       "empresa": "ABC Brasil PN N2",
       "setor": "Intermediários Financeiros",
@@ -4524,10 +4524,10 @@
     }
   },
   "TRIS3": {
-    "cached_time": 1792850555.9600494,
+    "cached_time": 1792887761.2999575,
     "data": {
       "ticker": "TRIS3",
-      "audit_timestamp": "24/10/2026 11:02:35",
+      "audit_timestamp": "24/10/2026 21:22:41",
       "audit_source": "Fundamentus (detalhes.php?papel=TRIS3)",
       "empresa": "Trisul ON NM",
       "setor": "Construção Civil",
@@ -4582,10 +4582,10 @@
     }
   },
   "ISAE4": {
-    "cached_time": 1792850546.1025956,
+    "cached_time": 1792887751.933788,
     "data": {
       "ticker": "ISAE4",
-      "audit_timestamp": "24/10/2026 11:02:26",
+      "audit_timestamp": "24/10/2026 21:22:31",
       "audit_source": "Fundamentus (detalhes.php?papel=ISAE4)",
       "empresa": "ISA ENERGIA PN",
       "setor": "Energia Elétrica",
@@ -4640,10 +4640,10 @@
     }
   },
   "CYRE3": {
-    "cached_time": 1792850552.5399191,
+    "cached_time": 1792887758.0245893,
     "data": {
       "ticker": "CYRE3",
-      "audit_timestamp": "24/10/2026 11:02:32",
+      "audit_timestamp": "24/10/2026 21:22:38",
       "audit_source": "Fundamentus (detalhes.php?papel=CYRE3)",
       "empresa": "CYRELA BRAZIL REALTY PN",
       "setor": "Construção Civil",
@@ -4698,10 +4698,10 @@
     }
   },
   "CMIG4": {
-    "cached_time": 1792850547.5561657,
+    "cached_time": 1792887753.339191,
     "data": {
       "ticker": "CMIG4",
-      "audit_timestamp": "24/10/2026 11:02:27",
+      "audit_timestamp": "24/10/2026 21:22:33",
       "audit_source": "Fundamentus (detalhes.php?papel=CMIG4)",
       "empresa": "CEMIG PN N1",
       "setor": "Energia Elétrica",
@@ -4756,10 +4756,10 @@
     }
   },
   "GMAT3": {
-    "cached_time": 1792850549.9714,
+    "cached_time": 1792887755.6753407,
     "data": {
       "ticker": "GMAT3",
-      "audit_timestamp": "24/10/2026 11:02:29",
+      "audit_timestamp": "24/10/2026 21:22:35",
       "audit_source": "Fundamentus (detalhes.php?papel=GMAT3)",
       "empresa": "GRUPO MATEUS ON NM",
       "setor": "Comércio e Distribuição",
@@ -4814,10 +4814,10 @@
     }
   },
   "SEER3": {
-    "cached_time": 1792850556.4498074,
+    "cached_time": 1792887761.766871,
     "data": {
       "ticker": "SEER3",
-      "audit_timestamp": "24/10/2026 11:02:36",
+      "audit_timestamp": "24/10/2026 21:22:41",
       "audit_source": "Fundamentus (detalhes.php?papel=SEER3)",
       "empresa": "SER EDUCA ON NM",
       "setor": "Diversos",
@@ -4930,10 +4930,10 @@
     }
   },
   "COGN3": {
-    "cached_time": 1792850558.056747,
+    "cached_time": 1792887763.1684325,
     "data": {
       "ticker": "COGN3",
-      "audit_timestamp": "24/10/2026 11:02:38",
+      "audit_timestamp": "24/10/2026 21:22:43",
       "audit_source": "Fundamentus (detalhes.php?papel=COGN3)",
       "empresa": "COGNA ON",
       "setor": "Diversos",
@@ -4988,10 +4988,10 @@
     }
   },
   "SMTO3": {
-    "cached_time": 1792850555.466163,
+    "cached_time": 1792887760.8332102,
     "data": {
       "ticker": "SMTO3",
-      "audit_timestamp": "24/10/2026 11:02:35",
+      "audit_timestamp": "24/10/2026 21:22:40",
       "audit_source": "Fundamentus (detalhes.php?papel=SMTO3)",
       "empresa": "SAO MARTINHO ON NM",
       "setor": "Alimentos Processados",
@@ -5046,10 +5046,10 @@
     }
   },
   "HBRE3": {
-    "cached_time": 1792850563.9533024,
+    "cached_time": 1792887768.8029811,
     "data": {
       "ticker": "HBRE3",
-      "audit_timestamp": "24/10/2026 11:02:43",
+      "audit_timestamp": "24/10/2026 21:22:48",
       "audit_source": "Fundamentus (detalhes.php?papel=HBRE3)",
       "empresa": "HBR REALTY ON NM",
       "setor": "Exploração de Imóveis",
@@ -5162,10 +5162,10 @@
     }
   },
   "MILS3": {
-    "cached_time": 1792850554.0250196,
+    "cached_time": 1792887759.4250612,
     "data": {
       "ticker": "MILS3",
-      "audit_timestamp": "24/10/2026 11:02:34",
+      "audit_timestamp": "24/10/2026 21:22:39",
       "audit_source": "Fundamentus (detalhes.php?papel=MILS3)",
       "empresa": "MILLS ON NM",
       "setor": "Diversos",
@@ -5220,10 +5220,10 @@
     }
   },
   "CURY3": {
-    "cached_time": 1792850557.4351635,
+    "cached_time": 1792887762.698848,
     "data": {
       "ticker": "CURY3",
-      "audit_timestamp": "24/10/2026 11:02:37",
+      "audit_timestamp": "24/10/2026 21:22:42",
       "audit_source": "Fundamentus (detalhes.php?papel=CURY3)",
       "empresa": "CURY S/A ON NM",
       "setor": "Construção Civil",
@@ -5278,10 +5278,10 @@
     }
   },
   "ALUP11": {
-    "cached_time": 1792850558.536622,
+    "cached_time": 1792887763.636055,
     "data": {
       "ticker": "ALUP11",
-      "audit_timestamp": "24/10/2026 11:02:38",
+      "audit_timestamp": "24/10/2026 21:22:43",
       "audit_source": "Fundamentus (detalhes.php?papel=ALUP11)",
       "empresa": "ALUPAR UNT N2",
       "setor": "Energia Elétrica",
@@ -5336,10 +5336,10 @@
     }
   },
   "BBSE3": {
-    "cached_time": 1792850559.0239403,
+    "cached_time": 1792887764.1023793,
     "data": {
       "ticker": "BBSE3",
-      "audit_timestamp": "24/10/2026 11:02:39",
+      "audit_timestamp": "24/10/2026 21:22:44",
       "audit_source": "Fundamentus (detalhes.php?papel=BBSE3)",
       "empresa": "BBSEGURIDADE ON NM",
       "setor": "Previdência e Seguros",
@@ -5394,10 +5394,10 @@
     }
   },
   "EZTC3": {
-    "cached_time": 1792850565.4071774,
+    "cached_time": 1792887770.2167456,
     "data": {
       "ticker": "EZTC3",
-      "audit_timestamp": "24/10/2026 11:02:45",
+      "audit_timestamp": "24/10/2026 21:22:50",
       "audit_source": "Fundamentus (detalhes.php?papel=EZTC3)",
       "empresa": "EZTec ON NM",
       "setor": "Construção Civil",
@@ -5452,10 +5452,10 @@
     }
   },
   "KEPL3": {
-    "cached_time": 1792850564.9320853,
+    "cached_time": 1792887769.7447097,
     "data": {
       "ticker": "KEPL3",
-      "audit_timestamp": "24/10/2026 11:02:44",
+      "audit_timestamp": "24/10/2026 21:22:49",
       "audit_source": "Fundamentus (detalhes.php?papel=KEPL3)",
       "empresa": "KEPLER WEBER SA ON",
       "setor": "Máquinas e Equipamentos",
@@ -5510,10 +5510,10 @@
     }
   },
   "PSSA3": {
-    "cached_time": 1792850556.9556403,
+    "cached_time": 1792887762.2308066,
     "data": {
       "ticker": "PSSA3",
-      "audit_timestamp": "24/10/2026 11:02:36",
+      "audit_timestamp": "24/10/2026 21:22:42",
       "audit_source": "Fundamentus (detalhes.php?papel=PSSA3)",
       "empresa": "PORTO SEGURO SA ON",
       "setor": "Previdência e Seguros",
@@ -5568,10 +5568,10 @@
     }
   },
   "VBBR3": {
-    "cached_time": 1792850554.509646,
+    "cached_time": 1792887759.892486,
     "data": {
       "ticker": "VBBR3",
-      "audit_timestamp": "24/10/2026 11:02:34",
+      "audit_timestamp": "24/10/2026 21:22:39",
       "audit_source": "Fundamentus (detalhes.php?papel=VBBR3)",
       "empresa": "VIBRA ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -5626,10 +5626,10 @@
     }
   },
   "BEEF3": {
-    "cached_time": 1792850559.49735,
+    "cached_time": 1792887764.5700471,
     "data": {
       "ticker": "BEEF3",
-      "audit_timestamp": "24/10/2026 11:02:39",
+      "audit_timestamp": "24/10/2026 21:22:44",
       "audit_source": "Fundamentus (detalhes.php?papel=BEEF3)",
       "empresa": "Minerva ON NM",
       "setor": "Alimentos Processados",
@@ -5684,10 +5684,10 @@
     }
   },
   "LREN3": {
-    "cached_time": 1792850562.9670804,
+    "cached_time": 1792887767.863983,
     "data": {
       "ticker": "LREN3",
-      "audit_timestamp": "24/10/2026 11:02:42",
+      "audit_timestamp": "24/10/2026 21:22:47",
       "audit_source": "Fundamentus (detalhes.php?papel=LREN3)",
       "empresa": "RENNER ON",
       "setor": "Comércio",
@@ -5742,10 +5742,10 @@
     }
   },
   "TAEE3": {
-    "cached_time": 1792850559.9975286,
+    "cached_time": 1792887765.0385208,
     "data": {
       "ticker": "TAEE3",
-      "audit_timestamp": "24/10/2026 11:02:39",
+      "audit_timestamp": "24/10/2026 21:22:45",
       "audit_source": "Fundamentus (detalhes.php?papel=TAEE3)",
       "empresa": "TAESA N2",
       "setor": "Energia Elétrica",
@@ -5800,10 +5800,10 @@
     }
   },
   "TAEE11": {
-    "cached_time": 1792850561.0105572,
+    "cached_time": 1792887765.970764,
     "data": {
       "ticker": "TAEE11",
-      "audit_timestamp": "24/10/2026 11:02:41",
+      "audit_timestamp": "24/10/2026 21:22:45",
       "audit_source": "Fundamentus (detalhes.php?papel=TAEE11)",
       "empresa": "TAESA UNT",
       "setor": "Energia Elétrica",
@@ -5916,10 +5916,10 @@
     }
   },
   "TAEE4": {
-    "cached_time": 1792850561.9916568,
+    "cached_time": 1792887766.926721,
     "data": {
       "ticker": "TAEE4",
-      "audit_timestamp": "24/10/2026 11:02:41",
+      "audit_timestamp": "24/10/2026 21:22:46",
       "audit_source": "Fundamentus (detalhes.php?papel=TAEE4)",
       "empresa": "TAESA PN N2",
       "setor": "Energia Elétrica",
@@ -5974,10 +5974,10 @@
     }
   },
   "INTB3": {
-    "cached_time": 1792850566.3915176,
+    "cached_time": 1792887771.168154,
     "data": {
       "ticker": "INTB3",
-      "audit_timestamp": "24/10/2026 11:02:46",
+      "audit_timestamp": "24/10/2026 21:22:51",
       "audit_source": "Fundamentus (detalhes.php?papel=INTB3)",
       "empresa": "INTELBRAS ON NM",
       "setor": "Computadores e Equipamentos",
@@ -6032,10 +6032,10 @@
     }
   },
   "CPFE3": {
-    "cached_time": 1792850561.486246,
+    "cached_time": 1792887766.4408433,
     "data": {
       "ticker": "CPFE3",
-      "audit_timestamp": "24/10/2026 11:02:41",
+      "audit_timestamp": "24/10/2026 21:22:46",
       "audit_source": "Fundamentus (detalhes.php?papel=CPFE3)",
       "empresa": "CPFL ENERGIA S.A. ON",
       "setor": "Energia Elétrica",
@@ -6090,10 +6090,10 @@
     }
   },
   "MDIA3": {
-    "cached_time": 1792850564.4386065,
+    "cached_time": 1792887769.2689695,
     "data": {
       "ticker": "MDIA3",
-      "audit_timestamp": "24/10/2026 11:02:44",
+      "audit_timestamp": "24/10/2026 21:22:49",
       "audit_source": "Fundamentus (detalhes.php?papel=MDIA3)",
       "empresa": "M.DIASBRANCO ON NM",
       "setor": "Alimentos Processados",
@@ -6148,10 +6148,10 @@
     }
   },
   "FIQE3": {
-    "cached_time": 1792850568.810908,
+    "cached_time": 1792887773.5075617,
     "data": {
       "ticker": "FIQE3",
-      "audit_timestamp": "24/10/2026 11:02:48",
+      "audit_timestamp": "24/10/2026 21:22:53",
       "audit_source": "Fundamentus (detalhes.php?papel=FIQE3)",
       "empresa": "UNIFIQUE ON NM",
       "setor": "Telecomunicações",
@@ -6206,10 +6206,10 @@
     }
   },
   "TTEN3": {
-    "cached_time": 1792850571.7220325,
+    "cached_time": 1792887776.3205788,
     "data": {
       "ticker": "TTEN3",
-      "audit_timestamp": "24/10/2026 11:02:51",
+      "audit_timestamp": "24/10/2026 21:22:56",
       "audit_source": "Fundamentus (detalhes.php?papel=TTEN3)",
       "empresa": "3TENTOS ON NM",
       "setor": "Agropecuária",
@@ -6264,10 +6264,10 @@
     }
   },
   "ITSA3": {
-    "cached_time": 1792850563.461816,
+    "cached_time": 1792887768.3329384,
     "data": {
       "ticker": "ITSA3",
-      "audit_timestamp": "24/10/2026 11:02:43",
+      "audit_timestamp": "24/10/2026 21:22:48",
       "audit_source": "Fundamentus (detalhes.php?papel=ITSA3)",
       "empresa": "ITAÚSA ON N1",
       "setor": "Intermediários Financeiros",
@@ -6322,10 +6322,10 @@
     }
   },
   "MOTV3": {
-    "cached_time": 1792850565.8911815,
+    "cached_time": 1792887770.6825385,
     "data": {
       "ticker": "MOTV3",
-      "audit_timestamp": "24/10/2026 11:02:45",
+      "audit_timestamp": "24/10/2026 21:22:50",
       "audit_source": "Fundamentus (detalhes.php?papel=MOTV3)",
       "empresa": "MOTIVA SA ON",
       "setor": "Transporte",
@@ -6380,10 +6380,10 @@
     }
   },
   "BMEB4": {
-    "cached_time": 1792850572.2225068,
+    "cached_time": 1792887776.7903035,
     "data": {
       "ticker": "BMEB4",
-      "audit_timestamp": "24/10/2026 11:02:52",
+      "audit_timestamp": "24/10/2026 21:22:56",
       "audit_source": "Fundamentus (detalhes.php?papel=BMEB4)",
       "empresa": "BANCO MERCANTIL DO BRASIL S/A PN",
       "setor": "Intermediários Financeiros",
@@ -6438,10 +6438,10 @@
     }
   },
   "ITSA4": {
-    "cached_time": 1792850560.5015652,
+    "cached_time": 1792887765.506233,
     "data": {
       "ticker": "ITSA4",
-      "audit_timestamp": "24/10/2026 11:02:40",
+      "audit_timestamp": "24/10/2026 21:22:45",
       "audit_source": "Fundamentus (detalhes.php?papel=ITSA4)",
       "empresa": "ITAÚSA PN N1",
       "setor": "Intermediários Financeiros",
@@ -6496,10 +6496,10 @@
     }
   },
   "PGMN3": {
-    "cached_time": 1792850571.2491236,
+    "cached_time": 1792887775.8525758,
     "data": {
       "ticker": "PGMN3",
-      "audit_timestamp": "24/10/2026 11:02:51",
+      "audit_timestamp": "24/10/2026 21:22:55",
       "audit_source": "Fundamentus (detalhes.php?papel=PGMN3)",
       "empresa": "PAGUE MENOS ON NM",
       "setor": "Comércio e Distribuição",
@@ -6554,10 +6554,10 @@
     }
   },
   "ANIM3": {
-    "cached_time": 1792850575.628299,
+    "cached_time": 1792887780.0673852,
     "data": {
       "ticker": "ANIM3",
-      "audit_timestamp": "24/10/2026 11:02:55",
+      "audit_timestamp": "24/10/2026 21:23:00",
       "audit_source": "Fundamentus (detalhes.php?papel=ANIM3)",
       "empresa": "ANIMA ON NM",
       "setor": "Diversos",
@@ -6612,10 +6612,10 @@
     }
   },
   "BBAS3": {
-    "cached_time": 1792850562.4792147,
+    "cached_time": 1792887767.3943753,
     "data": {
       "ticker": "BBAS3",
-      "audit_timestamp": "24/10/2026 11:02:42",
+      "audit_timestamp": "24/10/2026 21:22:47",
       "audit_source": "Fundamentus (detalhes.php?papel=BBAS3)",
       "empresa": "BANCO DO BRASIL S.A. ON",
       "setor": "Intermediários Financeiros",
@@ -6670,10 +6670,10 @@
     }
   },
   "SYNE3": {
-    "cached_time": 1792850568.3434982,
+    "cached_time": 1792887773.0409749,
     "data": {
       "ticker": "SYNE3",
-      "audit_timestamp": "24/10/2026 11:02:48",
+      "audit_timestamp": "24/10/2026 21:22:53",
       "audit_source": "Fundamentus (detalhes.php?papel=SYNE3)",
       "empresa": "SYN PROP TEC ON NM",
       "setor": "Exploração de Imóveis",
@@ -6728,10 +6728,10 @@
     }
   },
   "HYPE3": {
-    "cached_time": 1792850567.350544,
+    "cached_time": 1792887772.103543,
     "data": {
       "ticker": "HYPE3",
-      "audit_timestamp": "24/10/2026 11:02:47",
+      "audit_timestamp": "24/10/2026 21:22:52",
       "audit_source": "Fundamentus (detalhes.php?papel=HYPE3)",
       "empresa": "HYPERA ON",
       "setor": "Comércio e Distribuição",
@@ -6786,10 +6786,10 @@
     }
   },
   "VIVA3": {
-    "cached_time": 1792850566.8884218,
+    "cached_time": 1792887771.638186,
     "data": {
       "ticker": "VIVA3",
-      "audit_timestamp": "24/10/2026 11:02:46",
+      "audit_timestamp": "24/10/2026 21:22:51",
       "audit_source": "Fundamentus (detalhes.php?papel=VIVA3)",
       "empresa": "VIVARA S.A. ON NM",
       "setor": "Tecidos, Vestuário e Calçados",
@@ -6844,10 +6844,10 @@
     }
   },
   "TGMA3": {
-    "cached_time": 1792850576.5976055,
+    "cached_time": 1792887781.0181758,
     "data": {
       "ticker": "TGMA3",
-      "audit_timestamp": "24/10/2026 11:02:56",
+      "audit_timestamp": "24/10/2026 21:23:01",
       "audit_source": "Fundamentus (detalhes.php?papel=TGMA3)",
       "empresa": "Tegma ON NM",
       "setor": "Transporte",
@@ -6902,10 +6902,10 @@
     }
   },
   "CMIG3": {
-    "cached_time": 1792850569.2955654,
+    "cached_time": 1792887773.9776213,
     "data": {
       "ticker": "CMIG3",
-      "audit_timestamp": "24/10/2026 11:02:49",
+      "audit_timestamp": "24/10/2026 21:22:53",
       "audit_source": "Fundamentus (detalhes.php?papel=CMIG3)",
       "empresa": "CEMIG ON N1",
       "setor": "Energia Elétrica",
@@ -6960,10 +6960,10 @@
     }
   },
   "EGIE3": {
-    "cached_time": 1792850567.8512168,
+    "cached_time": 1792887772.572031,
     "data": {
       "ticker": "EGIE3",
-      "audit_timestamp": "24/10/2026 11:02:47",
+      "audit_timestamp": "24/10/2026 21:22:52",
       "audit_source": "Fundamentus (detalhes.php?papel=EGIE3)",
       "empresa": "ENGIE BRASIL ON",
       "setor": "Energia Elétrica",
@@ -7018,10 +7018,10 @@
     }
   },
   "BRBI11": {
-    "cached_time": 1792850573.1922128,
+    "cached_time": 1792887777.732814,
     "data": {
       "ticker": "BRBI11",
-      "audit_timestamp": "24/10/2026 11:02:53",
+      "audit_timestamp": "24/10/2026 21:22:57",
       "audit_source": "Fundamentus (detalhes.php?papel=BRBI11)",
       "empresa": "BR PARTNERS UNT N2",
       "setor": "Intermediários Financeiros",
@@ -7076,10 +7076,10 @@
     }
   },
   "BLAU3": {
-    "cached_time": 1792850573.6777666,
+    "cached_time": 1792887778.200052,
     "data": {
       "ticker": "BLAU3",
-      "audit_timestamp": "24/10/2026 11:02:53",
+      "audit_timestamp": "24/10/2026 21:22:58",
       "audit_source": "Fundamentus (detalhes.php?papel=BLAU3)",
       "empresa": "BLAU ON NM",
       "setor": "Comércio e Distribuição",
@@ -7134,10 +7134,10 @@
     }
   },
   "ITUB4": {
-    "cached_time": 1792850569.7857437,
+    "cached_time": 1792887774.4483614,
     "data": {
       "ticker": "ITUB4",
-      "audit_timestamp": "24/10/2026 11:02:49",
+      "audit_timestamp": "24/10/2026 21:22:54",
       "audit_source": "Fundamentus (detalhes.php?papel=ITUB4)",
       "empresa": "ITAUUNIBANCO PN N1",
       "setor": "Intermediários Financeiros",
@@ -7192,10 +7192,10 @@
     }
   },
   "CMIN3": {
-    "cached_time": 1792850570.2631927,
+    "cached_time": 1792887774.9189517,
     "data": {
       "ticker": "CMIN3",
-      "audit_timestamp": "24/10/2026 11:02:50",
+      "audit_timestamp": "24/10/2026 21:22:54",
       "audit_source": "Fundamentus (detalhes.php?papel=CMIN3)",
       "empresa": "CSNMINERACAO ON N2",
       "setor": "Mineração",
@@ -7250,10 +7250,10 @@
     }
   },
   "CBAV3": {
-    "cached_time": 1792850572.690704,
+    "cached_time": 1792887777.2616918,
     "data": {
       "ticker": "CBAV3",
-      "audit_timestamp": "24/10/2026 11:02:52",
+      "audit_timestamp": "24/10/2026 21:22:57",
       "audit_source": "Fundamentus (detalhes.php?papel=CBAV3)",
       "empresa": "CBA ON NM",
       "setor": "Mineração",
@@ -7308,10 +7308,10 @@
     }
   },
   "GGPS3": {
-    "cached_time": 1792850577.0911505,
+    "cached_time": 1792887781.5052614,
     "data": {
       "ticker": "GGPS3",
-      "audit_timestamp": "24/10/2026 11:02:57",
+      "audit_timestamp": "24/10/2026 21:23:01",
       "audit_source": "Fundamentus (detalhes.php?papel=GGPS3)",
       "empresa": "GPS ON NM",
       "setor": "Serviços Diversos",
@@ -7366,10 +7366,10 @@
     }
   },
   "UGPA3": {
-    "cached_time": 1792850574.1604643,
+    "cached_time": 1792887778.67167,
     "data": {
       "ticker": "UGPA3",
-      "audit_timestamp": "24/10/2026 11:02:54",
+      "audit_timestamp": "24/10/2026 21:22:58",
       "audit_source": "Fundamentus (detalhes.php?papel=UGPA3)",
       "empresa": "ULTRAPAR PARTICIPAÇÕES SA ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -7424,10 +7424,10 @@
     }
   },
   "ITUB3": {
-    "cached_time": 1792850574.6505573,
+    "cached_time": 1792887779.1368017,
     "data": {
       "ticker": "ITUB3",
-      "audit_timestamp": "24/10/2026 11:02:54",
+      "audit_timestamp": "24/10/2026 21:22:59",
       "audit_source": "Fundamentus (detalhes.php?papel=ITUB3)",
       "empresa": "ITAUUNIBANCO ON N1",
       "setor": "Intermediários Financeiros",
@@ -7482,10 +7482,10 @@
     }
   },
   "MOVI3": {
-    "cached_time": 1792850588.3371623,
+    "cached_time": 1792887792.3036277,
     "data": {
       "ticker": "MOVI3",
-      "audit_timestamp": "24/10/2026 11:03:08",
+      "audit_timestamp": "24/10/2026 21:23:12",
       "audit_source": "Fundamentus (detalhes.php?papel=MOVI3)",
       "empresa": "MOVIDA ON NM",
       "setor": "Diversos",
@@ -7540,10 +7540,10 @@
     }
   },
   "MULT3": {
-    "cached_time": 1792850577.5749974,
+    "cached_time": 1792887781.991414,
     "data": {
       "ticker": "MULT3",
-      "audit_timestamp": "24/10/2026 11:02:57",
+      "audit_timestamp": "24/10/2026 21:23:01",
       "audit_source": "Fundamentus (detalhes.php?papel=MULT3)",
       "empresa": "Multiplan ON N2",
       "setor": "Exploração de Imóveis",
@@ -7598,10 +7598,10 @@
     }
   },
   "CXSE3": {
-    "cached_time": 1792850578.5333366,
+    "cached_time": 1792887782.9363854,
     "data": {
       "ticker": "CXSE3",
-      "audit_timestamp": "24/10/2026 11:02:58",
+      "audit_timestamp": "24/10/2026 21:23:02",
       "audit_source": "Fundamentus (detalhes.php?papel=CXSE3)",
       "empresa": "CAIXA SEGURI ON NM",
       "setor": "Previdência e Seguros",
@@ -7656,10 +7656,10 @@
     }
   },
   "SBSP3": {
-    "cached_time": 1792850578.0595295,
+    "cached_time": 1792887782.4650538,
     "data": {
       "ticker": "SBSP3",
-      "audit_timestamp": "24/10/2026 11:02:58",
+      "audit_timestamp": "24/10/2026 21:23:02",
       "audit_source": "Fundamentus (detalhes.php?papel=SBSP3)",
       "empresa": "SABESP ON NM",
       "setor": "Água e Saneamento",
@@ -7714,10 +7714,10 @@
     }
   },
   "FESA4": {
-    "cached_time": 1792850580.9457204,
+    "cached_time": 1792887785.2744935,
     "data": {
       "ticker": "FESA4",
-      "audit_timestamp": "24/10/2026 11:03:00",
+      "audit_timestamp": "24/10/2026 21:23:05",
       "audit_source": "Fundamentus (detalhes.php?papel=FESA4)",
       "empresa": "FERBASA PN",
       "setor": "Siderurgia e Metalurgia",
@@ -7772,10 +7772,10 @@
     }
   },
   "RANI3": {
-    "cached_time": 1792850579.0162194,
+    "cached_time": 1792887783.4078555,
     "data": {
       "ticker": "RANI3",
-      "audit_timestamp": "24/10/2026 11:02:59",
+      "audit_timestamp": "24/10/2026 21:23:03",
       "audit_source": "Fundamentus (detalhes.php?papel=RANI3)",
       "empresa": "IRANI ON",
       "setor": "Madeira e Papel",
@@ -7830,10 +7830,10 @@
     }
   },
   "AZZA3": {
-    "cached_time": 1792850582.4792018,
+    "cached_time": 1792887786.677418,
     "data": {
       "ticker": "AZZA3",
-      "audit_timestamp": "24/10/2026 11:03:02",
+      "audit_timestamp": "24/10/2026 21:23:06",
       "audit_source": "Fundamentus (detalhes.php?papel=AZZA3)",
       "empresa": "AZZAS 2154 ON",
       "setor": "Comércio",
@@ -7888,10 +7888,10 @@
     }
   },
   "BRAP4": {
-    "cached_time": 1792850575.152018,
+    "cached_time": 1792887779.6022558,
     "data": {
       "ticker": "BRAP4",
-      "audit_timestamp": "24/10/2026 11:02:55",
+      "audit_timestamp": "24/10/2026 21:22:59",
       "audit_source": "Fundamentus (detalhes.php?papel=BRAP4)",
       "empresa": "BRADESPAR S/A PN N1",
       "setor": "Mineração",
@@ -7946,10 +7946,10 @@
     }
   },
   "IGTI11": {
-    "cached_time": 1792850579.971683,
+    "cached_time": 1792887784.3411362,
     "data": {
       "ticker": "IGTI11",
-      "audit_timestamp": "24/10/2026 11:02:59",
+      "audit_timestamp": "24/10/2026 21:23:04",
       "audit_source": "Fundamentus (detalhes.php?papel=IGTI11)",
       "empresa": "IGUATEMI S.A UNT N1",
       "setor": "Exploração de Imóveis",
@@ -8004,10 +8004,10 @@
     }
   },
   "AXIA3": {
-    "cached_time": 1792850576.1233256,
+    "cached_time": 1792887780.546702,
     "data": {
       "ticker": "AXIA3",
-      "audit_timestamp": "24/10/2026 11:02:56",
+      "audit_timestamp": "24/10/2026 21:23:00",
       "audit_source": "Fundamentus (detalhes.php?papel=AXIA3)",
       "empresa": "AXIA ENERGIA ON N1",
       "setor": "Energia Elétrica",
@@ -8062,10 +8062,10 @@
     }
   },
   "PRIO3": {
-    "cached_time": 1792850583.9450366,
+    "cached_time": 1792887788.0920634,
     "data": {
       "ticker": "PRIO3",
-      "audit_timestamp": "24/10/2026 11:03:03",
+      "audit_timestamp": "24/10/2026 21:23:08",
       "audit_source": "Fundamentus (detalhes.php?papel=PRIO3)",
       "empresa": "PETRORIO ON NM",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -8120,10 +8120,10 @@
     }
   },
   "TOTS3": {
-    "cached_time": 1792850587.332021,
+    "cached_time": 1792887791.365699,
     "data": {
       "ticker": "TOTS3",
-      "audit_timestamp": "24/10/2026 11:03:07",
+      "audit_timestamp": "24/10/2026 21:23:11",
       "audit_source": "Fundamentus (detalhes.php?papel=TOTS3)",
       "empresa": "TOTVS ON NM",
       "setor": "Programas e Serviços",
@@ -8178,10 +8178,10 @@
     }
   },
   "ALPA4": {
-    "cached_time": 1792850583.465199,
+    "cached_time": 1792887787.620226,
     "data": {
       "ticker": "ALPA4",
-      "audit_timestamp": "24/10/2026 11:03:03",
+      "audit_timestamp": "24/10/2026 21:23:07",
       "audit_source": "Fundamentus (detalhes.php?papel=ALPA4)",
       "empresa": "ALPARGATAS PN N1",
       "setor": "Tecidos, Vestuário e Calçados",
@@ -8236,10 +8236,10 @@
     }
   },
   "TFCO4": {
-    "cached_time": 1792850580.4490187,
+    "cached_time": 1792887784.8095844,
     "data": {
       "ticker": "TFCO4",
-      "audit_timestamp": "24/10/2026 11:03:00",
+      "audit_timestamp": "24/10/2026 21:23:04",
       "audit_source": "Fundamentus (detalhes.php?papel=TFCO4)",
       "empresa": "TRACK FIELD PN",
       "setor": "Tecidos, Vestuário e Calçados",
@@ -8294,10 +8294,10 @@
     }
   },
   "VIVT3": {
-    "cached_time": 1792850581.4467354,
+    "cached_time": 1792887785.7456577,
     "data": {
       "ticker": "VIVT3",
-      "audit_timestamp": "24/10/2026 11:03:01",
+      "audit_timestamp": "24/10/2026 21:23:05",
       "audit_source": "Fundamentus (detalhes.php?papel=VIVT3)",
       "empresa": "TELEF BRASIL ON",
       "setor": "Telecomunicações",
@@ -8352,10 +8352,10 @@
     }
   },
   "ECOR3": {
-    "cached_time": 1792850584.4359722,
+    "cached_time": 1792887788.5636208,
     "data": {
       "ticker": "ECOR3",
-      "audit_timestamp": "24/10/2026 11:03:04",
+      "audit_timestamp": "24/10/2026 21:23:08",
       "audit_source": "Fundamentus (detalhes.php?papel=ECOR3)",
       "empresa": "ECORODOVIAS ON NM",
       "setor": "Transporte",
@@ -8410,10 +8410,10 @@
     }
   },
   "ABEV3": {
-    "cached_time": 1792850581.9636002,
+    "cached_time": 1792887786.2099307,
     "data": {
       "ticker": "ABEV3",
-      "audit_timestamp": "24/10/2026 11:03:01",
+      "audit_timestamp": "24/10/2026 21:23:06",
       "audit_source": "Fundamentus (detalhes.php?papel=ABEV3)",
       "empresa": "AMBEV S/A ON",
       "setor": "Bebidas",
@@ -8468,10 +8468,10 @@
     }
   },
   "PASS3": {
-    "cached_time": 1792850585.395731,
+    "cached_time": 1792887789.5034592,
     "data": {
       "ticker": "PASS3",
-      "audit_timestamp": "24/10/2026 11:03:05",
+      "audit_timestamp": "24/10/2026 21:23:09",
       "audit_source": "Fundamentus (detalhes.php?papel=PASS3)",
       "empresa": "COMPASS ON NM",
       "setor": "Gás",
@@ -8526,10 +8526,10 @@
     }
   },
   "PNVL3": {
-    "cached_time": 1792850586.3776166,
+    "cached_time": 1792887790.4326148,
     "data": {
       "ticker": "PNVL3",
-      "audit_timestamp": "24/10/2026 11:03:06",
+      "audit_timestamp": "24/10/2026 21:23:10",
       "audit_source": "Fundamentus (detalhes.php?papel=PNVL3)",
       "empresa": "PANVEL FARMÁCIAS ON",
       "setor": "Comércio e Distribuição",
@@ -8584,10 +8584,10 @@
     }
   },
   "MYPK3": {
-    "cached_time": 1792850591.2695591,
+    "cached_time": 1792887795.1201062,
     "data": {
       "ticker": "MYPK3",
-      "audit_timestamp": "24/10/2026 11:03:11",
+      "audit_timestamp": "24/10/2026 21:23:15",
       "audit_source": "Fundamentus (detalhes.php?papel=MYPK3)",
       "empresa": "IOCHPE-MAXION ON",
       "setor": "Automóveis e Motocicletas",
@@ -8642,10 +8642,10 @@
     }
   },
   "BMOB3": {
-    "cached_time": 1792850587.830355,
+    "cached_time": 1792887791.8340302,
     "data": {
       "ticker": "BMOB3",
-      "audit_timestamp": "24/10/2026 11:03:07",
+      "audit_timestamp": "24/10/2026 21:23:11",
       "audit_source": "Fundamentus (detalhes.php?papel=BMOB3)",
       "empresa": "BEMOBI TECH ON NM",
       "setor": "Programas e Serviços",
@@ -8700,10 +8700,10 @@
     }
   },
   "CPLE3": {
-    "cached_time": 1792850582.9791594,
+    "cached_time": 1792887787.1524827,
     "data": {
       "ticker": "CPLE3",
-      "audit_timestamp": "24/10/2026 11:03:02",
+      "audit_timestamp": "24/10/2026 21:23:07",
       "audit_source": "Fundamentus (detalhes.php?papel=CPLE3)",
       "empresa": "COPEL ON",
       "setor": "Energia Elétrica",
@@ -8758,10 +8758,10 @@
     }
   },
   "RENT3": {
-    "cached_time": 1792850586.8440735,
+    "cached_time": 1792887790.8985791,
     "data": {
       "ticker": "RENT3",
-      "audit_timestamp": "24/10/2026 11:03:06",
+      "audit_timestamp": "24/10/2026 21:23:10",
       "audit_source": "Fundamentus (detalhes.php?papel=RENT3)",
       "empresa": "LOCALIZA ON",
       "setor": "Diversos",
@@ -8816,10 +8816,10 @@
     }
   },
   "BPAC11": {
-    "cached_time": 1792850585.904341,
+    "cached_time": 1792887789.9682703,
     "data": {
       "ticker": "BPAC11",
-      "audit_timestamp": "24/10/2026 11:03:05",
+      "audit_timestamp": "24/10/2026 21:23:09",
       "audit_source": "Fundamentus (detalhes.php?papel=BPAC11)",
       "empresa": "BTGP BANCO UNT",
       "setor": "Intermediários Financeiros",
@@ -8874,10 +8874,10 @@
     }
   },
   "ALOS3": {
-    "cached_time": 1792850589.3224077,
+    "cached_time": 1792887793.2417755,
     "data": {
       "ticker": "ALOS3",
-      "audit_timestamp": "24/10/2026 11:03:09",
+      "audit_timestamp": "24/10/2026 21:23:13",
       "audit_source": "Fundamentus (detalhes.php?papel=ALOS3)",
       "empresa": "ALLOS ON",
       "setor": "Exploração de Imóveis",
@@ -8932,10 +8932,10 @@
     }
   },
   "CSMG3": {
-    "cached_time": 1792850590.300669,
+    "cached_time": 1792887794.1780398,
     "data": {
       "ticker": "CSMG3",
-      "audit_timestamp": "24/10/2026 11:03:10",
+      "audit_timestamp": "24/10/2026 21:23:14",
       "audit_source": "Fundamentus (detalhes.php?papel=CSMG3)",
       "empresa": "COPASA MG ON",
       "setor": "Água e Saneamento",
@@ -8990,10 +8990,10 @@
     }
   },
   "ASAI3": {
-    "cached_time": 1792850590.7773585,
+    "cached_time": 1792887794.6476355,
     "data": {
       "ticker": "ASAI3",
-      "audit_timestamp": "24/10/2026 11:03:10",
+      "audit_timestamp": "24/10/2026 21:23:14",
       "audit_source": "Fundamentus (detalhes.php?papel=ASAI3)",
       "empresa": "ASSAI ON NM",
       "setor": "Comércio e Distribuição",
@@ -9048,10 +9048,10 @@
     }
   },
   "SMFT3": {
-    "cached_time": 1792850593.6656265,
+    "cached_time": 1792887797.461616,
     "data": {
       "ticker": "SMFT3",
-      "audit_timestamp": "24/10/2026 11:03:13",
+      "audit_timestamp": "24/10/2026 21:23:17",
       "audit_source": "Fundamentus (detalhes.php?papel=SMFT3)",
       "empresa": "SMART FIT ON NM",
       "setor": "Viagens e Lazer",
@@ -9106,10 +9106,10 @@
     }
   },
   "FLRY3": {
-    "cached_time": 1792850592.2384079,
+    "cached_time": 1792887796.0556593,
     "data": {
       "ticker": "FLRY3",
-      "audit_timestamp": "24/10/2026 11:03:12",
+      "audit_timestamp": "24/10/2026 21:23:16",
       "audit_source": "Fundamentus (detalhes.php?papel=FLRY3)",
       "empresa": "FLEURY ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -9164,10 +9164,10 @@
     }
   },
   "GOAU4": {
-    "cached_time": 1792850589.8105152,
+    "cached_time": 1792887793.7113395,
     "data": {
       "ticker": "GOAU4",
-      "audit_timestamp": "24/10/2026 11:03:09",
+      "audit_timestamp": "24/10/2026 21:23:13",
       "audit_source": "Fundamentus (detalhes.php?papel=GOAU4)",
       "empresa": "METALÚRGICA GERDAU PN N1",
       "setor": "Siderurgia e Metalurgia",
@@ -9222,10 +9222,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1792850601.9418862,
+    "cached_time": 1792887805.4503505,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "24/10/2026 11:03:21",
+      "audit_timestamp": "24/10/2026 21:23:25",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
@@ -9280,10 +9280,10 @@
     }
   },
   "RDOR3": {
-    "cached_time": 1792850591.758803,
+    "cached_time": 1792887795.5850463,
     "data": {
       "ticker": "RDOR3",
-      "audit_timestamp": "24/10/2026 11:03:11",
+      "audit_timestamp": "24/10/2026 21:23:15",
       "audit_source": "Fundamentus (detalhes.php?papel=RDOR3)",
       "empresa": "REDE D OR ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -9338,10 +9338,10 @@
     }
   },
   "AURA33": {
-    "cached_time": 1792850588.8361368,
+    "cached_time": 1792887792.7725134,
     "data": {
       "ticker": "AURA33",
-      "audit_timestamp": "24/10/2026 11:03:08",
+      "audit_timestamp": "24/10/2026 21:23:12",
       "audit_source": "Fundamentus (detalhes.php?papel=AURA33)",
       "empresa": "AURA 360 DR3",
       "setor": "Mineração",
@@ -9396,10 +9396,10 @@
     }
   },
   "QUAL3": {
-    "cached_time": 1792850595.5974326,
+    "cached_time": 1792887799.3371646,
     "data": {
       "ticker": "QUAL3",
-      "audit_timestamp": "24/10/2026 11:03:15",
+      "audit_timestamp": "24/10/2026 21:23:19",
       "audit_source": "Fundamentus (detalhes.php?papel=QUAL3)",
       "empresa": "QUALICORP ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -9454,10 +9454,10 @@
     }
   },
   "ENGI11": {
-    "cached_time": 1792850592.7042732,
+    "cached_time": 1792887796.5248215,
     "data": {
       "ticker": "ENGI11",
-      "audit_timestamp": "24/10/2026 11:03:12",
+      "audit_timestamp": "24/10/2026 21:23:16",
       "audit_source": "Fundamentus (detalhes.php?papel=ENGI11)",
       "empresa": "ENERGISA UNT N2",
       "setor": "Energia Elétrica",
@@ -9512,10 +9512,10 @@
     }
   },
   "AUAU3": {
-    "cached_time": 1792850595.109444,
+    "cached_time": 1792887798.8680077,
     "data": {
       "ticker": "AUAU3",
-      "audit_timestamp": "24/10/2026 11:03:15",
+      "audit_timestamp": "24/10/2026 21:23:18",
       "audit_source": "Fundamentus (detalhes.php?papel=AUAU3)",
       "empresa": "PETZCOBASI ON NM",
       "setor": "Comércio",
@@ -9570,10 +9570,10 @@
     }
   },
   "SLCE3": {
-    "cached_time": 1792850594.6365318,
+    "cached_time": 1792887798.4002578,
     "data": {
       "ticker": "SLCE3",
-      "audit_timestamp": "24/10/2026 11:03:14",
+      "audit_timestamp": "24/10/2026 21:23:18",
       "audit_source": "Fundamentus (detalhes.php?papel=SLCE3)",
       "empresa": "SLC Agricola ON NM",
       "setor": "Agropecuária",
@@ -9628,10 +9628,10 @@
     }
   },
   "B3SA3": {
-    "cached_time": 1792850594.1537857,
+    "cached_time": 1792887797.9325094,
     "data": {
       "ticker": "B3SA3",
-      "audit_timestamp": "24/10/2026 11:03:14",
+      "audit_timestamp": "24/10/2026 21:23:17",
       "audit_source": "Fundamentus (detalhes.php?papel=B3SA3)",
       "empresa": "B3 ON",
       "setor": "Serviços Financeiros Diversos",
@@ -9686,10 +9686,10 @@
     }
   },
   "VAMO3": {
-    "cached_time": 1792850596.1124995,
+    "cached_time": 1792887799.804326,
     "data": {
       "ticker": "VAMO3",
-      "audit_timestamp": "24/10/2026 11:03:16",
+      "audit_timestamp": "24/10/2026 21:23:19",
       "audit_source": "Fundamentus (detalhes.php?papel=VAMO3)",
       "empresa": "VAMOS ON NM",
       "setor": "Diversos",
@@ -9744,10 +9744,10 @@
     }
   },
   "GGBR4": {
-    "cached_time": 1792850593.1848605,
+    "cached_time": 1792887796.9845414,
     "data": {
       "ticker": "GGBR4",
-      "audit_timestamp": "24/10/2026 11:03:13",
+      "audit_timestamp": "24/10/2026 21:23:16",
       "audit_source": "Fundamentus (detalhes.php?papel=GGBR4)",
       "empresa": "GERDAU S.A. PN N1",
       "setor": "Siderurgia e Metalurgia",
@@ -9802,10 +9802,10 @@
     }
   },
   "FRAS3": {
-    "cached_time": 1792850600.5017204,
+    "cached_time": 1792887804.0410657,
     "data": {
       "ticker": "FRAS3",
-      "audit_timestamp": "24/10/2026 11:03:20",
+      "audit_timestamp": "24/10/2026 21:23:24",
       "audit_source": "Fundamentus (detalhes.php?papel=FRAS3)",
       "empresa": "FRAS-LE S.A. ON",
       "setor": "Material de Transporte",
@@ -9860,10 +9860,10 @@
     }
   },
   "SAPR4": {
-    "cached_time": 1792850598.0474868,
+    "cached_time": 1792887801.6901228,
     "data": {
       "ticker": "SAPR4",
-      "audit_timestamp": "24/10/2026 11:03:18",
+      "audit_timestamp": "24/10/2026 21:23:21",
       "audit_source": "Fundamentus (detalhes.php?papel=SAPR4)",
       "empresa": "SANEPAR PN",
       "setor": "Água e Saneamento",
@@ -9918,10 +9918,10 @@
     }
   },
   "UNIP6": {
-    "cached_time": 1792850596.5914085,
+    "cached_time": 1792887800.2738495,
     "data": {
       "ticker": "UNIP6",
-      "audit_timestamp": "24/10/2026 11:03:16",
+      "audit_timestamp": "24/10/2026 21:23:20",
       "audit_source": "Fundamentus (detalhes.php?papel=UNIP6)",
       "empresa": "UNIPAR PARTICIPAÇÕES S.A. PNB",
       "setor": "Químicos",
@@ -9976,10 +9976,10 @@
     }
   },
   "SAPR11": {
-    "cached_time": 1792850599.0359836,
+    "cached_time": 1792887802.6335723,
     "data": {
       "ticker": "SAPR11",
-      "audit_timestamp": "24/10/2026 11:03:19",
+      "audit_timestamp": "24/10/2026 21:23:22",
       "audit_source": "Fundamentus (detalhes.php?papel=SAPR11)",
       "empresa": "SANEPAR UNT N2",
       "setor": "Água e Saneamento",
@@ -10034,10 +10034,10 @@
     }
   },
   "OPCT3": {
-    "cached_time": 1792850600.9834445,
+    "cached_time": 1792887804.5093842,
     "data": {
       "ticker": "OPCT3",
-      "audit_timestamp": "24/10/2026 11:03:20",
+      "audit_timestamp": "24/10/2026 21:23:24",
       "audit_source": "Fundamentus (detalhes.php?papel=OPCT3)",
       "empresa": "OCEANPACT ON NM",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -10092,10 +10092,10 @@
     }
   },
   "PRNR3": {
-    "cached_time": 1792850598.547749,
+    "cached_time": 1792887802.165847,
     "data": {
       "ticker": "PRNR3",
-      "audit_timestamp": "24/10/2026 11:03:18",
+      "audit_timestamp": "24/10/2026 21:23:22",
       "audit_source": "Fundamentus (detalhes.php?papel=PRNR3)",
       "empresa": "PRINER ON NM",
       "setor": "Serviços Diversos",
@@ -10150,10 +10150,10 @@
     }
   },
   "RADL3": {
-    "cached_time": 1792850597.0755847,
+    "cached_time": 1792887800.7536619,
     "data": {
       "ticker": "RADL3",
-      "audit_timestamp": "24/10/2026 11:03:17",
+      "audit_timestamp": "24/10/2026 21:23:20",
       "audit_source": "Fundamentus (detalhes.php?papel=RADL3)",
       "empresa": "RAIADROGASIL ON",
       "setor": "Comércio e Distribuição",
@@ -10208,10 +10208,10 @@
     }
   },
   "ARML3": {
-    "cached_time": 1792850603.4018433,
+    "cached_time": 1792887806.861578,
     "data": {
       "ticker": "ARML3",
-      "audit_timestamp": "24/10/2026 11:03:23",
+      "audit_timestamp": "24/10/2026 21:23:26",
       "audit_source": "Fundamentus (detalhes.php?papel=ARML3)",
       "empresa": "ARMAC ON NM",
       "setor": "Diversos",
@@ -10266,10 +10266,10 @@
     }
   },
   "RAIL3": {
-    "cached_time": 1792850600.026922,
+    "cached_time": 1792887803.5710557,
     "data": {
       "ticker": "RAIL3",
-      "audit_timestamp": "24/10/2026 11:03:20",
+      "audit_timestamp": "24/10/2026 21:23:23",
       "audit_source": "Fundamentus (detalhes.php?papel=RAIL3)",
       "empresa": "RUMO S.A. ON NM",
       "setor": "Transporte",
@@ -10324,10 +10324,10 @@
     }
   },
   "SAPR3": {
-    "cached_time": 1792850601.4516141,
+    "cached_time": 1792887804.979751,
     "data": {
       "ticker": "SAPR3",
-      "audit_timestamp": "24/10/2026 11:03:21",
+      "audit_timestamp": "24/10/2026 21:23:24",
       "audit_source": "Fundamentus (detalhes.php?papel=SAPR3)",
       "empresa": "SANEPAR ON",
       "setor": "Água e Saneamento",
@@ -10382,10 +10382,10 @@
     }
   },
   "YDUQ3": {
-    "cached_time": 1792850602.4292517,
+    "cached_time": 1792887805.9210227,
     "data": {
       "ticker": "YDUQ3",
-      "audit_timestamp": "24/10/2026 11:03:22",
+      "audit_timestamp": "24/10/2026 21:23:25",
       "audit_source": "Fundamentus (detalhes.php?papel=YDUQ3)",
       "empresa": "YDUQS PART ON",
       "setor": "Diversos",
@@ -10440,10 +10440,10 @@
     }
   },
   "EMBJ3": {
-    "cached_time": 1792850599.5394676,
+    "cached_time": 1792887803.102641,
     "data": {
       "ticker": "EMBJ3",
-      "audit_timestamp": "24/10/2026 11:03:19",
+      "audit_timestamp": "24/10/2026 21:23:23",
       "audit_source": "Fundamentus (detalhes.php?papel=EMBJ3)",
       "empresa": "EMBRAER ON NM",
       "setor": "Material de Transporte",
@@ -10498,10 +10498,10 @@
     }
   },
   "VALE3": {
-    "cached_time": 1792850597.5475595,
+    "cached_time": 1792887801.2245193,
     "data": {
       "ticker": "VALE3",
-      "audit_timestamp": "24/10/2026 11:03:17",
+      "audit_timestamp": "24/10/2026 21:23:21",
       "audit_source": "Fundamentus (detalhes.php?papel=VALE3)",
       "empresa": "VALE ON NM",
       "setor": "Mineração",
@@ -10614,10 +10614,10 @@
     }
   },
   "DESK3": {
-    "cached_time": 1792850603.9035077,
+    "cached_time": 1792887807.3311906,
     "data": {
       "ticker": "DESK3",
-      "audit_timestamp": "24/10/2026 11:03:23",
+      "audit_timestamp": "24/10/2026 21:23:27",
       "audit_source": "Fundamentus (detalhes.php?papel=DESK3)",
       "empresa": "DESKTOPSIGMA ON NM",
       "setor": "Telecomunicações",
@@ -10672,10 +10672,10 @@
     }
   },
   "KLBN4": {
-    "cached_time": 1792850604.3742666,
+    "cached_time": 1792887807.7982044,
     "data": {
       "ticker": "KLBN4",
-      "audit_timestamp": "24/10/2026 11:03:24",
+      "audit_timestamp": "24/10/2026 21:23:27",
       "audit_source": "Fundamentus (detalhes.php?papel=KLBN4)",
       "empresa": "KLABIN PN N2",
       "setor": "Madeira e Papel",
@@ -10730,10 +10730,10 @@
     }
   },
   "KLBN11": {
-    "cached_time": 1792850604.8750708,
+    "cached_time": 1792887808.2630262,
     "data": {
       "ticker": "KLBN11",
-      "audit_timestamp": "24/10/2026 11:03:24",
+      "audit_timestamp": "24/10/2026 21:23:28",
       "audit_source": "Fundamentus (detalhes.php?papel=KLBN11)",
       "empresa": "KLABIN UNT N2",
       "setor": "Madeira e Papel",
@@ -10788,10 +10788,10 @@
     }
   },
   "KLBN3": {
-    "cached_time": 1792850605.371017,
+    "cached_time": 1792887808.7279809,
     "data": {
       "ticker": "KLBN3",
-      "audit_timestamp": "24/10/2026 11:03:25",
+      "audit_timestamp": "24/10/2026 21:23:28",
       "audit_source": "Fundamentus (detalhes.php?papel=KLBN3)",
       "empresa": "KLABIN ON N2",
       "setor": "Madeira e Papel",
@@ -10904,10 +10904,10 @@
     }
   },
   "TASA4": {
-    "cached_time": 1792850606.3323119,
+    "cached_time": 1792887809.6662261,
     "data": {
       "ticker": "TASA4",
-      "audit_timestamp": "24/10/2026 11:03:26",
+      "audit_timestamp": "24/10/2026 21:23:29",
       "audit_source": "Fundamentus (detalhes.php?papel=TASA4)",
       "empresa": "TAURUS ARMAS PN",
       "setor": "Máquinas e Equipamentos",
@@ -10962,10 +10962,10 @@
     }
   },
   "POSI3": {
-    "cached_time": 1792850606.8002248,
+    "cached_time": 1792887810.134467,
     "data": {
       "ticker": "POSI3",
-      "audit_timestamp": "24/10/2026 11:03:26",
+      "audit_timestamp": "24/10/2026 21:23:30",
       "audit_source": "Fundamentus (detalhes.php?papel=POSI3)",
       "empresa": "POSITIVO TEC ON NM",
       "setor": "Computadores e Equipamentos",
@@ -11020,10 +11020,10 @@
     }
   },
   "SOJA3": {
-    "cached_time": 1792850605.8394024,
+    "cached_time": 1792887809.1973522,
     "data": {
       "ticker": "SOJA3",
-      "audit_timestamp": "24/10/2026 11:03:25",
+      "audit_timestamp": "24/10/2026 21:23:29",
       "audit_source": "Fundamentus (detalhes.php?papel=SOJA3)",
       "empresa": "BOA SAFRA ON NM",
       "setor": "Agropecuária",
@@ -11078,10 +11078,10 @@
     }
   },
   "ENEV3": {
-    "cached_time": 1792850607.2826784,
+    "cached_time": 1792887810.6032262,
     "data": {
       "ticker": "ENEV3",
-      "audit_timestamp": "24/10/2026 11:03:27",
+      "audit_timestamp": "24/10/2026 21:23:30",
       "audit_source": "Fundamentus (detalhes.php?papel=ENEV3)",
       "empresa": "ENEVA ON",
       "setor": "Energia Elétrica",
@@ -11136,10 +11136,10 @@
     }
   },
   "EQTL3": {
-    "cached_time": 1792850607.767426,
+    "cached_time": 1792887811.0737243,
     "data": {
       "ticker": "EQTL3",
-      "audit_timestamp": "24/10/2026 11:03:27",
+      "audit_timestamp": "24/10/2026 21:23:31",
       "audit_source": "Fundamentus (detalhes.php?papel=EQTL3)",
       "empresa": "EQUATORIAL ENERGIA S.A. ON NM",
       "setor": "Energia Elétrica",
@@ -11194,10 +11194,10 @@
     }
   },
   "MBRF3": {
-    "cached_time": 1792850608.2408717,
+    "cached_time": 1792887811.539054,
     "data": {
       "ticker": "MBRF3",
-      "audit_timestamp": "24/10/2026 11:03:28",
+      "audit_timestamp": "24/10/2026 21:23:31",
       "audit_source": "Fundamentus (detalhes.php?papel=MBRF3)",
       "empresa": "MARFRIG ON NM",
       "setor": "Alimentos Processados",
@@ -11252,10 +11252,10 @@
     }
   },
   "HBOR3": {
-    "cached_time": 1792850608.7327862,
+    "cached_time": 1792887812.006064,
     "data": {
       "ticker": "HBOR3",
-      "audit_timestamp": "24/10/2026 11:03:28",
+      "audit_timestamp": "24/10/2026 21:23:31",
       "audit_source": "Fundamentus (detalhes.php?papel=HBOR3)",
       "empresa": "Helbor ON",
       "setor": "Construção Civil",
@@ -11310,10 +11310,10 @@
     }
   },
   "MGLU3": {
-    "cached_time": 1792850609.2138672,
+    "cached_time": 1792887812.4728405,
     "data": {
       "ticker": "MGLU3",
-      "audit_timestamp": "24/10/2026 11:03:29",
+      "audit_timestamp": "24/10/2026 21:23:32",
       "audit_source": "Fundamentus (detalhes.php?papel=MGLU3)",
       "empresa": "MAGAZ LUIZA ON NM",
       "setor": "Comércio",
@@ -11368,10 +11368,10 @@
     }
   },
   "BRAV3": {
-    "cached_time": 1792850609.6780927,
+    "cached_time": 1792887812.943668,
     "data": {
       "ticker": "BRAV3",
-      "audit_timestamp": "24/10/2026 11:03:29",
+      "audit_timestamp": "24/10/2026 21:23:32",
       "audit_source": "Fundamentus (detalhes.php?papel=BRAV3)",
       "empresa": "BRAVA ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -11426,10 +11426,10 @@
     }
   },
   "ORVR3": {
-    "cached_time": 1792850610.1653779,
+    "cached_time": 1792887813.4084585,
     "data": {
       "ticker": "ORVR3",
-      "audit_timestamp": "24/10/2026 11:03:30",
+      "audit_timestamp": "24/10/2026 21:23:33",
       "audit_source": "Fundamentus (detalhes.php?papel=ORVR3)",
       "empresa": "ORIZON ON NM",
       "setor": "Água e Saneamento",
@@ -11484,10 +11484,10 @@
     }
   },
   "TIMS3": {
-    "cached_time": 1792850610.657212,
+    "cached_time": 1792887813.8793757,
     "data": {
       "ticker": "TIMS3",
-      "audit_timestamp": "24/10/2026 11:03:30",
+      "audit_timestamp": "24/10/2026 21:23:33",
       "audit_source": "Fundamentus (detalhes.php?papel=TIMS3)",
       "empresa": "TIM ON NM",
       "setor": "Telecomunicações",
@@ -11542,10 +11542,10 @@
     }
   },
   "PTBL3": {
-    "cached_time": 1792850527.0486994,
+    "cached_time": 1792887733.6430228,
     "data": {
       "ticker": "PTBL3",
-      "audit_timestamp": "24/10/2026 11:02:07",
+      "audit_timestamp": "24/10/2026 21:22:13",
       "audit_source": "Fundamentus (detalhes.php?papel=PTBL3)",
       "empresa": "PORTOBELLO S/A ON",
       "setor": "Construção e Engenharia",
@@ -11600,10 +11600,10 @@
     }
   },
   "ESPA3": {
-    "cached_time": 1792850602.9095123,
+    "cached_time": 1792887806.3911421,
     "data": {
       "ticker": "ESPA3",
-      "audit_timestamp": "24/10/2026 11:03:22",
+      "audit_timestamp": "24/10/2026 21:23:26",
       "audit_source": "Fundamentus (detalhes.php?papel=ESPA3)",
       "empresa": "ESPACOLASER ON NM",
       "setor": "Comércio",
@@ -11658,10 +11658,10 @@
     }
   },
   "CLSC4": {
-    "cached_time": 1792850553.520647,
+    "cached_time": 1792887758.955684,
     "data": {
       "ticker": "CLSC4",
-      "audit_timestamp": "24/10/2026 11:02:33",
+      "audit_timestamp": "24/10/2026 21:22:38",
       "audit_source": "Fundamentus (detalhes.php?papel=CLSC4)",
       "empresa": "CELESC PN N2",
       "setor": "Energia Elétrica",
@@ -11716,10 +11716,10 @@
     }
   },
   "BRAP3": {
-    "cached_time": 1792850570.7607124,
+    "cached_time": 1792887775.386022,
     "data": {
       "ticker": "BRAP3",
-      "audit_timestamp": "24/10/2026 11:02:50",
+      "audit_timestamp": "24/10/2026 21:22:55",
       "audit_source": "Fundamentus (detalhes.php?papel=BRAP3)",
       "empresa": "BRADESPAR S/A ON N1",
       "setor": "Mineração",
@@ -11774,10 +11774,10 @@
     }
   },
   "VVEO3": {
-    "cached_time": 1792850535.8933399,
+    "cached_time": 1792887742.0790684,
     "data": {
       "ticker": "VVEO3",
-      "audit_timestamp": "24/10/2026 11:02:15",
+      "audit_timestamp": "24/10/2026 21:22:22",
       "audit_source": "Fundamentus (detalhes.php?papel=VVEO3)",
       "empresa": "VIVEO ON NM",
       "setor": "Comércio e Distribuição",
@@ -11832,10 +11832,10 @@
     }
   },
   "RENT4": {
-    "cached_time": 1792850584.9255314,
+    "cached_time": 1792887789.0318155,
     "data": {
       "ticker": "RENT4",
-      "audit_timestamp": "24/10/2026 11:03:04",
+      "audit_timestamp": "24/10/2026 21:23:09",
       "audit_source": "Fundamentus (detalhes.php?papel=RENT4)",
       "empresa": "LOCALIZA PN NM",
       "setor": "Diversos",
