@@ -2,12 +2,12 @@ name: Atualização Diária B3 (Nuvem)
 
 on:
   schedule:
-    # 07:20 Horário de Brasília (10:20 UTC) - Todos os dias (seg a dom)
-    - cron: '20 10 * * *'
-    # 13:20 Horário de Brasília (16:20 UTC) - Todos os dias (seg a dom)
-    - cron: '20 16 * * *'
-    # 19:20 Horário de Brasília (22:20 UTC) - Todos os dias (seg a dom)
-    - cron: '20 22 * * *'
+    # 05:43 Horário de Brasília (08:43 UTC) - Garante dados prontos antes das 07:00
+    - cron: '43 8 * * *'
+    # 12:43 Horário de Brasília (15:43 UTC) - Pega divulgações matinais
+    - cron: '43 15 * * *'
+    # 19:43 Horário de Brasília (22:43 UTC) - Pega os balanços noturnos da CVM
+    - cron: '43 22 * * *'
   workflow_dispatch:
   repository_dispatch:
     types: [daily_update]
