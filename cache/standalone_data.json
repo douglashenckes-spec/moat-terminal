@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "01/11/2026 12:27:29",
+  "audit_timestamp": "01/11/2026 16:54:14",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 207,
@@ -12737,7 +12737,7 @@
       ],
       "details": {
         "ticker": "RANI3",
-        "audit_timestamp": "31/10/2026 16:33:06",
+        "audit_timestamp": "01/11/2026 16:54:17",
         "audit_source": "Fundamentus (detalhes.php?papel=RANI3)",
         "empresa": "IRANI ON",
         "setor": "Madeira e Papel",
@@ -23339,7 +23339,7 @@
       ],
       "details": {
         "ticker": "USIM3",
-        "audit_timestamp": "31/10/2026 16:33:05",
+        "audit_timestamp": "01/11/2026 16:54:15",
         "audit_source": "Fundamentus (detalhes.php?papel=USIM3)",
         "empresa": "USIMINAS ON N1",
         "setor": "Siderurgia e Metalurgia",
@@ -23510,7 +23510,7 @@
       ],
       "details": {
         "ticker": "USIM5",
-        "audit_timestamp": "31/10/2026 16:33:06",
+        "audit_timestamp": "01/11/2026 16:54:16",
         "audit_source": "Fundamentus (detalhes.php?papel=USIM5)",
         "empresa": "USIMINAS PNA N1",
         "setor": "Siderurgia e Metalurgia",
