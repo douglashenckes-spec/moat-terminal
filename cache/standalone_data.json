@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "03/11/2026 13:31:54",
+  "audit_timestamp": "03/11/2026 18:16:53",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 207,
@@ -425,7 +425,7 @@
       ],
       "details": {
         "ticker": "WEGE3",
-        "audit_timestamp": "02/11/2026 15:51:49",
+        "audit_timestamp": "03/11/2026 18:17:03",
         "audit_source": "Fundamentus (detalhes.php?papel=WEGE3)",
         "empresa": "WEG SA ON N1",
         "setor": "Máquinas e Equipamentos",
@@ -1280,7 +1280,7 @@
       ],
       "details": {
         "ticker": "MULT3",
-        "audit_timestamp": "02/11/2026 15:51:21",
+        "audit_timestamp": "03/11/2026 18:17:00",
         "audit_source": "Fundamentus (detalhes.php?papel=MULT3)",
         "empresa": "Multiplan ON N2",
         "setor": "Exploração de Imóveis",
@@ -1964,7 +1964,7 @@
       ],
       "details": {
         "ticker": "INTB3",
-        "audit_timestamp": "02/11/2026 15:51:15",
+        "audit_timestamp": "03/11/2026 18:16:59",
         "audit_source": "Fundamentus (detalhes.php?papel=INTB3)",
         "empresa": "INTELBRAS ON NM",
         "setor": "Computadores e Equipamentos",
@@ -3503,7 +3503,7 @@
       ],
       "details": {
         "ticker": "ABEV3",
-        "audit_timestamp": "02/11/2026 15:51:38",
+        "audit_timestamp": "03/11/2026 18:17:01",
         "audit_source": "Fundamentus (detalhes.php?papel=ABEV3)",
         "empresa": "AMBEV S/A ON",
         "setor": "Bebidas",
@@ -4871,7 +4871,7 @@
       ],
       "details": {
         "ticker": "BBDC3",
-        "audit_timestamp": "02/11/2026 15:51:07",
+        "audit_timestamp": "03/11/2026 18:16:57",
         "audit_source": "Fundamentus (detalhes.php?papel=BBDC3)",
         "empresa": "BANCO BRADESCO S.A. ON N1",
         "setor": "Intermediários Financeiros",
@@ -5042,7 +5042,7 @@
       ],
       "details": {
         "ticker": "BBDC4",
-        "audit_timestamp": "02/11/2026 15:51:10",
+        "audit_timestamp": "03/11/2026 18:16:58",
         "audit_source": "Fundamentus (detalhes.php?papel=BBDC4)",
         "empresa": "BANCO BRADESCO S.A. PN N1",
         "setor": "Intermediários Financeiros",
@@ -9659,7 +9659,7 @@
       ],
       "details": {
         "ticker": "VAMO3",
-        "audit_timestamp": "02/11/2026 15:51:14",
+        "audit_timestamp": "03/11/2026 18:16:58",
         "audit_source": "Fundamentus (detalhes.php?papel=VAMO3)",
         "empresa": "VAMOS ON NM",
         "setor": "Diversos",
@@ -11369,7 +11369,7 @@
       ],
       "details": {
         "ticker": "HYPE3",
-        "audit_timestamp": "02/11/2026 15:51:20",
+        "audit_timestamp": "03/11/2026 18:17:00",
         "audit_source": "Fundamentus (detalhes.php?papel=HYPE3)",
         "empresa": "HYPERA ON",
         "setor": "Comércio e Distribuição",
@@ -16841,7 +16841,7 @@
       ],
       "details": {
         "ticker": "VALE3",
-        "audit_timestamp": "02/11/2026 15:51:53",
+        "audit_timestamp": "03/11/2026 18:17:03",
         "audit_source": "Fundamentus (detalhes.php?papel=VALE3)",
         "empresa": "VALE ON NM",
         "setor": "Mineração",
@@ -17012,7 +17012,7 @@
       ],
       "details": {
         "ticker": "MOVI3",
-        "audit_timestamp": "02/11/2026 15:50:58",
+        "audit_timestamp": "03/11/2026 18:16:55",
         "audit_source": "Fundamentus (detalhes.php?papel=MOVI3)",
         "empresa": "MOVIDA ON NM",
         "setor": "Diversos",
@@ -19064,7 +19064,7 @@
       ],
       "details": {
         "ticker": "SAUD3",
-        "audit_timestamp": "02/11/2026 15:51:44",
+        "audit_timestamp": "03/11/2026 18:17:02",
         "audit_source": "Fundamentus (detalhes.php?papel=SAUD3)",
         "empresa": "BRADSAUDE ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -26075,7 +26075,7 @@
       ],
       "details": {
         "ticker": "JSLG3",
-        "audit_timestamp": "02/11/2026 15:50:34",
+        "audit_timestamp": "03/11/2026 18:16:54",
         "audit_source": "Fundamentus (detalhes.php?papel=JSLG3)",
         "empresa": "JULIO SIMOES ON NM",
         "setor": "Transporte",
@@ -27272,7 +27272,7 @@
       ],
       "details": {
         "ticker": "MOTV3",
-        "audit_timestamp": "02/11/2026 15:50:59",
+        "audit_timestamp": "03/11/2026 18:16:56",
         "audit_source": "Fundamentus (detalhes.php?papel=MOTV3)",
         "empresa": "MOTIVA SA ON",
         "setor": "Transporte",
@@ -27785,7 +27785,7 @@
       ],
       "details": {
         "ticker": "ROMI3",
-        "audit_timestamp": "02/11/2026 15:51:06",
+        "audit_timestamp": "03/11/2026 18:16:56",
         "audit_source": "Fundamentus (detalhes.php?papel=ROMI3)",
         "empresa": "ROMI ON",
         "setor": "Máquinas e Equipamentos",

@@ -348,10 +348,10 @@
     }
   },
   "JSLG3": {
-    "cached_time": 1793645434.6032245,
+    "cached_time": 1793740614.6449049,
     "data": {
       "ticker": "JSLG3",
-      "audit_timestamp": "02/11/2026 15:50:34",
+      "audit_timestamp": "03/11/2026 18:16:54",
       "audit_source": "Fundamentus (detalhes.php?papel=JSLG3)",
       "empresa": "JULIO SIMOES ON NM",
       "setor": "Transporte",
@@ -4872,10 +4872,10 @@
     }
   },
   "ROMI3": {
-    "cached_time": 1793645466.3784523,
+    "cached_time": 1793740616.89384,
     "data": {
       "ticker": "ROMI3",
-      "audit_timestamp": "02/11/2026 15:51:06",
+      "audit_timestamp": "03/11/2026 18:16:56",
       "audit_source": "Fundamentus (detalhes.php?papel=ROMI3)",
       "empresa": "ROMI ON",
       "setor": "Máquinas e Equipamentos",
@@ -5104,10 +5104,10 @@
     }
   },
   "BBDC3": {
-    "cached_time": 1793645467.189849,
+    "cached_time": 1793740617.4627533,
     "data": {
       "ticker": "BBDC3",
-      "audit_timestamp": "02/11/2026 15:51:07",
+      "audit_timestamp": "03/11/2026 18:16:57",
       "audit_source": "Fundamentus (detalhes.php?papel=BBDC3)",
       "empresa": "BANCO BRADESCO S.A. ON N1",
       "setor": "Intermediários Financeiros",
@@ -5858,10 +5858,10 @@
     }
   },
   "BBDC4": {
-    "cached_time": 1793645470.4587064,
+    "cached_time": 1793740618.2036653,
     "data": {
       "ticker": "BBDC4",
-      "audit_timestamp": "02/11/2026 15:51:10",
+      "audit_timestamp": "03/11/2026 18:16:58",
       "audit_source": "Fundamentus (detalhes.php?papel=BBDC4)",
       "empresa": "BANCO BRADESCO S.A. PN N1",
       "setor": "Intermediários Financeiros",
@@ -5974,10 +5974,10 @@
     }
   },
   "INTB3": {
-    "cached_time": 1793645475.3682654,
+    "cached_time": 1793740619.7051065,
     "data": {
       "ticker": "INTB3",
-      "audit_timestamp": "02/11/2026 15:51:15",
+      "audit_timestamp": "03/11/2026 18:16:59",
       "audit_source": "Fundamentus (detalhes.php?papel=INTB3)",
       "empresa": "INTELBRAS ON NM",
       "setor": "Computadores e Equipamentos",
@@ -6322,10 +6322,10 @@
     }
   },
   "MOTV3": {
-    "cached_time": 1793645459.6260319,
+    "cached_time": 1793740616.1543615,
     "data": {
       "ticker": "MOTV3",
-      "audit_timestamp": "02/11/2026 15:50:59",
+      "audit_timestamp": "03/11/2026 18:16:56",
       "audit_source": "Fundamentus (detalhes.php?papel=MOTV3)",
       "empresa": "MOTIVA SA ON",
       "setor": "Transporte",
@@ -6728,10 +6728,10 @@
     }
   },
   "HYPE3": {
-    "cached_time": 1793645480.70603,
+    "cached_time": 1793740620.3035643,
     "data": {
       "ticker": "HYPE3",
-      "audit_timestamp": "02/11/2026 15:51:20",
+      "audit_timestamp": "03/11/2026 18:17:00",
       "audit_source": "Fundamentus (detalhes.php?papel=HYPE3)",
       "empresa": "HYPERA ON",
       "setor": "Comércio e Distribuição",
@@ -7482,10 +7482,10 @@
     }
   },
   "MOVI3": {
-    "cached_time": 1793645458.3030515,
+    "cached_time": 1793740615.4060009,
     "data": {
       "ticker": "MOVI3",
-      "audit_timestamp": "02/11/2026 15:50:58",
+      "audit_timestamp": "03/11/2026 18:16:55",
       "audit_source": "Fundamentus (detalhes.php?papel=MOVI3)",
       "empresa": "MOVIDA ON NM",
       "setor": "Diversos",
@@ -7540,10 +7540,10 @@
     }
   },
   "MULT3": {
-    "cached_time": 1793645481.114615,
+    "cached_time": 1793740620.8896945,
     "data": {
       "ticker": "MULT3",
-      "audit_timestamp": "02/11/2026 15:51:21",
+      "audit_timestamp": "03/11/2026 18:17:00",
       "audit_source": "Fundamentus (detalhes.php?papel=MULT3)",
       "empresa": "Multiplan ON N2",
       "setor": "Exploração de Imóveis",
@@ -8410,10 +8410,10 @@
     }
   },
   "ABEV3": {
-    "cached_time": 1793645498.8471193,
+    "cached_time": 1793740621.514618,
     "data": {
       "ticker": "ABEV3",
-      "audit_timestamp": "02/11/2026 15:51:38",
+      "audit_timestamp": "03/11/2026 18:17:01",
       "audit_source": "Fundamentus (detalhes.php?papel=ABEV3)",
       "empresa": "AMBEV S/A ON",
       "setor": "Bebidas",
@@ -9686,10 +9686,10 @@
     }
   },
   "VAMO3": {
-    "cached_time": 1793645474.1523192,
+    "cached_time": 1793740618.9469216,
     "data": {
       "ticker": "VAMO3",
-      "audit_timestamp": "02/11/2026 15:51:14",
+      "audit_timestamp": "03/11/2026 18:16:58",
       "audit_source": "Fundamentus (detalhes.php?papel=VAMO3)",
       "empresa": "VAMOS ON NM",
       "setor": "Diversos",
@@ -10498,10 +10498,10 @@
     }
   },
   "VALE3": {
-    "cached_time": 1793645513.5334635,
+    "cached_time": 1793740623.6183681,
     "data": {
       "ticker": "VALE3",
-      "audit_timestamp": "02/11/2026 15:51:53",
+      "audit_timestamp": "03/11/2026 18:17:03",
       "audit_source": "Fundamentus (detalhes.php?papel=VALE3)",
       "empresa": "VALE ON NM",
       "setor": "Mineração",
@@ -10556,10 +10556,10 @@
     }
   },
   "WEGE3": {
-    "cached_time": 1793645509.8668044,
+    "cached_time": 1793740623.0427353,
     "data": {
       "ticker": "WEGE3",
-      "audit_timestamp": "02/11/2026 15:51:49",
+      "audit_timestamp": "03/11/2026 18:17:03",
       "audit_source": "Fundamentus (detalhes.php?papel=WEGE3)",
       "empresa": "WEG SA ON N1",
       "setor": "Máquinas e Equipamentos",
@@ -10846,10 +10846,10 @@
     }
   },
   "SAUD3": {
-    "cached_time": 1793645504.5521426,
+    "cached_time": 1793740622.2791386,
     "data": {
       "ticker": "SAUD3",
-      "audit_timestamp": "02/11/2026 15:51:44",
+      "audit_timestamp": "03/11/2026 18:17:02",
       "audit_source": "Fundamentus (detalhes.php?papel=SAUD3)",
       "empresa": "BRADSAUDE ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
