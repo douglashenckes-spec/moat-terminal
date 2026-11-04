@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "04/11/2026 13:34:43",
+  "audit_timestamp": "04/11/2026 18:30:06",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 208,
@@ -7094,7 +7094,7 @@
       ],
       "details": {
         "ticker": "CSUD3",
-        "audit_timestamp": "04/11/2026 10:48:19",
+        "audit_timestamp": "04/11/2026 18:30:07",
         "audit_source": "Fundamentus (detalhes.php?papel=CSUD3)",
         "empresa": "CSU DIGITAL ON",
         "setor": "Serviços Diversos",
