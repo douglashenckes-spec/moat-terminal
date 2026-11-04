@@ -375,13 +375,30 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         rec12 = det_entry.get("receita_liq_12m")
 
         row_dict["ticker"] = ticker
+        row_dict["setor"] = sector
+        row_dict["subsetor"] = subsetor
         if l12 is not None:
             row_dict["lucro_liq"] = l12
         if rec12 is not None:
             row_dict["receita_liq"] = rec12
 
-        ticker_hist = get_historical_cache().get(ticker)
-        q = calculate_business_quality(row_dict, sector, ticker_hist)
+        # Enriquecimento Contábil Exato via Balanço Detalhado (imune a divergências entre classes ON/PN)
+        if det_entry.get("patrimonio_liquido") is not None:
+            row_dict["patrim_liq"] = det_entry["patrimonio_liquido"]
+
+        dl_exact = det_entry.get("divida_liquida")
+        ev_exact = det_entry.get("valor_firma")
+        pl_exact = row_dict.get("patrim_liq")
+        ev_ebitda_num = row_dict.get("ev_ebitda")
+
+        if dl_exact is not None and pl_exact is not None and float(pl_exact) > 0:
+            row_dict["is_net_cash"] = float(dl_exact) < 0
+            if ev_exact is not None and float(ev_exact) > 0 and ev_ebitda_num is not None and float(ev_ebitda_num) > 0:
+                ebitda_exact = float(ev_exact) / float(ev_ebitda_num)
+                if ebitda_exact > 0:
+                    row_dict["div_liq_ebitda"] = round(float(dl_exact) / ebitda_exact, 2)
+            elif float(dl_exact) < 0 and det_entry.get("ebit_12m") and float(det_entry["ebit_12m"]) > 0:
+                row_dict["div_liq_ebitda"] = round(float(dl_exact) / float(det_entry["ebit_12m"]), 2)
 
         lucro_run_rate = (4.0 * l3) if l3 is not None else None
         pl_run_rate = None
@@ -390,6 +407,8 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         row_dict["pl_run_rate"] = pl_run_rate
         row_dict["details"] = det_entry
 
+        ticker_hist = get_historical_cache().get(ticker)
+        q = calculate_business_quality(row_dict, sector, ticker_hist)
         v = evaluate_entry_valuation(row_dict, sector, quality_score=q.get("quality_score"))
         bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)
 

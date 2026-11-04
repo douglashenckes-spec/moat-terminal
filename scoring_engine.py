@@ -215,7 +215,12 @@ def extract_historical_metrics(hist_data: Optional[Dict[str, Any]], cur_roe: Opt
             effective_roe = avg_hist_roe
 
         if cur_roic is not None:
-            effective_roic = cur_roic
+            if cur_roe is not None and abs(cur_roe) > 0.02 and cur_roic > 0:
+                roic_to_roe_ratio = max(0.40, min(1.25, cur_roic / cur_roe))
+                hist_roic_proxy = avg_hist_roe * roic_to_roe_ratio
+            else:
+                hist_roic_proxy = avg_hist_roe * 0.75
+            effective_roic = (cur_roic * 0.60) + (hist_roic_proxy * 0.40)
         else:
             effective_roic = effective_roe
 
@@ -246,13 +251,14 @@ def extract_historical_metrics(hist_data: Optional[Dict[str, Any]], cur_roe: Opt
     }
 
 
-def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Optional[Dict[str, Any]] = None, sector_name: str = "") -> Dict[str, Any]:
     """
     MÓDULO BANCÁRIO & MOAT TERMINAL: Scoring Especializado para Instituições Financeiras.
     - Rentabilidade: ROE Efetivo Quinquenal (60% LTM + 40% Média Histórica).
-    - Solidez: Escala Sistêmica de Balanço (Patrimônio Líquido) e colchão de solvência anti-crise de liquidez.
+    - Solidez: Escala Sistêmica de Balanço (Patrimônio Líquido), ajustada para Seguradoras Asset-Light, e colchão de solvência.
     - Consistência: Resiliência de lucros no quinquênio e penalização por volatilidade errática de ROE (risco de atacado).
     """
+    ticker = str(row.get("ticker", "")).strip().upper()
     cur_roe = row.get("roe") or 0.0
     mrg_liq = row.get("mrg_liq") or 0.0
     cresc = row.get("cresc_rec5a")
@@ -274,18 +280,31 @@ def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Opti
         score_pilar_rentabilidade = s_roe
 
     # Pilar 2: Solidez Patrimonial e Escala Institucional (Peso 35%)
-    # Bancos sistêmicos de grande porte possuem captação de varejo a custo baixo e menor risco de liquidez
+    # Seguradoras puras operam em modelo asset-light (alto payout e reservas técnicas líquidas), exigindo régua própria de PL
+    full_sec = f"{sector_name} {row.get('setor', '')} {row.get('subsetor', '')}".lower()
+    is_insurance = ("segur" in full_sec or "previd" in full_sec or ticker in {"BBSE3", "CXSE3", "PSSA3", "IRBR3", "WIZC3"})
+
     pl_val = float(patrim_liq or 0.0)
-    if pl_val >= 50_000_000_000:  # Bancos Mega Sistêmicos (Itaú, BB, Bradesco, Santander)
-        base_solidez = 91.0
-    elif pl_val >= 15_000_000_000:  # Grandes Bancos / Seguradoras Líderes (BTG Pactual, Itaúsa, BB Seguridade, Caixa Seguridade)
-        base_solidez = 86.0
-    elif pl_val >= 5_000_000_000:  # Médio-Grande (Porto Seguro, ABC Brasil, Banrisul)
-        base_solidez = 78.0
-    elif pl_val >= 1_000_000_000:  # Médio Atacado / Nicho de Consignado (Pine, Mercantil, Daycoval)
-        base_solidez = 62.0
-    else:  # Pequeno Porte (< R$ 1 Bi)
-        base_solidez = 46.0
+    if is_insurance:
+        if pl_val >= 8_000_000_000:   # Seguradoras Líderes Sistêmicas (BB Seguridade, Caixa Seguridade, Porto Seguro)
+            base_solidez = 91.0
+        elif pl_val >= 3_000_000_000: # Seguradoras de Grande Porte
+            base_solidez = 84.0
+        elif pl_val >= 1_000_000_000: # Médio Porte / Resseguros / Corretagem
+            base_solidez = 74.0
+        else:
+            base_solidez = 55.0
+    else:
+        if pl_val >= 50_000_000_000:  # Bancos Mega Sistêmicos (Itaú, BB, Bradesco, Santander)
+            base_solidez = 91.0
+        elif pl_val >= 15_000_000_000:  # Grandes Bancos / Holdings Líderes (BTG Pactual, Itaúsa)
+            base_solidez = 86.0
+        elif pl_val >= 5_000_000_000:  # Médio-Grande (ABC Brasil, Banrisul)
+            base_solidez = 78.0
+        elif pl_val >= 1_000_000_000:  # Médio Atacado / Nicho de Consignado (Pine, Mercantil, Daycoval)
+            base_solidez = 62.0
+        else:  # Pequeno Porte (< R$ 1 Bi)
+            base_solidez = 46.0
 
     r_pct = effective_roe * 100.0 if abs(effective_roe) < 2.0 else effective_roe
     if r_pct >= 20.0:
@@ -366,7 +385,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     """
     ticker = str(row.get("ticker", "")).strip().upper()
     if is_financial_sector(sector_name, ticker):
-        return calculate_financial_institution_quality(row, hist_data)
+        return calculate_financial_institution_quality(row, hist_data, sector_name)
 
     cur_roe = row.get("roe")
     cur_roic = row.get("roic")
