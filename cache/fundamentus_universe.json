@@ -1,6 +1,6 @@
 {
-  "audit_timestamp": "10/11/2026 01:18:23",
-  "created_at": "2026-11-10T04:18:23.218692+00:00",
+  "audit_timestamp": "10/11/2026 13:36:52",
+  "created_at": "2026-11-10T16:36:52.817465+00:00",
   "records": [
     {
       "ticker": "MGLU3",
@@ -32,7 +32,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -65,7 +65,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Telecomunicações",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -98,7 +98,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -131,7 +131,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -164,7 +164,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -197,7 +197,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -230,7 +230,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -263,7 +263,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -296,7 +296,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -329,7 +329,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -362,7 +362,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -395,7 +395,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -428,7 +428,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -461,7 +461,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -494,7 +494,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -527,7 +527,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -560,7 +560,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Viagens e Lazer",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -593,7 +593,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -626,7 +626,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Produtos de Uso Pessoal e de Limpeza",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -659,7 +659,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -692,7 +692,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -726,7 +726,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -759,7 +759,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Construção e Engenharia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -792,7 +792,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -827,7 +827,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -860,7 +860,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -893,7 +893,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -928,7 +928,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -962,7 +962,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -996,7 +996,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Químicos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1030,7 +1030,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1063,7 +1063,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1096,7 +1096,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Construção e Engenharia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1130,7 +1130,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1164,7 +1164,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1198,7 +1198,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1229,7 +1229,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1260,7 +1260,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1291,7 +1291,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1322,7 +1322,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1353,7 +1353,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1384,7 +1384,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1415,7 +1415,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1448,7 +1448,7 @@
         "PATRIMONIO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1479,7 +1479,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1510,7 +1510,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1541,7 +1541,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1572,7 +1572,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1603,7 +1603,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1634,7 +1634,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1665,7 +1665,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1696,7 +1696,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1727,7 +1727,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1758,7 +1758,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1789,7 +1789,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1820,7 +1820,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1851,7 +1851,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1882,7 +1882,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1913,7 +1913,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1944,7 +1944,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1975,7 +1975,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2006,7 +2006,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2037,7 +2037,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2046,7 +2046,7 @@
       "pl": 4.82,
       "pvp": 0.51,
       "psr": 7.27,
-      "div_yield": 0.3258,
+      "div_yield": 0.3114,
       "p_ativo": 0.278,
       "p_cap_giro": 6.84,
       "p_ebit": 10.2,
@@ -2068,7 +2068,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2099,7 +2099,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2130,7 +2130,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2161,7 +2161,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2192,7 +2192,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2223,7 +2223,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2254,7 +2254,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2285,7 +2285,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2316,7 +2316,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2347,7 +2347,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2378,7 +2378,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2409,7 +2409,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2440,7 +2440,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2471,7 +2471,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2502,7 +2502,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2533,7 +2533,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2564,7 +2564,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2595,7 +2595,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2626,7 +2626,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2657,7 +2657,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2688,7 +2688,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2719,7 +2719,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2750,7 +2750,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2781,7 +2781,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2812,7 +2812,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Automóveis e Motocicletas",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2843,7 +2843,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2874,7 +2874,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2905,7 +2905,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2936,7 +2936,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2967,7 +2967,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2998,7 +2998,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3029,7 +3029,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3060,7 +3060,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3091,7 +3091,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3122,7 +3122,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3153,7 +3153,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3184,7 +3184,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3215,7 +3215,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3246,7 +3246,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3277,7 +3277,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3308,7 +3308,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3339,7 +3339,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3370,7 +3370,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3401,7 +3401,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3432,7 +3432,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3463,7 +3463,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3494,7 +3494,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3525,7 +3525,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3556,7 +3556,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3587,7 +3587,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3618,7 +3618,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3649,7 +3649,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3680,7 +3680,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3711,7 +3711,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3742,7 +3742,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3773,7 +3773,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3804,7 +3804,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3835,7 +3835,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3866,7 +3866,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3897,7 +3897,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3928,7 +3928,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3959,7 +3959,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3990,7 +3990,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4021,7 +4021,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4052,7 +4052,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4083,7 +4083,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4114,7 +4114,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4145,7 +4145,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4176,7 +4176,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4207,7 +4207,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4238,7 +4238,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4269,7 +4269,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4300,7 +4300,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4331,7 +4331,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4362,7 +4362,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4393,7 +4393,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4424,7 +4424,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "MATD3",
+      "cotacao": 5.02,
+      "pl": 10.01,
+      "pvp": 1.08,
+      "psr": 0.694,
+      "div_yield": 0.03,
+      "p_ativo": 0.403,
+      "p_cap_giro": 1.98,
+      "p_ebit": 3.78,
+      "p_ativ_circ_liq": -1.39,
+      "ev_ebit": 5.39,
+      "ev_ebitda": 4.27,
+      "mrg_bruta": 0.3075,
+      "mrg_ebit": 0.1837,
+      "mrg_liq": 0.0693,
+      "liq_corr": 2.57,
+      "roic": 0.12390000000000001,
+      "roe": 0.1081,
+      "liq_2m": 1822130.0,
+      "patrim_liq": 1548390000.0,
+      "div_liq_patrim": 0.46,
+      "cresc_rec5a": 0.0909,
+      "earnings_yield": 0.0999000999000999,
+      "div_liq_ebitda": 1.2754545454545452,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Indústria / Geral",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4455,7 +4486,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4486,7 +4517,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4517,7 +4548,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4548,7 +4579,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4579,7 +4610,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4610,7 +4641,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4641,7 +4672,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4672,38 +4703,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "MATD3",
-      "cotacao": 5.02,
-      "pl": 11.81,
-      "pvp": 1.12,
-      "psr": 0.722,
-      "div_yield": 0.03,
-      "p_ativo": 0.382,
-      "p_cap_giro": 1.65,
-      "p_ebit": 4.04,
-      "p_ativ_circ_liq": -1.28,
-      "ev_ebit": 5.81,
-      "ev_ebitda": 4.55,
-      "mrg_bruta": 0.3034,
-      "mrg_ebit": 0.1789,
-      "mrg_liq": 0.0613,
-      "liq_corr": 2.87,
-      "roic": 0.1152,
-      "roe": 0.095,
-      "liq_2m": 1822130.0,
-      "patrim_liq": 1492820000.0,
-      "div_liq_patrim": 0.49,
-      "cresc_rec5a": 0.12380000000000001,
-      "earnings_yield": 0.0846740050804403,
-      "div_liq_ebitda": 1.384782608695652,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4736,7 +4736,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4767,7 +4767,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4798,7 +4798,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4829,7 +4829,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4860,7 +4860,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Gás",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4893,7 +4893,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Mineração",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4924,7 +4924,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4955,7 +4955,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4986,7 +4986,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5017,7 +5017,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5050,7 +5050,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5059,7 +5059,7 @@
       "pl": 13.94,
       "pvp": 1.37,
       "psr": 1.178,
-      "div_yield": 0.045899999999999996,
+      "div_yield": 0.0408,
       "p_ativo": 0.439,
       "p_cap_giro": 2.25,
       "p_ebit": 5.5,
@@ -5081,7 +5081,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5112,7 +5112,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Serviços Financeiros Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5143,7 +5143,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5174,7 +5174,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5205,7 +5205,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5214,7 +5214,7 @@
       "pl": 15.29,
       "pvp": 0.75,
       "psr": 0.211,
-      "div_yield": 0.0342,
+      "div_yield": 0.0215,
       "p_ativo": 0.176,
       "p_cap_giro": 0.73,
       "p_ebit": 1.8,
@@ -5236,7 +5236,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5267,7 +5267,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Bebidas",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5298,7 +5298,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Viagens e Lazer",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5329,7 +5329,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5338,7 +5338,7 @@
       "pl": 15.69,
       "pvp": 0.78,
       "psr": 0.606,
-      "div_yield": 0.0371,
+      "div_yield": 0.0239,
       "p_ativo": 0.507,
       "p_cap_giro": 2.12,
       "p_ebit": 5.16,
@@ -5360,7 +5360,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5391,7 +5391,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5422,7 +5422,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5453,7 +5453,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5484,7 +5484,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5515,7 +5515,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5546,7 +5546,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5577,7 +5577,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5608,7 +5608,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5639,7 +5639,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5648,7 +5648,7 @@
       "pl": 18.42,
       "pvp": 0.91,
       "psr": 0.711,
-      "div_yield": 0.0316,
+      "div_yield": 0.0203,
       "p_ativo": 0.595,
       "p_cap_giro": 2.49,
       "p_ebit": 6.06,
@@ -5670,7 +5670,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5701,7 +5701,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5732,7 +5732,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5763,7 +5763,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5794,7 +5794,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5825,7 +5825,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5856,7 +5856,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5887,7 +5887,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5918,7 +5918,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5949,7 +5949,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5980,7 +5980,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Químicos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6011,7 +6011,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6042,7 +6042,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6073,7 +6073,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6104,7 +6104,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6135,38 +6135,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Holdings Diversificadas",
-      "audit_timestamp": "10/11/2026 01:18:23",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "EMBJ3",
-      "cotacao": 106.4,
-      "pl": 33.83,
-      "pvp": 4.4,
-      "psr": 1.785,
-      "div_yield": 0.0113,
-      "p_ativo": 1.15,
-      "p_cap_giro": 6.77,
-      "p_ebit": 16.28,
-      "p_ativ_circ_liq": -7.47,
-      "ev_ebit": 16.6,
-      "ev_ebitda": 12.84,
-      "mrg_bruta": 0.17850000000000002,
-      "mrg_ebit": 0.1097,
-      "mrg_liq": 0.0546,
-      "liq_corr": 1.44,
-      "roic": 0.09609999999999999,
-      "roe": 0.1301,
-      "liq_2m": 668334000.0,
-      "patrim_liq": 17906200000.0,
-      "div_liq_patrim": 0.09,
-      "cresc_rec5a": 0.2202,
-      "earnings_yield": 0.02955956251847473,
-      "div_liq_ebitda": 0.25737193763919824,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Material de Transporte",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6197,7 +6166,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Motores, Compressores e Outros",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6228,7 +6197,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6259,7 +6228,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6290,7 +6259,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6321,7 +6290,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Automóveis e Motocicletas",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "EMBJ3",
+      "cotacao": 106.4,
+      "pl": 38.0,
+      "pvp": 4.35,
+      "psr": 1.738,
+      "div_yield": 0.0113,
+      "p_ativo": 1.091,
+      "p_cap_giro": 8.16,
+      "p_ebit": 14.87,
+      "p_ativ_circ_liq": -7.17,
+      "ev_ebit": 14.6,
+      "ev_ebitda": 11.57,
+      "mrg_bruta": 0.18359999999999999,
+      "mrg_ebit": 0.11689999999999999,
+      "mrg_liq": 0.04650000000000001,
+      "liq_corr": 1.31,
+      "roic": 0.1032,
+      "roe": 0.11449999999999999,
+      "liq_2m": 668334000.0,
+      "patrim_liq": 18099800000.0,
+      "div_liq_patrim": -0.08,
+      "cresc_rec5a": 0.2263,
+      "earnings_yield": 0.02631578947368421,
+      "div_liq_ebitda": -0.21676814988290397,
+      "is_net_cash": true,
+      "alert_flags": [],
+      "setor": "Material de Transporte",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6352,7 +6352,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6383,7 +6383,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6414,7 +6414,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6445,7 +6445,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6476,7 +6476,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6507,7 +6507,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6538,7 +6538,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6569,7 +6569,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6600,7 +6600,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6631,7 +6631,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "10/11/2026 01:18:23",
+      "audit_timestamp": "10/11/2026 13:36:52",
       "audit_source": "Fundamentus (resultado.php)"
     }
   ]

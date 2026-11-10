@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "10/11/2026 01:18:23",
+  "audit_timestamp": "10/11/2026 13:36:52",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 211,
@@ -83,7 +83,7 @@
       ],
       "details": {
         "ticker": "TFCO4",
-        "audit_timestamp": "10/11/2026 01:19:20",
+        "audit_timestamp": "10/11/2026 13:37:26",
         "audit_source": "Fundamentus (detalhes.php?papel=TFCO4)",
         "empresa": "TRACK FIELD PN",
         "setor": "Tecidos, Vestuário e Calçados",
@@ -938,7 +938,7 @@
       ],
       "details": {
         "ticker": "LEVE3",
-        "audit_timestamp": "10/11/2026 01:19:00",
+        "audit_timestamp": "10/11/2026 13:37:16",
         "audit_source": "Fundamentus (detalhes.php?papel=LEVE3)",
         "empresa": "MAHLE METAL LEVE ON",
         "setor": "Automóveis e Motocicletas",
@@ -1109,7 +1109,7 @@
       ],
       "details": {
         "ticker": "CURY3",
-        "audit_timestamp": "10/11/2026 01:19:07",
+        "audit_timestamp": "10/11/2026 13:37:19",
         "audit_source": "Fundamentus (detalhes.php?papel=CURY3)",
         "empresa": "CURY S/A ON NM",
         "setor": "Construção Civil",
@@ -2135,7 +2135,7 @@
       ],
       "details": {
         "ticker": "BPAC11",
-        "audit_timestamp": "10/11/2026 01:19:23",
+        "audit_timestamp": "10/11/2026 13:37:27",
         "audit_source": "Fundamentus (detalhes.php?papel=BPAC11)",
         "empresa": "BTGP BANCO UNT",
         "setor": "Intermediários Financeiros",
@@ -2477,7 +2477,7 @@
       ],
       "details": {
         "ticker": "B3SA3",
-        "audit_timestamp": "10/11/2026 01:19:26",
+        "audit_timestamp": "10/11/2026 13:37:29",
         "audit_source": "Fundamentus (detalhes.php?papel=B3SA3)",
         "empresa": "B3 ON",
         "setor": "Serviços Financeiros Diversos",
@@ -2648,7 +2648,7 @@
       ],
       "details": {
         "ticker": "PLPL3",
-        "audit_timestamp": "10/11/2026 01:18:41",
+        "audit_timestamp": "10/11/2026 13:37:06",
         "audit_source": "Fundamentus (detalhes.php?papel=PLPL3)",
         "empresa": "PLANOEPLANO ON NM",
         "setor": "Construção Civil",
@@ -2819,7 +2819,7 @@
       ],
       "details": {
         "ticker": "VULC3",
-        "audit_timestamp": "10/11/2026 01:18:47",
+        "audit_timestamp": "10/11/2026 13:37:09",
         "audit_source": "Fundamentus (detalhes.php?papel=VULC3)",
         "empresa": "VULCABRAS S/A. ON",
         "setor": "Tecidos, Vestuário e Calçados",
@@ -5384,7 +5384,7 @@
       ],
       "details": {
         "ticker": "FIQE3",
-        "audit_timestamp": "10/11/2026 01:19:18",
+        "audit_timestamp": "10/11/2026 13:37:25",
         "audit_source": "Fundamentus (detalhes.php?papel=FIQE3)",
         "empresa": "UNIFIQUE ON NM",
         "setor": "Telecomunicações",
@@ -5555,7 +5555,7 @@
       ],
       "details": {
         "ticker": "VTRU3",
-        "audit_timestamp": "10/11/2026 01:18:40",
+        "audit_timestamp": "10/11/2026 13:37:05",
         "audit_source": "Fundamentus (detalhes.php?papel=VTRU3)",
         "empresa": "VITRUEDUCA ON NM",
         "setor": "Diversos",
@@ -5897,7 +5897,7 @@
       ],
       "details": {
         "ticker": "RDOR3",
-        "audit_timestamp": "10/11/2026 01:19:30",
+        "audit_timestamp": "10/11/2026 13:37:31",
         "audit_source": "Fundamentus (detalhes.php?papel=RDOR3)",
         "empresa": "REDE D OR ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -6068,7 +6068,7 @@
       ],
       "details": {
         "ticker": "FRAS3",
-        "audit_timestamp": "10/11/2026 01:19:34",
+        "audit_timestamp": "10/11/2026 13:37:34",
         "audit_source": "Fundamentus (detalhes.php?papel=FRAS3)",
         "empresa": "FRAS-LE S.A. ON",
         "setor": "Material de Transporte",
@@ -6239,7 +6239,7 @@
       ],
       "details": {
         "ticker": "VLID3",
-        "audit_timestamp": "10/11/2026 01:18:54",
+        "audit_timestamp": "10/11/2026 13:37:12",
         "audit_source": "Fundamentus (detalhes.php?papel=VLID3)",
         "empresa": "VALID ON NM",
         "setor": "Serviços Diversos",
@@ -6581,7 +6581,7 @@
       ],
       "details": {
         "ticker": "PINE4",
-        "audit_timestamp": "10/11/2026 01:18:51",
+        "audit_timestamp": "10/11/2026 13:37:11",
         "audit_source": "Fundamentus (detalhes.php?papel=PINE4)",
         "empresa": "Pine PN",
         "setor": "Intermediários Financeiros",
@@ -6923,7 +6923,7 @@
       ],
       "details": {
         "ticker": "BBAS3",
-        "audit_timestamp": "10/11/2026 01:19:03",
+        "audit_timestamp": "10/11/2026 13:37:18",
         "audit_source": "Fundamentus (detalhes.php?papel=BBAS3)",
         "empresa": "BANCO DO BRASIL S.A. ON",
         "setor": "Intermediários Financeiros",
@@ -7094,7 +7094,7 @@
       ],
       "details": {
         "ticker": "CSUD3",
-        "audit_timestamp": "10/11/2026 01:18:59",
+        "audit_timestamp": "10/11/2026 13:37:15",
         "audit_source": "Fundamentus (detalhes.php?papel=CSUD3)",
         "empresa": "CSU DIGITAL ON",
         "setor": "Serviços Diversos",
@@ -7265,7 +7265,7 @@
       ],
       "details": {
         "ticker": "CMIN3",
-        "audit_timestamp": "10/11/2026 01:19:23",
+        "audit_timestamp": "10/11/2026 13:37:28",
         "audit_source": "Fundamentus (detalhes.php?papel=CMIN3)",
         "empresa": "CSNMINERACAO ON N2",
         "setor": "Mineração",
@@ -7607,7 +7607,7 @@
       ],
       "details": {
         "ticker": "BRSR6",
-        "audit_timestamp": "10/11/2026 01:18:43",
+        "audit_timestamp": "10/11/2026 13:37:07",
         "audit_source": "Fundamentus (detalhes.php?papel=BRSR6)",
         "empresa": "BANRISUL S/A PNB",
         "setor": "Intermediários Financeiros",
@@ -7778,7 +7778,7 @@
       ],
       "details": {
         "ticker": "CSED3",
-        "audit_timestamp": "10/11/2026 01:18:58",
+        "audit_timestamp": "10/11/2026 13:37:15",
         "audit_source": "Fundamentus (detalhes.php?papel=CSED3)",
         "empresa": "CRUZEIRO EDU ON NM",
         "setor": "Diversos",
@@ -8804,7 +8804,7 @@
       ],
       "details": {
         "ticker": "UGPA3",
-        "audit_timestamp": "10/11/2026 01:19:17",
+        "audit_timestamp": "10/11/2026 13:37:24",
         "audit_source": "Fundamentus (detalhes.php?papel=UGPA3)",
         "empresa": "ULTRAPAR PARTICIPAÇÕES SA ON",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -9146,7 +9146,7 @@
       ],
       "details": {
         "ticker": "PETR4",
-        "audit_timestamp": "10/11/2026 01:18:49",
+        "audit_timestamp": "10/11/2026 13:37:10",
         "audit_source": "Fundamentus (detalhes.php?papel=PETR4)",
         "empresa": "PETROBRAS PN",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -9317,7 +9317,7 @@
       ],
       "details": {
         "ticker": "PETR3",
-        "audit_timestamp": "10/11/2026 01:18:52",
+        "audit_timestamp": "10/11/2026 13:37:11",
         "audit_source": "Fundamentus (detalhes.php?papel=PETR3)",
         "empresa": "PETROBRAS ON",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -9659,7 +9659,7 @@
       ],
       "details": {
         "ticker": "CPFE3",
-        "audit_timestamp": "10/11/2026 01:19:12",
+        "audit_timestamp": "10/11/2026 13:37:20",
         "audit_source": "Fundamentus (detalhes.php?papel=CPFE3)",
         "empresa": "CPFL ENERGIA S.A. ON",
         "setor": "Energia Elétrica",
@@ -9830,7 +9830,7 @@
       ],
       "details": {
         "ticker": "SEER3",
-        "audit_timestamp": "10/11/2026 01:18:54",
+        "audit_timestamp": "10/11/2026 13:37:13",
         "audit_source": "Fundamentus (detalhes.php?papel=SEER3)",
         "empresa": "SER EDUCA ON NM",
         "setor": "Diversos",
@@ -10172,7 +10172,7 @@
       ],
       "details": {
         "ticker": "BEEF3",
-        "audit_timestamp": "10/11/2026 01:18:59",
+        "audit_timestamp": "10/11/2026 13:37:16",
         "audit_source": "Fundamentus (detalhes.php?papel=BEEF3)",
         "empresa": "Minerva ON NM",
         "setor": "Alimentos Processados",
@@ -10685,7 +10685,7 @@
       ],
       "details": {
         "ticker": "JHSF3",
-        "audit_timestamp": "10/11/2026 01:18:42",
+        "audit_timestamp": "10/11/2026 13:37:06",
         "audit_source": "Fundamentus (detalhes.php?papel=JHSF3)",
         "empresa": "JHSF Part ON NM",
         "setor": "Construção Civil",
@@ -10856,7 +10856,7 @@
       ],
       "details": {
         "ticker": "EUCA4",
-        "audit_timestamp": "10/11/2026 01:18:49",
+        "audit_timestamp": "10/11/2026 13:37:10",
         "audit_source": "Fundamentus (detalhes.php?papel=EUCA4)",
         "empresa": "EUCATEX PN",
         "setor": "Madeira e Papel",
@@ -11369,7 +11369,7 @@
       ],
       "details": {
         "ticker": "GMAT3",
-        "audit_timestamp": "10/11/2026 01:18:54",
+        "audit_timestamp": "10/11/2026 13:37:13",
         "audit_source": "Fundamentus (detalhes.php?papel=GMAT3)",
         "empresa": "GRUPO MATEUS ON NM",
         "setor": "Comércio e Distribuição",
@@ -11711,7 +11711,7 @@
       ],
       "details": {
         "ticker": "KEPL3",
-        "audit_timestamp": "10/11/2026 01:19:11",
+        "audit_timestamp": "10/11/2026 13:37:20",
         "audit_source": "Fundamentus (detalhes.php?papel=KEPL3)",
         "empresa": "KEPLER WEBER SA ON",
         "setor": "Máquinas e Equipamentos",
@@ -11882,7 +11882,7 @@
       ],
       "details": {
         "ticker": "GGPS3",
-        "audit_timestamp": "10/11/2026 01:19:12",
+        "audit_timestamp": "10/11/2026 13:37:21",
         "audit_source": "Fundamentus (detalhes.php?papel=GGPS3)",
         "empresa": "GPS ON NM",
         "setor": "Serviços Diversos",
@@ -12224,7 +12224,7 @@
       ],
       "details": {
         "ticker": "BLAU3",
-        "audit_timestamp": "10/11/2026 01:19:15",
+        "audit_timestamp": "10/11/2026 13:37:23",
         "audit_source": "Fundamentus (detalhes.php?papel=BLAU3)",
         "empresa": "BLAU ON NM",
         "setor": "Comércio e Distribuição",
@@ -12321,6 +12321,177 @@
       }
     },
     {
+      "ticker": "MATD3",
+      "empresa": "MATER DEI ON NM",
+      "is_ibov": false,
+      "ibov_weight": null,
+      "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
+      "subsetor": "Serv.Méd.Hospit. Análises e Diagnósticos",
+      "cotacao": 5.02,
+      "liq_2m": 1822130.0,
+      "is_liquid_1m": true,
+      "ult_balanco": "30/09/2026",
+      "is_latest_balanco": true,
+      "tri_balanco": "3T26 (Vigente)",
+      "lucro_run_rate": 209700000.0,
+      "pl_run_rate": 7.98,
+      "run_rate_div_pct": 25.3,
+      "is_distorted": false,
+      "distortion_tag": "RECORRENTE",
+      "distortion_label": "🟢 Recorrente (+25%)",
+      "quality_score": 66.5,
+      "quality_tier": "Tier 2: Empresa Sólida / Saudável",
+      "quality_tag": "SOLIDA",
+      "pilar_rentabilidade": 65.2,
+      "pilar_solidez": 81.3,
+      "pilar_consistencia": 80.2,
+      "is_financial": false,
+      "entry_status": "🟢 MÚLTIPLOS ATRATIVOS",
+      "entry_tag": "ASSIMETRIA_FAVORAVEL",
+      "entry_color": "#10B981",
+      "pl": 10.01,
+      "ev_ebitda": 4.27,
+      "ev_ebit": 5.39,
+      "pvp": 1.08,
+      "roic": 0.12390000000000001,
+      "roe": 0.1081,
+      "mrg_liq": 0.0693,
+      "mrg_bruta": 0.3075,
+      "div_liq_ebitda": 1.27,
+      "div_yield": 0.03,
+      "earnings_yield_pct": 9.99,
+      "ey_spread": 3.49,
+      "payout_implicito": 30.0,
+      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
+      "is_commodity_peak": false,
+      "is_debt_vulnerable": false,
+      "capital_intensity": 0.7922077922077921,
+      "sub_scores": {
+        "roic": 60.24285714285715,
+        "roe": 71.37893260418542,
+        "mrg_liq": 64.37773419511176,
+        "div_liq_ebitda": 74.22,
+        "liq_corr": 90.0,
+        "cresc_rec5a": 72.27,
+        "mrg_bruta": 80.51312269342726
+      },
+      "rationale": "Earnings Yield de 10.0% confere spread de +3.5% sobre a NTN-B real (6,5%). P/L de 10.0x negocia abaixo da curva de referência ajustada (11.9x) e da média histórica do setor.",
+      "cfa_bullets": [
+        {
+          "title": "1. Fundamentos & Eficiência Operacional",
+          "content": "**Fundamentos & Fosso Competitivo:** MATER DEI ON NM apresenta retorno sobre capital estável (ROIC de 12.4%), alavancagem controlada de 1.27x Dív. Líq./EBITDA, expansão secular de receita de 9.1% a.a. em 5 anos. Quality Score consolidado em **66,5/100** (Tier 2: Empresa Sólida / Saudável).",
+          "icon": "diamond"
+        },
+        {
+          "title": "2. Estrutura de Capital & Riscos Observados",
+          "content": "**Pontos de Atenção & Riscos:** riscos primariamente atrelados ao cenário macroeconômico doméstico, oscilações do câmbio e custo de crédito soberano.",
+          "icon": "shield"
+        },
+        {
+          "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🟢 MÚLTIPLOS ATRATIVOS. Earnings Yield auditado em **10.0% a.a.** (Spread vs. NTN-B real de 6,5%: **+3.5%**). Earnings Yield de 10.0% confere spread de +3.5% sobre a NTN-B real (6,5%). P/L de 10.0x negocia abaixo da curva de referência ajustada (11.9x) e da média histórica do setor.",
+          "icon": "scale"
+        }
+      ],
+      "details": {
+        "ticker": "MATD3",
+        "audit_timestamp": "10/11/2026 13:37:25",
+        "audit_source": "Fundamentus (detalhes.php?papel=MATD3)",
+        "empresa": "MATER DEI ON NM",
+        "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
+        "subsetor": "Serv.Méd.Hospit. Análises e Diagnósticos",
+        "tipo": "ON NM",
+        "data_ult_cot": "09/11/2026",
+        "min_52sem": 4.2,
+        "max_52sem": 6.85,
+        "valor_mercado": 1674420000.0,
+        "valor_firma": 2386710000.0,
+        "nro_acoes": 333549000.0,
+        "ult_balanco": "30/09/2026",
+        "ativo_total": 4155580000.0,
+        "disponibilidades": 416143000.0,
+        "ativo_circulante": 1384620000.0,
+        "divida_bruta": 1128440000.0,
+        "divida_liquida": 712296000.0,
+        "patrimonio_liquido": 1548390000.0,
+        "receita_liq_12m": 2411060000.0,
+        "ebit_12m": 442865000.0,
+        "lucro_liq_12m": 167355000.0,
+        "receita_liq_3m": 660165000.0,
+        "ebit_3m": 128234000.0,
+        "lucro_liq_3m": 52425000.0,
+        "lpa": 0.5,
+        "vpa": 4.64,
+        "raw_indicators": {
+          "Indicadores fundamentalistas": "Indicadores fundamentalistas",
+          "P/L": "10.01",
+          "LPA": "0.50",
+          "P/VP": "1.08",
+          "VPA": "4.64",
+          "P/EBIT": "3.78",
+          "Marg. Bruta": "30,8%",
+          "PSR": "0.69",
+          "Marg. EBIT": "18,4%",
+          "P/Ativos": "0.40",
+          "Marg. Líquida": "6,9%",
+          "P/Cap. Giro": "1.98",
+          "EBIT / Ativo": "10,7%",
+          "P/Ativ Circ Liq": "-1.39",
+          "ROIC": "12,4%",
+          "Div. Yield": "3,0%",
+          "ROE": "10,8%",
+          "EV / EBITDA": "4.27",
+          "Liquidez Corr": "2.57",
+          "EV / EBIT": "5.39",
+          "Dív Líq / Patrim": "0.46",
+          "Cres. Rec (5a)": "9,1%",
+          "Giro Ativos": "0.58"
+        }
+      },
+      "historical_5y": {
+        "years": [
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026 (LTM)"
+        ],
+        "receita": [
+          1701801945.14,
+          1856665922.15,
+          2025622521.07,
+          2209954170.49,
+          2411060000.0
+        ],
+        "lucro_liquido": [
+          118124420.18,
+          128873742.42,
+          140601252.98,
+          153395967.0,
+          167355000.0
+        ],
+        "roic_roe": [
+          0.1239,
+          0.1239,
+          0.1239,
+          0.1239,
+          0.1239
+        ],
+        "div_yield": [
+          0.03,
+          0.03,
+          0.03,
+          0.03,
+          0.03
+        ],
+        "cagr_receita_pct": 9.1,
+        "cagr_lucro_pct": 9.1,
+        "anos_com_lucro": "5 de 5 anos",
+        "estabilidade_margens": "Alta Estabilidade 💎",
+        "is_all_profitable": true
+      }
+    },
+    {
       "ticker": "IGTI11",
       "empresa": "IGUATEMI S.A UNT N1",
       "is_ibov": true,
@@ -12395,7 +12566,7 @@
       ],
       "details": {
         "ticker": "IGTI11",
-        "audit_timestamp": "10/11/2026 01:19:21",
+        "audit_timestamp": "10/11/2026 13:37:27",
         "audit_source": "Fundamentus (detalhes.php?papel=IGTI11)",
         "empresa": "IGUATEMI S.A UNT N1",
         "setor": "Exploração de Imóveis",
@@ -12488,177 +12659,6 @@
         "cagr_lucro_pct": 80.0,
         "anos_com_lucro": "5 de 5 anos",
         "estabilidade_margens": "Cíclica / Sensível ao Ciclo ⚠️",
-        "is_all_profitable": true
-      }
-    },
-    {
-      "ticker": "MATD3",
-      "empresa": "MATER DEI ON NM",
-      "is_ibov": false,
-      "ibov_weight": null,
-      "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "subsetor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "cotacao": 5.02,
-      "liq_2m": 1822130.0,
-      "is_liquid_1m": true,
-      "ult_balanco": "30/06/2026",
-      "is_latest_balanco": true,
-      "tri_balanco": "2T26 (Vigente)",
-      "lucro_run_rate": 176980000.0,
-      "pl_run_rate": 9.46,
-      "run_rate_div_pct": 24.8,
-      "is_distorted": false,
-      "distortion_tag": "RECORRENTE",
-      "distortion_label": "🟢 Recorrente (+25%)",
-      "quality_score": 66.5,
-      "quality_tier": "Tier 2: Empresa Sólida / Saudável",
-      "quality_tag": "SOLIDA",
-      "pilar_rentabilidade": 62.3,
-      "pilar_solidez": 80.4,
-      "pilar_consistencia": 81.7,
-      "is_financial": false,
-      "entry_status": "🔵 DESCONTO RELATIVO AO MOAT",
-      "entry_tag": "ASSIMETRIA_FAVORAVEL",
-      "entry_color": "#0284C7",
-      "pl": 11.81,
-      "ev_ebitda": 4.55,
-      "ev_ebit": 5.81,
-      "pvp": 1.12,
-      "roic": 0.1152,
-      "roe": 0.095,
-      "mrg_liq": 0.0613,
-      "mrg_bruta": 0.3034,
-      "div_liq_ebitda": 1.39,
-      "div_yield": 0.03,
-      "earnings_yield_pct": 8.47,
-      "ey_spread": 1.97,
-      "payout_implicito": 35.0,
-      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
-      "is_commodity_peak": false,
-      "is_debt_vulnerable": false,
-      "capital_intensity": 0.7831325301204819,
-      "sub_scores": {
-        "roic": 56.51428571428571,
-        "roe": 69.02750514326955,
-        "mrg_liq": 62.30406907131099,
-        "div_liq_ebitda": 72.54,
-        "liq_corr": 90.0,
-        "cresc_rec5a": 77.38,
-        "mrg_bruta": 80.28566664623781
-      },
-      "rationale": "Earnings Yield de 8.5% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.8x negocia abaixo da curva de referência ajustada (11.9x) e da média histórica do setor.",
-      "cfa_bullets": [
-        {
-          "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** MATER DEI ON NM apresenta retorno sobre capital estável (ROIC de 11.5%), alavancagem controlada de 1.39x Dív. Líq./EBITDA, expansão secular de receita de 12.4% a.a. em 5 anos. Quality Score consolidado em **66,5/100** (Tier 2: Empresa Sólida / Saudável).",
-          "icon": "diamond"
-        },
-        {
-          "title": "2. Estrutura de Capital & Riscos Observados",
-          "content": "**Pontos de Atenção & Riscos:** riscos primariamente atrelados ao cenário macroeconômico doméstico, oscilações do câmbio e custo de crédito soberano.",
-          "icon": "shield"
-        },
-        {
-          "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔵 DESCONTO RELATIVO AO MOAT. Earnings Yield auditado em **8.5% a.a.** (Spread vs. NTN-B real de 6,5%: **+2.0%**). Earnings Yield de 8.5% confere spread de +2.0% sobre a NTN-B real (6,5%). P/L de 11.8x negocia abaixo da curva de referência ajustada (11.9x) e da média histórica do setor.",
-          "icon": "scale"
-        }
-      ],
-      "details": {
-        "ticker": "MATD3",
-        "audit_timestamp": "10/11/2026 01:19:22",
-        "audit_source": "Fundamentus (detalhes.php?papel=MATD3)",
-        "empresa": "MATER DEI ON NM",
-        "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-        "subsetor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-        "tipo": "ON NM",
-        "data_ult_cot": "09/11/2026",
-        "min_52sem": 4.2,
-        "max_52sem": 6.85,
-        "valor_mercado": 1674420000.0,
-        "valor_firma": 2411470000.0,
-        "nro_acoes": 333549000.0,
-        "ult_balanco": "30/06/2026",
-        "ativo_total": 4380390000.0,
-        "disponibilidades": 627830000.0,
-        "ativo_circulante": 1560660000.0,
-        "divida_bruta": 1364880000.0,
-        "divida_liquida": 737054000.0,
-        "patrimonio_liquido": 1492820000.0,
-        "receita_liq_12m": 2318750000.0,
-        "ebit_12m": 414888000.0,
-        "lucro_liq_12m": 141795000.0,
-        "receita_liq_3m": 613633000.0,
-        "ebit_3m": 111334000.0,
-        "lucro_liq_3m": 44245000.0,
-        "lpa": 0.43,
-        "vpa": 4.48,
-        "raw_indicators": {
-          "Indicadores fundamentalistas": "Indicadores fundamentalistas",
-          "P/L": "11.81",
-          "LPA": "0.43",
-          "P/VP": "1.12",
-          "VPA": "4.48",
-          "P/EBIT": "4.04",
-          "Marg. Bruta": "30,3%",
-          "PSR": "0.72",
-          "Marg. EBIT": "17,9%",
-          "P/Ativos": "0.38",
-          "Marg. Líquida": "6,1%",
-          "P/Cap. Giro": "1.65",
-          "EBIT / Ativo": "9,5%",
-          "P/Ativ Circ Liq": "-1.28",
-          "ROIC": "11,5%",
-          "Div. Yield": "3,0%",
-          "ROE": "9,5%",
-          "EV / EBITDA": "4.55",
-          "Liquidez Corr": "2.87",
-          "EV / EBIT": "5.81",
-          "Dív Líq / Patrim": "0.49",
-          "Cres. Rec (5a)": "12,4%",
-          "Giro Ativos": "0.53"
-        }
-      },
-      "historical_5y": {
-        "years": [
-          "2022",
-          "2023",
-          "2024",
-          "2025",
-          "2026 (LTM)"
-        ],
-        "receita": [
-          1452742633.87,
-          1632882720.47,
-          1835360177.81,
-          2062944839.86,
-          2318750000.0
-        ],
-        "lucro_liquido": [
-          88837365.72,
-          99853199.07,
-          112234995.76,
-          126152135.23,
-          141795000.0
-        ],
-        "roic_roe": [
-          0.1152,
-          0.1152,
-          0.1152,
-          0.1152,
-          0.1152
-        ],
-        "div_yield": [
-          0.03,
-          0.03,
-          0.03,
-          0.03,
-          0.03
-        ],
-        "cagr_receita_pct": 12.4,
-        "cagr_lucro_pct": 12.4,
-        "anos_com_lucro": "5 de 5 anos",
-        "estabilidade_margens": "Alta Estabilidade 💎",
         "is_all_profitable": true
       }
     },
@@ -12908,7 +12908,7 @@
       ],
       "details": {
         "ticker": "BMOB3",
-        "audit_timestamp": "10/11/2026 01:19:25",
+        "audit_timestamp": "10/11/2026 13:37:29",
         "audit_source": "Fundamentus (detalhes.php?papel=BMOB3)",
         "empresa": "BEMOBI TECH ON NM",
         "setor": "Programas e Serviços",
@@ -13042,10 +13042,10 @@
       "mrg_liq": 0.08449999999999999,
       "mrg_bruta": 0.366,
       "div_liq_ebitda": 1.68,
-      "div_yield": 0.045899999999999996,
+      "div_yield": 0.0408,
       "earnings_yield_pct": 7.17,
       "ey_spread": 0.67,
-      "payout_implicito": 64.0,
+      "payout_implicito": 56.99999999999999,
       "payout_tag": "💎 SAUDÁVEL E DISCIPLINADO (40%-85%)",
       "is_commodity_peak": false,
       "is_debt_vulnerable": false,
@@ -13063,7 +13063,7 @@
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** IRANI ON apresenta retorno sobre capital estável (ROIC de 12.4%), política de proventos sustentável (Payout Implícito de 64%). Quality Score consolidado em **66,5/100** (Tier 2: Empresa Sólida / Saudável).",
+          "content": "**Fundamentos & Fosso Competitivo:** IRANI ON apresenta retorno sobre capital estável (ROIC de 12.4%), política de proventos sustentável (Payout Implícito de 57%). Quality Score consolidado em **66,5/100** (Tier 2: Empresa Sólida / Saudável).",
           "icon": "diamond"
         },
         {
@@ -13166,7 +13166,7 @@
           0.0974,
           0.0601,
           0.0837,
-          0.0459
+          0.0408
         ],
         "cagr_receita_pct": 0.4,
         "cagr_lucro_pct": -21.3,
@@ -13763,7 +13763,7 @@
       ],
       "details": {
         "ticker": "ENGI11",
-        "audit_timestamp": "10/11/2026 01:19:30",
+        "audit_timestamp": "10/11/2026 13:37:31",
         "audit_source": "Fundamentus (detalhes.php?papel=ENGI11)",
         "empresa": "ENERGISA UNT N2",
         "setor": "Energia Elétrica",
@@ -13934,7 +13934,7 @@
       ],
       "details": {
         "ticker": "SAPR4",
-        "audit_timestamp": "10/11/2026 01:19:35",
+        "audit_timestamp": "10/11/2026 13:37:35",
         "audit_source": "Fundamentus (detalhes.php?papel=SAPR4)",
         "empresa": "SANEPAR PN",
         "setor": "Água e Saneamento",
@@ -14105,7 +14105,7 @@
       ],
       "details": {
         "ticker": "SAPR11",
-        "audit_timestamp": "10/11/2026 01:19:36",
+        "audit_timestamp": "10/11/2026 13:37:35",
         "audit_source": "Fundamentus (detalhes.php?papel=SAPR11)",
         "empresa": "SANEPAR UNT N2",
         "setor": "Água e Saneamento",
@@ -14276,7 +14276,7 @@
       ],
       "details": {
         "ticker": "SAPR3",
-        "audit_timestamp": "10/11/2026 01:19:37",
+        "audit_timestamp": "10/11/2026 13:37:36",
         "audit_source": "Fundamentus (detalhes.php?papel=SAPR3)",
         "empresa": "SANEPAR ON",
         "setor": "Água e Saneamento",
@@ -14447,7 +14447,7 @@
       ],
       "details": {
         "ticker": "UNIP6",
-        "audit_timestamp": "10/11/2026 01:19:38",
+        "audit_timestamp": "10/11/2026 13:37:37",
         "audit_source": "Fundamentus (detalhes.php?papel=UNIP6)",
         "empresa": "UNIPAR PARTICIPAÇÕES S.A. PNB",
         "setor": "Químicos",
@@ -14544,6 +14544,177 @@
       }
     },
     {
+      "ticker": "EMBJ3",
+      "empresa": "EMBRAER ON NM",
+      "is_ibov": true,
+      "ibov_weight": 2.667,
+      "setor": "Material de Transporte",
+      "subsetor": "Material Aeronáutico e de Defesa",
+      "cotacao": 106.4,
+      "liq_2m": 668334000.0,
+      "is_liquid_1m": true,
+      "ult_balanco": "30/09/2026",
+      "is_latest_balanco": true,
+      "tri_balanco": "3T26 (Vigente)",
+      "lucro_run_rate": 1466700000.0,
+      "pl_run_rate": 53.72,
+      "run_rate_div_pct": -29.3,
+      "is_distorted": true,
+      "distortion_tag": "DETERIORACAO_LUCRO",
+      "distortion_label": "🔴 Queda de Run-Rate (-29%)",
+      "quality_score": 66.5,
+      "quality_tier": "Tier 2: Empresa Sólida / Saudável",
+      "quality_tag": "SOLIDA",
+      "pilar_rentabilidade": 54.8,
+      "pilar_solidez": 78.3,
+      "pilar_consistencia": 75.0,
+      "is_financial": false,
+      "entry_status": "🔴 MÚLTIPLOS EXIGENTES",
+      "entry_tag": "ESTICADA",
+      "entry_color": "#EF4444",
+      "pl": 38.0,
+      "ev_ebitda": 11.57,
+      "ev_ebit": 14.6,
+      "pvp": 4.35,
+      "roic": 0.1032,
+      "roe": 0.11449999999999999,
+      "mrg_liq": 0.04650000000000001,
+      "mrg_bruta": 0.18359999999999999,
+      "div_liq_ebitda": -0.21,
+      "div_yield": 0.0113,
+      "earnings_yield_pct": 2.63,
+      "ey_spread": -3.87,
+      "payout_implicito": 43.0,
+      "payout_tag": "💎 SAUDÁVEL E DISCIPLINADO (40%-85%)",
+      "is_commodity_peak": false,
+      "is_debt_vulnerable": false,
+      "capital_intensity": 0.7924657534246575,
+      "sub_scores": {
+        "roic": 41.483777580045945,
+        "roe": 67.85904881563948,
+        "mrg_liq": 57.76728313058782,
+        "div_liq_ebitda": 87.21,
+        "liq_corr": 67.36,
+        "cresc_rec5a": 87.63,
+        "mrg_bruta": 71.85615893234754
+      },
+      "rationale": "Spread vs NTN-B comprimido em -3.9%. Earnings Yield de 2.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+      "cfa_bullets": [
+        {
+          "title": "1. Fundamentos & Eficiência Operacional",
+          "content": "**Fundamentos & Fosso Competitivo:** EMBRAER ON NM apresenta retorno sobre capital estável (ROIC de 10.3%), balanço ultraconservador em caixa líquido, expansão secular de receita de 22.6% a.a. em 5 anos. Quality Score consolidado em **66,5/100** (Tier 2: Empresa Sólida / Saudável).",
+          "icon": "diamond"
+        },
+        {
+          "title": "2. Estrutura de Capital & Riscos Observados",
+          "content": "**Pontos de Atenção & Riscos:** margem líquida comprimida (4.7%), vulnerável a pressão inflacionária de insumos.",
+          "icon": "shield"
+        },
+        {
+          "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
+          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS EXIGENTES. Earnings Yield auditado em **2.6% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.9%**). Spread vs NTN-B comprimido em -3.9%. Earnings Yield de 2.6% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
+          "icon": "scale"
+        }
+      ],
+      "details": {
+        "ticker": "EMBJ3",
+        "audit_timestamp": "10/11/2026 13:37:39",
+        "audit_source": "Fundamentus (detalhes.php?papel=EMBJ3)",
+        "empresa": "EMBRAER ON NM",
+        "setor": "Material de Transporte",
+        "subsetor": "Material Aeronáutico e de Defesa",
+        "tipo": "ON NM",
+        "data_ult_cot": "09/11/2026",
+        "min_52sem": 68.32,
+        "max_52sem": 107.06,
+        "valor_mercado": 78785500000.0,
+        "valor_firma": 77358200000.0,
+        "nro_acoes": 740465000.0,
+        "ult_balanco": "30/09/2026",
+        "ativo_total": 72206300000.0,
+        "disponibilidades": 13363700000.0,
+        "ativo_circulante": 41180900000.0,
+        "divida_bruta": 11936400000.0,
+        "divida_liquida": -1427310000.0,
+        "patrimonio_liquido": 18099800000.0,
+        "receita_liq_12m": 45328100000.0,
+        "ebit_12m": 5298010000.0,
+        "lucro_liq_12m": 2073120000.0,
+        "receita_liq_3m": 12066900000.0,
+        "ebit_3m": 1576120000.0,
+        "lucro_liq_3m": 366675000.0,
+        "lpa": 2.8,
+        "vpa": 24.44,
+        "raw_indicators": {
+          "Indicadores fundamentalistas": "Indicadores fundamentalistas",
+          "P/L": "38.00",
+          "LPA": "2.80",
+          "P/VP": "4.35",
+          "VPA": "24.44",
+          "P/EBIT": "14.87",
+          "Marg. Bruta": "18,4%",
+          "PSR": "1.74",
+          "Marg. EBIT": "11,7%",
+          "P/Ativos": "1.09",
+          "Marg. Líquida": "4,6%",
+          "P/Cap. Giro": "8.16",
+          "EBIT / Ativo": "7,3%",
+          "P/Ativ Circ Liq": "-7.17",
+          "ROIC": "10,3%",
+          "Div. Yield": "1,1%",
+          "ROE": "11,5%",
+          "EV / EBITDA": "11.57",
+          "Liquidez Corr": "1.31",
+          "EV / EBIT": "14.60",
+          "Dív Líq / Patrim": "-0.08",
+          "Cres. Rec (5a)": "22,6%",
+          "Giro Ativos": "0.63"
+        }
+      },
+      "historical_5y": {
+        "years": [
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026 (LTM)"
+        ],
+        "receita": [
+          27160370206.53,
+          31515815882.55,
+          38252669227.32,
+          45328100000.0,
+          45328100000.0
+        ],
+        "lucro_liquido": [
+          -1109050444.08,
+          981037070.27,
+          2108631507.75,
+          2105042347.74,
+          2073120000.0
+        ],
+        "roic_roe": [
+          -0.0722,
+          0.0589,
+          0.1146,
+          0.1022,
+          0.1032
+        ],
+        "div_yield": [
+          0.0113,
+          0.0113,
+          0.0113,
+          0.0074,
+          0.0113
+        ],
+        "cagr_receita_pct": 13.7,
+        "cagr_lucro_pct": 50.0,
+        "anos_com_lucro": "4 de 5 anos",
+        "estabilidade_margens": "Cíclica / Sensível ao Ciclo ⚠️",
+        "is_all_profitable": false
+      }
+    },
+    {
       "ticker": "DESK3",
       "empresa": "DESKTOPSIGMA ON NM",
       "is_ibov": false,
@@ -14618,7 +14789,7 @@
       ],
       "details": {
         "ticker": "DESK3",
-        "audit_timestamp": "10/11/2026 01:19:43",
+        "audit_timestamp": "10/11/2026 13:37:40",
         "audit_source": "Fundamentus (detalhes.php?papel=DESK3)",
         "empresa": "DESKTOPSIGMA ON NM",
         "setor": "Telecomunicações",
@@ -14789,7 +14960,7 @@
       ],
       "details": {
         "ticker": "EGIE3",
-        "audit_timestamp": "10/11/2026 01:19:19",
+        "audit_timestamp": "10/11/2026 13:37:25",
         "audit_source": "Fundamentus (detalhes.php?papel=EGIE3)",
         "empresa": "ENGIE BRASIL ON",
         "setor": "Energia Elétrica",
@@ -15131,7 +15302,7 @@
       ],
       "details": {
         "ticker": "PRNR3",
-        "audit_timestamp": "10/11/2026 01:19:31",
+        "audit_timestamp": "10/11/2026 13:37:32",
         "audit_source": "Fundamentus (detalhes.php?papel=PRNR3)",
         "empresa": "PRINER ON NM",
         "setor": "Serviços Diversos",
@@ -15302,7 +15473,7 @@
       ],
       "details": {
         "ticker": "COGN3",
-        "audit_timestamp": "10/11/2026 01:18:50",
+        "audit_timestamp": "10/11/2026 13:37:10",
         "audit_source": "Fundamentus (detalhes.php?papel=COGN3)",
         "empresa": "COGNA ON",
         "setor": "Diversos",
@@ -15644,7 +15815,7 @@
       ],
       "details": {
         "ticker": "RAIL3",
-        "audit_timestamp": "10/11/2026 01:19:38",
+        "audit_timestamp": "10/11/2026 13:37:36",
         "audit_source": "Fundamentus (detalhes.php?papel=RAIL3)",
         "empresa": "RUMO S.A. ON NM",
         "setor": "Transporte",
@@ -15815,7 +15986,7 @@
       ],
       "details": {
         "ticker": "QUAL3",
-        "audit_timestamp": "10/11/2026 01:19:31",
+        "audit_timestamp": "10/11/2026 13:37:32",
         "audit_source": "Fundamentus (detalhes.php?papel=QUAL3)",
         "empresa": "QUALICORP ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -15949,11 +16120,11 @@
       "mrg_liq": 0.0391,
       "mrg_bruta": 0.1469,
       "div_liq_ebitda": 0.64,
-      "div_yield": 0.0316,
+      "div_yield": 0.0203,
       "earnings_yield_pct": 5.43,
       "ey_spread": -1.07,
-      "payout_implicito": 57.99999999999999,
-      "payout_tag": "💎 SAUDÁVEL E DISCIPLINADO (40%-85%)",
+      "payout_implicito": 37.0,
+      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
       "is_commodity_peak": false,
       "is_debt_vulnerable": false,
       "capital_intensity": 0.6909871244635193,
@@ -15970,7 +16141,7 @@
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** GERDAU S.A. PN N1 apresenta retorno sobre capital estável (ROIC de 11.6%), alavancagem controlada de 0.64x Dív. Líq./EBITDA, política de proventos sustentável (Payout Implícito de 58%). Quality Score consolidado em **62,7/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
+          "content": "**Fundamentos & Fosso Competitivo:** GERDAU S.A. PN N1 apresenta retorno sobre capital estável (ROIC de 11.6%), alavancagem controlada de 0.64x Dív. Líq./EBITDA. Quality Score consolidado em **62,7/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
           "icon": "diamond"
         },
         {
@@ -16073,7 +16244,7 @@
           0.0528,
           0.031,
           0.0245,
-          0.0316
+          0.0203
         ],
         "cagr_receita_pct": -3.9,
         "cagr_lucro_pct": -30.2,
@@ -16120,11 +16291,11 @@
       "mrg_liq": 0.0391,
       "mrg_bruta": 0.1469,
       "div_liq_ebitda": 0.64,
-      "div_yield": 0.0342,
+      "div_yield": 0.0215,
       "earnings_yield_pct": 6.54,
       "ey_spread": 0.04,
-      "payout_implicito": 52.0,
-      "payout_tag": "💎 SAUDÁVEL E DISCIPLINADO (40%-85%)",
+      "payout_implicito": 33.0,
+      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
       "is_commodity_peak": false,
       "is_debt_vulnerable": false,
       "capital_intensity": 0.6911764705882352,
@@ -16141,7 +16312,7 @@
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** METALÚRGICA GERDAU PN N1 apresenta retorno sobre capital estável (ROIC de 11.5%), alavancagem controlada de 0.64x Dív. Líq./EBITDA, política de proventos sustentável (Payout Implícito de 52%). Quality Score consolidado em **62,4/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
+          "content": "**Fundamentos & Fosso Competitivo:** METALÚRGICA GERDAU PN N1 apresenta retorno sobre capital estável (ROIC de 11.5%), alavancagem controlada de 0.64x Dív. Líq./EBITDA. Quality Score consolidado em **62,4/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
           "icon": "diamond"
         },
         {
@@ -16244,7 +16415,7 @@
           0.1066,
           0.0302,
           0.0268,
-          0.0342
+          0.0215
         ],
         "cagr_receita_pct": -3.9,
         "cagr_lucro_pct": -28.7,
@@ -16328,7 +16499,7 @@
       ],
       "details": {
         "ticker": "YDUQ3",
-        "audit_timestamp": "10/11/2026 01:19:39",
+        "audit_timestamp": "10/11/2026 13:37:37",
         "audit_source": "Fundamentus (detalhes.php?papel=YDUQ3)",
         "empresa": "YDUQS PART ON",
         "setor": "Diversos",
@@ -16462,11 +16633,11 @@
       "mrg_liq": 0.0391,
       "mrg_bruta": 0.1469,
       "div_liq_ebitda": 0.64,
-      "div_yield": 0.0371,
+      "div_yield": 0.0239,
       "earnings_yield_pct": 6.37,
       "ey_spread": -0.13,
-      "payout_implicito": 57.99999999999999,
-      "payout_tag": "💎 SAUDÁVEL E DISCIPLINADO (40%-85%)",
+      "payout_implicito": 37.0,
+      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
       "is_commodity_peak": false,
       "is_debt_vulnerable": false,
       "capital_intensity": 0.6912972085385879,
@@ -16483,7 +16654,7 @@
       "cfa_bullets": [
         {
           "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** GERDAU S.A. ON N1 apresenta retorno sobre capital estável (ROIC de 11.6%), alavancagem controlada de 0.64x Dív. Líq./EBITDA, política de proventos sustentável (Payout Implícito de 58%). Quality Score consolidado em **60,6/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
+          "content": "**Fundamentos & Fosso Competitivo:** GERDAU S.A. ON N1 apresenta retorno sobre capital estável (ROIC de 11.6%), alavancagem controlada de 0.64x Dív. Líq./EBITDA. Quality Score consolidado em **60,6/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
           "icon": "diamond"
         },
         {
@@ -16582,11 +16753,11 @@
           0.1155
         ],
         "div_yield": [
-          0.0371,
-          0.0371,
-          0.0371,
-          0.0371,
-          0.0371
+          0.0239,
+          0.0239,
+          0.0239,
+          0.0239,
+          0.0239
         ],
         "cagr_receita_pct": -4.3,
         "cagr_lucro_pct": -4.3,
@@ -16670,7 +16841,7 @@
       ],
       "details": {
         "ticker": "SLCE3",
-        "audit_timestamp": "10/11/2026 01:19:37",
+        "audit_timestamp": "10/11/2026 13:37:35",
         "audit_source": "Fundamentus (detalhes.php?papel=SLCE3)",
         "empresa": "SLC Agricola ON NM",
         "setor": "Agropecuária",
@@ -16841,7 +17012,7 @@
       ],
       "details": {
         "ticker": "PASS3",
-        "audit_timestamp": "10/11/2026 01:19:24",
+        "audit_timestamp": "10/11/2026 13:37:28",
         "audit_source": "Fundamentus (detalhes.php?papel=PASS3)",
         "empresa": "COMPASS ON NM",
         "setor": "Gás",
@@ -17354,7 +17525,7 @@
       ],
       "details": {
         "ticker": "CPLE3",
-        "audit_timestamp": "10/11/2026 01:19:27",
+        "audit_timestamp": "10/11/2026 13:37:30",
         "audit_source": "Fundamentus (detalhes.php?papel=CPLE3)",
         "empresa": "COPEL ON",
         "setor": "Energia Elétrica",
@@ -17525,7 +17696,7 @@
       ],
       "details": {
         "ticker": "ARML3",
-        "audit_timestamp": "10/11/2026 01:19:32",
+        "audit_timestamp": "10/11/2026 13:37:33",
         "audit_source": "Fundamentus (detalhes.php?papel=ARML3)",
         "empresa": "ARMAC ON NM",
         "setor": "Diversos",
@@ -18135,177 +18306,6 @@
       }
     },
     {
-      "ticker": "EMBJ3",
-      "empresa": "EMBRAER ON NM",
-      "is_ibov": true,
-      "ibov_weight": 2.667,
-      "setor": "Material de Transporte",
-      "subsetor": "Material Aeronáutico e de Defesa",
-      "cotacao": 106.4,
-      "liq_2m": 668334000.0,
-      "is_liquid_1m": true,
-      "ult_balanco": "30/06/2026",
-      "is_latest_balanco": true,
-      "tri_balanco": "2T26 (Vigente)",
-      "lucro_run_rate": 4336720000.0,
-      "pl_run_rate": 18.17,
-      "run_rate_div_pct": 86.2,
-      "is_distorted": true,
-      "distortion_tag": "EXPANSAO_ONE_OFF",
-      "distortion_label": "⚠️ One-Off / Sazonal (+86%)",
-      "quality_score": 57.5,
-      "quality_tier": "Tier 3: Sem Fosso Claro / Sensível ao Ciclo",
-      "quality_tag": "MEDIOCRE",
-      "pilar_rentabilidade": 55.1,
-      "pilar_solidez": 80.2,
-      "pilar_consistencia": 74.7,
-      "is_financial": false,
-      "entry_status": "🔴 MÚLTIPLOS EXIGENTES",
-      "entry_tag": "ESTICADA",
-      "entry_color": "#EF4444",
-      "pl": 33.83,
-      "ev_ebitda": 12.84,
-      "ev_ebit": 16.6,
-      "pvp": 4.4,
-      "roic": 0.09609999999999999,
-      "roe": 0.1301,
-      "mrg_liq": 0.0546,
-      "mrg_bruta": 0.17850000000000002,
-      "div_liq_ebitda": 0.25,
-      "div_yield": 0.0113,
-      "earnings_yield_pct": 2.96,
-      "ey_spread": -3.54,
-      "payout_implicito": 38.0,
-      "payout_tag": "📈 RETENÇÃO / REINVESTIMENTO",
-      "is_commodity_peak": false,
-      "is_debt_vulnerable": false,
-      "capital_intensity": 0.7734939759036144,
-      "sub_scores": {
-        "roic": 38.98618222931947,
-        "roe": 69.66511071523603,
-        "mrg_liq": 60.379771696992954,
-        "div_liq_ebitda": 84.75,
-        "liq_corr": 74.64,
-        "cresc_rec5a": 87.02,
-        "mrg_bruta": 71.38897599314535
-      },
-      "rationale": "Spread vs NTN-B comprimido em -3.5%. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
-      "cfa_bullets": [
-        {
-          "title": "1. Fundamentos & Eficiência Operacional",
-          "content": "**Fundamentos & Fosso Competitivo:** EMBRAER ON NM apresenta alavancagem controlada de 0.25x Dív. Líq./EBITDA, expansão secular de receita de 22.0% a.a. em 5 anos. Quality Score consolidado em **57,5/100** (Tier 3: Sem Fosso Claro / Sensível ao Ciclo).",
-          "icon": "diamond"
-        },
-        {
-          "title": "2. Estrutura de Capital & Riscos Observados",
-          "content": "**Pontos de Atenção & Riscos:** retorno sobre capital (9.6%) abaixo do custo de oportunidade (WACC nominal ~13,5%), sinalizando destruição de valor econômico (EVA negativo).",
-          "icon": "shield"
-        },
-        {
-          "title": "3. Análise Quantitativa de Múltiplos & NTN-B",
-          "content": "**Comportamento de Múltiplos & NTN-B:** 🔴 MÚLTIPLOS EXIGENTES. Earnings Yield auditado em **3.0% a.a.** (Spread vs. NTN-B real de 6,5%: **-3.5%**). Spread vs NTN-B comprimido em -3.5%. Earnings Yield de 3.0% reflete cotação negociando com prêmio em múltiplos frente aos pares e à taxa real soberana.",
-          "icon": "scale"
-        }
-      ],
-      "details": {
-        "ticker": "EMBJ3",
-        "audit_timestamp": "10/11/2026 01:19:40",
-        "audit_source": "Fundamentus (detalhes.php?papel=EMBJ3)",
-        "empresa": "EMBRAER ON NM",
-        "setor": "Material de Transporte",
-        "subsetor": "Material Aeronáutico e de Defesa",
-        "tipo": "ON NM",
-        "data_ult_cot": "09/11/2026",
-        "min_52sem": 68.32,
-        "max_52sem": 107.06,
-        "valor_mercado": 78785500000.0,
-        "valor_firma": 80367300000.0,
-        "nro_acoes": 740465000.0,
-        "ult_balanco": "30/06/2026",
-        "ativo_total": 68524700000.0,
-        "disponibilidades": 11174500000.0,
-        "ativo_circulante": 38148600000.0,
-        "divida_bruta": 12756400000.0,
-        "divida_liquida": 1581830000.0,
-        "patrimonio_liquido": 17906200000.0,
-        "receita_liq_12m": 44127900000.0,
-        "ebit_12m": 4840660000.0,
-        "lucro_liq_12m": 2329170000.0,
-        "receita_liq_3m": 11335600000.0,
-        "ebit_3m": 1497960000.0,
-        "lucro_liq_3m": 1084180000.0,
-        "lpa": 3.15,
-        "vpa": 24.18,
-        "raw_indicators": {
-          "Indicadores fundamentalistas": "Indicadores fundamentalistas",
-          "P/L": "33.83",
-          "LPA": "3.15",
-          "P/VP": "4.40",
-          "VPA": "24.18",
-          "P/EBIT": "16.28",
-          "Marg. Bruta": "17,9%",
-          "PSR": "1.79",
-          "Marg. EBIT": "11,0%",
-          "P/Ativos": "1.15",
-          "Marg. Líquida": "5,5%",
-          "P/Cap. Giro": "6.77",
-          "EBIT / Ativo": "7,1%",
-          "P/Ativ Circ Liq": "-7.47",
-          "ROIC": "9,6%",
-          "Div. Yield": "1,1%",
-          "ROE": "13,0%",
-          "EV / EBITDA": "12.84",
-          "Liquidez Corr": "1.44",
-          "EV / EBIT": "16.60",
-          "Dív Líq / Patrim": "0.09",
-          "Cres. Rec (5a)": "22,0%",
-          "Giro Ativos": "0.64"
-        }
-      },
-      "historical_5y": {
-        "years": [
-          "2022",
-          "2023",
-          "2024",
-          "2025",
-          "2026 (LTM)"
-        ],
-        "receita": [
-          26441216385.35,
-          30681338323.99,
-          37239812884.2,
-          44127900000.0,
-          44127900000.0
-        ],
-        "lucro_liquido": [
-          -1079684943.58,
-          955061115.14,
-          2052799043.22,
-          2049304917.19,
-          2329170000.0
-        ],
-        "roic_roe": [
-          -0.0722,
-          0.0589,
-          0.1146,
-          0.1022,
-          0.0961
-        ],
-        "div_yield": [
-          0.0113,
-          0.0113,
-          0.0113,
-          0.0074,
-          0.0113
-        ],
-        "cagr_receita_pct": 13.7,
-        "cagr_lucro_pct": 50.0,
-        "anos_com_lucro": "4 de 5 anos",
-        "estabilidade_margens": "Cíclica / Sensível ao Ciclo ⚠️",
-        "is_all_profitable": false
-      }
-    },
-    {
       "ticker": "ALLD3",
       "empresa": "ALLIED ON NM",
       "is_ibov": false,
@@ -18380,7 +18380,7 @@
       ],
       "details": {
         "ticker": "ALLD3",
-        "audit_timestamp": "10/11/2026 01:18:40",
+        "audit_timestamp": "10/11/2026 13:37:04",
         "audit_source": "Fundamentus (detalhes.php?papel=ALLD3)",
         "empresa": "ALLIED ON NM",
         "setor": "Comércio",
@@ -18551,7 +18551,7 @@
       ],
       "details": {
         "ticker": "CMIG4",
-        "audit_timestamp": "10/11/2026 01:19:03",
+        "audit_timestamp": "10/11/2026 13:37:17",
         "audit_source": "Fundamentus (detalhes.php?papel=CMIG4)",
         "empresa": "CEMIG PN N1",
         "setor": "Energia Elétrica",
@@ -18722,7 +18722,7 @@
       ],
       "details": {
         "ticker": "CMIG3",
-        "audit_timestamp": "10/11/2026 01:19:19",
+        "audit_timestamp": "10/11/2026 13:37:26",
         "audit_source": "Fundamentus (detalhes.php?papel=CMIG3)",
         "empresa": "CEMIG ON N1",
         "setor": "Energia Elétrica",
@@ -19235,7 +19235,7 @@
       ],
       "details": {
         "ticker": "VIVT3",
-        "audit_timestamp": "10/11/2026 01:19:29",
+        "audit_timestamp": "10/11/2026 13:37:31",
         "audit_source": "Fundamentus (detalhes.php?papel=VIVT3)",
         "empresa": "TELEF BRASIL ON",
         "setor": "Telecomunicações",
@@ -19406,7 +19406,7 @@
       ],
       "details": {
         "ticker": "PFRM3",
-        "audit_timestamp": "10/11/2026 01:18:56",
+        "audit_timestamp": "10/11/2026 13:37:14",
         "audit_source": "Fundamentus (detalhes.php?papel=PFRM3)",
         "empresa": "PROFARMA ON NM",
         "setor": "Comércio e Distribuição",
@@ -19577,7 +19577,7 @@
       ],
       "details": {
         "ticker": "DEXP3",
-        "audit_timestamp": "10/11/2026 01:19:01",
+        "audit_timestamp": "10/11/2026 13:37:17",
         "audit_source": "Fundamentus (detalhes.php?papel=DEXP3)",
         "empresa": "DEXXOS PAR ON",
         "setor": "Químicos",
@@ -19919,7 +19919,7 @@
       ],
       "details": {
         "ticker": "CLSC4",
-        "audit_timestamp": "10/11/2026 01:19:10",
+        "audit_timestamp": "10/11/2026 13:37:19",
         "audit_source": "Fundamentus (detalhes.php?papel=CLSC4)",
         "empresa": "CELESC PN N2",
         "setor": "Energia Elétrica",
@@ -20090,7 +20090,7 @@
       ],
       "details": {
         "ticker": "MDIA3",
-        "audit_timestamp": "10/11/2026 01:19:14",
+        "audit_timestamp": "10/11/2026 13:37:23",
         "audit_source": "Fundamentus (detalhes.php?papel=MDIA3)",
         "empresa": "M.DIASBRANCO ON NM",
         "setor": "Alimentos Processados",
@@ -20774,7 +20774,7 @@
       ],
       "details": {
         "ticker": "ESPA3",
-        "audit_timestamp": "10/11/2026 01:19:39",
+        "audit_timestamp": "10/11/2026 13:37:37",
         "audit_source": "Fundamentus (detalhes.php?papel=ESPA3)",
         "empresa": "ESPACOLASER ON NM",
         "setor": "Comércio",
@@ -21116,7 +21116,7 @@
       ],
       "details": {
         "ticker": "BRST3",
-        "audit_timestamp": "10/11/2026 01:19:33",
+        "audit_timestamp": "10/11/2026 13:37:33",
         "audit_source": "Fundamentus (detalhes.php?papel=BRST3)",
         "empresa": "BRISANET ON NM",
         "setor": "Telecomunicações",
@@ -21287,7 +21287,7 @@
       ],
       "details": {
         "ticker": "CYRE4",
-        "audit_timestamp": "10/11/2026 01:18:45",
+        "audit_timestamp": "10/11/2026 13:37:08",
         "audit_source": "Fundamentus (detalhes.php?papel=CYRE4)",
         "empresa": "CYRELA BRAZIL REALTY PN",
         "setor": "Construção Civil",
@@ -21458,7 +21458,7 @@
       ],
       "details": {
         "ticker": "CYRE3",
-        "audit_timestamp": "10/11/2026 01:18:47",
+        "audit_timestamp": "10/11/2026 13:37:09",
         "audit_source": "Fundamentus (detalhes.php?papel=CYRE3)",
         "empresa": "CYRELA BRAZIL REALTY PN",
         "setor": "Construção Civil",
@@ -21629,7 +21629,7 @@
       ],
       "details": {
         "ticker": "AUAU3",
-        "audit_timestamp": "10/11/2026 01:19:32",
+        "audit_timestamp": "10/11/2026 13:37:33",
         "audit_source": "Fundamentus (detalhes.php?papel=AUAU3)",
         "empresa": "PETZCOBASI ON NM",
         "setor": "Comércio",
@@ -21800,7 +21800,7 @@
       ],
       "details": {
         "ticker": "TRIS3",
-        "audit_timestamp": "10/11/2026 01:18:55",
+        "audit_timestamp": "10/11/2026 13:37:13",
         "audit_source": "Fundamentus (detalhes.php?papel=TRIS3)",
         "empresa": "Trisul ON NM",
         "setor": "Construção Civil",
@@ -21971,7 +21971,7 @@
       ],
       "details": {
         "ticker": "POSI3",
-        "audit_timestamp": "10/11/2026 01:19:42",
+        "audit_timestamp": "10/11/2026 13:37:39",
         "audit_source": "Fundamentus (detalhes.php?papel=POSI3)",
         "empresa": "POSITIVO TEC ON NM",
         "setor": "Computadores e Equipamentos",
@@ -22142,7 +22142,7 @@
       ],
       "details": {
         "ticker": "VITT3",
-        "audit_timestamp": "10/11/2026 01:19:01",
+        "audit_timestamp": "10/11/2026 13:37:17",
         "audit_source": "Fundamentus (detalhes.php?papel=VITT3)",
         "empresa": "VITTIA ON NM",
         "setor": "Químicos",
@@ -22484,7 +22484,7 @@
       ],
       "details": {
         "ticker": "SYNE3",
-        "audit_timestamp": "10/11/2026 01:19:09",
+        "audit_timestamp": "10/11/2026 13:37:19",
         "audit_source": "Fundamentus (detalhes.php?papel=SYNE3)",
         "empresa": "SYN PROP TEC ON NM",
         "setor": "Exploração de Imóveis",
@@ -22997,7 +22997,7 @@
       ],
       "details": {
         "ticker": "AZZA3",
-        "audit_timestamp": "10/11/2026 01:19:16",
+        "audit_timestamp": "10/11/2026 13:37:24",
         "audit_source": "Fundamentus (detalhes.php?papel=AZZA3)",
         "empresa": "AZZAS 2154 ON",
         "setor": "Comércio",
@@ -23168,7 +23168,7 @@
       ],
       "details": {
         "ticker": "ENEV3",
-        "audit_timestamp": "10/11/2026 01:19:46",
+        "audit_timestamp": "10/11/2026 13:37:41",
         "audit_source": "Fundamentus (detalhes.php?papel=ENEV3)",
         "empresa": "ENEVA ON",
         "setor": "Energia Elétrica",
@@ -23681,7 +23681,7 @@
       ],
       "details": {
         "ticker": "EVEN3",
-        "audit_timestamp": "10/11/2026 01:18:44",
+        "audit_timestamp": "10/11/2026 13:37:07",
         "audit_source": "Fundamentus (detalhes.php?papel=EVEN3)",
         "empresa": "Even ON NM",
         "setor": "Construção Civil",
@@ -24023,7 +24023,7 @@
       ],
       "details": {
         "ticker": "NATU3",
-        "audit_timestamp": "10/11/2026 01:18:31",
+        "audit_timestamp": "10/11/2026 13:36:58",
         "audit_source": "Fundamentus (detalhes.php?papel=NATU3)",
         "empresa": "NATURA COSMETICOS SA ON",
         "setor": "Produtos de Uso Pessoal e de Limpeza",
@@ -24194,7 +24194,7 @@
       ],
       "details": {
         "ticker": "MLAS3",
-        "audit_timestamp": "10/11/2026 01:18:55",
+        "audit_timestamp": "10/11/2026 13:37:14",
         "audit_source": "Fundamentus (detalhes.php?papel=MLAS3)",
         "empresa": "MULTILASER ON NM",
         "setor": "Computadores e Equipamentos",
@@ -24707,7 +24707,7 @@
       ],
       "details": {
         "ticker": "SHUL4",
-        "audit_timestamp": "10/11/2026 01:18:57",
+        "audit_timestamp": "10/11/2026 13:37:15",
         "audit_source": "Fundamentus (detalhes.php?papel=SHUL4)",
         "empresa": "SCHULZ PN",
         "setor": "Máquinas e Equipamentos",
@@ -25049,7 +25049,7 @@
       ],
       "details": {
         "ticker": "LWSA3",
-        "audit_timestamp": "10/11/2026 01:18:29",
+        "audit_timestamp": "10/11/2026 13:36:55",
         "audit_source": "Fundamentus (detalhes.php?papel=LWSA3)",
         "empresa": "LOCAWEB ON NM",
         "setor": "Programas e Serviços",
@@ -25733,7 +25733,7 @@
       ],
       "details": {
         "ticker": "LIGT3",
-        "audit_timestamp": "10/11/2026 01:18:40",
+        "audit_timestamp": "10/11/2026 13:37:05",
         "audit_source": "Fundamentus (detalhes.php?papel=LIGT3)",
         "empresa": "LIGHT SA ON",
         "setor": "Energia Elétrica",
@@ -26246,7 +26246,7 @@
       ],
       "details": {
         "ticker": "HAPV3",
-        "audit_timestamp": "10/11/2026 01:18:27",
+        "audit_timestamp": "10/11/2026 13:36:53",
         "audit_source": "Fundamentus (detalhes.php?papel=HAPV3)",
         "empresa": "HAPVIDA ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -26417,7 +26417,7 @@
       ],
       "details": {
         "ticker": "RAPT4",
-        "audit_timestamp": "10/11/2026 01:18:30",
+        "audit_timestamp": "10/11/2026 13:36:56",
         "audit_source": "Fundamentus (detalhes.php?papel=RAPT4)",
         "empresa": "RANDON S.A. IMPLEMENTOS E PARTICIPAÇÕES PN N1",
         "setor": "Material de Transporte",
@@ -26588,7 +26588,7 @@
       ],
       "details": {
         "ticker": "MELK3",
-        "audit_timestamp": "10/11/2026 01:18:45",
+        "audit_timestamp": "10/11/2026 13:37:08",
         "audit_source": "Fundamentus (detalhes.php?papel=MELK3)",
         "empresa": "MELNICK ON NM",
         "setor": "Construção Civil",
@@ -26893,10 +26893,10 @@
       "mrg_liq": 1.5413999999999999,
       "mrg_bruta": 0.958,
       "div_liq_ebitda": 11.3,
-      "div_yield": 0.3258,
+      "div_yield": 0.3114,
       "earnings_yield_pct": 20.75,
       "ey_spread": 14.25,
-      "payout_implicito": 157.0,
+      "payout_implicito": 150.0,
       "payout_tag": "⚠️ INSUSTENTÁVEL (>100% dos Lucros)",
       "is_commodity_peak": false,
       "is_debt_vulnerable": true,
@@ -26919,7 +26919,7 @@
         },
         {
           "title": "2. Estrutura de Capital & Riscos Observados",
-          "content": "**Pontos de Atenção & Riscos:** ⚠️ **Vulnerabilidade a Juros (Selic Alta)**: Alavancagem de 11.30x Dív.Líq/EBITDA impõe expressiva carga de despesas financeiras em ambiente monetário restritivo; ⚠️ **Payout Excedente (157%)**: Proventos superam o lucro líquido LTM gerado, sinalizando que a distribuição é financiada por desalavancagem de caixa ou endividamento.",
+          "content": "**Pontos de Atenção & Riscos:** ⚠️ **Vulnerabilidade a Juros (Selic Alta)**: Alavancagem de 11.30x Dív.Líq/EBITDA impõe expressiva carga de despesas financeiras em ambiente monetário restritivo; ⚠️ **Payout Excedente (150%)**: Proventos superam o lucro líquido LTM gerado, sinalizando que a distribuição é financiada por desalavancagem de caixa ou endividamento.",
           "icon": "shield"
         },
         {
@@ -27017,7 +27017,7 @@
           0.0435,
           0.1145,
           0.1879,
-          0.3258
+          0.3114
         ],
         "cagr_receita_pct": 4.1,
         "cagr_lucro_pct": -0.1,
@@ -27272,7 +27272,7 @@
       ],
       "details": {
         "ticker": "MTRE3",
-        "audit_timestamp": "10/11/2026 01:18:53",
+        "audit_timestamp": "10/11/2026 13:37:12",
         "audit_source": "Fundamentus (detalhes.php?papel=MTRE3)",
         "empresa": "MITRE REALTY ON NM",
         "setor": "Construção Civil",
@@ -28127,7 +28127,7 @@
       ],
       "details": {
         "ticker": "TAEE3",
-        "audit_timestamp": "10/11/2026 01:19:12",
+        "audit_timestamp": "10/11/2026 13:37:21",
         "audit_source": "Fundamentus (detalhes.php?papel=TAEE3)",
         "empresa": "TAESA N2",
         "setor": "Energia Elétrica",
@@ -28298,7 +28298,7 @@
       ],
       "details": {
         "ticker": "TAEE11",
-        "audit_timestamp": "10/11/2026 01:19:13",
+        "audit_timestamp": "10/11/2026 13:37:21",
         "audit_source": "Fundamentus (detalhes.php?papel=TAEE11)",
         "empresa": "TAESA UNT",
         "setor": "Energia Elétrica",
@@ -28469,7 +28469,7 @@
       ],
       "details": {
         "ticker": "TAEE4",
-        "audit_timestamp": "10/11/2026 01:19:14",
+        "audit_timestamp": "10/11/2026 13:37:22",
         "audit_source": "Fundamentus (detalhes.php?papel=TAEE4)",
         "empresa": "TAESA PN N2",
         "setor": "Energia Elétrica",
@@ -28640,7 +28640,7 @@
       ],
       "details": {
         "ticker": "TTEN3",
-        "audit_timestamp": "10/11/2026 01:19:15",
+        "audit_timestamp": "10/11/2026 13:37:23",
         "audit_source": "Fundamentus (detalhes.php?papel=TTEN3)",
         "empresa": "3TENTOS ON NM",
         "setor": "Agropecuária",
@@ -28811,7 +28811,7 @@
       ],
       "details": {
         "ticker": "VVEO3",
-        "audit_timestamp": "10/11/2026 01:19:27",
+        "audit_timestamp": "10/11/2026 13:37:30",
         "audit_source": "Fundamentus (detalhes.php?papel=VVEO3)",
         "empresa": "VIVEO ON NM",
         "setor": "Comércio e Distribuição",
@@ -28982,7 +28982,7 @@
       ],
       "details": {
         "ticker": "CAML3",
-        "audit_timestamp": "10/11/2026 01:19:35",
+        "audit_timestamp": "10/11/2026 13:37:34",
         "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
         "empresa": "CAMIL ON NM",
         "setor": "Alimentos Processados",
@@ -29153,7 +29153,7 @@
       ],
       "details": {
         "ticker": "SOJA3",
-        "audit_timestamp": "10/11/2026 01:19:43",
+        "audit_timestamp": "10/11/2026 13:37:39",
         "audit_source": "Fundamentus (detalhes.php?papel=SOJA3)",
         "empresa": "BOA SAFRA ON NM",
         "setor": "Agropecuária",
@@ -29324,7 +29324,7 @@
       ],
       "details": {
         "ticker": "EQTL3",
-        "audit_timestamp": "10/11/2026 01:19:44",
+        "audit_timestamp": "10/11/2026 13:37:40",
         "audit_source": "Fundamentus (detalhes.php?papel=EQTL3)",
         "empresa": "EQUATORIAL ENERGIA S.A. ON NM",
         "setor": "Energia Elétrica",
@@ -30008,7 +30008,7 @@
       ],
       "details": {
         "ticker": "MBRF3",
-        "audit_timestamp": "10/11/2026 01:19:46",
+        "audit_timestamp": "10/11/2026 13:37:41",
         "audit_source": "Fundamentus (detalhes.php?papel=MBRF3)",
         "empresa": "MARFRIG ON NM",
         "setor": "Alimentos Processados",
@@ -30179,7 +30179,7 @@
       ],
       "details": {
         "ticker": "ORVR3",
-        "audit_timestamp": "10/11/2026 01:19:47",
+        "audit_timestamp": "10/11/2026 13:37:41",
         "audit_source": "Fundamentus (detalhes.php?papel=ORVR3)",
         "empresa": "ORIZON ON NM",
         "setor": "Água e Saneamento",
@@ -30350,7 +30350,7 @@
       ],
       "details": {
         "ticker": "BRAP3",
-        "audit_timestamp": "10/11/2026 01:19:22",
+        "audit_timestamp": "10/11/2026 13:37:27",
         "audit_source": "Fundamentus (detalhes.php?papel=BRAP3)",
         "empresa": "BRADESPAR S/A ON N1",
         "setor": "Mineração",
@@ -30521,7 +30521,7 @@
       ],
       "details": {
         "ticker": "BRAP4",
-        "audit_timestamp": "10/11/2026 01:19:24",
+        "audit_timestamp": "10/11/2026 13:37:29",
         "audit_source": "Fundamentus (detalhes.php?papel=BRAP4)",
         "empresa": "BRADESPAR S/A PN N1",
         "setor": "Mineração",
@@ -30863,7 +30863,7 @@
       ],
       "details": {
         "ticker": "HBOR3",
-        "audit_timestamp": "10/11/2026 01:19:41",
+        "audit_timestamp": "10/11/2026 13:37:38",
         "audit_source": "Fundamentus (detalhes.php?papel=HBOR3)",
         "empresa": "Helbor ON",
         "setor": "Construção Civil",
@@ -31376,7 +31376,7 @@
       ],
       "details": {
         "ticker": "TASA4",
-        "audit_timestamp": "10/11/2026 01:19:39",
+        "audit_timestamp": "10/11/2026 13:37:38",
         "audit_source": "Fundamentus (detalhes.php?papel=TASA4)",
         "empresa": "TAURUS ARMAS PN",
         "setor": "Máquinas e Equipamentos",
@@ -31547,7 +31547,7 @@
       ],
       "details": {
         "ticker": "JALL3",
-        "audit_timestamp": "10/11/2026 01:18:28",
+        "audit_timestamp": "10/11/2026 13:36:54",
         "audit_source": "Fundamentus (detalhes.php?papel=JALL3)",
         "empresa": "JALLESMACHAD ON NM",
         "setor": "Alimentos Processados",
@@ -32231,7 +32231,7 @@
       ],
       "details": {
         "ticker": "CVCB3",
-        "audit_timestamp": "10/11/2026 01:18:30",
+        "audit_timestamp": "10/11/2026 13:36:56",
         "audit_source": "Fundamentus (detalhes.php?papel=CVCB3)",
         "empresa": "CVC BRASIL ON NM",
         "setor": "Viagens e Lazer",
@@ -32402,7 +32402,7 @@
       ],
       "details": {
         "ticker": "IRBR3",
-        "audit_timestamp": "10/11/2026 01:18:24",
+        "audit_timestamp": "10/11/2026 13:36:53",
         "audit_source": "Fundamentus (detalhes.php?papel=IRBR3)",
         "empresa": "IRBBRASIL RE ON NM",
         "setor": "Previdência e Seguros",
@@ -32573,7 +32573,7 @@
       ],
       "details": {
         "ticker": "AMER3",
-        "audit_timestamp": "10/11/2026 01:18:31",
+        "audit_timestamp": "10/11/2026 13:36:57",
         "audit_source": "Fundamentus (detalhes.php?papel=AMER3)",
         "empresa": "AMERICANAS ON",
         "setor": "Comércio",
@@ -32744,7 +32744,7 @@
       ],
       "details": {
         "ticker": "MRVE3",
-        "audit_timestamp": "10/11/2026 01:18:29",
+        "audit_timestamp": "10/11/2026 13:36:55",
         "audit_source": "Fundamentus (detalhes.php?papel=MRVE3)",
         "empresa": "MRV ON NM",
         "setor": "Construção Civil",
@@ -32915,7 +32915,7 @@
       ],
       "details": {
         "ticker": "OBTC3",
-        "audit_timestamp": "10/11/2026 01:18:33",
+        "audit_timestamp": "10/11/2026 13:36:59",
         "audit_source": "Fundamentus (detalhes.php?papel=OBTC3)",
         "empresa": "ORANJEBTC ON",
         "setor": "Diversos",
@@ -33257,7 +33257,7 @@
       ],
       "details": {
         "ticker": "CSAN3",
-        "audit_timestamp": "10/11/2026 01:18:35",
+        "audit_timestamp": "10/11/2026 13:37:00",
         "audit_source": "Fundamentus (detalhes.php?papel=CSAN3)",
         "empresa": "COSAN SA INDUSTRIA E COMERCIO ON",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -33428,7 +33428,7 @@
       ],
       "details": {
         "ticker": "AZUL3",
-        "audit_timestamp": "10/11/2026 01:18:43",
+        "audit_timestamp": "10/11/2026 13:37:06",
         "audit_source": "Fundamentus (detalhes.php?papel=AZUL3)",
         "empresa": "AZUL ON N2",
         "setor": "Transporte",
@@ -33770,7 +33770,7 @@
       ],
       "details": {
         "ticker": "CSNA3",
-        "audit_timestamp": "10/11/2026 01:18:32",
+        "audit_timestamp": "10/11/2026 13:36:58",
         "audit_source": "Fundamentus (detalhes.php?papel=CSNA3)",
         "empresa": "CSN ON",
         "setor": "Siderurgia e Metalurgia",
@@ -33941,7 +33941,7 @@
       ],
       "details": {
         "ticker": "AURE3",
-        "audit_timestamp": "10/11/2026 01:18:28",
+        "audit_timestamp": "10/11/2026 13:36:54",
         "audit_source": "Fundamentus (detalhes.php?papel=AURE3)",
         "empresa": "AUREN ON NM",
         "setor": "Energia Elétrica",
@@ -34112,7 +34112,7 @@
       ],
       "details": {
         "ticker": "BHIA3",
-        "audit_timestamp": "10/11/2026 01:18:39",
+        "audit_timestamp": "10/11/2026 13:37:04",
         "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
         "empresa": "CASAS BAHIA ON",
         "setor": "Comércio",
@@ -34454,7 +34454,7 @@
       ],
       "details": {
         "ticker": "PTBL3",
-        "audit_timestamp": "10/11/2026 01:18:36",
+        "audit_timestamp": "10/11/2026 13:37:01",
         "audit_source": "Fundamentus (detalhes.php?papel=PTBL3)",
         "empresa": "PORTOBELLO S/A ON",
         "setor": "Construção e Engenharia",
@@ -34625,7 +34625,7 @@
       ],
       "details": {
         "ticker": "GFSA3",
-        "audit_timestamp": "10/11/2026 01:18:39",
+        "audit_timestamp": "10/11/2026 13:37:03",
         "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
         "empresa": "GAFISA ON",
         "setor": "Construção Civil",
@@ -34796,7 +34796,7 @@
       ],
       "details": {
         "ticker": "AZTE3",
-        "audit_timestamp": "10/11/2026 01:18:32",
+        "audit_timestamp": "10/11/2026 13:36:58",
         "audit_source": "Fundamentus (detalhes.php?papel=AZTE3)",
         "empresa": "AZT ENERGIA ON",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -34967,7 +34967,7 @@
       ],
       "details": {
         "ticker": "RAIZ4",
-        "audit_timestamp": "10/11/2026 01:18:38",
+        "audit_timestamp": "10/11/2026 13:37:03",
         "audit_source": "Fundamentus (detalhes.php?papel=RAIZ4)",
         "empresa": "RAIZEN PN N2",
         "setor": "Petróleo, Gás e Biocombustíveis",
@@ -35138,7 +35138,7 @@
       ],
       "details": {
         "ticker": "RCSL4",
-        "audit_timestamp": "10/11/2026 01:18:35",
+        "audit_timestamp": "10/11/2026 13:37:00",
         "audit_source": "Fundamentus (detalhes.php?papel=RCSL4)",
         "empresa": "RECRUSUL PN",
         "setor": "Material de Transporte",
@@ -35309,7 +35309,7 @@
       ],
       "details": {
         "ticker": "AZEV3",
-        "audit_timestamp": "10/11/2026 01:18:34",
+        "audit_timestamp": "10/11/2026 13:36:59",
         "audit_source": "Fundamentus (detalhes.php?papel=AZEV3)",
         "empresa": "AZEVEDO & TRAVASSOS ON",
         "setor": "Construção e Engenharia",
@@ -35480,7 +35480,7 @@
       ],
       "details": {
         "ticker": "AZEV4",
-        "audit_timestamp": "10/11/2026 01:18:38",
+        "audit_timestamp": "10/11/2026 13:37:02",
         "audit_source": "Fundamentus (detalhes.php?papel=AZEV4)",
         "empresa": "AZEVEDO & TRAVASSOS PN",
         "setor": "Construção e Engenharia",
@@ -35651,7 +35651,7 @@
       ],
       "details": {
         "ticker": "ONCO3",
-        "audit_timestamp": "10/11/2026 01:18:37",
+        "audit_timestamp": "10/11/2026 13:37:02",
         "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
         "empresa": "ONCOCLINICAS ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -35822,7 +35822,7 @@
       ],
       "details": {
         "ticker": "BRKM5",
-        "audit_timestamp": "10/11/2026 01:18:37",
+        "audit_timestamp": "10/11/2026 13:37:01",
         "audit_source": "Fundamentus (detalhes.php?papel=BRKM5)",
         "empresa": "BRASKEM PNA N1",
         "setor": "Químicos",
@@ -35993,7 +35993,7 @@
       ],
       "details": {
         "ticker": "PMAM3",
-        "audit_timestamp": "10/11/2026 01:18:36",
+        "audit_timestamp": "10/11/2026 13:37:01",
         "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
         "empresa": "PARANAPANEMA S.A. ON",
         "setor": "Siderurgia e Metalurgia",
