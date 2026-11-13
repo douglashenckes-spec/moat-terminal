@@ -29,7 +29,32 @@ COMMODITY_SECTORS = [
 CYCLICAL_SECTORS = [
     "construção", "construcao", "incorporação", "incorporacao", "imobiliário", "imobiliario",
     "construção civil", "construcao civil", "incorporações", "incorporacoes",
+    "automóveis e motocicletas", "automoveis e motocicletas", "material de transporte",
+    "material rodoviário", "material rodoviario", "química", "quimica",
 ]
+
+CYCLICAL_TICKERS = {
+    "LEVE3", "TGMA3", "MILS3", "POMO4", "POMO3", "RAPT4", "RAPT3", "TUPY3",
+    "FRAS3", "ROMI3", "KEPL3", "SHUL4", "VAMO3", "MOVI3", "JSLG3", "ARML3",
+    "CURY3", "PLPL3", "DIRR3", "CYRE3", "CYRE4", "EZTC3", "MRVE3", "TEND3",
+    "LAVV3", "EVEN3", "MDNE3", "HBOR3", "TRIS3", "MELK3", "MTRE3", "SIMH3",
+}
+
+CONSUMER_DISCRETIONARY_SECTORS = [
+    "tecidos, vestuário e calçados", "tecidos, vestuario e calcados",
+    "comércio", "comercio", "viagens e lazer", "hoteis e restaurantes",
+]
+
+REGULATED_UTILITY_SECTORS = [
+    "energia elétrica", "energia eletrica", "água e saneamento", "agua e saneamento",
+    "saneamento", "telecomunicações", "telecomunicacoes",
+]
+
+REGULATED_UTILITY_TICKERS = {
+    "EGIE3", "TAEE11", "TAEE4", "TAEE3", "ISAE4", "TRPL4", "EQTL3", "CPFE3",
+    "CMIG4", "CMIG3", "ENGI11", "ALUP11", "NEOE3", "CPLE3", "CPLE6", "SBSP3",
+    "SAPR11", "SAPR4", "SAPR3", "CSMG3", "AURE3", "ENEV3", "VIVT3", "TIMS3",
+}
 
 FINANCIAL_SECTORS = [
     "banco", "intermediários financeiros", "intermediarios financeiros",
@@ -51,10 +76,35 @@ def is_commodity_sector(sector_name: str) -> bool:
     return any(com in s for com in COMMODITY_SECTORS)
 
 
-def is_cyclical_sector(sector_name: str) -> bool:
-    """Detecta se o ativo opera em setor altamente sensível a ciclos macroeconômicos e imobiliários."""
+def is_cyclical_sector(sector_name: str, ticker: str = "") -> bool:
+    """Detecta se o ativo opera em setor altamente sensível a ciclos macroeconômicos, industriais pesados e imobiliários."""
+    t = (ticker or "").strip().upper()
+    if t == "WEGE3":
+        return False
+    if t in CYCLICAL_TICKERS:
+        return True
     s = sector_name.lower().strip()
     return any(cyc in s for cyc in CYCLICAL_SECTORS)
+
+
+def is_consumer_discretionary_sector(sector_name: str, ticker: str = "") -> bool:
+    """Detecta varejo discricionário e vestuário (sensível ao ciclo de crédito e juros, porém mais resiliente que indústria pesada)."""
+    t = (ticker or "").strip().upper()
+    if t in {"RADL3", "PGMN3", "PNVL3", "ASAI3", "GMAT3"}:  # Varejo farmacêutico e alimentar essencial
+        return False
+    s = sector_name.lower().strip()
+    return any(cd in s for cd in CONSUMER_DISCRETIONARY_SECTORS)
+
+
+def is_regulated_utility(sector_name: str, ticker: str = "") -> bool:
+    """Detecta concessões de infraestrutura regulada (energia elétrica, transmissão, saneamento e telecom)."""
+    t = (ticker or "").strip().upper()
+    if t == "LIGT3":  # Concessão em recuperação judicial
+        return False
+    if t in REGULATED_UTILITY_TICKERS:
+        return True
+    s = sector_name.lower().strip()
+    return any(u in s for u in REGULATED_UTILITY_SECTORS)
 
 
 def score_roic(roic: Optional[float]) -> float:
@@ -342,6 +392,16 @@ def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Opti
     # Teto teórico assintótico (nenhuma empresa atinge 100.0)
     quality_score = round(max(5.0, min(92.5, quality_score)), 1)
 
+    # Trava CFA de Custo de Capital Próprio Bancário (Ke ~14,5% a 15,0%):
+    # Instituições financeiras com ROE abaixo de 15% não geram Economic Profit (EVA) suficiente para Tier 1 (Classe Mundial)
+    cur_roe_pct = (cur_roe * 100.0 if abs(cur_roe) < 2.0 else cur_roe) if cur_roe is not None else 0.0
+    min_roe_pct = min(r_pct, cur_roe_pct)
+    if min_roe_pct < 10.0:
+        roe_cap = round(52.0 + max(0.0, min_roe_pct) * 1.5, 1)
+        quality_score = min(quality_score, roe_cap)
+    elif min_roe_pct < 15.0:
+        quality_score = min(quality_score, 74.5)
+
     if quality_score >= 80.0:
         quality_tier = "Tier 1: Classe Mundial (Wide/Narrow Moat)"
         quality_tag = "CLASSE_MUNDIAL"
@@ -391,10 +451,34 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     cur_roic = row.get("roic")
     cur_lucro = row.get("lucro_liq")
     cur_rec = row.get("receita_liq")
+    full_sec_name = f"{sector_name} {row.get('setor', '')} {row.get('subsetor', '')}".strip()
+
+    is_util = is_regulated_utility(full_sec_name, ticker)
+    is_cyc = is_cyclical_sector(full_sec_name, ticker)
+    is_com = is_commodity_sector(full_sec_name)
+    is_disc = is_consumer_discretionary_sector(full_sec_name, ticker)
 
     h_metrics = extract_historical_metrics(hist_data, cur_roe, cur_roic, cur_lucro, cur_rec)
     effective_roe = h_metrics["effective_roe"] if (h_metrics["has_history"] and h_metrics["effective_roe"] is not None) else cur_roe
     effective_roic = h_metrics["effective_roic"] if (h_metrics["has_history"] and h_metrics["effective_roic"] is not None) else cur_roic
+
+    # Para Concessões Reguladas (Energia/Saneamento/Telecom sob IFRIC 12), o ROIC contábil bruto subestima o retorno econômico real sobre a RAB
+    if is_util and effective_roic is not None and effective_roe is not None and effective_roe > effective_roic and effective_roic > 0.08:
+        effective_roic = (effective_roic * 0.50) + (effective_roe * 0.50)
+
+    # Estrutura de capital para validação de Solidez e Compounder
+    dle_val = row.get("div_liq_ebitda")
+    dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
+    det = row.get("details", {}) or {}
+    dl_val = det.get("divida_liquida")
+    dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
+    is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
+    is_controlled_debt = is_net_cash or (dle_num is not None and dle_num <= (3.2 if is_util else 1.8))
+
+    # Obter ROIC efetivo e contábil LTM percentual (%):
+    r_roic_pct = None
+    if effective_roic is not None and not math.isnan(effective_roic):
+        r_roic_pct = effective_roic * 100.0 if abs(effective_roic) < 2.0 else effective_roic
 
     # 1. Rentabilidade (Peso 40%) - ROIC, ROE e Margem Líquida em Curvas Contínuas
     s_roic = score_roic(effective_roic)
@@ -402,7 +486,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     s_mrg_liq = score_mrg_liq(row.get("mrg_liq"))
     score_pilar_rentabilidade = (s_roic * 0.40) + (s_roe * 0.35) + (s_mrg_liq * 0.25)
 
-    # 2. Solidez Financeira (Peso 35%)
+    # 2. Solidez Financeira (Peso 35%) - 70% Dívida Líquida/EBITDA e 30% Liquidez Corrente (com ajuste p/ Ciclo de Caixa Negativo e Concessões)
     patrim_liq = row.get("patrim_liq")
     has_negative_equity = (patrim_liq is not None and patrim_liq < 0) or ("PATRIMONIO_LIQUIDO_NEGATIVO" in row.get("alert_flags", []))
 
@@ -411,9 +495,15 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         s_liq_corr = 0.0
         score_pilar_solidez = 0.0
     else:
-        s_dl_ebitda = score_div_liq_ebitda(row.get("div_liq_ebitda"))
+        effective_dle = (max(0.0, dle_num - 1.5) if (is_util and dle_num is not None and dle_num > 0) else dle_num)
+        s_dl_ebitda = score_div_liq_ebitda(effective_dle)
         s_liq_corr = score_liq_corr(row.get("liq_corr"))
-        score_pilar_solidez = (s_dl_ebitda * 0.55) + (s_liq_corr * 0.45)
+        # Empresas em Caixa Líquido comprovado ou Utilities com receita contratada não são punidas por ciclo de giro negativo
+        if is_net_cash and s_liq_corr >= 45.0:
+            s_liq_corr = max(78.0, s_liq_corr)
+        elif is_util and s_liq_corr >= 35.0:
+            s_liq_corr = max(72.0, s_liq_corr)
+        score_pilar_solidez = (s_dl_ebitda * 0.70) + (s_liq_corr * 0.30)
 
     # 3. Consistência e Defensibilidade (Peso 25%)
     anos_lucro = h_metrics["anos_com_lucro"]
@@ -428,50 +518,55 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     s_cresc = score_cresc_rec5a(row.get("cresc_rec5a"))
     s_mrg_bruta = score_mrg_bruta(row.get("mrg_bruta"))
 
-    # Ajuste de Intensidade de Capital (EBIT / EBITDA)
+    # Ajuste de Intensidade de Capital (EBIT / EBITDA) - isenta concessões de infraestrutura
     ev_ebitda = row.get("ev_ebitda")
     ev_ebit = row.get("ev_ebit")
     capital_intensity = None
     if ev_ebitda and ev_ebit and ev_ebit > 0 and ev_ebitda > 0:
         capital_intensity = ev_ebitda / ev_ebit
-        if capital_intensity < 0.60:
+        if capital_intensity < 0.60 and not is_util:
             s_mrg_bruta = max(20.0, s_mrg_bruta - 12.0)
 
     score_pilar_consistencia = (base_cons * 0.40) + (s_cresc * 0.30) + (s_mrg_bruta * 0.30)
 
-    # Quality Score Bruto Ponderado
+    # Prêmio CFA de Compounder (integrado DENTRO dos pilares para manter 100% de consistência matemática da média ponderada)
+    if (
+        r_roic_pct is not None
+        and r_roic_pct >= 15.5
+        and is_controlled_debt
+        and not has_negative_equity
+        and not is_cyc
+        and not is_com
+        and anos_lucro == total_anos
+    ):
+        compounder_boost = min(6.5, 1.5 + ((r_roic_pct - 15.5) * 0.35))
+        score_pilar_rentabilidade = min(94.0, score_pilar_rentabilidade + compounder_boost)
+        score_pilar_solidez = min(93.0, score_pilar_solidez + (compounder_boost * 0.65))
+        score_pilar_consistencia = min(92.0, score_pilar_consistencia + (compounder_boost * 0.60))
+
+    # Ajuste Setorial de Previsibilidade de Fosso Econômico (aplicado proporcionalmente aos pilares para preservar a soma exata)
+    sector_factor = 1.0
+    if is_cyc:
+        # Incorporadoras / Construção Civil / Autopeças / Bens de Capital Cíclicos
+        sector_factor = 0.90
+    elif is_com:
+        # Produtores de Commodities: tomadores de preço, vulneráveis ao ciclo global
+        sector_factor = 0.88
+    elif is_disc:
+        # Varejo Discricionário e Moda: sensível ao ciclo de crédito e juros domésticos
+        sector_factor = 0.94
+
+    if sector_factor < 1.0:
+        score_pilar_rentabilidade *= sector_factor
+        score_pilar_solidez *= sector_factor
+        score_pilar_consistencia *= sector_factor
+
+    # Quality Score Bruto Ponderado (100% fiel à média ponderada dos 3 pilares)
     raw_score = (
         (score_pilar_rentabilidade * 0.40) +
         (score_pilar_solidez * 0.35) +
         (score_pilar_consistencia * 0.25)
     )
-
-    # Ajuste Setorial de Previsibilidade de Fosso Econômico (Moat Defensibility)
-    if is_cyclical_sector(sector_name):
-        # Incorporadoras / Construção Civil: alto risco de taxa de juros, distratos e ciclo imobiliário
-        raw_score *= 0.90
-    elif is_commodity_sector(sector_name):
-        # Produtores de Commodities: tomadores de preço, vulneráveis ao ciclo global de preços
-        raw_score *= 0.88
-
-    # Obter ROIC contábil LTM percentual (%):
-    r_roic_pct = None
-    if cur_roic is not None and not math.isnan(cur_roic):
-        r_roic_pct = cur_roic * 100.0 if abs(cur_roic) < 2.0 else cur_roic
-
-    # Estrutura de capital para validação de Compounder
-    dle_val = row.get("div_liq_ebitda")
-    dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
-    det = row.get("details", {}) or {}
-    dl_val = det.get("divida_liquida")
-    dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
-    is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
-    is_controlled_debt = is_net_cash or (dle_num is not None and dle_num <= 2.0)
-
-    # Bônus CFA de Compounder: ROIC >= 18% com Dívida Controlada ou Caixa Líquido
-    if r_roic_pct is not None and r_roic_pct >= 18.0 and is_controlled_debt and not has_negative_equity:
-        compounder_bonus = min(10.0, 5.0 + ((r_roic_pct - 18.0) * 0.40))
-        raw_score += compounder_bonus
 
     # Salvaguarda Munger: Empresas com Passivo a Descoberto NUNCA podem passar de Tier 4
     if has_negative_equity:
@@ -479,22 +574,29 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         quality_tier = "Tier 4: Fragilidade Operacional / Risco de Capital"
         quality_tag = "RISCO_ESTRUTURAL"
     else:
-        quality_score = round(max(5.0, min(95.0, raw_score)), 1)
+        quality_score = round(max(5.0, min(92.5, raw_score)), 1)
         
         # Trava Crítica CFA de ROIC / Criação de Valor Econômico (Custo de Capital ~13,5%):
         # 1. Se ROIC < 10%: recalcule moat_score = min(moat_score, round(45 + roic * 1.3, 1))
-        # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5)
+        # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5) (ou 76.0 para Concessões Reguladas com ROE >= 15%)
         if r_roic_pct is not None:
             if r_roic_pct < 10.0:
                 roic_cap = round(45.0 + (r_roic_pct * 1.3), 1)
+                if is_util and ((effective_roe is not None and effective_roe >= 0.12) or (dle_num is not None and dle_num <= 1.5 and anos_lucro == total_anos)):
+                    roic_cap = max(roic_cap, 72.5)
                 quality_score = min(quality_score, roic_cap)
             elif r_roic_pct < 13.5:
-                quality_score = min(quality_score, 66.5)
+                cap_mid = 76.0 if (is_util and ((effective_roe is not None and effective_roe >= 0.14) or (dle_num is not None and dle_num <= 1.5))) else 66.5
+                quality_score = min(quality_score, cap_mid)
 
-        # Trava Crítica de Alavancagem Munger: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
+        # Trava Crítica de Alavancagem Munger:
+        # - Empresas comuns: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
+        # - Concessões Reguladas (Project Finance indexado à inflação / RAP): >= 5.5x OU (>= 4.0x com ROE < 0.10)
         roe_val = row.get("roe")
-        if dle_num is not None and (dle_num >= 3.5 or (dle_num >= 2.5 and roe_val is not None and roe_val < 0)):
-            quality_score = min(45.0, quality_score)
+        max_dle_cap = 5.5 if is_util else 3.5
+        if dle_num is not None:
+            if dle_num >= max_dle_cap or (not is_util and dle_num >= 2.5 and roe_val is not None and roe_val < 0) or (is_util and dle_num >= 4.0 and roe_val is not None and roe_val < 0.10):
+                quality_score = min(45.0 if not is_util else 55.0, quality_score)
 
         if quality_score >= 80.0:
             quality_tier = "Tier 1: Classe Mundial (Wide/Narrow Moat)"
