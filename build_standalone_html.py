@@ -6288,10 +6288,12 @@ html_template = f"""<!DOCTYPE html>
       // 1. Badges Mungerianos de Consistência
       const cagrRecColor = h.cagr_receita_pct >= 10.0 ? 'text-emerald-900 bg-emerald-100 border-emerald-300' : (h.cagr_receita_pct >= 0 ? 'text-sky-900 bg-sky-100 border-sky-300' : 'text-rose-900 bg-rose-100 border-rose-300');
       const cagrLucColor = h.cagr_lucro_pct >= 10.0 ? 'text-emerald-900 bg-emerald-100 border-emerald-300' : (h.cagr_lucro_pct >= 0 ? 'text-amber-900 bg-amber-100 border-amber-300' : 'text-rose-900 bg-rose-100 border-rose-300');
+      const cagrPlVal = (h.cagr_patrimonio_pct !== null && h.cagr_patrimonio_pct !== undefined) ? h.cagr_patrimonio_pct : 0;
+      const cagrPlColor = cagrPlVal >= 8.0 ? 'text-emerald-900 bg-emerald-100 border-emerald-300' : (cagrPlVal >= 0 ? 'text-indigo-900 bg-indigo-100 border-indigo-300' : 'text-rose-900 bg-rose-100 border-rose-300');
       const anosLucColor = h.is_all_profitable ? 'text-emerald-900 bg-emerald-100 border-emerald-300' : 'text-amber-900 bg-amber-100 border-amber-300';
 
       const badgesHtml = `
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
           <div class="glass-card rounded-xl p-3 border border-slate-200 flex flex-col justify-between">
             <div class="text-[10px] text-slate-700 uppercase font-bold font-mono flex items-center justify-between">
               <span>CAGR Receita (5A)</span>
@@ -6332,6 +6334,20 @@ html_template = f"""<!DOCTYPE html>
               </span>
             </div>
             <div class="text-[9px] text-slate-500 font-sans mt-0.5">Previsibilidade operacional</div>
+          </div>
+
+          <div class="glass-card rounded-xl p-3 border border-slate-200 flex flex-col justify-between">
+            <div class="text-[10px] text-slate-700 uppercase font-bold font-mono flex items-center justify-between">
+              <span>CAGR Patrimônio (5A)</span>
+              <span>🏛️</span>
+            </div>
+            <div class="mt-1 flex items-baseline justify-between gap-1">
+              <span class="text-lg font-bold font-mono text-slate-900">${{cagrPlVal > 0 ? '+' : ''}}${{formatNumberBR(cagrPlVal, 1, '%')}}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold font-mono border ${{cagrPlColor}} whitespace-nowrap">
+                ${{cagrPlVal >= 8 ? 'Acúmulo Sólido' : (cagrPlVal >= 0 ? 'Alto Payout / Estável' : 'Erosão de PL')}}
+              </span>
+            </div>
+            <div class="text-[9px] text-slate-500 font-sans mt-0.5">Evolução do Book Value</div>
           </div>
         </div>
       `;
@@ -6508,6 +6524,11 @@ html_template = f"""<!DOCTYPE html>
                   <td class="py-1.5 px-2 font-sans font-semibold text-slate-800">Lucro Líquido</td>
                   ${{h.lucro_liquido.map(l => `<td class="py-1.5 px-2 text-right font-bold ${{l > 0 ? 'text-emerald-800' : 'text-rose-700'}}">${{formatBillions(l)}}</td>`).join('')}}
                 </tr>
+                ${{h.patrimonio_liquido ? `
+                <tr class="bg-indigo-50/30">
+                  <td class="py-1.5 px-2 font-sans font-semibold text-indigo-950">Patrimônio Líquido</td>
+                  ${{h.patrimonio_liquido.map(pl => `<td class="py-1.5 px-2 text-right font-bold ${{pl > 0 ? 'text-indigo-900' : 'text-rose-700'}}">${{formatBillions(pl)}}</td>`).join('')}}
+                </tr>` : ''}}
                 <tr>
                   <td class="py-1.5 px-2 font-sans font-semibold text-slate-800">Margem Líquida</td>
                   ${{h.lucro_liquido.map((l, i) => {{

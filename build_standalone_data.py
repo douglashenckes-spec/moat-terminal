@@ -131,9 +131,10 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     else:
         roic_cur = float(row_dict.get("roic") if row_dict.get("roic") is not None else (row_dict.get("roe") or 0.12))
 
-    # 5. Dividend Yield Atual e Cotação
+    # 5. Dividend Yield Atual, Cotação e Patrimônio Líquido Atual
     dy_cur = float(row_dict.get("div_yield") or 0.0)
     cotacao = float(row_dict.get("cotacao") or 1.0)
+    pl_cur = float(det_entry.get("patrimonio_liquido") or (row_dict.get("patrim_liq") if row_dict.get("patrim_liq") is not None else 0.0))
 
     # 6. Carregar demonstrações financeiras oficiais auditadas (2022-2025)
     hist_cache = get_historical_cache().get(ticker, {})
@@ -162,6 +163,7 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
 
     rev_series = []
     lucro_series = []
+    pl_series = []
     roic_series = []
     dy_series = []
 
@@ -169,6 +171,7 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         if yr == "2026 (LTM)":
             rev_val = rec_ltm
             lucro_val = lucro_ltm
+            pl_val = pl_cur
             roic_val = roic_cur
             dy_val = dy_cur
         else:
@@ -198,6 +201,22 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
             else:
                 roic_val = roic_cur
 
+            # Patrimônio Líquido contábil oficial arquivado (derivado de Lucro / ROE da CVM ou estimativa estrutural)
+            pl_real = yr_data.get("patrimonio_liquido")
+            if pl_real is not None:
+                pl_val = float(pl_real) * fx_factor
+            elif lucro_real is not None and roe_real is not None and abs(float(roe_real)) > 0.005:
+                pl_derived = (float(lucro_real) / float(roe_real)) * fx_factor
+                if pl_cur < 0 and pl_derived > 0 and idx >= 2:
+                    pl_val = pl_cur
+                else:
+                    pl_val = pl_derived
+            else:
+                step_back = 4 - idx
+                cagr_pl_est = max(-0.20, min(0.30, cagr_rec * 0.85))
+                denom_pl = ((1.0 + cagr_pl_est) ** step_back)
+                pl_val = (pl_cur / denom_pl) if denom_pl > 0 else pl_cur
+
             # Dividend Yield contábil oficial
             div_per_share = yr_data.get("div_per_share")
             if div_per_share is not None and div_per_share > 0 and cotacao > 0:
@@ -207,6 +226,7 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
 
         rev_series.append(round(rev_val, 2))
         lucro_series.append(round(lucro_val, 2))
+        pl_series.append(round(pl_val, 2))
         roic_series.append(round(max(-0.50, min(1.50, roic_val)), 4))
         dy_series.append(round(max(0.0, min(0.40, dy_val)), 4))
 
@@ -232,8 +252,21 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     else:
         cagr_lucro = -0.15
 
+    # CAGR de Patrimônio Líquido Real (2022 a 2026 LTM)
+    pl_init = pl_series[0]
+    pl_end = pl_series[-1]
+    if pl_init > 0 and pl_end > 0:
+        cagr_patrim = (pl_end / pl_init) ** (1.0 / 4.0) - 1.0
+    elif pl_end < 0:
+        cagr_patrim = -0.35
+    elif pl_init <= 0 and pl_end > 0:
+        cagr_patrim = 0.35
+    else:
+        cagr_patrim = 0.0
+
     cagr_rec_calc = max(-0.50, min(0.80, cagr_rec_calc))
     cagr_lucro = max(-0.50, min(0.80, cagr_lucro))
+    cagr_patrim = max(-0.50, min(0.80, cagr_patrim))
 
     # Estabilidade real das margens líquidas & Regras Setoriais de Ciclo (Regra 2)
     setor_name = (row_dict.get("setor") or det_entry.get("setor") or "").strip()
@@ -289,10 +322,12 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         "years": years,
         "receita": rev_series,
         "lucro_liquido": lucro_series,
+        "patrimonio_liquido": pl_series,
         "roic_roe": roic_series,
         "div_yield": dy_series,
         "cagr_receita_pct": round(cagr_rec_calc * 100.0, 1),
         "cagr_lucro_pct": round(cagr_lucro * 100.0, 1),
+        "cagr_patrimonio_pct": round(cagr_patrim * 100.0, 1),
         "anos_com_lucro": anos_lucro_str,
         "estabilidade_margens": estabilidade,
         "is_all_profitable": lucros_positivos == 5,

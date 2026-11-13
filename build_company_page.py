@@ -373,8 +373,9 @@ def build_company_page():
               </span>
               <p class="text-[11px] text-slate-500 font-sans mt-0.5" id="historySubtitle">Trajetória auditada de faturamento líquido contra resultado final.</p>
             </div>
-            <div class="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-mono font-medium">
+            <div class="flex flex-wrap items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-mono font-medium">
               <button id="btnHistRev" onclick="switchHistoryTab('rev_lucro')" class="px-2.5 py-1 rounded-md transition font-bold bg-white text-slate-900 shadow-2xs cursor-pointer">Receita × Lucro</button>
+              <button id="btnHistPatrim" onclick="switchHistoryTab('patrimonio')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Patrimônio Líq.</button>
               <button id="btnHistRent" onclick="switchHistoryTab('rentabilidade')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">ROIC / ROE</button>
               <button id="btnHistDiv" onclick="switchHistoryTab('dividendos')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Dividend Yield</button>
             </div>
@@ -382,6 +383,7 @@ def build_company_page():
           
           <div id="historyChartContainer" class="w-full"></div>
           <div id="historyKpisGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2"></div>
+          <div id="historyTable5YContainer" class="pt-2"></div>
         </div>
 
         <!-- Card E: Decomposição DuPont (Raio-X de Rentabilidade & ROE) -->
@@ -1833,6 +1835,7 @@ def build_company_page():
     function switchHistoryTab(tab) {{
       currentHistTab = tab;
       const bRev = document.getElementById('btnHistRev');
+      const bPatrim = document.getElementById('btnHistPatrim');
       const bRent = document.getElementById('btnHistRent');
       const bDiv = document.getElementById('btnHistDiv');
       
@@ -1840,6 +1843,7 @@ def build_company_page():
       const inactCls = 'px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer';
 
       if (bRev) bRev.className = tab === 'rev_lucro' ? actCls : inactCls;
+      if (bPatrim) bPatrim.className = tab === 'patrimonio' ? actCls : inactCls;
       if (bRent) bRent.className = tab === 'rentabilidade' ? actCls : inactCls;
       if (bDiv) bDiv.className = tab === 'dividendos' ? actCls : inactCls;
 
@@ -1937,14 +1941,85 @@ def build_company_page():
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.cagr_receita_pct >= 10 ? 'Forte Expansão' : 'Crescimento Real'}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
-            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Anos com Lucro</span>
-            <div class="text-base font-bold font-mono text-emerald-800 mt-1">${{h.anos_com_lucro || '5/5'}}</div>
-            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.is_all_profitable ? 'Lucro Ininterrupto 5A' : 'Com Oscilações'}}</span>
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Patrimônio (5A)</span>
+            <div class="text-base font-bold font-mono text-indigo-900 mt-1">${{(h.cagr_patrimonio_pct !== null && h.cagr_patrimonio_pct !== undefined) ? ((h.cagr_patrimonio_pct > 0 ? '+' : '') + formatNumberBR(h.cagr_patrimonio_pct, 1, '%')) : 'N/D'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{(h.cagr_patrimonio_pct || 0) >= 8 ? 'Acúmulo Sólido (Book Value)' : ((h.cagr_patrimonio_pct || 0) >= 0 ? 'Alto Payout / Estável' : 'Erosão de PL')}}</span>
           </div>
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Lucro (5A)</span>
             <div class="text-base font-bold font-mono text-slate-900 mt-1">${{(h.cagr_lucro_pct !== null && h.cagr_lucro_pct !== undefined) ? ((h.cagr_lucro_pct > 0 ? '+' : '') + formatNumberBR(h.cagr_lucro_pct, 1, '%')) : 'N/D'}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{h.estabilidade_margens || 'Estabilidade de Margens'}}</span>
+          </div>
+        `;
+
+      }} else if (currentHistTab === 'patrimonio') {{
+        if (subEl) subEl.innerText = 'Evolução quinquenal do Patrimônio Líquido (Book Value) e retenção de lucros.';
+
+        const plVals = h.patrimonio_liquido || [0, 0, 0, 0, 0];
+        let maxPl = Math.max(...plVals, 1);
+        let minPl = Math.min(0, ...plVals);
+        const rangePl = maxPl - minPl;
+        const scaleYPl = (v) => padT + innerH - ((v - minPl) / (rangePl || 1)) * innerH;
+
+        const plPts = plVals.map((v, i) => [scaleX(i), scaleYPl(v)]);
+        const plPath = plPts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+        const plArea = plPath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+
+        const isNegPl = plVals[plVals.length - 1] < 0;
+        const strokeCol = isNegPl ? '#EF4444' : '#4F46E5';
+        const textCol = isNegPl ? '#B91C1C' : '#312E81';
+
+        const yearsLabelsHtml = h.years.map((y, i) => `
+          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+        `).join('');
+
+        const plDotsHtml = plPts.map((p, i) => `
+          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="${{strokeCol}}" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 9).toFixed(1)}}" text-anchor="middle" fill="${{textCol}}" font-size="9.5" font-family="JetBrains Mono" font-weight="800">${{formatBillions(plVals[i]).replace('R$ ','')}}</text>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="flex items-center justify-end gap-3 text-[11px] font-mono font-bold mb-1">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:${{strokeCol}}"></span><span class="text-slate-700">Patrimônio Líquido (Book Value)</span></span>
+          </div>
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+            <defs>
+              <linearGradient id="gradPatrim" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${{strokeCol}}" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="${{strokeCol}}" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
+            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${{padL}}" y1="${{padT + innerH / 2}}" x2="${{w - padR}}" y2="${{padT + innerH / 2}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${{plArea}}" fill="url(#gradPatrim)" />
+            <path d="${{plPath}}" fill="none" stroke="${{strokeCol}}" stroke-width="2.5" stroke-linecap="round" />
+            ${{plDotsHtml}}
+            ${{yearsLabelsHtml}}
+          </svg>
+        `;
+
+        const plInit = plVals[0] || 0;
+        const plEnd = plVals[plVals.length - 1] || 0;
+        const cagrPl = (h.cagr_patrimonio_pct !== null && h.cagr_patrimonio_pct !== undefined) ? h.cagr_patrimonio_pct : 0;
+        const vpaVal = (s.details && s.details.vpa) ? formatCurr(s.details.vpa) : 'N/D';
+        const pvpVal = s.pvp ? formatNumberBR(s.pvp, 2, 'x') : 'N/D';
+
+        kpisGrid.innerHTML = `
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">CAGR Patrimônio (5A)</span>
+            <div class="text-base font-bold font-mono ${{cagrPl >= 0 ? 'text-indigo-900' : 'text-rose-700'}} mt-1">${{(cagrPl > 0 ? '+' : '') + formatNumberBR(cagrPl, 1, '%')}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{cagrPl >= 8 ? 'Efeito Bola de Neve (Compounding)' : (cagrPl >= 0 ? 'Estável (Foco em Dividendos)' : 'Erosão Patrimonial')}}</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Evolução 2022 → 2026</span>
+            <div class="text-sm font-bold font-mono text-slate-900 mt-1">${{formatBillions(plInit)}} → ${{formatBillions(plEnd)}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{plEnd > plInit ? 'Expansão real de capital próprio' : 'Redução / Distribuição de capital'}}</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">VPA Atual &amp; Múltiplo P/VP</span>
+            <div class="text-sm font-bold font-mono text-slate-900 mt-1">${{vpaVal}} <span class="text-xs text-slate-500 font-normal">(${{pvpVal}})</span></div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Valor Patrimonial por Ação</span>
           </div>
         `;
 
@@ -2090,6 +2165,51 @@ def build_company_page():
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">DY Atual 12M</span>
             <div class="text-base font-bold font-mono text-slate-900 mt-1">${{s.div_yield ? formatNumberBR(s.div_yield * 100, 1, '%') : '0,0%'}}</div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${{s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}}</span>
+          </div>
+        `;
+      }}
+
+      const table5YEl = document.getElementById('historyTable5YContainer');
+      if (table5YEl) {{
+        table5YEl.innerHTML = `
+          <div class="rounded-xl border border-slate-200 overflow-hidden bg-white">
+            <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700 flex items-center justify-between">
+              <span>📋 Demonstração Quinquenal Auditada (2022 - 2026)</span>
+              <span class="text-slate-500 font-normal">Valores Consolidados</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left font-mono text-[11px] whitespace-nowrap">
+                <thead class="border-b border-slate-200 bg-slate-100/70 text-slate-700 text-[10px] uppercase font-bold">
+                  <tr>
+                    <th class="py-1.5 px-2.5">Indicador</th>
+                    ${{h.years.map(y => `<th class="py-1.5 px-2.5 text-right">${{y}}</th>`).join('')}}
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">Receita Líquida</td>
+                    ${{h.receita.map(r => `<td class="py-1.5 px-2.5 text-right text-slate-900 font-bold">${{formatBillions(r)}}</td>`).join('')}}
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">Lucro Líquido</td>
+                    ${{h.lucro_liquido.map(l => `<td class="py-1.5 px-2.5 text-right font-bold ${{l > 0 ? 'text-emerald-800' : 'text-rose-700'}}">${{formatBillions(l)}}</td>`).join('')}}
+                  </tr>
+                  ${{h.patrimonio_liquido ? `
+                  <tr class="bg-indigo-50/35">
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-indigo-950">Patrimônio Líquido</td>
+                    ${{h.patrimonio_liquido.map(pl => `<td class="py-1.5 px-2.5 text-right font-bold ${{pl > 0 ? 'text-indigo-900' : 'text-rose-700'}}">${{formatBillions(pl)}}</td>`).join('')}}
+                  </tr>` : ''}}
+                  <tr>
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">${{s.is_financial ? 'ROE Anual' : 'ROIC / ROE'}}</td>
+                    ${{h.roic_roe.map(r => `<td class="py-1.5 px-2.5 text-right font-semibold ${{r >= 0.15 ? 'text-emerald-700' : (r > 0 ? 'text-slate-700' : 'text-rose-700')}}">${{formatNumberBR(r * 100, 1, '%')}}</td>`).join('')}}
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">Dividend Yield</td>
+                    ${{h.div_yield.map(dy => `<td class="py-1.5 px-2.5 text-right font-semibold ${{dy >= 0.06 ? 'text-emerald-700' : 'text-slate-700'}}">${{formatNumberBR(dy * 100, 1, '%')}}</td>`).join('')}}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         `;
       }}
