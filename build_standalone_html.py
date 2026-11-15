@@ -6544,6 +6544,11 @@ html_template = f"""<!DOCTYPE html>
                   <td class="py-1.5 px-2 font-sans font-semibold text-slate-800">Dividend Yield</td>
                   ${{h.div_yield.map(dy => `<td class="py-1.5 px-2 text-right font-semibold ${{getColorDy(dy)}}">${{formatPercent(dy)}}</td>`).join('')}}
                 </tr>
+                ${{h.score_history ? `
+                <tr class="bg-emerald-50/40 border-t border-emerald-200/70">
+                  <td class="py-1.5 px-2 font-sans font-bold text-emerald-950">Moat Quality Score</td>
+                  ${{h.score_history.map(sc => `<td class="py-1.5 px-2 text-right font-bold ${{sc >= 80 ? 'text-emerald-800' : (sc >= 65 ? 'text-teal-700' : (sc >= 50 ? 'text-amber-700' : 'text-rose-700'))}}">${{formatNumberBR(sc, 1, '')}} <span class="text-[9px] text-slate-400 font-normal">/100</span></td>`).join('')}}
+                </tr>` : ''}}
               </tbody>
             </table>
           </div>

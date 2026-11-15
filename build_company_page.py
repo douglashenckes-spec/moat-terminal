@@ -375,6 +375,7 @@ def build_company_page():
             </div>
             <div class="flex flex-wrap items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-mono font-medium">
               <button id="btnHistRev" onclick="switchHistoryTab('rev_lucro')" class="px-2.5 py-1 rounded-md transition font-bold bg-white text-slate-900 shadow-2xs cursor-pointer">Receita × Lucro</button>
+              <button id="btnHistScore" onclick="switchHistoryTab('score')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Histórico Score</button>
               <button id="btnHistPatrim" onclick="switchHistoryTab('patrimonio')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Patrimônio Líq.</button>
               <button id="btnHistRent" onclick="switchHistoryTab('rentabilidade')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">ROIC / ROE</button>
               <button id="btnHistDiv" onclick="switchHistoryTab('dividendos')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Dividend Yield</button>
@@ -1835,6 +1836,7 @@ def build_company_page():
     function switchHistoryTab(tab) {{
       currentHistTab = tab;
       const bRev = document.getElementById('btnHistRev');
+      const bScore = document.getElementById('btnHistScore');
       const bPatrim = document.getElementById('btnHistPatrim');
       const bRent = document.getElementById('btnHistRent');
       const bDiv = document.getElementById('btnHistDiv');
@@ -1843,6 +1845,7 @@ def build_company_page():
       const inactCls = 'px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer';
 
       if (bRev) bRev.className = tab === 'rev_lucro' ? actCls : inactCls;
+      if (bScore) bScore.className = tab === 'score' ? actCls : inactCls;
       if (bPatrim) bPatrim.className = tab === 'patrimonio' ? actCls : inactCls;
       if (bRent) bRent.className = tab === 'rentabilidade' ? actCls : inactCls;
       if (bDiv) bDiv.className = tab === 'dividendos' ? actCls : inactCls;
@@ -2020,6 +2023,79 @@ def build_company_page():
             <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">VPA Atual &amp; Múltiplo P/VP</span>
             <div class="text-sm font-bold font-mono text-slate-900 mt-1">${{vpaVal}} <span class="text-xs text-slate-500 font-normal">(${{pvpVal}})</span></div>
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">Valor Patrimonial por Ação</span>
+          </div>
+        `;
+
+      }} else if (currentHistTab === 'score') {{
+        if (subEl) subEl.innerText = 'Trajetória quinquenal do Moat Quality Score (0 a 100) e tendência do fosso competitivo (Moat Trend).';
+
+        const scVals = h.score_history || [s.quality_score || 50, s.quality_score || 50, s.quality_score || 50, s.quality_score || 50, s.quality_score || 50];
+        let maxSc = Math.max(...scVals, 90);
+        let minSc = Math.min(35, ...scVals);
+        const rangeSc = maxSc - minSc;
+        const scaleYSc = (v) => padT + innerH - ((v - minSc) / (rangeSc || 1)) * innerH;
+
+        const scPts = scVals.map((v, i) => [scaleX(i), scaleYSc(v)]);
+        const scPath = scPts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+        const scArea = scPath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+
+        const yTier1 = scaleYSc(80);
+        const delta5y = (h.score_delta_5y !== null && h.score_delta_5y !== undefined) ? h.score_delta_5y : (scVals[scVals.length - 1] - scVals[0]);
+        const strokeCol = delta5y <= -3.0 ? '#F59E0B' : '#00A887';
+        const textCol = delta5y <= -3.0 ? '#B45309' : '#065F46';
+
+        const yearsLabelsHtml = h.years.map((y, i) => `
+          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+        `).join('');
+
+        const scDotsHtml = scPts.map((p, i) => `
+          <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="${{strokeCol}}" stroke="#FFFFFF" stroke-width="2" />
+          <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 9).toFixed(1)}}" text-anchor="middle" fill="${{textCol}}" font-size="10" font-family="JetBrains Mono" font-weight="800">${{formatNumberBR(scVals[i], 1, '')}}</text>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="flex items-center justify-end gap-3 text-[11px] font-mono font-bold mb-1">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background:${{strokeCol}}"></span><span class="text-slate-700">Moat Quality Score (0-100)</span></span>
+            <span class="flex items-center gap-1.5"><span class="w-4 h-0.5 border-t border-dashed border-emerald-500"></span><span class="text-emerald-700">Tier 1 (80 pts)</span></span>
+          </div>
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+            <defs>
+              <linearGradient id="gradScoreHist" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${{strokeCol}}" stop-opacity="0.28" />
+                <stop offset="100%" stop-color="${{strokeCol}}" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
+            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            <line x1="${{padL}}" y1="${{yTier1.toFixed(1)}}" x2="${{w - padR}}" y2="${{yTier1.toFixed(1)}}" stroke="#10B981" stroke-dasharray="4,4" stroke-width="1.5" />
+            <text x="${{w - padR}}" y="${{(yTier1 - 4).toFixed(1)}}" text-anchor="end" fill="#047857" font-size="9" font-family="JetBrains Mono" font-weight="bold">Tier 1 (80)</text>
+            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${{scArea}}" fill="url(#gradScoreHist)" />
+            <path d="${{scPath}}" fill="none" stroke="${{strokeCol}}" stroke-width="2.5" stroke-linecap="round" />
+            ${{scDotsHtml}}
+            ${{yearsLabelsHtml}}
+          </svg>
+        `;
+
+        const scInit = scVals[0] || 0;
+        const scEnd = scVals[scVals.length - 1] || 0;
+        const scAvg = scVals.reduce((a, b) => a + b, 0) / scVals.length;
+        const trendLbl = h.score_trend_label || (delta5y >= 3 ? '🟢 Fosso em Expansão' : (delta5y <= -3 ? '🔴 Fosso em Erosão' : '🛡️ Fosso Estável'));
+
+        kpisGrid.innerHTML = `
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Tendência 5 Anos (Moat Trend)</span>
+            <div class="text-sm font-bold font-mono ${{delta5y >= 0 ? 'text-emerald-800' : 'text-amber-800'}} mt-1">${{trendLbl}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">De ${{formatNumberBR(scInit, 1, '')}} (2022) para ${{formatNumberBR(scEnd, 1, '')}} (2026)</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Score Médio Quinquenal</span>
+            <div class="text-base font-bold font-mono text-slate-900 mt-1">${{formatNumberBR(scAvg, 1, '')}} <span class="text-xs text-slate-500 font-normal">/ 100</span></div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{scAvg >= 80 ? 'Qualidade Classe Mundial' : (scAvg >= 65 ? 'Consistência Sólida' : 'Sensível ao Ciclo')}}</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Classificação Atual</span>
+            <div class="text-sm font-bold font-mono text-slate-900 mt-1">${{s.quality_tier ? s.quality_tier.split(':')[0] : 'Tier'}} • ${{formatNumberBR(scEnd, 1, '')}} pts</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{s.quality_tier ? (s.quality_tier.split(':')[1] || '') : ''}}</span>
           </div>
         `;
 
@@ -2207,6 +2283,11 @@ def build_company_page():
                     <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">Dividend Yield</td>
                     ${{h.div_yield.map(dy => `<td class="py-1.5 px-2.5 text-right font-semibold ${{dy >= 0.06 ? 'text-emerald-700' : 'text-slate-700'}}">${{formatNumberBR(dy * 100, 1, '%')}}</td>`).join('')}}
                   </tr>
+                  ${{h.score_history ? `
+                  <tr class="bg-emerald-50/40 border-t border-emerald-200/70">
+                    <td class="py-1.5 px-2.5 font-sans font-bold text-emerald-950">Moat Quality Score</td>
+                    ${{h.score_history.map(sc => `<td class="py-1.5 px-2.5 text-right font-bold ${{sc >= 80 ? 'text-emerald-800' : (sc >= 65 ? 'text-teal-700' : (sc >= 50 ? 'text-amber-700' : 'text-rose-700'))}}">${{formatNumberBR(sc, 1, '')}} <span class="text-[9px] text-slate-400 font-normal">/100</span></td>`).join('')}}
+                  </tr>` : ''}}
                 </tbody>
               </table>
             </div>

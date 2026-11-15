@@ -31,6 +31,9 @@ from scoring_engine import (
     calculate_business_quality,
     evaluate_entry_valuation,
     generate_cfa_verdict,
+    score_roic,
+    score_roe,
+    score_mrg_liq,
     NTN_B_BENCHMARK,
 )
 
@@ -318,6 +321,50 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         else:
             estabilidade = "Resiliente 🟢"
 
+    # 7. Série Histórica do Moat Quality Score (2022 a 2026) & Tendência do Fosso (Moat Trend)
+    cur_score = float(q.get("quality_score") or 50.0)
+    r_2026 = roic_series[4]
+    mrg_2026 = (lucro_series[4] / rev_series[4]) if rev_series[4] > 0 else 0.0
+    raw_rent_2026 = 0.75 * ((score_roic(r_2026) + score_roe(r_2026)) / 2.0) + 0.25 * score_mrg_liq(mrg_2026)
+
+    score_series = []
+    for idx in range(5):
+        if idx == 4:
+            score_series.append(round(cur_score, 1))
+        else:
+            r_yr = roic_series[idx]
+            mrg_yr = (lucro_series[idx] / rev_series[idx]) if rev_series[idx] > 0 else 0.0
+            raw_rent_yr = 0.75 * ((score_roic(r_yr) + score_roe(r_yr)) / 2.0) + 0.25 * score_mrg_liq(mrg_yr)
+            delta_rent = (raw_rent_yr - raw_rent_2026) * 0.75
+
+            delta_sol = 0.0
+            if pl_series[idx] < 0:
+                delta_sol -= 15.0
+            elif pl_series[4] > 0 and pl_series[idx] > 0:
+                pl_ratio = pl_series[idx] / pl_series[4]
+                delta_sol += max(-4.0, min(4.0, (pl_ratio - 1.0) * 6.0))
+
+            if lucro_series[idx] <= 0 and lucro_series[4] > 0:
+                delta_sol -= 8.0
+            elif lucro_series[idx] > 0 and lucro_series[4] <= 0:
+                delta_sol += 10.0
+
+            s_yr = cur_score + (delta_rent * 0.45) + (delta_sol * 0.35)
+            if pl_series[idx] < 0:
+                s_yr = min(35.0, s_yr)
+            score_series.append(round(max(10.0, min(92.5, s_yr)), 1))
+
+    score_delta_5y = round(score_series[-1] - score_series[0], 1)
+    if score_delta_5y >= 3.0:
+        score_trend_tag = "EXPANSAO"
+        score_trend_label = f"🟢 Fosso em Expansão (+{score_delta_5y:.1f} pts)"
+    elif score_delta_5y <= -3.0:
+        score_trend_tag = "DETERIORACAO"
+        score_trend_label = f"🔴 Fosso em Erosão ({score_delta_5y:.1f} pts)"
+    else:
+        score_trend_tag = "ESTAVEL"
+        score_trend_label = f"🛡️ Fosso Estável ({score_delta_5y:+.1f} pts)"
+
     return {
         "years": years,
         "receita": rev_series,
@@ -325,6 +372,10 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         "patrimonio_liquido": pl_series,
         "roic_roe": roic_series,
         "div_yield": dy_series,
+        "score_history": score_series,
+        "score_delta_5y": score_delta_5y,
+        "score_trend_tag": score_trend_tag,
+        "score_trend_label": score_trend_label,
         "cagr_receita_pct": round(cagr_rec_calc * 100.0, 1),
         "cagr_lucro_pct": round(cagr_lucro * 100.0, 1),
         "cagr_patrimonio_pct": round(cagr_patrim * 100.0, 1),
