@@ -34,6 +34,10 @@ from scoring_engine import (
     score_roic,
     score_roe,
     score_mrg_liq,
+    is_regulated_utility,
+    is_cyclical_sector,
+    is_commodity_sector,
+    is_consumer_discretionary_sector,
     NTN_B_BENCHMARK,
 )
 
@@ -328,14 +332,44 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
             estabilidade = "Resiliente 🟢"
 
     # 7. Série Histórica do Moat Quality Score (2022 a 2026) & Tendência do Fosso (Moat Trend)
+    # Segue estritamente o mesmo rigor do motor principal (scoring_engine.py):
+    # - 3 Pilares Ponderados (40% Rentabilidade + 35% Solidez + 25% Consistência)
+    # - Fatores Setoriais (0.90x Cíclico, 0.88x Commodities, 0.94x Varejo Discricionário)
+    # - Regras de Concessões Reguladas (IFRIC 12)
+    # - Travas CFA de Custo de Capital (WACC ~13,5% p/ ROIC < 10% e < 13,5%; Ke ~15% p/ Bancos)
+    # - Travas de Prejuízo Líquido e Passivo a Descoberto (PL < 0)
     cur_score = float(q.get("quality_score") or 50.0)
+    pilar_rent_2026 = float(q.get("pilar_rentabilidade") or cur_score)
+    pilar_sol_2026 = float(q.get("pilar_solidez") or cur_score)
+    pilar_cons_2026 = float(q.get("pilar_consistencia") or cur_score)
+
+    full_sec_str = f"{setor_name} {subsetor_name}".strip()
+    is_util_sec = is_regulated_utility(full_sec_str, t_up)
+    is_cyc_sec = is_cyclical_sector(full_sec_str, t_up)
+    is_com_sec = is_commodity_sector(full_sec_str)
+    is_disc_sec = is_consumer_discretionary_sector(full_sec_str, t_up)
+
+    sector_factor = 1.0
+    if not is_fin_init:
+        if is_cyc_sec:
+            sector_factor = 0.90
+        elif is_com_sec:
+            sector_factor = 0.88
+        elif is_disc_sec:
+            sector_factor = 0.94
+
     r_2026 = roic_series[4]
+    roe_2026 = float(row_dict.get("roe") if row_dict.get("roe") is not None else r_2026)
     mrg_2026 = (lucro_series[4] / rev_series[4]) if rev_series[4] > 0 else 0.0
     if is_fin_init:
         use_fin_mrg = (0.10 <= mrg_2026 <= 0.80)
         raw_rent_2026 = (0.85 * score_roe(r_2026) + 0.15 * score_mrg_liq(mrg_2026)) if use_fin_mrg else score_roe(r_2026)
     else:
-        raw_rent_2026 = 0.75 * ((score_roic(r_2026) + score_roe(r_2026)) / 2.0) + 0.25 * score_mrg_liq(mrg_2026)
+        eff_roic_2026 = (0.50 * r_2026 + 0.50 * roe_2026) if (is_util_sec and roe_2026 > r_2026 and r_2026 > 0.08) else r_2026
+        raw_rent_2026 = (0.40 * score_roic(eff_roic_2026) + 0.35 * score_roe(roe_2026) + 0.25 * score_mrg_liq(mrg_2026)) * sector_factor
+
+    dle_cur = row_dict.get("div_liq_ebitda")
+    dle_num = float(dle_cur) if dle_cur is not None and str(dle_cur).lower() not in ["none", "nan"] else None
 
     score_series = []
     for idx in range(5):
@@ -343,28 +377,75 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
             score_series.append(round(cur_score, 1))
         else:
             r_yr = roic_series[idx]
+            yr_hist = hist_cache.get(years[idx], {})
+            roe_yr_raw = yr_hist.get("roe")
+            roe_yr = float(roe_yr_raw) if roe_yr_raw is not None else (r_yr / roic_to_roe_scale if roic_to_roe_scale > 0 else r_yr)
             mrg_yr = (lucro_series[idx] / rev_series[idx]) if rev_series[idx] > 0 else 0.0
+
             if is_fin_init:
                 raw_rent_yr = (0.85 * score_roe(r_yr) + 0.15 * score_mrg_liq(mrg_yr)) if (use_fin_mrg and 0.10 <= mrg_yr <= 0.80) else score_roe(r_yr)
             else:
-                raw_rent_yr = 0.75 * ((score_roic(r_yr) + score_roe(r_yr)) / 2.0) + 0.25 * score_mrg_liq(mrg_yr)
-            delta_rent = (raw_rent_yr - raw_rent_2026) * 0.75
+                eff_roic_yr = (0.50 * r_yr + 0.50 * roe_yr) if (is_util_sec and roe_yr > r_yr and r_yr > 0.08) else r_yr
+                raw_rent_yr = (0.40 * score_roic(eff_roic_yr) + 0.35 * score_roe(roe_yr) + 0.25 * score_mrg_liq(mrg_yr)) * sector_factor
 
-            delta_sol = 0.0
+            # 1. Pilar Rentabilidade do Ano (ancorado na estrutura real de 2026 + variação auditada do ano)
+            pilar_rent_yr = max(0.0, min(94.0 * sector_factor, pilar_rent_2026 + (raw_rent_yr - raw_rent_2026) * 0.80))
+
+            # 2. Pilar Solidez do Ano
             if pl_series[idx] < 0:
-                delta_sol -= 15.0
-            elif pl_series[4] > 0 and pl_series[idx] > 0:
-                pl_ratio = pl_series[idx] / pl_series[4]
-                delta_sol += max(-4.0, min(4.0, (pl_ratio - 1.0) * 6.0))
+                pilar_sol_yr = 0.0
+            else:
+                delta_sol = 0.0
+                if pl_series[4] > 0 and pl_series[idx] > 0:
+                    pl_ratio = pl_series[idx] / pl_series[4]
+                    delta_sol += max(-6.0, min(6.0, (pl_ratio - 1.0) * 8.0))
+                if is_fin_init:
+                    r_yr_pct = r_yr * 100.0 if abs(r_yr) < 2.0 else r_yr
+                    if r_yr_pct < 10.0 and (r_2026 * 100.0) >= 10.0:
+                        delta_sol -= 10.0
+                pilar_sol_yr = max(15.0, min(93.0 * sector_factor, pilar_sol_2026 + delta_sol * sector_factor))
 
+            # 3. Pilar Consistência do Ano
+            delta_cons = 0.0
             if lucro_series[idx] <= 0 and lucro_series[4] > 0:
-                delta_sol -= 8.0
+                delta_cons -= 14.0
             elif lucro_series[idx] > 0 and lucro_series[4] <= 0:
-                delta_sol += 10.0
+                delta_cons += 14.0
+            pilar_cons_yr = max(20.0, min(92.0 * sector_factor, pilar_cons_2026 + delta_cons * sector_factor))
 
-            s_yr = cur_score + (delta_rent * 0.45) + (delta_sol * 0.35)
+            # Score Bruto Ponderado pelos 3 Pilares Oficiais (40% / 35% / 25%)
+            s_yr = (pilar_rent_yr * 0.40) + (pilar_sol_yr * 0.35) + (pilar_cons_yr * 0.25)
+
+            # Aplicação Estrita das Travas Institucionais (Hard Caps do scoring_engine.py):
             if pl_series[idx] < 0:
+                # Passivo a Descoberto: máximo 35.0 pts (Tier 4)
                 s_yr = min(35.0, s_yr)
+            elif is_fin_init:
+                # Trava CFA de Custo de Capital Próprio Bancário (Ke ~15%)
+                r_yr_pct = r_yr * 100.0 if abs(r_yr) < 2.0 else r_yr
+                eff_fin_pct = (r_yr_pct * 0.70) + ((r_2026 * 100.0) * 0.30)
+                min_fin_pct = min(r_yr_pct, eff_fin_pct)
+                if min_fin_pct < 10.0:
+                    s_yr = min(s_yr, round(52.0 + max(0.0, min_fin_pct) * 1.5, 1))
+                elif min_fin_pct < 15.0:
+                    s_yr = min(s_yr, 74.5)
+            else:
+                # Trava Crítica CFA de ROIC / Criação de Valor Econômico (WACC ~13,5%)
+                eff_roic_yr_blend = (eff_roic_yr * 0.70) + (eff_roic_2026 * 0.30)
+                r_roic_yr_pct = eff_roic_yr_blend * 100.0 if abs(eff_roic_yr_blend) < 2.0 else eff_roic_yr_blend
+                if r_roic_yr_pct < 10.0:
+                    roic_cap = round(45.0 + max(0.0, r_roic_yr_pct) * 1.3, 1)
+                    if is_util_sec and (roe_yr >= 0.12 or (dle_num is not None and dle_num <= 1.5 and lucros_positivos == 5)):
+                        roic_cap = max(roic_cap, 72.5)
+                    s_yr = min(s_yr, roic_cap)
+                elif r_roic_yr_pct < 13.5:
+                    cap_mid = 76.0 if (is_util_sec and (roe_yr >= 0.14 or (dle_num is not None and dle_num <= 1.5))) else 66.5
+                    s_yr = min(s_yr, cap_mid)
+
+                # Trava de Prejuízo Líquido no Exercício
+                if lucro_series[idx] <= 0 or roe_yr < 0:
+                    s_yr = min(48.0 if not is_util_sec else 55.0, s_yr)
+
             score_series.append(round(max(10.0, min(92.5, s_yr)), 1))
 
     score_delta_5y = round(score_series[-1] - score_series[0], 1)
