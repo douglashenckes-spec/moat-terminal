@@ -1168,6 +1168,9 @@ html_template = f"""<!DOCTYPE html>
               <option value="" disabled selected>+ Mais Filtros...</option>
               <option value="CAT_3T26">⚡ Safra 3T26 (Recém-Divulgados CVM)</option>
               <option value="CAT_2T26">📄 Base 2T26 (Aguardando 3T26)</option>
+              <option value="CAT_MOAT_EXPANSION">📈 Fosso em Expansão (Score Subindo 5A)</option>
+              <option value="CAT_BOOK_COMPOUNDER">🏛️ Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)</option>
+              <option value="CAT_MOAT_EROSION">⚠️ Fosso em Erosão (Queda de Score 5A)</option>
               <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
               <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
               <option value="CAT_CRITICAL_LEVERAGE">🚨 Risco Alavancagem (Balanço Pressionado)</option>
@@ -2029,6 +2032,45 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
+      // Novas Categorias de Evolução Histórica 5 Anos (Score Moat & Patrimônio Líquido)
+      const h5 = s.historical_5y || {{}};
+      const scoreDelta5y = (h5.score_delta_5y !== undefined && h5.score_delta_5y !== null) ? Number(h5.score_delta_5y) : 0;
+      const cagrPl5y = (h5.cagr_patrimonio_pct !== undefined && h5.cagr_patrimonio_pct !== null) ? Number(h5.cagr_patrimonio_pct) : 0;
+      const hasPositiveRecentProfit = !!(h5.lucro_liquido && h5.lucro_liquido.length > 0 && h5.lucro_liquido[h5.lucro_liquido.length - 1] > 0);
+
+      if ((s.quality_score || 0) >= 65.0 && scoreDelta5y >= 3.0 && hasPositiveRecentProfit) {{
+        cats.push({{
+          id: 'CAT_MOAT_EXPANSION',
+          group: 'QUALIDADE',
+          label: 'Fosso em Expansão (Score Subindo 5A)',
+          shortLabel: 'Fosso em Expansão 5A',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        }});
+      }}
+
+      if ((s.quality_score || 0) >= 65.0 && cagrPl5y >= 8.0 && h5.is_all_profitable) {{
+        cats.push({{
+          id: 'CAT_BOOK_COMPOUNDER',
+          group: 'QUALIDADE',
+          label: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
+          shortLabel: 'Acúmulo Patrimonial 5A',
+          ledClass: 'bg-teal-500',
+          bgClass: 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium'
+        }});
+      }}
+
+      if (scoreDelta5y <= -4.0) {{
+        cats.push({{
+          id: 'CAT_MOAT_EROSION',
+          group: 'QUALIDADE',
+          label: 'Fosso em Erosão (Queda de Score 5A)',
+          shortLabel: 'Fosso em Erosão 5A',
+          ledClass: 'bg-rose-500',
+          bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
+        }});
+      }}
+
       if (s.is_distorted) {{
         cats.push({{
           id: 'CAT_DISTORTION',
@@ -2816,6 +2858,21 @@ html_template = f"""<!DOCTYPE html>
         name: 'Holding • Desconto Estrutural',
         icon: '🏛️',
         rationale: 'Empresas controladoras e holdings puras cujas cotas negociam historicamente com desconto estrutural sobre a soma das partes (SOTP / Net Asset Value).'
+      }},
+      'CAT_MOAT_EXPANSION': {{
+        name: 'Fosso em Expansão (Score Subindo 5A)',
+        icon: '📈',
+        rationale: 'Empresas de qualidade (Score ≥ 65 e lucro positivo) cujo Moat Quality Score avançou +3,0 pontos ou mais nos últimos 5 anos (2022–2026), refletindo ganho estrutural de ROIC/ROE, margens e solidez.'
+      }},
+      'CAT_BOOK_COMPOUNDER': {{
+        name: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
+        icon: '🏛️',
+        rationale: 'Empresas de qualidade (Score ≥ 65) com 5 de 5 anos de lucro positivo e crescimento composto do Patrimônio Líquido (CAGR PL 5A) ≥ 8,0% ao ano via retenção orgânica de lucros.'
+      }},
+      'CAT_MOAT_EROSION': {{
+        name: 'Fosso em Erosão (Queda de Score 5A)',
+        icon: '⚠️',
+        rationale: 'Alerta preventivo: companhias cujo Moat Quality Score recuou 4,0 pontos ou mais em 5 anos devido à compressão de ROIC/ROE, deterioração de margens ou aumento da alavancagem.'
       }}
     }};
 
@@ -3953,6 +4010,36 @@ html_template = f"""<!DOCTYPE html>
         badgeClass: 'bg-purple-50 text-purple-950 border border-purple-200',
         description: 'Veículos de investimento e holdings puras que negociam historicamente com desconto em relação ao valor de mercado líquido de suas investidas (NAV).',
         rationale: 'Desconto de governança e tributação de dividendos intermediários que costuma criar assimetrias recorrentes para o investidor fundamentalista.'
+      }},
+      {{
+        id: 'CAT_MOAT_EXPANSION',
+        name: 'Fosso em Expansão (Score Subindo 5A)',
+        shortName: 'Fosso em Expansão 5A',
+        icon: '📈',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Empresas de qualidade (Score ≥ 65) cujo Moat Quality Score subiu +3,0 pontos ou mais entre 2022 e 2026 com lucro líquido positivo.',
+        rationale: 'Identifica negócios cujas vantagens competitivas, retorno sobre capital investido (ROIC/ROE) e estrutura de balanço estão se fortalecendo estruturalmente ao longo do tempo.'
+      }},
+      {{
+        id: 'CAT_BOOK_COMPOUNDER',
+        name: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
+        shortName: 'Acúmulo Patrimonial 5A',
+        icon: '🏛️',
+        color: 'teal',
+        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
+        description: 'Empresas com Score ≥ 65, 5 de 5 anos de lucro líquido positivo e expansão do Patrimônio Líquido (CAGR 5A) ≥ 8,0% ao ano.',
+        rationale: 'Efeito Bola de Neve (Book Value Compounders): retenção disciplinada de lucros reinvestidos em projetos de alto retorno que expandem o valor intrínseco patrimonial ano após ano.'
+      }},
+      {{
+        id: 'CAT_MOAT_EROSION',
+        name: 'Fosso em Erosão (Queda de Score 5A)',
+        shortName: 'Fosso em Erosão 5A',
+        icon: '⚠️',
+        color: 'rose',
+        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
+        description: 'Companhias cujo Moat Quality Score sofreu retração de 4,0 pontos ou mais nos últimos 5 anos (2022–2026).',
+        rationale: 'Filtro de controle de risco (Value Trap Prevention): alerta quando uma empresa historicamente rentável sofre perda gradual de retorno sobre capital ou aumento de pressão financeira.'
       }}
     ];
 

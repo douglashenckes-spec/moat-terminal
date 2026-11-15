@@ -479,7 +479,7 @@
               QUALIDADE &amp; BALANÇO:
             </span>
             <div class="flex flex-wrap items-center gap-1.5">
-              <a href="/index.html?filter=CAT_HIGH_DEBT" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block"></span><span>Alavancagem Alta</span></a>
+              <a href="/index.html?filter=CAT_HIGH_DEBT" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block"></span><span>Alavancagem Alta</span></a><a href="/index.html?filter=CAT_MOAT_EROSION" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium shadow-3xs hover:brightness-95 transition cursor-pointer"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block"></span><span>Fosso em Erosão 5A</span></a>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-2">
@@ -1247,6 +1247,44 @@
           shortLabel: 'Lucro Limpo 5A',
           ledClass: 'bg-teal-500',
           bgClass: 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium'
+        });
+      }
+
+      const h5 = s.historical_5y || {};
+      const scoreDelta5y = (h5.score_delta_5y !== undefined && h5.score_delta_5y !== null) ? Number(h5.score_delta_5y) : 0;
+      const cagrPl5y = (h5.cagr_patrimonio_pct !== undefined && h5.cagr_patrimonio_pct !== null) ? Number(h5.cagr_patrimonio_pct) : 0;
+      const hasPositiveRecentProfit = !!(h5.lucro_liquido && h5.lucro_liquido.length > 0 && h5.lucro_liquido[h5.lucro_liquido.length - 1] > 0);
+
+      if ((s.quality_score || 0) >= 65.0 && scoreDelta5y >= 3.0 && hasPositiveRecentProfit) {
+        cats.push({
+          id: 'CAT_MOAT_EXPANSION',
+          group: 'QUALIDADE',
+          label: 'Fosso em Expansão (Score Subindo 5A)',
+          shortLabel: 'Fosso em Expansão 5A',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+        });
+      }
+
+      if ((s.quality_score || 0) >= 65.0 && cagrPl5y >= 8.0 && h5.is_all_profitable) {
+        cats.push({
+          id: 'CAT_BOOK_COMPOUNDER',
+          group: 'QUALIDADE',
+          label: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
+          shortLabel: 'Acúmulo Patrimonial 5A',
+          ledClass: 'bg-teal-500',
+          bgClass: 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium'
+        });
+      }
+
+      if (scoreDelta5y <= -4.0) {
+        cats.push({
+          id: 'CAT_MOAT_EROSION',
+          group: 'QUALIDADE',
+          label: 'Fosso em Erosão (Queda de Score 5A)',
+          shortLabel: 'Fosso em Erosão 5A',
+          ledClass: 'bg-rose-500',
+          bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
         });
       }
 

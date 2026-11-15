@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "15/11/2026 16:35:30",
+  "audit_timestamp": "15/11/2026 16:50:44",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 211,
@@ -166,10 +166,10 @@
           19956800000.0
         ],
         "roic_roe": [
-          0.2837,
-          0.3305,
-          0.2721,
-          0.3661,
+          0.2118,
+          0.2467,
+          0.2032,
+          0.2733,
           0.2345
         ],
         "div_yield": [
@@ -180,15 +180,15 @@
           0.039
         ],
         "score_history": [
-          88.8,
-          89.7,
-          89.6,
-          89.5,
+          87.5,
+          88.9,
+          88.2,
+          89.1,
           88.7
         ],
-        "score_delta_5y": -0.1,
+        "score_delta_5y": 1.2,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-0.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.2 pts)",
         "cagr_receita_pct": 8.0,
         "cagr_lucro_pct": 10.5,
         "cagr_patrimonio_pct": 7.7,
@@ -558,15 +558,15 @@
           0.0647
         ],
         "score_history": [
-          86.0,
-          86.6,
-          86.7,
-          87.0,
+          85.1,
+          86.1,
+          86.3,
+          86.9,
           87.1
         ],
-        "score_delta_5y": 1.1,
+        "score_delta_5y": 2.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.0 pts)",
         "cagr_receita_pct": 11.6,
         "cagr_lucro_pct": 11.0,
         "cagr_patrimonio_pct": 3.3,
@@ -747,15 +747,15 @@
           0.0646
         ],
         "score_history": [
-          78.4,
-          84.3,
-          84.8,
-          85.9,
+          81.0,
+          84.5,
+          84.9,
+          86.0,
           86.3
         ],
-        "score_delta_5y": 7.9,
+        "score_delta_5y": 5.3,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+7.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.3 pts)",
         "cagr_receita_pct": 15.5,
         "cagr_lucro_pct": 34.1,
         "cagr_patrimonio_pct": 12.3,
@@ -922,10 +922,10 @@
           5312710000.0
         ],
         "roic_roe": [
-          0.1156,
-          0.1557,
-          0.1533,
-          0.1747,
+          0.1056,
+          0.1422,
+          0.14,
+          0.1596,
           0.2442
         ],
         "div_yield": [
@@ -936,15 +936,15 @@
           0.0223
         ],
         "score_history": [
-          79.0,
-          83.0,
-          82.7,
-          83.9,
+          78.2,
+          82.1,
+          81.7,
+          83.2,
           86.3
         ],
-        "score_delta_5y": 7.3,
+        "score_delta_5y": 8.1,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+7.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+8.1 pts)",
         "cagr_receita_pct": 15.9,
         "cagr_lucro_pct": 29.9,
         "cagr_patrimonio_pct": 5.4,
@@ -1125,15 +1125,15 @@
           0.0617
         ],
         "score_history": [
-          84.6,
-          84.5,
-          85.3,
-          85.5,
+          84.1,
+          84.0,
+          84.9,
+          85.1,
           86.0
         ],
-        "score_delta_5y": 1.4,
+        "score_delta_5y": 1.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.4 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.9 pts)",
         "cagr_receita_pct": 7.9,
         "cagr_lucro_pct": 7.8,
         "cagr_patrimonio_pct": -1.8,
@@ -1314,15 +1314,15 @@
           0.0261
         ],
         "score_history": [
-          83.0,
+          83.1,
           83.9,
-          84.3,
+          84.2,
           85.1,
           85.5
         ],
-        "score_delta_5y": 2.5,
+        "score_delta_5y": 2.4,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.5 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.4 pts)",
         "cagr_receita_pct": 20.4,
         "cagr_lucro_pct": 24.7,
         "cagr_patrimonio_pct": 17.8,
@@ -1489,10 +1489,10 @@
           19657000000.0
         ],
         "roic_roe": [
-          0.3244,
-          0.3687,
-          0.4392,
-          0.4545,
+          0.2787,
+          0.3168,
+          0.3773,
+          0.3905,
           0.0915
         ],
         "div_yield": [
@@ -1678,10 +1678,10 @@
           634992000.0
         ],
         "roic_roe": [
-          0.2938,
-          0.2766,
-          0.249,
-          0.253,
+          0.3181,
+          0.2995,
+          0.2696,
+          0.2739,
           0.2594
         ],
         "div_yield": [
@@ -1692,15 +1692,15 @@
           0.0342
         ],
         "score_history": [
+          85.0,
+          85.1,
           84.8,
-          84.9,
-          84.4,
-          84.8,
+          85.0,
           85.1
         ],
-        "score_delta_5y": 0.3,
+        "score_delta_5y": 0.1,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.3 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.1 pts)",
         "cagr_receita_pct": 18.8,
         "cagr_lucro_pct": 12.1,
         "cagr_patrimonio_pct": 17.9,
@@ -1867,10 +1867,10 @@
           90895700000.0
         ],
         "roic_roe": [
-          0.1764,
-          0.1836,
-          0.1464,
-          0.1763,
+          0.2112,
+          0.2199,
+          0.1753,
+          0.2112,
           0.2074
         ],
         "div_yield": [
@@ -1881,15 +1881,15 @@
           0.0546
         ],
         "score_history": [
-          84.0,
-          84.2,
-          82.7,
+          85.0,
+          85.2,
           84.1,
+          85.1,
           85.1
         ],
-        "score_delta_5y": 1.1,
+        "score_delta_5y": 0.1,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.1 pts)",
         "cagr_receita_pct": 2.8,
         "cagr_lucro_pct": 2.2,
         "cagr_patrimonio_pct": 2.6,
@@ -2056,10 +2056,10 @@
           3366250000.0
         ],
         "roic_roe": [
-          0.2153,
-          0.2093,
-          0.1798,
-          0.1614,
+          0.2138,
+          0.2078,
+          0.1785,
+          0.1603,
           0.1844
         ],
         "div_yield": [
@@ -2072,7 +2072,7 @@
         "score_history": [
           84.7,
           85.0,
-          84.1,
+          84.0,
           83.3,
           84.8
         ],
@@ -2259,15 +2259,15 @@
           0.0737
         ],
         "score_history": [
-          82.7,
           83.0,
-          84.1,
+          83.2,
+          84.2,
           84.8,
           84.8
         ],
-        "score_delta_5y": 2.1,
+        "score_delta_5y": 1.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
         "cagr_receita_pct": 6.0,
         "cagr_lucro_pct": 12.5,
         "cagr_patrimonio_pct": 6.9,
@@ -2448,15 +2448,15 @@
           0.0674
         ],
         "score_history": [
-          82.7,
           83.0,
-          84.1,
+          83.2,
+          84.2,
           84.8,
           84.8
         ],
-        "score_delta_5y": 2.1,
+        "score_delta_5y": 1.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
         "cagr_receita_pct": 6.0,
         "cagr_lucro_pct": 12.5,
         "cagr_patrimonio_pct": 6.9,
@@ -2623,10 +2623,10 @@
           23904600000.0
         ],
         "roic_roe": [
-          0.3137,
-          0.2928,
-          0.2633,
-          0.2439,
+          0.1915,
+          0.1787,
+          0.1607,
+          0.1489,
           0.1508
         ],
         "div_yield": [
@@ -2637,15 +2637,15 @@
           0.0849
         ],
         "score_history": [
-          86.6,
-          86.8,
-          86.6,
-          86.3,
+          84.5,
+          84.4,
+          83.7,
+          83.2,
           83.5
         ],
-        "score_delta_5y": -3.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.1 pts)",
+        "score_delta_5y": -1.0,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-1.0 pts)",
         "cagr_receita_pct": 3.5,
         "cagr_lucro_pct": 3.7,
         "cagr_patrimonio_pct": 10.1,
@@ -2812,10 +2812,10 @@
           1253240000.0
         ],
         "roic_roe": [
-          0.1306,
-          0.1322,
-          0.1457,
-          0.187,
+          0.1,
+          0.1013,
+          0.1116,
+          0.1432,
           0.1383
         ],
         "div_yield": [
@@ -2826,15 +2826,15 @@
           0.1157
         ],
         "score_history": [
-          81.9,
-          81.9,
-          83.8,
-          85.6,
+          79.6,
+          79.6,
+          80.6,
+          83.5,
           83.2
         ],
-        "score_delta_5y": 1.3,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.3 pts)",
+        "score_delta_5y": 3.6,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.6 pts)",
         "cagr_receita_pct": 18.9,
         "cagr_lucro_pct": 14.8,
         "cagr_patrimonio_pct": 5.9,
@@ -3015,15 +3015,15 @@
           0.0826
         ],
         "score_history": [
-          86.2,
-          85.5,
-          85.7,
-          86.5,
+          82.4,
+          81.7,
+          81.9,
+          82.7,
           83.1
         ],
-        "score_delta_5y": -3.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.1 pts)",
+        "score_delta_5y": 0.7,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.7 pts)",
         "cagr_receita_pct": 0.6,
         "cagr_lucro_pct": 8.4,
         "cagr_patrimonio_pct": 7.7,
@@ -3204,15 +3204,15 @@
           0.081
         ],
         "score_history": [
-          86.2,
-          85.5,
-          85.7,
-          86.5,
+          82.4,
+          81.7,
+          81.9,
+          82.7,
           83.1
         ],
-        "score_delta_5y": -3.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.1 pts)",
+        "score_delta_5y": 0.7,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.7 pts)",
         "cagr_receita_pct": 0.6,
         "cagr_lucro_pct": 8.4,
         "cagr_patrimonio_pct": 7.7,
@@ -3379,10 +3379,10 @@
           2799580000.0
         ],
         "roic_roe": [
-          0.2746,
+          0.2522,
+          0.2279,
           0.2481,
-          0.2701,
-          0.4801,
+          0.4411,
           0.1729
         ],
         "div_yield": [
@@ -3393,15 +3393,15 @@
           0.0742
         ],
         "score_history": [
-          84.0,
-          83.8,
-          84.3,
+          83.7,
+          83.3,
+          83.9,
           85.8,
           82.0
         ],
-        "score_delta_5y": -2.0,
+        "score_delta_5y": -1.7,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.0 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-1.7 pts)",
         "cagr_receita_pct": 10.3,
         "cagr_lucro_pct": 2.9,
         "cagr_patrimonio_pct": 13.1,
@@ -3568,10 +3568,10 @@
           6966160000.0
         ],
         "roic_roe": [
-          0.1169,
-          0.1472,
-          0.2375,
-          0.1812,
+          0.1039,
+          0.1308,
+          0.2111,
+          0.161,
           0.1976
         ],
         "div_yield": [
@@ -3582,15 +3582,15 @@
           0.0425
         ],
         "score_history": [
-          76.6,
-          79.6,
-          82.3,
-          81.0,
+          75.6,
+          77.7,
+          81.7,
+          80.2,
           81.7
         ],
-        "score_delta_5y": 5.1,
+        "score_delta_5y": 6.1,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.1 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.1 pts)",
         "cagr_receita_pct": 17.5,
         "cagr_lucro_pct": 19.1,
         "cagr_patrimonio_pct": 1.4,
@@ -3757,10 +3757,10 @@
           3287220000.0
         ],
         "roic_roe": [
-          0.2177,
-          0.19,
-          0.2617,
-          0.21,
+          0.2143,
+          0.1871,
+          0.2577,
+          0.2068,
           0.1547
         ],
         "div_yield": [
@@ -3772,9 +3772,9 @@
         ],
         "score_history": [
           82.7,
-          82.0,
-          84.8,
-          83.6,
+          81.9,
+          84.7,
+          83.5,
           81.3
         ],
         "score_delta_5y": -1.4,
@@ -3946,10 +3946,10 @@
           1748650000.0
         ],
         "roic_roe": [
-          0.0198,
-          0.1643,
-          0.2122,
-          0.1531,
+          0.0241,
+          0.1994,
+          0.2577,
+          0.1858,
           0.1549
         ],
         "div_yield": [
@@ -3960,15 +3960,15 @@
           0.122
         ],
         "score_history": [
-          65.3,
-          79.9,
-          83.0,
-          80.3,
+          65.9,
+          81.1,
+          84.0,
+          81.6,
           80.2
         ],
-        "score_delta_5y": 14.9,
+        "score_delta_5y": 14.3,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+14.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+14.3 pts)",
         "cagr_receita_pct": 1.8,
         "cagr_lucro_pct": 73.8,
         "cagr_patrimonio_pct": 9.1,
@@ -4135,10 +4135,10 @@
           21346000000.0
         ],
         "roic_roe": [
-          0.0557,
-          0.0905,
-          0.1557,
-          0.2423,
+          0.0417,
+          0.0677,
+          0.1165,
+          0.1812,
           0.1621
         ],
         "div_yield": [
@@ -4149,15 +4149,15 @@
           0.1223
         ],
         "score_history": [
-          71.0,
-          73.4,
-          80.0,
-          82.3,
+          69.8,
+          71.8,
+          76.5,
+          80.7,
           80.0
         ],
-        "score_delta_5y": 9.0,
+        "score_delta_5y": 10.2,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+9.0 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+10.2 pts)",
         "cagr_receita_pct": 26.4,
         "cagr_lucro_pct": 40.3,
         "cagr_patrimonio_pct": -0.1,
@@ -4338,15 +4338,15 @@
           0.0715
         ],
         "score_history": [
-          65.0,
-          76.2,
-          77.3,
+          67.6,
+          75.4,
+          76.5,
           78.7,
           79.3
         ],
-        "score_delta_5y": 14.3,
+        "score_delta_5y": 11.7,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+14.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+11.7 pts)",
         "cagr_receita_pct": 76.1,
         "cagr_lucro_pct": 80.0,
         "cagr_patrimonio_pct": 21.0,
@@ -4527,15 +4527,15 @@
           0.0565
         ],
         "score_history": [
-          75.4,
-          78.2,
-          78.5,
-          79.1,
+          76.7,
+          78.8,
+          79.3,
+          79.8,
           79.3
         ],
-        "score_delta_5y": 3.9,
-        "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+3.9 pts)",
+        "score_delta_5y": 2.6,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+2.6 pts)",
         "cagr_receita_pct": 19.8,
         "cagr_lucro_pct": 43.2,
         "cagr_patrimonio_pct": 33.5,
@@ -4702,10 +4702,10 @@
           46719500000.0
         ],
         "roic_roe": [
-          0.1142,
-          0.118,
-          0.2594,
-          0.1996,
+          0.0921,
+          0.0952,
+          0.2092,
+          0.1609,
           0.1254
         ],
         "div_yield": [
@@ -4716,15 +4716,15 @@
           0.0523
         ],
         "score_history": [
-          77.3,
-          77.6,
-          85.3,
-          83.9,
+          75.4,
+          75.7,
+          84.2,
+          82.5,
           79.3
         ],
-        "score_delta_5y": 2.0,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.0 pts)",
+        "score_delta_5y": 3.9,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.9 pts)",
         "cagr_receita_pct": 17.2,
         "cagr_lucro_pct": 23.5,
         "cagr_patrimonio_pct": 14.3,
@@ -4891,10 +4891,10 @@
           1778940000.0
         ],
         "roic_roe": [
-          0.4388,
-          0.557,
-          0.5932,
-          0.706,
+          0.2709,
+          0.3438,
+          0.3662,
+          0.4358,
           0.4016
         ],
         "div_yield": [
@@ -4905,15 +4905,15 @@
           0.1446
         ],
         "score_history": [
-          77.5,
+          77.1,
           77.8,
           78.1,
           78.6,
           79.0
         ],
-        "score_delta_5y": 1.5,
+        "score_delta_5y": 1.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.5 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.9 pts)",
         "cagr_receita_pct": 30.6,
         "cagr_lucro_pct": 36.9,
         "cagr_patrimonio_pct": 24.0,
@@ -5080,10 +5080,10 @@
           10212900000.0
         ],
         "roic_roe": [
-          0.128,
-          0.0972,
-          0.1111,
-          0.1394,
+          0.1601,
+          0.1215,
+          0.1389,
+          0.1742,
           0.2379
         ],
         "div_yield": [
@@ -5094,15 +5094,15 @@
           0.0947
         ],
         "score_history": [
-          73.8,
-          70.8,
-          72.5,
-          75.2,
+          76.6,
+          72.9,
+          75.1,
+          77.2,
           78.9
         ],
-        "score_delta_5y": 5.1,
-        "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.1 pts)",
+        "score_delta_5y": 2.3,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+2.3 pts)",
         "cagr_receita_pct": 4.7,
         "cagr_lucro_pct": 3.1,
         "cagr_patrimonio_pct": 0.3,
@@ -5269,10 +5269,10 @@
           21317600000.0
         ],
         "roic_roe": [
-          0.3157,
-          0.387,
-          0.3798,
-          0.2025,
+          0.1818,
+          0.2228,
+          0.2187,
+          0.1166,
           0.1063
         ],
         "div_yield": [
@@ -5283,15 +5283,15 @@
           0.0384
         ],
         "score_history": [
-          84.5,
-          85.1,
-          85.4,
-          83.0,
+          82.1,
+          83.8,
+          83.9,
+          77.8,
           78.4
         ],
-        "score_delta_5y": -6.1,
+        "score_delta_5y": -3.7,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.1 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-3.7 pts)",
         "cagr_receita_pct": 4.1,
         "cagr_lucro_pct": 10.3,
         "cagr_patrimonio_pct": 26.1,
@@ -5458,10 +5458,10 @@
           7551490000.0
         ],
         "roic_roe": [
-          0.1865,
-          0.1771,
-          0.1865,
-          0.1771,
+          0.1789,
+          0.1699,
+          0.1789,
+          0.1699,
           0.1647
         ],
         "div_yield": [
@@ -5472,15 +5472,15 @@
           0.0315
         ],
         "score_history": [
-          78.7,
           78.5,
-          78.9,
-          78.8,
+          78.2,
+          78.6,
+          78.5,
           78.3
         ],
-        "score_delta_5y": -0.4,
+        "score_delta_5y": -0.2,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-0.4 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-0.2 pts)",
         "cagr_receita_pct": 11.6,
         "cagr_lucro_pct": 6.8,
         "cagr_patrimonio_pct": 9.0,
@@ -5836,10 +5836,10 @@
           30718000000.0
         ],
         "roic_roe": [
-          0.1879,
-          0.2338,
-          0.26,
-          0.1714,
+          0.1087,
+          0.1352,
+          0.1503,
+          0.0991,
           0.1038
         ],
         "div_yield": [
@@ -5850,15 +5850,15 @@
           0.0926
         ],
         "score_history": [
-          82.2,
-          83.9,
-          84.8,
-          81.9,
+          76.9,
+          79.7,
+          81.5,
+          76.2,
           77.1
         ],
-        "score_delta_5y": -5.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.1 pts)",
+        "score_delta_5y": 0.2,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.2 pts)",
         "cagr_receita_pct": 8.6,
         "cagr_lucro_pct": 7.7,
         "cagr_patrimonio_pct": 9.0,
@@ -6025,10 +6025,10 @@
           1036000000.0
         ],
         "roic_roe": [
-          0.2079,
-          0.2172,
-          0.2928,
-          0.2786,
+          0.2055,
+          0.2147,
+          0.2894,
+          0.2753,
           0.2777
         ],
         "div_yield": [
@@ -6039,15 +6039,15 @@
           0.1061
         ],
         "score_history": [
-          75.3,
-          75.7,
+          75.2,
+          75.6,
           77.2,
-          76.8,
+          76.7,
           77.1
         ],
-        "score_delta_5y": 1.8,
+        "score_delta_5y": 1.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.9 pts)",
         "cagr_receita_pct": 17.7,
         "cagr_lucro_pct": 16.3,
         "cagr_patrimonio_pct": 7.8,
@@ -6214,10 +6214,10 @@
           30718000000.0
         ],
         "roic_roe": [
-          0.1879,
-          0.2338,
-          0.26,
-          0.1714,
+          0.1087,
+          0.1352,
+          0.1503,
+          0.0991,
           0.1038
         ],
         "div_yield": [
@@ -6228,15 +6228,15 @@
           0.0567
         ],
         "score_history": [
-          82.2,
-          83.9,
-          84.8,
-          81.9,
+          76.9,
+          79.7,
+          81.5,
+          76.2,
           77.1
         ],
-        "score_delta_5y": -5.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.1 pts)",
+        "score_delta_5y": 0.2,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.2 pts)",
         "cagr_receita_pct": 8.6,
         "cagr_lucro_pct": 7.7,
         "cagr_patrimonio_pct": 9.0,
@@ -6403,10 +6403,10 @@
           1172820000.0
         ],
         "roic_roe": [
-          0.3259,
-          0.4352,
-          0.4058,
-          0.3538,
+          0.3111,
+          0.4154,
+          0.3874,
+          0.3377,
           0.2292
         ],
         "div_yield": [
@@ -6417,15 +6417,15 @@
           0.104
         ],
         "score_history": [
-          76.9,
+          76.8,
           77.8,
           78.3,
           78.3,
           76.9
         ],
-        "score_delta_5y": 0.0,
+        "score_delta_5y": 0.1,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.0 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.1 pts)",
         "cagr_receita_pct": 24.6,
         "cagr_lucro_pct": 20.5,
         "cagr_patrimonio_pct": 30.0,
@@ -6592,10 +6592,10 @@
           9092230000.0
         ],
         "roic_roe": [
-          0.1163,
-          0.1821,
-          0.1636,
-          0.165,
+          0.0982,
+          0.1538,
+          0.1382,
+          0.1394,
           0.1178
         ],
         "div_yield": [
@@ -6606,15 +6606,15 @@
           0.0361
         ],
         "score_history": [
-          76.2,
-          81.3,
-          80.5,
-          80.7,
+          74.6,
+          80.1,
+          78.8,
+          79.1,
           76.8
         ],
-        "score_delta_5y": 0.6,
+        "score_delta_5y": 2.2,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.6 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.2 pts)",
         "cagr_receita_pct": 9.8,
         "cagr_lucro_pct": 10.7,
         "cagr_patrimonio_pct": 5.8,
@@ -6781,10 +6781,10 @@
           6676000000.0
         ],
         "roic_roe": [
-          0.3131,
-          0.1533,
-          0.1463,
-          0.0895,
+          0.3914,
+          0.1917,
+          0.1829,
+          0.1119,
           0.2267
         ],
         "div_yield": [
@@ -6796,9 +6796,9 @@
         ],
         "score_history": [
           76.9,
-          72.7,
-          72.5,
-          67.2,
+          74.3,
+          74.2,
+          69.0,
           76.2
         ],
         "score_delta_5y": -0.7,
@@ -6970,10 +6970,10 @@
           2020840000.0
         ],
         "roic_roe": [
-          0.175,
-          0.1813,
-          0.1875,
-          0.1911,
+          0.1519,
+          0.1573,
+          0.1628,
+          0.1658,
           0.2201
         ],
         "div_yield": [
@@ -6984,15 +6984,15 @@
           0.0516
         ],
         "score_history": [
-          73.5,
-          74.1,
-          74.1,
-          74.1,
+          72.4,
+          73.0,
+          73.1,
+          73.2,
           76.1
         ],
-        "score_delta_5y": 2.6,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.6 pts)",
+        "score_delta_5y": 3.7,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.7 pts)",
         "cagr_receita_pct": 15.1,
         "cagr_lucro_pct": 24.0,
         "cagr_patrimonio_pct": 13.1,
@@ -7173,15 +7173,15 @@
           0.099
         ],
         "score_history": [
-          75.1,
-          74.9,
-          75.1,
+          76.0,
+          75.6,
           75.7,
+          76.2,
           75.9
         ],
-        "score_delta_5y": 0.8,
+        "score_delta_5y": -0.1,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-0.1 pts)",
         "cagr_receita_pct": 2.8,
         "cagr_lucro_pct": 10.8,
         "cagr_patrimonio_pct": 20.3,
@@ -7348,10 +7348,10 @@
           2386620000.0
         ],
         "roic_roe": [
-          0.1994,
-          0.1248,
-          0.1004,
-          0.1298,
+          0.2493,
+          0.156,
+          0.1255,
+          0.1623,
           0.1248
         ],
         "div_yield": [
@@ -7362,15 +7362,15 @@
           0.0761
         ],
         "score_history": [
-          80.6,
-          75.7,
-          73.5,
-          76.3,
+          81.8,
+          78.6,
+          75.3,
+          79.0,
           75.3
         ],
-        "score_delta_5y": -5.3,
+        "score_delta_5y": -6.5,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.3 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-6.5 pts)",
         "cagr_receita_pct": 6.6,
         "cagr_lucro_pct": -14.0,
         "cagr_patrimonio_pct": 7.0,
@@ -7551,15 +7551,15 @@
           0.1205
         ],
         "score_history": [
-          69.9,
-          71.1,
-          69.4,
-          77.5,
+          71.0,
+          72.3,
+          70.6,
+          75.8,
           74.5
         ],
-        "score_delta_5y": 4.6,
+        "score_delta_5y": 3.5,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+4.6 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.5 pts)",
         "cagr_receita_pct": -0.6,
         "cagr_lucro_pct": 17.5,
         "cagr_patrimonio_pct": 5.4,
@@ -7740,15 +7740,15 @@
           0.1033
         ],
         "score_history": [
-          68.2,
-          66.0,
-          66.9,
-          68.4,
+          69.5,
+          67.1,
+          68.1,
+          69.7,
           74.5
         ],
-        "score_delta_5y": 6.3,
+        "score_delta_5y": 5.0,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+6.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.0 pts)",
         "cagr_receita_pct": 25.3,
         "cagr_lucro_pct": 26.2,
         "cagr_patrimonio_pct": 4.3,
@@ -7929,15 +7929,15 @@
           0.1068
         ],
         "score_history": [
-          75.1,
+          74.4,
+          74.3,
           74.7,
-          75.3,
-          75.2,
+          74.7,
           74.5
         ],
-        "score_delta_5y": -0.6,
+        "score_delta_5y": 0.1,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-0.6 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.1 pts)",
         "cagr_receita_pct": 6.8,
         "cagr_lucro_pct": 6.7,
         "cagr_patrimonio_pct": 9.6,
@@ -8118,15 +8118,15 @@
           0.1052
         ],
         "score_history": [
-          68.2,
-          66.0,
-          66.9,
-          68.4,
+          69.5,
+          67.1,
+          68.1,
+          69.7,
           74.5
         ],
-        "score_delta_5y": 6.3,
+        "score_delta_5y": 5.0,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+6.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.0 pts)",
         "cagr_receita_pct": 25.3,
         "cagr_lucro_pct": 26.2,
         "cagr_patrimonio_pct": 4.3,
@@ -8307,15 +8307,15 @@
           0.0809
         ],
         "score_history": [
-          68.6,
-          66.2,
-          67.8,
-          67.5,
+          70.7,
+          68.4,
+          70.0,
+          69.7,
           74.5
         ],
-        "score_delta_5y": 5.9,
+        "score_delta_5y": 3.8,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.8 pts)",
         "cagr_receita_pct": 25.0,
         "cagr_lucro_pct": 19.2,
         "cagr_patrimonio_pct": -2.5,
@@ -8496,15 +8496,15 @@
           0.0765
         ],
         "score_history": [
-          68.6,
-          66.2,
-          67.8,
-          67.5,
+          70.7,
+          68.4,
+          70.0,
+          69.7,
           74.5
         ],
-        "score_delta_5y": 5.9,
+        "score_delta_5y": 3.8,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.8 pts)",
         "cagr_receita_pct": 25.0,
         "cagr_lucro_pct": 19.2,
         "cagr_patrimonio_pct": -2.5,
@@ -8685,15 +8685,15 @@
           0.0726
         ],
         "score_history": [
-          68.6,
-          66.2,
-          67.8,
-          67.5,
+          70.7,
+          68.4,
+          70.0,
+          69.7,
           74.5
         ],
-        "score_delta_5y": 5.9,
+        "score_delta_5y": 3.8,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.8 pts)",
         "cagr_receita_pct": 25.0,
         "cagr_lucro_pct": 19.2,
         "cagr_patrimonio_pct": -2.5,
@@ -9049,10 +9049,10 @@
           1113500000.0
         ],
         "roic_roe": [
-          0.3562,
-          0.8219,
-          0.7045,
-          0.7065,
+          0.2048,
+          0.4726,
+          0.4051,
+          0.4062,
           0.3446
         ],
         "div_yield": [
@@ -9063,15 +9063,15 @@
           0.0709
         ],
         "score_history": [
-          74.6,
+          72.8,
           73.7,
           72.9,
           73.0,
           73.6
         ],
-        "score_delta_5y": -1.0,
+        "score_delta_5y": 0.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.0 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.8 pts)",
         "cagr_receita_pct": 6.0,
         "cagr_lucro_pct": 4.2,
         "cagr_patrimonio_pct": -8.5,
@@ -9238,10 +9238,10 @@
           19970200000.0
         ],
         "roic_roe": [
-          0.1938,
-          0.1592,
-          0.2193,
-          0.1153,
+          0.229,
+          0.1882,
+          0.2592,
+          0.1363,
           0.1072
         ],
         "div_yield": [
@@ -9252,15 +9252,15 @@
           0.0235
         ],
         "score_history": [
-          78.7,
-          77.2,
-          80.5,
-          74.2,
+          79.6,
+          78.3,
+          81.3,
+          76.2,
           73.3
         ],
-        "score_delta_5y": -5.4,
+        "score_delta_5y": -6.3,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.4 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-6.3 pts)",
         "cagr_receita_pct": 8.7,
         "cagr_lucro_pct": -4.0,
         "cagr_patrimonio_pct": 16.0,
@@ -9427,10 +9427,10 @@
           30852900000.0
         ],
         "roic_roe": [
-          0.3464,
-          0.3732,
-          0.3974,
-          0.0873,
+          0.2843,
+          0.3063,
+          0.3261,
+          0.0717,
           0.1637
         ],
         "div_yield": [
@@ -9441,15 +9441,15 @@
           0.0
         ],
         "score_history": [
-          75.4,
-          75.7,
+          75.1,
+          75.6,
           76.5,
-          65.9,
+          64.8,
           73.2
         ],
-        "score_delta_5y": -2.2,
+        "score_delta_5y": -1.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.2 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-1.9 pts)",
         "cagr_receita_pct": 42.4,
         "cagr_lucro_pct": 15.8,
         "cagr_patrimonio_pct": 32.9,
@@ -9616,10 +9616,10 @@
           12406400000.0
         ],
         "roic_roe": [
-          0.1311,
-          0.0482,
-          0.0446,
-          0.0526,
+          0.1638,
+          0.0603,
+          0.0557,
+          0.0658,
           0.1171
         ],
         "div_yield": [
@@ -9630,15 +9630,15 @@
           0.0179
         ],
         "score_history": [
-          75.3,
-          67.6,
-          67.4,
-          68.7,
+          78.0,
+          68.6,
+          68.3,
+          69.7,
           73.2
         ],
-        "score_delta_5y": -2.1,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.1 pts)",
+        "score_delta_5y": -4.8,
+        "score_trend_tag": "DETERIORACAO",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.8 pts)",
         "cagr_receita_pct": 7.9,
         "cagr_lucro_pct": -18.4,
         "cagr_patrimonio_pct": 9.0,
@@ -9805,10 +9805,10 @@
           12406400000.0
         ],
         "roic_roe": [
-          0.1311,
-          0.0482,
-          0.0446,
-          0.0526,
+          0.1638,
+          0.0603,
+          0.0557,
+          0.0658,
           0.1171
         ],
         "div_yield": [
@@ -9819,15 +9819,15 @@
           0.0174
         ],
         "score_history": [
-          75.3,
-          67.6,
-          67.4,
-          68.7,
+          78.0,
+          68.6,
+          68.3,
+          69.7,
           73.2
         ],
-        "score_delta_5y": -2.1,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.1 pts)",
+        "score_delta_5y": -4.8,
+        "score_trend_tag": "DETERIORACAO",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.8 pts)",
         "cagr_receita_pct": 7.9,
         "cagr_lucro_pct": -18.4,
         "cagr_patrimonio_pct": 9.0,
@@ -9994,10 +9994,10 @@
           12406400000.0
         ],
         "roic_roe": [
-          0.1311,
-          0.0482,
-          0.0446,
-          0.0526,
+          0.1638,
+          0.0603,
+          0.0557,
+          0.0658,
           0.1171
         ],
         "div_yield": [
@@ -10008,15 +10008,15 @@
           0.0152
         ],
         "score_history": [
-          75.3,
-          67.6,
-          67.4,
-          68.7,
+          78.0,
+          68.6,
+          68.3,
+          69.7,
           73.2
         ],
-        "score_delta_5y": -2.1,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.1 pts)",
+        "score_delta_5y": -4.8,
+        "score_trend_tag": "DETERIORACAO",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.8 pts)",
         "cagr_receita_pct": 7.9,
         "cagr_lucro_pct": -18.4,
         "cagr_patrimonio_pct": 9.0,
@@ -10183,8 +10183,8 @@
           2725040000.0
         ],
         "roic_roe": [
-          0.2144,
-          0.1013,
+          0.1523,
+          0.0719,
           -0.1358,
           -0.2986,
           0.5697
@@ -10197,15 +10197,15 @@
           0.0123
         ],
         "score_history": [
-          69.5,
-          61.7,
+          67.3,
+          59.5,
           39.8,
           39.7,
           72.7
         ],
-        "score_delta_5y": 3.2,
+        "score_delta_5y": 5.4,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+3.2 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.4 pts)",
         "cagr_receita_pct": 36.2,
         "cagr_lucro_pct": 56.4,
         "cagr_patrimonio_pct": 12.4,
@@ -10561,10 +10561,10 @@
           66759900000.0
         ],
         "roic_roe": [
-          0.0597,
-          0.0723,
-          0.0796,
-          0.0898,
+          0.0528,
+          0.0639,
+          0.0703,
+          0.0793,
           0.0949
         ],
         "div_yield": [
@@ -10575,15 +10575,15 @@
           0.0755
         ],
         "score_history": [
-          69.6,
-          70.8,
-          71.3,
-          72.1,
+          69.1,
+          70.2,
+          70.7,
+          71.4,
           72.5
         ],
-        "score_delta_5y": 2.9,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.9 pts)",
+        "score_delta_5y": 3.4,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.4 pts)",
         "cagr_receita_pct": 6.9,
         "cagr_lucro_pct": 15.1,
         "cagr_patrimonio_pct": -0.6,
@@ -10939,10 +10939,10 @@
           4260790000.0
         ],
         "roic_roe": [
-          0.142,
-          0.2302,
-          0.298,
-          0.3192,
+          0.0906,
+          0.1468,
+          0.1901,
+          0.2036,
           0.1593
         ],
         "div_yield": [
@@ -10953,15 +10953,15 @@
           0.2618
         ],
         "score_history": [
-          69.6,
-          73.7,
-          75.1,
-          75.1,
+          65.0,
+          70.7,
+          73.1,
+          73.4,
           71.8
         ],
-        "score_delta_5y": 2.2,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.2 pts)",
+        "score_delta_5y": 6.8,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.8 pts)",
         "cagr_receita_pct": 13.2,
         "cagr_lucro_pct": 24.1,
         "cagr_patrimonio_pct": 7.7,
@@ -11128,10 +11128,10 @@
           4260790000.0
         ],
         "roic_roe": [
-          0.142,
-          0.2302,
-          0.298,
-          0.3192,
+          0.0906,
+          0.1468,
+          0.1901,
+          0.2036,
           0.1593
         ],
         "div_yield": [
@@ -11142,15 +11142,15 @@
           0.2464
         ],
         "score_history": [
-          69.5,
-          73.6,
-          75.0,
-          75.0,
+          64.9,
+          70.6,
+          73.0,
+          73.3,
           71.7
         ],
-        "score_delta_5y": 2.2,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.2 pts)",
+        "score_delta_5y": 6.8,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.8 pts)",
         "cagr_receita_pct": 13.2,
         "cagr_lucro_pct": 24.1,
         "cagr_patrimonio_pct": 7.7,
@@ -11317,10 +11317,10 @@
           8224860000.0
         ],
         "roic_roe": [
-          0.2206,
-          0.2097,
-          0.2441,
-          0.2076,
+          0.1104,
+          0.105,
+          0.1222,
+          0.104,
           0.1002
         ],
         "div_yield": [
@@ -11331,15 +11331,15 @@
           0.0491
         ],
         "score_history": [
-          78.1,
-          77.8,
-          78.7,
-          78.1,
+          72.1,
+          71.6,
+          73.0,
+          71.8,
           71.7
         ],
-        "score_delta_5y": -6.4,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.4 pts)",
+        "score_delta_5y": -0.4,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-0.4 pts)",
         "cagr_receita_pct": 11.4,
         "cagr_lucro_pct": 3.2,
         "cagr_patrimonio_pct": 5.8,
@@ -11506,10 +11506,10 @@
           8224860000.0
         ],
         "roic_roe": [
-          0.2206,
-          0.2097,
-          0.2441,
-          0.2076,
+          0.1104,
+          0.105,
+          0.1222,
+          0.104,
           0.1002
         ],
         "div_yield": [
@@ -11520,15 +11520,15 @@
           0.0489
         ],
         "score_history": [
-          78.1,
-          77.8,
-          78.7,
-          78.1,
+          72.1,
+          71.6,
+          73.0,
+          71.8,
           71.7
         ],
-        "score_delta_5y": -6.4,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.4 pts)",
+        "score_delta_5y": -0.4,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-0.4 pts)",
         "cagr_receita_pct": 11.4,
         "cagr_lucro_pct": 3.2,
         "cagr_patrimonio_pct": 5.8,
@@ -11695,10 +11695,10 @@
           8224860000.0
         ],
         "roic_roe": [
-          0.2206,
-          0.2097,
-          0.2441,
-          0.2076,
+          0.1104,
+          0.105,
+          0.1222,
+          0.104,
           0.1002
         ],
         "div_yield": [
@@ -11709,15 +11709,15 @@
           0.0499
         ],
         "score_history": [
-          78.0,
-          77.7,
-          78.6,
-          78.0,
+          72.0,
+          71.5,
+          72.9,
+          71.7,
           71.6
         ],
-        "score_delta_5y": -6.4,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.4 pts)",
+        "score_delta_5y": -0.4,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-0.4 pts)",
         "cagr_receita_pct": 11.4,
         "cagr_lucro_pct": 3.2,
         "cagr_patrimonio_pct": 5.8,
@@ -11884,10 +11884,10 @@
           811591000.0
         ],
         "roic_roe": [
-          0.6404,
-          0.3377,
-          0.2689,
-          0.2018,
+          0.4757,
+          0.2508,
+          0.1997,
+          0.1499,
           0.093
         ],
         "div_yield": [
@@ -11899,9 +11899,9 @@
         ],
         "score_history": [
           81.1,
-          81.0,
-          80.2,
-          78.6,
+          80.3,
+          78.7,
+          76.5,
           71.1
         ],
         "score_delta_5y": -10.0,
@@ -12087,15 +12087,15 @@
           0.0807
         ],
         "score_history": [
-          57.0,
-          63.6,
-          62.9,
-          71.0,
+          58.7,
+          66.2,
+          65.7,
+          70.9,
           71.0
         ],
-        "score_delta_5y": 14.0,
+        "score_delta_5y": 12.3,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+14.0 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+12.3 pts)",
         "cagr_receita_pct": 8.6,
         "cagr_lucro_pct": 78.9,
         "cagr_patrimonio_pct": 1.7,
@@ -12262,10 +12262,10 @@
           2505100000.0
         ],
         "roic_roe": [
-          0.1161,
-          0.2053,
-          0.1657,
-          0.1126,
+          0.1452,
+          0.2566,
+          0.2072,
+          0.1407,
           0.1529
         ],
         "div_yield": [
@@ -12276,15 +12276,15 @@
           0.0291
         ],
         "score_history": [
-          66.7,
-          72.8,
-          71.5,
-          66.6,
+          69.5,
+          73.9,
+          72.9,
+          69.3,
           70.3
         ],
-        "score_delta_5y": 3.6,
-        "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+3.6 pts)",
+        "score_delta_5y": 0.8,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.8 pts)",
         "cagr_receita_pct": 15.3,
         "cagr_lucro_pct": 8.8,
         "cagr_patrimonio_pct": 9.2,
@@ -12451,10 +12451,10 @@
           1998080000.0
         ],
         "roic_roe": [
-          0.5722,
-          0.3251,
-          0.1991,
-          0.2709,
+          0.7152,
+          0.4064,
+          0.2489,
+          0.3386,
           0.0927
         ],
         "div_yield": [
@@ -12467,8 +12467,8 @@
         "score_history": [
           81.8,
           81.7,
-          79.5,
-          79.8,
+          80.6,
+          80.3,
           69.8
         ],
         "score_delta_5y": -12.0,
@@ -12640,10 +12640,10 @@
           504698000000.0
         ],
         "roic_roe": [
-          0.527,
-          0.3167,
-          0.1274,
-          0.2598,
+          0.4056,
+          0.2437,
+          0.098,
+          0.2,
           0.2141
         ],
         "div_yield": [
@@ -12655,9 +12655,9 @@
         ],
         "score_history": [
           70.1,
-          70.0,
-          61.6,
           69.2,
+          59.2,
+          67.9,
           68.4
         ],
         "score_delta_5y": -1.7,
@@ -12829,10 +12829,10 @@
           504698000000.0
         ],
         "roic_roe": [
-          0.527,
-          0.3167,
-          0.1274,
-          0.2598,
+          0.4056,
+          0.2437,
+          0.098,
+          0.2,
           0.2141
         ],
         "div_yield": [
@@ -12844,9 +12844,9 @@
         ],
         "score_history": [
           70.1,
-          70.0,
-          61.6,
           69.2,
+          59.2,
+          67.9,
           68.4
         ],
         "score_delta_5y": -1.7,
@@ -13018,10 +13018,10 @@
           25379000000.0
         ],
         "roic_roe": [
-          0.1219,
-          0.303,
-          0.3123,
-          0.096,
+          0.0902,
+          0.2242,
+          0.2311,
+          0.0711,
           0.2072
         ],
         "div_yield": [
@@ -13032,15 +13032,15 @@
           0.063
         ],
         "score_history": [
-          59.7,
-          67.7,
-          68.4,
-          58.4,
+          57.2,
+          66.6,
+          67.4,
+          56.7,
           67.1
         ],
-        "score_delta_5y": 7.4,
+        "score_delta_5y": 9.9,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+7.4 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+9.9 pts)",
         "cagr_receita_pct": 4.0,
         "cagr_lucro_pct": 46.6,
         "cagr_patrimonio_pct": 19.1,
@@ -13207,10 +13207,10 @@
           19352600000.0
         ],
         "roic_roe": [
-          0.1538,
-          0.1806,
-          0.1559,
-          0.1566,
+          0.1379,
+          0.1619,
+          0.1397,
+          0.1404,
           0.2487
         ],
         "div_yield": [
@@ -13221,15 +13221,15 @@
           0.061
         ],
         "score_history": [
-          62.1,
-          63.9,
-          62.9,
-          63.0,
+          60.9,
+          63.1,
+          61.8,
+          61.9,
           66.9
         ],
-        "score_delta_5y": 4.8,
+        "score_delta_5y": 6.0,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+4.8 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.0 pts)",
         "cagr_receita_pct": 2.8,
         "cagr_lucro_pct": 31.4,
         "cagr_patrimonio_pct": 13.4,
@@ -13396,10 +13396,10 @@
           1475150000.0
         ],
         "roic_roe": [
-          0.3362,
-          0.2996,
-          0.2228,
-          0.1667,
+          0.4202,
+          0.3745,
+          0.2785,
+          0.2084,
           0.1239
         ],
         "div_yield": [
@@ -13411,9 +13411,9 @@
         ],
         "score_history": [
           74.3,
-          74.5,
-          73.1,
-          71.1,
+          74.7,
+          74.1,
+          72.4,
           66.9
         ],
         "score_delta_5y": -7.4,
@@ -13585,10 +13585,10 @@
           6652310000.0
         ],
         "roic_roe": [
-          0.2589,
-          0.3336,
-          0.4409,
-          0.2469,
+          0.1816,
+          0.2339,
+          0.3091,
+          0.1731,
           0.1349
         ],
         "div_yield": [
@@ -13599,15 +13599,15 @@
           0.1986
         ],
         "score_history": [
-          74.8,
-          75.0,
-          75.4,
-          71.8,
+          72.9,
+          73.9,
+          75.3,
+          69.8,
           66.8
         ],
-        "score_delta_5y": -8.0,
+        "score_delta_5y": -6.1,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-8.0 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-6.1 pts)",
         "cagr_receita_pct": 4.1,
         "cagr_lucro_pct": -18.8,
         "cagr_patrimonio_pct": -12.6,
@@ -13775,9 +13775,9 @@
         ],
         "roic_roe": [
           0.1521,
-          0.0545,
-          0.1129,
-          0.1264,
+          0.0313,
+          0.0647,
+          0.0725,
           0.1521
         ],
         "div_yield": [
@@ -13789,9 +13789,9 @@
         ],
         "score_history": [
           66.0,
-          55.1,
-          60.9,
-          62.4,
+          53.0,
+          57.2,
+          58.3,
           66.5
         ],
         "score_delta_5y": 0.5,
@@ -13963,10 +13963,10 @@
           7804090000.0
         ],
         "roic_roe": [
-          0.1353,
-          0.0941,
-          0.1578,
-          0.281,
+          0.068,
+          0.0473,
+          0.0793,
+          0.1412,
           0.1365
         ],
         "div_yield": [
@@ -13977,15 +13977,15 @@
           0.0806
         ],
         "score_history": [
-          65.5,
-          61.7,
-          67.5,
-          70.9,
+          60.0,
+          58.2,
+          61.0,
+          66.7,
           66.5
         ],
-        "score_delta_5y": 1.0,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.0 pts)",
+        "score_delta_5y": 6.5,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.5 pts)",
         "cagr_receita_pct": 22.7,
         "cagr_lucro_pct": 34.8,
         "cagr_patrimonio_pct": 13.2,
@@ -14152,10 +14152,10 @@
           3939860000.0
         ],
         "roic_roe": [
-          0.0003,
+          0.0002,
           -0.0023,
-          0.1368,
-          0.1584,
+          0.1195,
+          0.1383,
           0.147
         ],
         "div_yield": [
@@ -14168,8 +14168,8 @@
         "score_history": [
           47.8,
           43.3,
-          64.8,
-          66.9,
+          63.0,
+          65.5,
           66.5
         ],
         "score_delta_5y": 18.7,
@@ -14341,10 +14341,10 @@
           3094140000.0
         ],
         "roic_roe": [
-          0.1279,
-          0.1754,
-          0.077,
-          0.1153,
+          0.1085,
+          0.1488,
+          0.0653,
+          0.0978,
           0.1078
         ],
         "div_yield": [
@@ -14355,15 +14355,15 @@
           0.0588
         ],
         "score_history": [
-          67.0,
-          71.4,
-          62.9,
-          66.6,
+          65.5,
+          70.1,
+          62.0,
+          65.0,
           66.5
         ],
-        "score_delta_5y": -0.5,
+        "score_delta_5y": 1.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-0.5 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.0 pts)",
         "cagr_receita_pct": 6.2,
         "cagr_lucro_pct": 11.2,
         "cagr_patrimonio_pct": 11.3,
@@ -14533,7 +14533,7 @@
           -0.1795,
           -0.0232,
           -0.001,
-          0.1597,
+          0.1437,
           0.175
         ],
         "div_yield": [
@@ -14547,7 +14547,7 @@
           38.0,
           40.6,
           41.4,
-          65.2,
+          64.2,
           66.5
         ],
         "score_delta_5y": 28.5,
@@ -14719,10 +14719,10 @@
           3497450000.0
         ],
         "roic_roe": [
-          0.1129,
-          0.0009,
-          0.038,
-          0.0844,
+          0.1412,
+          0.0012,
+          0.0475,
+          0.1055,
           0.1272
         ],
         "div_yield": [
@@ -14733,15 +14733,15 @@
           0.0987
         ],
         "score_history": [
-          65.1,
-          51.7,
-          58.1,
-          62.7,
+          67.8,
+          51.8,
+          59.0,
+          64.4,
           66.5
         ],
-        "score_delta_5y": 1.4,
+        "score_delta_5y": -1.3,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.4 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-1.3 pts)",
         "cagr_receita_pct": 14.6,
         "cagr_lucro_pct": 7.0,
         "cagr_patrimonio_pct": 10.6,
@@ -14908,10 +14908,10 @@
           2511970000.0
         ],
         "roic_roe": [
-          0.1473,
-          0.1697,
-          0.3167,
-          0.4118,
+          0.0589,
+          0.0679,
+          0.1267,
+          0.1647,
           0.1024
         ],
         "div_yield": [
@@ -14922,15 +14922,15 @@
           0.1626
         ],
         "score_history": [
-          68.4,
-          70.9,
-          74.3,
-          74.1,
+          61.1,
+          63.1,
+          68.1,
+          71.0,
           66.5
         ],
-        "score_delta_5y": -1.9,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.9 pts)",
+        "score_delta_5y": 5.4,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.4 pts)",
         "cagr_receita_pct": 22.2,
         "cagr_lucro_pct": 44.4,
         "cagr_patrimonio_pct": 18.1,
@@ -15097,10 +15097,10 @@
           23852600000.0
         ],
         "roic_roe": [
-          0.1398,
-          0.1635,
-          0.1775,
-          0.1157,
+          0.0965,
+          0.1128,
+          0.1224,
+          0.0798,
           0.0852
         ],
         "div_yield": [
@@ -15111,15 +15111,15 @@
           0.0714
         ],
         "score_history": [
-          70.8,
-          72.4,
-          73.2,
-          68.6,
+          66.8,
+          68.3,
+          69.2,
+          65.8,
           66.5
         ],
-        "score_delta_5y": -4.3,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-4.3 pts)",
+        "score_delta_5y": -0.3,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-0.3 pts)",
         "cagr_receita_pct": 17.7,
         "cagr_lucro_pct": 6.8,
         "cagr_patrimonio_pct": 10.2,
@@ -15286,10 +15286,10 @@
           27560200000.0
         ],
         "roic_roe": [
-          0.0897,
-          0.0711,
-          0.0689,
-          0.0734,
+          0.0806,
+          0.0639,
+          0.0619,
+          0.066,
           0.1399
         ],
         "div_yield": [
@@ -15300,15 +15300,15 @@
           0.0702
         ],
         "score_history": [
-          61.7,
-          60.0,
-          59.6,
-          59.8,
+          61.1,
+          59.5,
+          59.1,
+          59.2,
           66.5
         ],
-        "score_delta_5y": 4.8,
+        "score_delta_5y": 5.4,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+4.8 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.4 pts)",
         "cagr_receita_pct": 28.1,
         "cagr_lucro_pct": 23.5,
         "cagr_patrimonio_pct": 7.6,
@@ -15475,10 +15475,10 @@
           14769400000.0
         ],
         "roic_roe": [
-          0.1594,
-          0.1432,
-          0.1109,
-          0.0955,
+          0.1399,
+          0.1257,
+          0.0973,
+          0.0838,
           0.1077
         ],
         "div_yield": [
@@ -15489,15 +15489,15 @@
           0.0468
         ],
         "score_history": [
-          70.4,
-          69.3,
-          66.2,
-          64.6,
+          69.0,
+          67.4,
+          64.9,
+          63.9,
           66.5
         ],
-        "score_delta_5y": -3.9,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.9 pts)",
+        "score_delta_5y": -2.5,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-2.5 pts)",
         "cagr_receita_pct": 4.6,
         "cagr_lucro_pct": 1.7,
         "cagr_patrimonio_pct": 8.5,
@@ -15664,10 +15664,10 @@
           4640870000.0
         ],
         "roic_roe": [
-          0.1995,
-          0.2154,
-          0.1892,
-          0.1731,
+          0.1233,
+          0.1332,
+          0.1169,
+          0.107,
           0.1227
         ],
         "div_yield": [
@@ -15678,15 +15678,15 @@
           0.0273
         ],
         "score_history": [
-          70.3,
-          71.0,
-          70.1,
-          69.6,
+          65.8,
+          66.8,
+          65.4,
+          64.7,
           66.5
         ],
-        "score_delta_5y": -3.8,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.8 pts)",
+        "score_delta_5y": 0.7,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.7 pts)",
         "cagr_receita_pct": 18.5,
         "cagr_lucro_pct": 15.5,
         "cagr_patrimonio_pct": 15.7,
@@ -15853,10 +15853,10 @@
           11484100000.0
         ],
         "roic_roe": [
-          0.1412,
-          0.1522,
-          0.1393,
-          0.1765,
+          0.1518,
+          0.1637,
+          0.1498,
+          0.1898,
           0.1017
         ],
         "div_yield": [
@@ -15867,15 +15867,15 @@
           0.0114
         ],
         "score_history": [
-          70.1,
-          70.9,
-          69.9,
-          72.5,
+          70.8,
+          71.5,
+          70.8,
+          72.9,
           66.5
         ],
-        "score_delta_5y": -3.6,
+        "score_delta_5y": -4.3,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-3.6 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.3 pts)",
         "cagr_receita_pct": 16.8,
         "cagr_lucro_pct": 0.8,
         "cagr_patrimonio_pct": 11.4,
@@ -16042,10 +16042,10 @@
           9668530000.0
         ],
         "roic_roe": [
-          0.132,
-          0.0944,
-          0.1318,
-          0.1326,
+          0.1194,
+          0.0853,
+          0.1192,
+          0.12,
           0.0964
         ],
         "div_yield": [
@@ -16056,15 +16056,15 @@
           0.0299
         ],
         "score_history": [
-          69.1,
-          66.0,
-          69.5,
-          69.8,
+          68.2,
+          65.3,
+          68.6,
+          68.9,
           66.5
         ],
-        "score_delta_5y": -2.6,
+        "score_delta_5y": -1.7,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.6 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-1.7 pts)",
         "cagr_receita_pct": 8.0,
         "cagr_lucro_pct": 2.9,
         "cagr_patrimonio_pct": 8.6,
@@ -16420,10 +16420,10 @@
           24835800000.0
         ],
         "roic_roe": [
-          0.0534,
-          0.0946,
-          0.1094,
-          0.1162,
+          0.0394,
+          0.0698,
+          0.0807,
+          0.0858,
           0.1021
         ],
         "div_yield": [
@@ -16434,15 +16434,15 @@
           0.0691
         ],
         "score_history": [
-          61.2,
-          65.4,
-          67.1,
-          67.2,
+          60.0,
+          63.7,
+          64.9,
+          64.7,
           66.5
         ],
-        "score_delta_5y": 5.3,
+        "score_delta_5y": 6.5,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.5 pts)",
         "cagr_receita_pct": 8.2,
         "cagr_lucro_pct": 32.6,
         "cagr_patrimonio_pct": 4.5,
@@ -16609,10 +16609,10 @@
           971509000.0
         ],
         "roic_roe": [
-          0.0808,
-          0.0799,
-          0.1024,
-          0.1641,
+          0.0578,
+          0.0571,
+          0.0732,
+          0.1173,
           0.1188
         ],
         "div_yield": [
@@ -16623,15 +16623,15 @@
           0.0762
         ],
         "score_history": [
-          63.2,
+          61.5,
+          61.7,
           63.4,
-          65.6,
-          70.3,
+          66.5,
           66.5
         ],
-        "score_delta_5y": 3.3,
+        "score_delta_5y": 5.0,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+3.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+5.0 pts)",
         "cagr_receita_pct": 7.5,
         "cagr_lucro_pct": 17.2,
         "cagr_patrimonio_pct": -2.1,
@@ -16798,10 +16798,10 @@
           5472130000.0
         ],
         "roic_roe": [
-          0.1148,
-          0.0834,
-          0.1165,
-          0.1225,
+          0.1075,
+          0.0781,
+          0.1091,
+          0.1147,
           0.1341
         ],
         "div_yield": [
@@ -16812,15 +16812,15 @@
           0.0552
         ],
         "score_history": [
-          63.7,
-          62.1,
-          65.0,
-          65.3,
+          63.1,
+          61.7,
+          64.5,
+          64.7,
           66.5
         ],
-        "score_delta_5y": 2.8,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.8 pts)",
+        "score_delta_5y": 3.4,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.4 pts)",
         "cagr_receita_pct": 19.4,
         "cagr_lucro_pct": 26.3,
         "cagr_patrimonio_pct": 19.5,
@@ -16987,10 +16987,10 @@
           1542340000.0
         ],
         "roic_roe": [
-          0.0047,
-          0.0725,
-          0.0981,
-          0.1866,
+          0.0059,
+          0.0906,
+          0.1226,
+          0.2333,
           0.1261
         ],
         "div_yield": [
@@ -17001,15 +17001,15 @@
           0.1327
         ],
         "score_history": [
-          53.2,
-          63.1,
-          65.3,
-          72.7,
+          53.4,
+          64.3,
+          67.4,
+          73.9,
           66.5
         ],
-        "score_delta_5y": 13.3,
+        "score_delta_5y": 13.1,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+13.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+13.1 pts)",
         "cagr_receita_pct": 9.6,
         "cagr_lucro_pct": 75.9,
         "cagr_patrimonio_pct": 8.8,
@@ -17176,10 +17176,10 @@
           1400090000.0
         ],
         "roic_roe": [
-          0.0514,
-          0.0797,
-          0.0665,
-          0.0508,
+          0.0642,
+          0.0997,
+          0.0831,
+          0.0635,
           0.1154
         ],
         "div_yield": [
@@ -17190,15 +17190,15 @@
           0.0095
         ],
         "score_history": [
-          61.0,
+          62.0,
+          65.7,
           64.3,
-          63.1,
-          61.5,
+          62.5,
           66.5
         ],
-        "score_delta_5y": 5.5,
+        "score_delta_5y": 4.5,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.5 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+4.5 pts)",
         "cagr_receita_pct": 16.0,
         "cagr_lucro_pct": 13.0,
         "cagr_patrimonio_pct": 10.7,
@@ -17365,10 +17365,10 @@
           4423820000.0
         ],
         "roic_roe": [
-          0.3027,
-          0.1569,
-          0.1033,
-          0.1474,
+          0.2232,
+          0.1157,
+          0.0762,
+          0.1087,
           0.1022
         ],
         "div_yield": [
@@ -17379,15 +17379,15 @@
           0.1588
         ],
         "score_history": [
-          74.2,
-          70.8,
-          65.2,
-          69.8,
+          73.1,
+          67.3,
+          63.1,
+          66.3,
           65.9
         ],
-        "score_delta_5y": -8.3,
+        "score_delta_5y": -7.2,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-8.3 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-7.2 pts)",
         "cagr_receita_pct": 0.1,
         "cagr_lucro_pct": -14.6,
         "cagr_patrimonio_pct": 3.8,
@@ -17554,10 +17554,10 @@
           1608490000.0
         ],
         "roic_roe": [
-          0.0508,
-          0.0766,
-          0.0916,
-          0.2144,
+          0.0587,
+          0.0886,
+          0.106,
+          0.248,
           0.0966
         ],
         "div_yield": [
@@ -17568,15 +17568,15 @@
           0.1461
         ],
         "score_history": [
-          61.6,
-          64.1,
-          65.4,
-          73.9,
+          62.3,
+          64.9,
+          66.6,
+          74.7,
           65.6
         ],
-        "score_delta_5y": 4.0,
+        "score_delta_5y": 3.3,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+4.0 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+3.3 pts)",
         "cagr_receita_pct": 2.3,
         "cagr_lucro_pct": 15.2,
         "cagr_patrimonio_pct": 1.8,
@@ -17757,15 +17757,15 @@
           0.1442
         ],
         "score_history": [
-          63.5,
-          62.1,
-          63.5,
-          62.4,
+          66.0,
+          65.2,
+          66.8,
+          66.2,
           65.2
         ],
-        "score_delta_5y": 1.7,
+        "score_delta_5y": -0.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.7 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-0.8 pts)",
         "cagr_receita_pct": -45.6,
         "cagr_lucro_pct": -1.1,
         "cagr_patrimonio_pct": -20.0,
@@ -17946,15 +17946,15 @@
           0.0456
         ],
         "score_history": [
-          72.2,
-          71.7,
-          69.9,
+          68.5,
+          68.1,
+          67.0,
           62.8,
           62.5
         ],
-        "score_delta_5y": -9.7,
+        "score_delta_5y": -6.0,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-9.7 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-6.0 pts)",
         "cagr_receita_pct": 2.5,
         "cagr_lucro_pct": -20.0,
         "cagr_patrimonio_pct": 3.1,
@@ -18121,10 +18121,10 @@
           54655000000.0
         ],
         "roic_roe": [
-          0.2478,
-          0.1529,
-          0.0788,
-          0.0259,
+          0.3097,
+          0.1911,
+          0.0985,
+          0.0324,
           0.1155
         ],
         "div_yield": [
@@ -18135,15 +18135,15 @@
           0.0345
         ],
         "score_history": [
-          70.1,
-          66.9,
-          60.4,
-          54.1,
+          70.8,
+          68.5,
+          61.7,
+          54.8,
           62.3
         ],
-        "score_delta_5y": -7.8,
+        "score_delta_5y": -8.5,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-7.8 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-8.5 pts)",
         "cagr_receita_pct": -3.9,
         "cagr_lucro_pct": -30.2,
         "cagr_patrimonio_pct": 4.3,
@@ -18310,10 +18310,10 @@
           19660100000.0
         ],
         "roic_roe": [
-          0.2275,
-          0.1528,
-          0.0771,
-          0.0249,
+          0.2844,
+          0.1909,
+          0.0964,
+          0.0311,
           0.1153
         ],
         "div_yield": [
@@ -18324,15 +18324,15 @@
           0.0366
         ],
         "score_history": [
-          69.0,
-          66.3,
-          59.7,
-          54.0,
+          69.9,
+          67.8,
+          61.0,
+          54.7,
           62.1
         ],
-        "score_delta_5y": -6.9,
+        "score_delta_5y": -7.8,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.9 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-7.8 pts)",
         "cagr_receita_pct": -3.9,
         "cagr_lucro_pct": -28.7,
         "cagr_patrimonio_pct": 4.5,
@@ -18499,10 +18499,10 @@
           3452430000.0
         ],
         "roic_roe": [
-          0.1837,
-          0.124,
-          0.156,
-          0.1283,
+          0.2297,
+          0.1549,
+          0.195,
+          0.1604,
           0.157
         ],
         "div_yield": [
@@ -18513,15 +18513,15 @@
           0.047
         ],
         "score_history": [
-          63.6,
-          60.5,
-          60.9,
-          57.9,
+          64.8,
+          63.3,
+          62.4,
+          60.7,
           61.3
         ],
-        "score_delta_5y": -2.3,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.3 pts)",
+        "score_delta_5y": -3.5,
+        "score_trend_tag": "DETERIORACAO",
+        "score_trend_label": "🔴 Fosso em Erosão (-3.5 pts)",
         "cagr_receita_pct": 6.3,
         "cagr_lucro_pct": -11.2,
         "cagr_patrimonio_pct": -1.3,
@@ -18688,10 +18688,10 @@
           5573900000.0
         ],
         "roic_roe": [
-          0.2756,
-          0.1818,
-          0.1274,
-          0.1104,
+          0.2993,
+          0.1974,
+          0.1384,
+          0.1199,
           0.1162
         ],
         "div_yield": [
@@ -18702,15 +18702,15 @@
           0.044
         ],
         "score_history": [
-          68.4,
-          65.9,
-          61.3,
-          60.2,
+          68.6,
+          66.4,
+          62.6,
+          60.9,
           60.9
         ],
-        "score_delta_5y": -7.5,
+        "score_delta_5y": -7.7,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-7.5 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-7.7 pts)",
         "cagr_receita_pct": 1.5,
         "cagr_lucro_pct": -17.2,
         "cagr_patrimonio_pct": 4.9,
@@ -19255,10 +19255,10 @@
           1479770000.0
         ],
         "roic_roe": [
-          0.1283,
-          0.1328,
-          0.1352,
-          0.0524,
+          0.1603,
+          0.1659,
+          0.169,
+          0.0655,
           0.0983
         ],
         "div_yield": [
@@ -19269,15 +19269,15 @@
           0.1006
         ],
         "score_history": [
-          62.3,
-          62.4,
-          62.6,
-          54.6,
+          65.1,
+          65.1,
+          64.9,
+          55.6,
           58.0
         ],
-        "score_delta_5y": -4.3,
+        "score_delta_5y": -7.1,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-4.3 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-7.1 pts)",
         "cagr_receita_pct": 22.0,
         "cagr_lucro_pct": -18.9,
         "cagr_patrimonio_pct": 6.3,
@@ -19445,9 +19445,9 @@
         ],
         "roic_roe": [
           -0.0214,
-          0.2045,
-          0.08,
-          0.1128,
+          0.1819,
+          0.0711,
+          0.1003,
           0.1102
         ],
         "div_yield": [
@@ -19459,9 +19459,9 @@
         ],
         "score_history": [
           37.0,
-          64.8,
-          55.1,
-          58.0,
+          64.1,
+          54.5,
+          57.0,
           57.9
         ],
         "score_delta_5y": 20.9,
@@ -19633,10 +19633,10 @@
           2438510000.0
         ],
         "roic_roe": [
-          0.0896,
-          0.1162,
-          0.1633,
-          0.2769,
+          0.0406,
+          0.0527,
+          0.074,
+          0.1255,
           0.1101
         ],
         "div_yield": [
@@ -19647,15 +19647,15 @@
           0.1865
         ],
         "score_history": [
-          53.9,
-          56.2,
-          60.5,
-          63.4,
+          50.1,
+          51.3,
+          53.4,
+          57.5,
           57.4
         ],
-        "score_delta_5y": 3.5,
+        "score_delta_5y": 7.3,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+3.5 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+7.3 pts)",
         "cagr_receita_pct": 36.5,
         "cagr_lucro_pct": 53.8,
         "cagr_patrimonio_pct": 19.9,
@@ -19822,10 +19822,10 @@
           5368180000.0
         ],
         "roic_roe": [
-          0.0018,
-          0.0729,
-          0.0928,
-          0.1252,
+          0.0013,
+          0.0508,
+          0.0645,
+          0.0871,
           0.1235
         ],
         "div_yield": [
@@ -19836,15 +19836,15 @@
           0.0174
         ],
         "score_history": [
-          40.1,
-          52.7,
-          54.4,
-          57.1,
+          39.9,
+          51.0,
+          52.4,
+          54.1,
           57.3
         ],
-        "score_delta_5y": 17.2,
+        "score_delta_5y": 17.4,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+17.2 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+17.4 pts)",
         "cagr_receita_pct": 11.3,
         "cagr_lucro_pct": 80.0,
         "cagr_patrimonio_pct": 9.4,
@@ -20200,10 +20200,10 @@
           8222230000.0
         ],
         "roic_roe": [
-          0.16,
-          0.1373,
-          0.0444,
-          0.1142,
+          0.2,
+          0.1716,
+          0.0555,
+          0.1428,
           0.0597
         ],
         "div_yield": [
@@ -20214,15 +20214,15 @@
           0.1556
         ],
         "score_history": [
-          65.3,
-          63.5,
-          56.1,
-          62.5,
+          66.8,
+          65.6,
+          57.0,
+          65.2,
           57.1
         ],
-        "score_delta_5y": -8.2,
+        "score_delta_5y": -9.7,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-8.2 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-9.7 pts)",
         "cagr_receita_pct": 27.7,
         "cagr_lucro_pct": -5.6,
         "cagr_patrimonio_pct": 32.7,
@@ -20390,9 +20390,9 @@
         ],
         "roic_roe": [
           -0.0198,
-          0.0501,
-          0.1092,
-          0.0616,
+          0.0626,
+          0.1366,
+          0.077,
           0.1137
         ],
         "div_yield": [
@@ -20404,9 +20404,9 @@
         ],
         "score_history": [
           38.4,
-          52.5,
-          58.1,
-          53.4,
+          53.5,
+          60.6,
+          54.6,
           57.1
         ],
         "score_delta_5y": 18.7,
@@ -20769,8 +20769,8 @@
         "roic_roe": [
           -0.0373,
           -0.0066,
-          0.5087,
-          0.096,
+          0.4738,
+          0.0894,
           0.0652
         ],
         "div_yield": [
@@ -20784,7 +20784,7 @@
           39.6,
           41.1,
           70.0,
-          59.3,
+          58.9,
           56.9
         ],
         "score_delta_5y": 17.3,
@@ -20956,10 +20956,10 @@
           1341790000.0
         ],
         "roic_roe": [
-          0.0779,
-          0.0792,
-          0.0855,
-          0.0972,
+          0.0688,
+          0.0699,
+          0.0755,
+          0.0859,
           0.0978
         ],
         "div_yield": [
@@ -20970,15 +20970,15 @@
           0.039
         ],
         "score_history": [
+          54.0,
+          54.1,
           54.7,
-          54.8,
-          55.4,
-          56.3,
+          55.5,
           56.5
         ],
-        "score_delta_5y": 1.8,
+        "score_delta_5y": 2.5,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.5 pts)",
         "cagr_receita_pct": 11.2,
         "cagr_lucro_pct": 14.5,
         "cagr_patrimonio_pct": 4.9,
@@ -21145,10 +21145,10 @@
           6567170000.0
         ],
         "roic_roe": [
-          0.2835,
-          0.2433,
-          0.423,
-          0.241,
+          0.1397,
+          0.1199,
+          0.2085,
+          0.1188,
           0.1002
         ],
         "div_yield": [
@@ -21159,15 +21159,15 @@
           0.0567
         ],
         "score_history": [
-          64.3,
-          63.7,
-          64.2,
-          63.0,
+          59.9,
+          57.8,
+          62.5,
+          57.1,
           56.3
         ],
-        "score_delta_5y": -8.0,
+        "score_delta_5y": -3.6,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-8.0 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-3.6 pts)",
         "cagr_receita_pct": -6.6,
         "cagr_lucro_pct": -7.8,
         "cagr_patrimonio_pct": 0.2,
@@ -21712,10 +21712,10 @@
           1538440000.0
         ],
         "roic_roe": [
-          0.0981,
-          0.1818,
-          0.2305,
-          0.2765,
+          0.0394,
+          0.0731,
+          0.0927,
+          0.1112,
           0.0909
         ],
         "div_yield": [
@@ -21726,15 +21726,15 @@
           0.2163
         ],
         "score_history": [
-          56.4,
-          63.0,
-          64.4,
-          65.3,
+          52.0,
+          55.2,
+          56.6,
+          58.3,
           56.2
         ],
-        "score_delta_5y": -0.2,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-0.2 pts)",
+        "score_delta_5y": 4.2,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+4.2 pts)",
         "cagr_receita_pct": 36.5,
         "cagr_lucro_pct": 31.9,
         "cagr_patrimonio_pct": 7.0,
@@ -21901,10 +21901,10 @@
           8617830000.0
         ],
         "roic_roe": [
-          0.0718,
-          0.1169,
           0.0808,
-          0.0801,
+          0.1315,
+          0.0909,
+          0.0901,
           0.0772
         ],
         "div_yield": [
@@ -21915,15 +21915,15 @@
           0.0562
         ],
         "score_history": [
-          55.0,
-          59.4,
-          56.4,
-          56.4,
+          55.6,
+          60.5,
+          57.1,
+          57.0,
           56.1
         ],
-        "score_delta_5y": 1.1,
+        "score_delta_5y": 0.5,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.5 pts)",
         "cagr_receita_pct": 0.6,
         "cagr_lucro_pct": 5.2,
         "cagr_patrimonio_pct": 6.5,
@@ -22090,9 +22090,9 @@
           480962000.0
         ],
         "roic_roe": [
-          0.0939,
-          0.061,
-          0.0298,
+          0.1044,
+          0.0678,
+          0.0331,
           -0.0245,
           0.1125
         ],
@@ -22104,15 +22104,15 @@
           0.0
         ],
         "score_history": [
-          53.3,
-          50.3,
-          47.7,
+          54.3,
+          50.8,
+          48.1,
           37.4,
           56.1
         ],
-        "score_delta_5y": 2.8,
+        "score_delta_5y": 1.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
         "cagr_receita_pct": 23.0,
         "cagr_lucro_pct": 24.5,
         "cagr_patrimonio_pct": 22.2,
@@ -22279,10 +22279,10 @@
           3217790000.0
         ],
         "roic_roe": [
-          0.0851,
-          0.0666,
-          0.178,
-          0.1072,
+          0.0699,
+          0.0547,
+          0.1462,
+          0.0881,
           0.0805
         ],
         "div_yield": [
@@ -22293,15 +22293,15 @@
           0.1116
         ],
         "score_history": [
-          55.5,
-          53.9,
-          63.9,
-          58.1,
+          54.4,
+          53.0,
+          62.4,
+          56.5,
           55.9
         ],
-        "score_delta_5y": 0.4,
+        "score_delta_5y": 1.5,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.4 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.5 pts)",
         "cagr_receita_pct": 7.8,
         "cagr_lucro_pct": 11.4,
         "cagr_patrimonio_pct": 7.5,
@@ -22468,10 +22468,10 @@
           3813770000.0
         ],
         "roic_roe": [
-          0.0211,
+          0.0209,
           -0.5,
-          0.0268,
-          0.1711,
+          0.0265,
+          0.1696,
           0.1832
         ],
         "div_yield": [
@@ -22482,15 +22482,15 @@
           0.1338
         ],
         "score_history": [
-          42.0,
+          41.9,
           27.0,
-          41.6,
-          54.8,
+          41.5,
+          54.7,
           55.7
         ],
-        "score_delta_5y": 13.7,
+        "score_delta_5y": 13.8,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+13.7 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+13.8 pts)",
         "cagr_receita_pct": 4.3,
         "cagr_lucro_pct": 55.2,
         "cagr_patrimonio_pct": -9.8,
@@ -22659,8 +22659,8 @@
         "roic_roe": [
           -0.037,
           -0.1371,
-          0.0374,
-          0.0538,
+          0.0468,
+          0.0672,
           0.1518
         ],
         "div_yield": [
@@ -22673,8 +22673,8 @@
         "score_history": [
           32.3,
           29.9,
-          44.9,
-          46.7,
+          45.7,
+          47.8,
           55.5
         ],
         "score_delta_5y": 23.2,
@@ -22847,9 +22847,9 @@
         ],
         "roic_roe": [
           -0.0722,
-          0.0589,
-          0.1146,
-          0.1022,
+          0.053,
+          0.1033,
+          0.0921,
           0.1032
         ],
         "div_yield": [
@@ -22861,9 +22861,9 @@
         ],
         "score_history": [
           34.9,
-          51.3,
-          56.6,
-          55.6,
+          50.9,
+          55.7,
+          54.7,
           55.4
         ],
         "score_delta_5y": 20.5,
@@ -23035,10 +23035,10 @@
           14884500000.0
         ],
         "roic_roe": [
-          0.0339,
-          0.0459,
+          0.0424,
+          0.0574,
           -0.0651,
-          0.0612,
+          0.0765,
           0.1158
         ],
         "div_yield": [
@@ -23049,15 +23049,15 @@
           0.0067
         ],
         "score_history": [
-          48.1,
-          49.6,
+          48.9,
+          50.6,
           33.2,
-          50.5,
+          51.6,
           55.3
         ],
-        "score_delta_5y": 7.2,
+        "score_delta_5y": 6.4,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+7.2 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.4 pts)",
         "cagr_receita_pct": 10.2,
         "cagr_lucro_pct": 24.8,
         "cagr_patrimonio_pct": -0.5,
@@ -23224,10 +23224,10 @@
           3291380000.0
         ],
         "roic_roe": [
-          0.1302,
-          0.1524,
-          0.1819,
-          0.2044,
+          0.0599,
+          0.0701,
+          0.0837,
+          0.0941,
           0.0787
         ],
         "div_yield": [
@@ -23238,15 +23238,15 @@
           0.4
         ],
         "score_history": [
-          59.9,
-          61.7,
-          63.5,
-          63.5,
+          54.5,
+          54.9,
+          56.4,
+          56.4,
           55.1
         ],
-        "score_delta_5y": -4.8,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-4.8 pts)",
+        "score_delta_5y": 0.6,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+0.6 pts)",
         "cagr_receita_pct": 2.0,
         "cagr_lucro_pct": -0.2,
         "cagr_patrimonio_pct": -6.8,
@@ -23602,10 +23602,10 @@
           26898900000.0
         ],
         "roic_roe": [
-          0.0827,
-          0.0984,
-          0.1077,
-          0.0652,
+          0.1034,
+          0.123,
+          0.1346,
+          0.0815,
           0.0955
         ],
         "div_yield": [
@@ -23616,15 +23616,15 @@
           0.0039
         ],
         "score_history": [
+          56.0,
+          57.9,
+          59.4,
           54.4,
-          55.8,
-          57.5,
-          53.3,
           55.0
         ],
-        "score_delta_5y": 0.6,
+        "score_delta_5y": -1.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+0.6 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (-1.0 pts)",
         "cagr_receita_pct": 19.6,
         "cagr_lucro_pct": -2.4,
         "cagr_patrimonio_pct": 12.8,
@@ -23791,10 +23791,10 @@
           3353810000.0
         ],
         "roic_roe": [
-          0.3495,
-          0.1199,
-          0.0981,
-          0.0574,
+          0.2776,
+          0.0953,
+          0.0779,
+          0.0456,
           0.0398
         ],
         "div_yield": [
@@ -23805,15 +23805,15 @@
           0.0
         ],
         "score_history": [
-          69.6,
-          61.9,
-          60.0,
-          56.2,
+          69.3,
+          59.8,
+          58.6,
+          55.2,
           54.6
         ],
-        "score_delta_5y": -15.0,
+        "score_delta_5y": -14.7,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-15.0 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-14.7 pts)",
         "cagr_receita_pct": -8.1,
         "cagr_lucro_pct": -36.9,
         "cagr_patrimonio_pct": 2.5,
@@ -24171,8 +24171,8 @@
         "roic_roe": [
           -0.5,
           -0.1115,
-          0.1124,
-          0.4215,
+          0.0458,
+          0.1717,
           0.14
         ],
         "div_yield": [
@@ -24185,8 +24185,8 @@
         "score_history": [
           27.1,
           27.8,
-          49.0,
-          58.5,
+          43.9,
+          55.7,
           54.1
         ],
         "score_delta_5y": 27.0,
@@ -24358,10 +24358,10 @@
           12716500000.0
         ],
         "roic_roe": [
-          0.0229,
-          0.242,
-          0.0523,
-          0.0635,
+          0.0174,
+          0.1841,
+          0.0398,
+          0.0483,
           0.0658
         ],
         "div_yield": [
@@ -24372,15 +24372,15 @@
           0.1297
         ],
         "score_history": [
-          47.7,
-          64.1,
-          52.6,
-          53.7,
+          47.0,
+          62.6,
+          51.5,
+          52.4,
           53.9
         ],
-        "score_delta_5y": 6.2,
+        "score_delta_5y": 6.9,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+6.2 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.9 pts)",
         "cagr_receita_pct": 27.6,
         "cagr_lucro_pct": 63.0,
         "cagr_patrimonio_pct": 16.9,
@@ -24736,10 +24736,10 @@
           5211330000.0
         ],
         "roic_roe": [
-          0.2029,
-          0.1718,
-          0.1879,
-          0.1737,
+          0.1349,
+          0.1143,
+          0.125,
+          0.1156,
           0.0753
         ],
         "div_yield": [
@@ -24750,15 +24750,15 @@
           0.0163
         ],
         "score_history": [
-          62.5,
-          61.4,
-          62.1,
-          61.6,
+          58.7,
+          57.0,
+          58.0,
+          57.3,
           53.8
         ],
-        "score_delta_5y": -8.7,
+        "score_delta_5y": -4.9,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-8.7 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.9 pts)",
         "cagr_receita_pct": 29.1,
         "cagr_lucro_pct": 0.8,
         "cagr_patrimonio_pct": 16.6,
@@ -25114,10 +25114,10 @@
           11518200000.0
         ],
         "roic_roe": [
-          0.1136,
-          0.1225,
-          0.1854,
-          0.1962,
+          0.0473,
+          0.0511,
+          0.0773,
+          0.0818,
           0.0692
         ],
         "div_yield": [
@@ -25128,15 +25128,15 @@
           0.0
         ],
         "score_history": [
-          55.9,
-          56.7,
-          61.6,
-          62.3,
+          50.8,
+          51.2,
+          53.9,
+          54.6,
           53.7
         ],
-        "score_delta_5y": -2.2,
+        "score_delta_5y": 2.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.2 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.9 pts)",
         "cagr_receita_pct": 16.9,
         "cagr_lucro_pct": 24.0,
         "cagr_patrimonio_pct": 12.8,
@@ -25303,10 +25303,10 @@
           11518200000.0
         ],
         "roic_roe": [
-          0.1136,
-          0.1225,
-          0.1854,
-          0.1962,
+          0.0473,
+          0.0511,
+          0.0773,
+          0.0818,
           0.0692
         ],
         "div_yield": [
@@ -25317,15 +25317,15 @@
           0.126
         ],
         "score_history": [
-          55.9,
-          56.7,
-          61.6,
-          62.3,
+          50.8,
+          51.2,
+          53.9,
+          54.6,
           53.7
         ],
-        "score_delta_5y": -2.2,
+        "score_delta_5y": 2.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.2 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.9 pts)",
         "cagr_receita_pct": 16.9,
         "cagr_lucro_pct": 24.0,
         "cagr_patrimonio_pct": 12.8,
@@ -25492,10 +25492,10 @@
           5445340000.0
         ],
         "roic_roe": [
-          0.0099,
+          0.004,
           -0.0066,
-          0.0435,
-          0.2756,
+          0.0174,
+          0.1102,
           0.0875
         ],
         "div_yield": [
@@ -25506,15 +25506,15 @@
           0.4
         ],
         "score_history": [
-          42.5,
+          41.3,
           34.9,
-          47.7,
-          62.4,
+          44.9,
+          55.3,
           53.5
         ],
-        "score_delta_5y": 11.0,
+        "score_delta_5y": 12.2,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+11.0 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+12.2 pts)",
         "cagr_receita_pct": 6.1,
         "cagr_lucro_pct": 80.0,
         "cagr_patrimonio_pct": 0.9,
@@ -25681,10 +25681,10 @@
           1569520000.0
         ],
         "roic_roe": [
-          0.0538,
-          0.092,
-          0.1176,
-          0.1406,
+          0.0303,
+          0.0517,
+          0.0662,
+          0.0791,
           0.0656
         ],
         "div_yield": [
@@ -25695,15 +25695,15 @@
           0.1991
         ],
         "score_history": [
-          51.3,
-          54.6,
-          57.0,
-          59.5,
+          49.1,
+          51.7,
+          53.1,
+          54.2,
           53.1
         ],
-        "score_delta_5y": 1.8,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
+        "score_delta_5y": 4.0,
+        "score_trend_tag": "EXPANSAO",
+        "score_trend_label": "🟢 Fosso em Expansão (+4.0 pts)",
         "cagr_receita_pct": 18.4,
         "cagr_lucro_pct": 28.1,
         "cagr_patrimonio_pct": 5.6,
@@ -25872,8 +25872,8 @@
         "roic_roe": [
           -0.0434,
           -0.0423,
-          0.071,
-          0.0465,
+          0.0887,
+          0.0581,
           0.0978
         ],
         "div_yield": [
@@ -25886,8 +25886,8 @@
         "score_history": [
           33.2,
           33.2,
-          52.3,
-          49.8,
+          53.5,
+          50.8,
           53.1
         ],
         "score_delta_5y": 19.9,
@@ -26060,9 +26060,9 @@
         ],
         "roic_roe": [
           0.0481,
-          0.1718,
-          0.2151,
-          0.0831,
+          0.0887,
+          0.111,
+          0.0429,
           0.0481
         ],
         "div_yield": [
@@ -26074,9 +26074,9 @@
         ],
         "score_history": [
           52.7,
-          62.8,
-          64.9,
-          55.2,
+          56.4,
+          59.0,
+          52.1,
           53.0
         ],
         "score_delta_5y": 0.3,
@@ -26248,10 +26248,10 @@
           1596770000.0
         ],
         "roic_roe": [
-          0.2422,
-          0.2142,
-          0.1793,
-          0.1928,
+          0.0969,
+          0.0857,
+          0.0717,
+          0.0771,
           0.0324
         ],
         "div_yield": [
@@ -26262,15 +26262,15 @@
           0.1488
         ],
         "score_history": [
-          64.0,
-          63.8,
-          62.8,
-          63.5,
+          56.2,
+          55.9,
+          54.9,
+          55.6,
           51.8
         ],
-        "score_delta_5y": -12.2,
+        "score_delta_5y": -4.4,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-12.2 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-4.4 pts)",
         "cagr_receita_pct": -2.5,
         "cagr_lucro_pct": -2.4,
         "cagr_patrimonio_pct": 9.4,
@@ -26437,10 +26437,10 @@
           5674740000.0
         ],
         "roic_roe": [
-          0.1703,
+          0.0811,
           -0.2036,
           -0.0477,
-          0.0282,
+          0.0134,
           0.0901
         ],
         "div_yield": [
@@ -26451,15 +26451,15 @@
           0.0039
         ],
         "score_history": [
-          57.6,
+          50.7,
           29.7,
           31.5,
-          43.5,
+          41.6,
           51.7
         ],
-        "score_delta_5y": -5.9,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.9 pts)",
+        "score_delta_5y": 1.0,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (+1.0 pts)",
         "cagr_receita_pct": 2.5,
         "cagr_lucro_pct": 5.5,
         "cagr_patrimonio_pct": 2.7,
@@ -26815,10 +26815,10 @@
           4190640000.0
         ],
         "roic_roe": [
-          0.201,
+          0.2343,
           -0.2581,
-          0.0929,
-          0.1073,
+          0.1083,
+          0.1251,
           0.1432
         ],
         "div_yield": [
@@ -26829,15 +26829,15 @@
           0.1007
         ],
         "score_history": [
-          53.7,
+          54.5,
           26.0,
-          44.9,
-          46.7,
+          46.2,
+          48.0,
           51.1
         ],
-        "score_delta_5y": -2.6,
-        "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.6 pts)",
+        "score_delta_5y": -3.4,
+        "score_trend_tag": "DETERIORACAO",
+        "score_trend_label": "🔴 Fosso em Erosão (-3.4 pts)",
         "cagr_receita_pct": 12.8,
         "cagr_lucro_pct": -1.9,
         "cagr_patrimonio_pct": 10.9,
@@ -27004,10 +27004,10 @@
           118290000000.0
         ],
         "roic_roe": [
-          0.0329,
-          0.0405,
-          0.0852,
-          0.0554,
+          0.0132,
+          0.0162,
+          0.0341,
+          0.0222,
           0.0594
         ],
         "div_yield": [
@@ -27018,15 +27018,15 @@
           0.0
         ],
         "score_history": [
-          46.5,
-          47.5,
-          52.3,
-          49.3,
+          44.2,
+          44.8,
+          48.2,
+          46.1,
           50.7
         ],
-        "score_delta_5y": 4.2,
+        "score_delta_5y": 6.5,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+4.2 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.5 pts)",
         "cagr_receita_pct": 7.0,
         "cagr_lucro_pct": 50.4,
         "cagr_patrimonio_pct": 1.7,
@@ -27571,10 +27571,10 @@
           20709800000.0
         ],
         "roic_roe": [
-          0.0275,
-          0.0176,
-          0.0022,
-          0.0584,
+          0.0315,
+          0.0202,
+          0.0025,
+          0.067,
           0.049
         ],
         "div_yield": [
@@ -27585,15 +27585,15 @@
           0.0
         ],
         "score_history": [
-          47.9,
-          45.3,
-          41.2,
-          51.4,
+          48.4,
+          45.6,
+          41.3,
+          52.1,
           50.4
         ],
-        "score_delta_5y": 2.5,
+        "score_delta_5y": 2.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.5 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.0 pts)",
         "cagr_receita_pct": 30.6,
         "cagr_lucro_pct": 23.9,
         "cagr_patrimonio_pct": 10.9,
@@ -27949,10 +27949,10 @@
           5291450000.0
         ],
         "roic_roe": [
-          0.0726,
-          0.0515,
-          0.0842,
-          0.1064,
+          0.0291,
+          0.0206,
+          0.0337,
+          0.0425,
           0.0319
         ],
         "div_yield": [
@@ -27963,15 +27963,15 @@
           0.1088
         ],
         "score_history": [
-          52.0,
-          50.1,
-          52.8,
-          55.0,
+          48.3,
+          47.0,
+          48.8,
+          50.0,
           49.1
         ],
-        "score_delta_5y": -2.9,
+        "score_delta_5y": 0.8,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-2.9 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.8 pts)",
         "cagr_receita_pct": 4.1,
         "cagr_lucro_pct": 7.5,
         "cagr_patrimonio_pct": 4.3,
@@ -28138,8 +28138,8 @@
           21054300000.0
         ],
         "roic_roe": [
-          0.0698,
-          0.0583,
+          0.0552,
+          0.0461,
           -0.0061,
           -0.1479,
           0.0544
@@ -28152,15 +28152,15 @@
           0.0
         ],
         "score_history": [
-          50.1,
-          49.4,
+          49.0,
+          48.4,
           34.5,
           31.0,
           49.0
         ],
-        "score_delta_5y": -1.1,
+        "score_delta_5y": 0.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.0 pts)",
         "cagr_receita_pct": -6.9,
         "cagr_lucro_pct": -2.7,
         "cagr_patrimonio_pct": -2.3,
@@ -28327,8 +28327,8 @@
           21054300000.0
         ],
         "roic_roe": [
-          0.0698,
-          0.0583,
+          0.0552,
+          0.0461,
           -0.0061,
           -0.1479,
           0.0544
@@ -28341,15 +28341,15 @@
           0.0
         ],
         "score_history": [
-          50.1,
-          49.4,
+          49.0,
+          48.4,
           34.5,
           31.0,
           49.0
         ],
-        "score_delta_5y": -1.1,
+        "score_delta_5y": 0.0,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.1 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.0 pts)",
         "cagr_receita_pct": -6.9,
         "cagr_lucro_pct": -2.7,
         "cagr_patrimonio_pct": -2.3,
@@ -28705,9 +28705,9 @@
           2379120000.0
         ],
         "roic_roe": [
-          0.0095,
+          0.0119,
           -0.0256,
-          0.0154,
+          0.0192,
           -0.0914,
           0.0662
         ],
@@ -28719,15 +28719,15 @@
           0.0955
         ],
         "score_history": [
-          41.8,
+          42.2,
           32.0,
-          42.8,
+          43.3,
           29.6,
           48.7
         ],
-        "score_delta_5y": 6.9,
+        "score_delta_5y": 6.5,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+6.9 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.5 pts)",
         "cagr_receita_pct": 7.2,
         "cagr_lucro_pct": 44.2,
         "cagr_patrimonio_pct": -5.4,
@@ -28894,10 +28894,10 @@
           3329320000.0
         ],
         "roic_roe": [
-          0.0222,
+          0.014,
           -0.2599,
           -0.1111,
-          0.0411,
+          0.026,
           0.0645
         ],
         "div_yield": [
@@ -28908,15 +28908,15 @@
           0.0244
         ],
         "score_history": [
-          42.2,
+          41.1,
           28.1,
           27.9,
-          43.9,
+          42.4,
           47.5
         ],
-        "score_delta_5y": 5.3,
+        "score_delta_5y": 6.4,
         "score_trend_tag": "EXPANSAO",
-        "score_trend_label": "🟢 Fosso em Expansão (+5.3 pts)",
+        "score_trend_label": "🟢 Fosso em Expansão (+6.4 pts)",
         "cagr_receita_pct": -2.8,
         "cagr_lucro_pct": 39.4,
         "cagr_patrimonio_pct": -4.8,
@@ -29839,10 +29839,10 @@
           1095460000.0
         ],
         "roic_roe": [
-          0.07,
-          0.0862,
-          0.0589,
-          0.1053,
+          0.0371,
+          0.0457,
+          0.0312,
+          0.0558,
           0.0481
         ],
         "div_yield": [
@@ -29853,15 +29853,15 @@
           0.1994
         ],
         "score_history": [
-          46.8,
-          48.0,
+          44.1,
+          45.0,
+          43.3,
           45.7,
-          49.5,
           45.0
         ],
-        "score_delta_5y": -1.8,
+        "score_delta_5y": 0.9,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.9 pts)",
         "cagr_receita_pct": 1.7,
         "cagr_lucro_pct": 4.2,
         "cagr_patrimonio_pct": -2.4,
@@ -30028,10 +30028,10 @@
           1025180000.0
         ],
         "roic_roe": [
-          0.035,
-          0.0913,
-          0.0493,
-          0.0536,
+          0.029,
+          0.0756,
+          0.0408,
+          0.0443,
           0.053
         ],
         "div_yield": [
@@ -30042,15 +30042,15 @@
           0.1144
         ],
         "score_history": [
-          43.0,
-          48.5,
-          44.2,
-          44.8,
+          42.4,
+          47.4,
+          43.4,
+          44.0,
           45.0
         ],
-        "score_delta_5y": 2.0,
+        "score_delta_5y": 2.6,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+2.0 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.6 pts)",
         "cagr_receita_pct": 10.1,
         "cagr_lucro_pct": 17.2,
         "cagr_patrimonio_pct": 0.8,
@@ -30217,10 +30217,10 @@
           3618700000.0
         ],
         "roic_roe": [
-          0.1077,
-          0.0515,
-          0.0958,
-          0.0983,
+          0.0431,
+          0.0206,
+          0.0383,
+          0.0393,
           0.0279
         ],
         "div_yield": [
@@ -30231,15 +30231,15 @@
           0.2895
         ],
         "score_history": [
-          51.5,
-          47.3,
-          50.4,
-          50.6,
+          46.5,
+          44.2,
+          46.0,
+          46.1,
           45.0
         ],
-        "score_delta_5y": -6.5,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-6.5 pts)",
+        "score_delta_5y": -1.5,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-1.5 pts)",
         "cagr_receita_pct": 4.1,
         "cagr_lucro_pct": -0.1,
         "cagr_patrimonio_pct": 0.2,
@@ -30406,10 +30406,10 @@
           18836000000.0
         ],
         "roic_roe": [
-          0.3605,
-          0.1368,
-          0.0918,
-          0.2077,
+          0.1442,
+          0.0547,
+          0.0367,
+          0.0831,
           0.122
         ],
         "div_yield": [
@@ -30420,15 +30420,15 @@
           0.0589
         ],
         "score_history": [
-          50.1,
-          43.9,
-          39.6,
-          48.6,
+          45.8,
+          37.2,
+          35.4,
+          40.7,
           45.0
         ],
-        "score_delta_5y": -5.1,
-        "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-5.1 pts)",
+        "score_delta_5y": -0.8,
+        "score_trend_tag": "ESTAVEL",
+        "score_trend_label": "🛡️ Fosso Estável (-0.8 pts)",
         "cagr_receita_pct": -1.6,
         "cagr_lucro_pct": 10.1,
         "cagr_patrimonio_pct": 13.2,
@@ -30595,10 +30595,10 @@
           1754280000.0
         ],
         "roic_roe": [
-          0.0327,
-          0.0651,
-          0.023,
-          0.015,
+          0.0409,
+          0.0814,
+          0.0288,
+          0.0188,
           0.0794
         ],
         "div_yield": [
@@ -30609,15 +30609,15 @@
           0.4
         ],
         "score_history": [
-          43.8,
-          46.7,
-          42.8,
-          38.8,
+          44.6,
+          47.9,
+          43.4,
+          39.3,
           45.0
         ],
-        "score_delta_5y": 1.2,
+        "score_delta_5y": 0.4,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.2 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+0.4 pts)",
         "cagr_receita_pct": 41.5,
         "cagr_lucro_pct": -12.1,
         "cagr_patrimonio_pct": -2.3,
@@ -30784,10 +30784,10 @@
           4521070000.0
         ],
         "roic_roe": [
-          0.1067,
-          0.208,
-          0.2638,
-          0.2159,
+          0.1009,
+          0.1967,
+          0.2494,
+          0.2042,
           0.1095
         ],
         "div_yield": [
@@ -30798,15 +30798,15 @@
           0.0508
         ],
         "score_history": [
-          43.7,
-          50.6,
-          52.6,
-          51.7,
+          43.3,
+          50.3,
+          52.4,
+          51.4,
           45.0
         ],
-        "score_delta_5y": 1.3,
+        "score_delta_5y": 1.7,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.3 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.7 pts)",
         "cagr_receita_pct": 19.9,
         "cagr_lucro_pct": 20.8,
         "cagr_patrimonio_pct": 18.4,
@@ -30973,10 +30973,10 @@
           51627900000.0
         ],
         "roic_roe": [
-          0.7072,
-          0.3151,
+          0.2829,
+          0.1261,
           -0.2191,
-          0.306,
+          0.1224,
           0.0441
         ],
         "div_yield": [
@@ -30987,15 +30987,15 @@
           0.0001
         ],
         "score_history": [
-          57.9,
-          58.4,
+          57.6,
+          52.1,
           25.6,
-          58.0,
+          51.6,
           45.0
         ],
-        "score_delta_5y": -12.9,
+        "score_delta_5y": -12.6,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-12.9 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-12.6 pts)",
         "cagr_receita_pct": 1.2,
         "cagr_lucro_pct": -22.8,
         "cagr_patrimonio_pct": 11.8,
@@ -31163,9 +31163,9 @@
         ],
         "roic_roe": [
           0.0542,
-          0.1178,
-          0.1167,
-          0.0628,
+          0.1473,
+          0.1459,
+          0.0784,
           0.0542
         ],
         "div_yield": [
@@ -31177,9 +31177,9 @@
         ],
         "score_history": [
           44.8,
-          51.5,
-          51.3,
-          46.8,
+          54.3,
+          54.1,
+          47.9,
           45.0
         ],
         "score_delta_5y": 0.2,
@@ -31351,10 +31351,10 @@
           9882850000.0
         ],
         "roic_roe": [
-          0.4667,
-          0.2326,
-          0.2753,
-          0.1779,
+          0.4425,
+          0.2205,
+          0.261,
+          0.1687,
           0.0457
         ],
         "div_yield": [
@@ -31366,9 +31366,9 @@
         ],
         "score_history": [
           60.6,
-          59.3,
-          58.3,
-          55.9,
+          59.1,
+          58.1,
+          55.5,
           45.0
         ],
         "score_delta_5y": -15.6,
@@ -31540,10 +31540,10 @@
           9882850000.0
         ],
         "roic_roe": [
-          0.4667,
-          0.2326,
-          0.2753,
-          0.1779,
+          0.4425,
+          0.2205,
+          0.261,
+          0.1687,
           0.0457
         ],
         "div_yield": [
@@ -31555,9 +31555,9 @@
         ],
         "score_history": [
           60.6,
-          59.3,
-          58.3,
-          55.9,
+          59.1,
+          58.1,
+          55.5,
           45.0
         ],
         "score_delta_5y": -15.6,
@@ -31729,10 +31729,10 @@
           9882850000.0
         ],
         "roic_roe": [
-          0.4667,
-          0.2326,
-          0.2753,
-          0.1779,
+          0.4425,
+          0.2205,
+          0.261,
+          0.1687,
           0.0457
         ],
         "div_yield": [
@@ -31744,9 +31744,9 @@
         ],
         "score_history": [
           60.6,
-          59.3,
-          58.3,
-          55.9,
+          59.1,
+          58.1,
+          55.5,
           45.0
         ],
         "score_delta_5y": -15.6,
@@ -31918,10 +31918,10 @@
           11388000000.0
         ],
         "roic_roe": [
-          0.7479,
+          0.9349,
           -0.1989,
-          0.9898,
-          0.0316,
+          1.2373,
+          0.0396,
           0.0611
         ],
         "div_yield": [
@@ -31935,7 +31935,7 @@
           57.1,
           29.3,
           56.1,
-          42.3,
+          43.1,
           45.0
         ],
         "score_delta_5y": -12.1,
@@ -34376,9 +34376,9 @@
         ],
         "roic_roe": [
           -0.5,
-          0.0824,
-          0.315,
-          0.0391,
+          0.033,
+          0.126,
+          0.0156,
           0.0549
         ],
         "div_yield": [
@@ -34390,9 +34390,9 @@
         ],
         "score_history": [
           20.4,
-          39.0,
-          51.3,
-          35.7,
+          35.0,
+          45.1,
+          33.1,
           41.2
         ],
         "score_delta_5y": 20.8,
@@ -34564,10 +34564,10 @@
           1944760000.0
         ],
         "roic_roe": [
-          0.0546,
-          0.111,
-          0.0234,
-          0.1264,
+          0.0218,
+          0.0444,
+          0.0094,
+          0.0506,
           0.0244
         ],
         "div_yield": [
@@ -34578,15 +34578,15 @@
           0.2524
         ],
         "score_history": [
-          42.5,
-          48.2,
-          38.3,
-          49.4,
+          39.3,
+          43.0,
+          36.4,
+          43.5,
           40.8
         ],
-        "score_delta_5y": -1.7,
+        "score_delta_5y": 1.5,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (-1.7 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+1.5 pts)",
         "cagr_receita_pct": -14.2,
         "cagr_lucro_pct": 5.3,
         "cagr_patrimonio_pct": 0.4,
@@ -35523,15 +35523,15 @@
           0.0261
         ],
         "score_history": [
-          36.6,
-          38.4,
-          65.9,
-          59.0,
+          35.9,
+          38.2,
+          64.6,
+          59.8,
           38.4
         ],
-        "score_delta_5y": 1.8,
+        "score_delta_5y": 2.5,
         "score_trend_tag": "ESTAVEL",
-        "score_trend_label": "🛡️ Fosso Estável (+1.8 pts)",
+        "score_trend_label": "🛡️ Fosso Estável (+2.5 pts)",
         "cagr_receita_pct": -30.0,
         "cagr_lucro_pct": -15.0,
         "cagr_patrimonio_pct": 2.7,
@@ -36076,9 +36076,9 @@
           2026370000.0
         ],
         "roic_roe": [
-          0.2347,
-          0.1222,
-          0.1041,
+          0.0939,
+          0.0489,
+          0.0416,
           0.0102,
           0.0102
         ],
@@ -36090,15 +36090,15 @@
           0.0168
         ],
         "score_history": [
-          55.4,
-          49.2,
-          47.9,
+          47.5,
+          43.6,
+          43.0,
           37.3,
           37.1
         ],
-        "score_delta_5y": -18.3,
+        "score_delta_5y": -10.4,
         "score_trend_tag": "DETERIORACAO",
-        "score_trend_label": "🔴 Fosso em Erosão (-18.3 pts)",
+        "score_trend_label": "🔴 Fosso em Erosão (-10.4 pts)",
         "cagr_receita_pct": -12.3,
         "cagr_lucro_pct": -42.8,
         "cagr_patrimonio_pct": -2.2,
@@ -36644,9 +36644,9 @@
         ],
         "roic_roe": [
           -0.1217,
-          0.093,
+          0.1057,
           -0.0157,
-          0.104,
+          0.1182,
           0.0408
         ],
         "div_yield": [
@@ -36658,9 +36658,9 @@
         ],
         "score_history": [
           15.5,
-          35.7,
-          18.2,
           36.8,
+          18.2,
+          37.9,
           33.4
         ],
         "score_delta_5y": 17.9,
@@ -38156,8 +38156,8 @@
         ],
         "roic_roe": [
           0.0743,
-          0.1097,
-          0.0244,
+          0.0439,
+          0.0097,
           -0.242,
           0.0743
         ],
@@ -38170,8 +38170,8 @@
         ],
         "score_history": [
           19.9,
-          34.2,
-          21.0,
+          29.0,
+          19.0,
           10.0,
           25.2
         ],

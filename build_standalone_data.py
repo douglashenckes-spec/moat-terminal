@@ -131,8 +131,14 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
 
     if is_fin_init:
         roic_cur = float(row_dict.get("roe") or 0.15)
+        roic_to_roe_scale = 1.0
     else:
         roic_cur = float(row_dict.get("roic") if row_dict.get("roic") is not None else (row_dict.get("roe") or 0.12))
+        roe_cur = float(row_dict.get("roe") or roic_cur)
+        if roe_cur > 0.02 and roic_cur > 0:
+            roic_to_roe_scale = max(0.40, min(1.25, roic_cur / roe_cur))
+        else:
+            roic_to_roe_scale = 1.0
 
     # 5. Dividend Yield Atual, Cotação e Patrimônio Líquido Atual
     dy_cur = float(row_dict.get("div_yield") or 0.0)
@@ -197,10 +203,10 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
                 cur_margin = (lucro_ltm / rec_ltm) if rec_ltm > 0 else 0.10
                 lucro_val = rev_val * cur_margin
 
-            # ROE / ROIC contábil oficial arquivado
+            # ROE / ROIC contábil oficial arquivado (padronizado na mesma base ROIC/ROE de 2026)
             roe_real = yr_data.get("roe")
             if roe_real is not None:
-                roic_val = float(roe_real)
+                roic_val = float(roe_real) * (roic_to_roe_scale if float(roe_real) > 0 else 1.0)
             else:
                 roic_val = roic_cur
 
@@ -325,7 +331,11 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     cur_score = float(q.get("quality_score") or 50.0)
     r_2026 = roic_series[4]
     mrg_2026 = (lucro_series[4] / rev_series[4]) if rev_series[4] > 0 else 0.0
-    raw_rent_2026 = 0.75 * ((score_roic(r_2026) + score_roe(r_2026)) / 2.0) + 0.25 * score_mrg_liq(mrg_2026)
+    if is_fin_init:
+        use_fin_mrg = (0.10 <= mrg_2026 <= 0.80)
+        raw_rent_2026 = (0.85 * score_roe(r_2026) + 0.15 * score_mrg_liq(mrg_2026)) if use_fin_mrg else score_roe(r_2026)
+    else:
+        raw_rent_2026 = 0.75 * ((score_roic(r_2026) + score_roe(r_2026)) / 2.0) + 0.25 * score_mrg_liq(mrg_2026)
 
     score_series = []
     for idx in range(5):
@@ -334,7 +344,10 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         else:
             r_yr = roic_series[idx]
             mrg_yr = (lucro_series[idx] / rev_series[idx]) if rev_series[idx] > 0 else 0.0
-            raw_rent_yr = 0.75 * ((score_roic(r_yr) + score_roe(r_yr)) / 2.0) + 0.25 * score_mrg_liq(mrg_yr)
+            if is_fin_init:
+                raw_rent_yr = (0.85 * score_roe(r_yr) + 0.15 * score_mrg_liq(mrg_yr)) if (use_fin_mrg and 0.10 <= mrg_yr <= 0.80) else score_roe(r_yr)
+            else:
+                raw_rent_yr = 0.75 * ((score_roic(r_yr) + score_roe(r_yr)) / 2.0) + 0.25 * score_mrg_liq(mrg_yr)
             delta_rent = (raw_rent_yr - raw_rent_2026) * 0.75
 
             delta_sol = 0.0
