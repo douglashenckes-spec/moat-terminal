@@ -1392,10 +1392,10 @@
     }
   },
   "CSAN3": {
-    "cached_time": 1794669653.513912,
+    "cached_time": 1794708405.1687682,
     "data": {
       "ticker": "CSAN3",
-      "audit_timestamp": "14/11/2026 12:20:53",
+      "audit_timestamp": "14/11/2026 23:06:45",
       "audit_source": "Fundamentus (detalhes.php?papel=CSAN3)",
       "empresa": "COSAN SA INDUSTRIA E COMERCIO ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -1405,47 +1405,47 @@
       "min_52sem": 2.25,
       "max_52sem": 6.8,
       "valor_mercado": 12296400000.0,
-      "valor_firma": 59828500000.0,
+      "valor_firma": 61352600000.0,
       "nro_acoes": 3966570000.0,
-      "ult_balanco": "30/06/2026",
-      "ativo_total": 126694000000.0,
-      "disponibilidades": 13358000000.0,
-      "ativo_circulante": 31546400000.0,
-      "divida_bruta": 60890100000.0,
-      "divida_liquida": 47532200000.0,
-      "patrimonio_liquido": 4968460000.0,
-      "receita_liq_12m": 40083100000.0,
-      "ebit_12m": 9381520000.0,
-      "lucro_liq_12m": -8892040000.0,
-      "receita_liq_3m": 10775900000.0,
-      "ebit_3m": 2889850000.0,
-      "lucro_liq_3m": -320498000.0,
-      "lpa": -2.24,
-      "vpa": 1.25,
+      "ult_balanco": "30/09/2026",
+      "ativo_total": 129307000000.0,
+      "disponibilidades": 13448700000.0,
+      "ativo_circulante": 32903200000.0,
+      "divida_bruta": 62504900000.0,
+      "divida_liquida": 49056200000.0,
+      "patrimonio_liquido": 5168080000.0,
+      "receita_liq_12m": 40706400000.0,
+      "ebit_12m": 9678370000.0,
+      "lucro_liq_12m": -7517220000.0,
+      "receita_liq_3m": 11287500000.0,
+      "ebit_3m": 2884730000.0,
+      "lucro_liq_3m": 189636000.0,
+      "lpa": -1.9,
+      "vpa": 1.3,
       "raw_indicators": {
         "Indicadores fundamentalistas": "Indicadores fundamentalistas",
-        "P/L": "-1.38",
-        "LPA": "-2.24",
-        "P/VP": "2.47",
-        "VPA": "1.25",
-        "P/EBIT": "1.31",
+        "P/L": "-1.64",
+        "LPA": "-1.90",
+        "P/VP": "2.38",
+        "VPA": "1.30",
+        "P/EBIT": "1.27",
         "Marg. Bruta": "34,5%",
-        "PSR": "0.31",
-        "Marg. EBIT": "23,4%",
+        "PSR": "0.30",
+        "Marg. EBIT": "23,8%",
         "P/Ativos": "0.10",
-        "Marg. Líquida": "-22,1%",
-        "P/Cap. Giro": "0.97",
-        "EBIT / Ativo": "7,4%",
+        "Marg. Líquida": "-17,7%",
+        "P/Cap. Giro": "0.92",
+        "EBIT / Ativo": "7,5%",
         "P/Ativ Circ Liq": "-0.19",
-        "ROIC": "8,6%",
+        "ROIC": "8,7%",
         "Div. Yield": "0,0%",
-        "ROE": "-179,0%",
-        "EV / EBITDA": "4.51",
-        "Liquidez Corr": "1.67",
-        "EV / EBIT": "6.38",
-        "Dív Líq / Patrim": "9.57",
-        "Cres. Rec (5a)": "5,6%",
-        "Giro Ativos": "0.32"
+        "ROE": "-145,5%",
+        "EV / EBITDA": "4.49",
+        "Liquidez Corr": "1.69",
+        "EV / EBIT": "6.34",
+        "Dív Líq / Patrim": "9.49",
+        "Cres. Rec (5a)": "3,1%",
+        "Giro Ativos": "0.31"
       }
     }
   },
@@ -1682,10 +1682,10 @@
     }
   },
   "AZEV3": {
-    "cached_time": 1794669653.1112766,
+    "cached_time": 1794708405.6754034,
     "data": {
       "ticker": "AZEV3",
-      "audit_timestamp": "14/11/2026 12:20:53",
+      "audit_timestamp": "14/11/2026 23:06:45",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV3)",
       "empresa": "AZEVEDO & TRAVASSOS ON",
       "setor": "Construção e Engenharia",
@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1794669656.1532767,
+    "cached_time": 1794708407.1772695,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "14/11/2026 12:20:56",
+      "audit_timestamp": "14/11/2026 23:06:47",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -1914,10 +1914,10 @@
     }
   },
   "AZEV4": {
-    "cached_time": 1794669656.6888647,
+    "cached_time": 1794708407.677018,
     "data": {
       "ticker": "AZEV4",
-      "audit_timestamp": "14/11/2026 12:20:56",
+      "audit_timestamp": "14/11/2026 23:06:47",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV4)",
       "empresa": "AZEVEDO & TRAVASSOS PN",
       "setor": "Construção e Engenharia",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1794669657.629281,
+    "cached_time": 1794708408.6910346,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "14/11/2026 12:20:57",
+      "audit_timestamp": "14/11/2026 23:06:48",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1794669654.8231435,
+    "cached_time": 1794708406.173543,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "14/11/2026 12:20:54",
+      "audit_timestamp": "14/11/2026 23:06:46",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1794669657.2157364,
+    "cached_time": 1794708408.1931345,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "14/11/2026 12:20:57",
+      "audit_timestamp": "14/11/2026 23:06:48",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -3364,10 +3364,10 @@
     }
   },
   "MTRE3": {
-    "cached_time": 1794669667.3902144,
+    "cached_time": 1794708409.0970304,
     "data": {
       "ticker": "MTRE3",
-      "audit_timestamp": "14/11/2026 12:21:07",
+      "audit_timestamp": "14/11/2026 23:06:49",
       "audit_source": "Fundamentus (detalhes.php?papel=MTRE3)",
       "empresa": "MITRE REALTY ON NM",
       "setor": "Construção Civil",
@@ -9222,10 +9222,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1794669708.5597966,
+    "cached_time": 1794708409.6427305,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "14/11/2026 12:21:48",
+      "audit_timestamp": "14/11/2026 23:06:49",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
@@ -11542,10 +11542,10 @@
     }
   },
   "PTBL3": {
-    "cached_time": 1794669655.626573,
+    "cached_time": 1794708406.6860025,
     "data": {
       "ticker": "PTBL3",
-      "audit_timestamp": "14/11/2026 12:20:55",
+      "audit_timestamp": "14/11/2026 23:06:46",
       "audit_source": "Fundamentus (detalhes.php?papel=PTBL3)",
       "empresa": "PORTOBELLO S/A ON",
       "setor": "Construção e Engenharia",
