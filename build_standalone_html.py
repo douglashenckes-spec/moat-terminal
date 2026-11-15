@@ -1162,40 +1162,33 @@ html_template = f"""<!DOCTYPE html>
             <span class="text-slate-500 text-[10px]" id="cnt-NET_CASH">--</span>
           </button>
 
-          <!-- Seletor Rápido de Outras Categorias -->
+          <!-- Seletor Rápido de Outras Categorias (Organizado em 4 Pilares Institucionais) -->
           <div class="relative inline-flex items-center">
             <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
               <option value="" disabled selected>+ Mais Filtros...</option>
-              <option value="CAT_3T26">⚡ Safra 3T26 (Recém-Divulgados CVM)</option>
-              <option value="CAT_2T26">📄 Base 2T26 (Aguardando 3T26)</option>
-              <option value="CAT_MOAT_EXPANSION">📈 Fosso em Expansão (Score Subindo 5A)</option>
-              <option value="CAT_BOOK_COMPOUNDER">🏛️ Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)</option>
-              <option value="CAT_MOAT_EROSION">⚠️ Fosso em Erosão (Queda de Score 5A)</option>
-              <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
-              <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
-              <option value="CAT_CRITICAL_LEVERAGE">🚨 Risco Alavancagem (Balanço Pressionado)</option>
-              <option value="CAT_ELITE_COMPOUNDER">👑 Compounder Premium (Qualidade Extrema)</option>
-              <option value="CAT_STRONG_NET_CASH_EV">💎 Forte Caixa Líquido • Olhar EV/EBITDA</option>
-              <option value="CAT_CYCLICAL_CAPEX">🏭 Cíclico • Intensivo em Capex</option>
-              <option value="CAT_REAL_ESTATE_POC">🏗️ Contabilidade POC (Incorporadoras)</option>
-              <option value="CAT_HOLDING_DISCOUNT">🏛️ Holding • Desconto Estrutural</option>
-              <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão Trimestral)</option>
-              <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração Trimestral)</option>
-              <option value="CAT_NET_CASH">🛡️ Caixa Líquido (Dívida Zero)</option>
-              <option value="CAT_NET_CASH_STRUCT">🛡️ Caixa Líquido Estrutural</option>
-              <option value="CAT_HIGH_DEBT">🚨 Alavancagem Alta (Crítica > 2.5x)</option>
-              <option value="CAT_OP_POSITIVE_DEBT_PRESSURE">🏭 Operação Positiva • Pressão Fin.</option>
-              <option value="CAT_CLEAN_EARNINGS">💎 Lucro Limpo &amp; Recorrente</option>
-              <option value="CAT_HIGH_ROIC">🏰 Super ROIC (≥ 18%)</option>
-              <option value="CAT_GRAHAM">📐 Desconto Graham</option>
-              <option value="CAT_GRAHAM_ALERT">⚠️ Graham c/ Alerta</option>
-              <option value="CAT_BAZIN_ARMORED">🛡️ Bazin Blindado (DY ≥ 7% • Caixa Seguro)</option>
-              <option value="CAT_BAZIN">🎯 Referência Bazin</option>
-              <option value="CAT_BAZIN_WARNING">⚠️ Bazin (Atenção Payout)</option>
-              <option value="CAT_SPREAD_NTNB">📈 Prêmio Real sobre NTN-B</option>
-              <option value="CAT_ULTRA_CRITIC">🛡️ Máxima Solvência &amp; Resiliência</option>
-              <option value="QUAD_ABOVE">✨ Acima da Curva (Desconto Valuation)</option>
-              <option value="QUAD_BELOW">⚠️ Abaixo da Curva (Prêmio Valuation)</option>
+              <optgroup label="🏰 1. Qualidade &amp; Evolução do Fosso (Moat)">
+                <option value="CAT_BOOK_COMPOUNDER">🏛️ Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)</option>
+                <option value="CAT_MOAT_EXPANSION">📈 Fosso em Expansão (Score Subindo 5A)</option>
+                <option value="CAT_HIGH_ROIC">🏰 Super ROIC / ROE (≥ 18%)</option>
+                <option value="CAT_CLEAN_EARNINGS">💎 Lucro Limpo &amp; Recorrente (5/5 Anos)</option>
+                <option value="CAT_ULTRA_CRITIC">🛡️ Máxima Solvência &amp; Resiliência (Ultra-Crítico)</option>
+              </optgroup>
+              <optgroup label="📐 2. Valuation &amp; Assimetria de Preço">
+                <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
+                <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
+                <option value="CAT_GRAHAM">📐 Desconto Fórmula de Graham (Margem > 15%)</option>
+                <option value="CAT_SPREAD_NTNB">📈 Prêmio Real sobre NTN-B (+2% IPCA)</option>
+                <option value="CAT_STRONG_NET_CASH_EV">💎 Forte Caixa Líquido • Olhar EV/EBITDA</option>
+              </optgroup>
+              <optgroup label="⚡ 3. Renda Blindada &amp; Momento Operacional">
+                <option value="CAT_BAZIN_ARMORED">🛡️ Bazin Blindado (DY ≥ 7% • Caixa Seguro)</option>
+                <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão Trimestral > 15%)</option>
+              </optgroup>
+              <optgroup label="🚨 4. Alertas de Risco &amp; Red Flags">
+                <option value="CAT_MOAT_EROSION">⚠️ Fosso em Erosão (Queda de Score 5A)</option>
+                <option value="CAT_HIGH_DEBT">🚨 Alavancagem Crítica (Dívida Líq./EBITDA > 2,5x)</option>
+                <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração Trimestral)</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -3739,7 +3732,7 @@ html_template = f"""<!DOCTYPE html>
       return `Ativo com Score Fundamentalista de ${{scoreStr}} pts, ROIC/ROE de ${{roicStr}} e distribuição de dividendos estimada em ${{dyStr}}.`;
     }}
 
-    // DEFINIÇÕES METODOLÓGICAS DAS CATEGORIAS QUANTITATIVAS
+    // DEFINIÇÕES METODOLÓGICAS DAS CATEGORIAS QUANTITATIVAS PRINCIPAIS (CORE INSTITUCIONAL)
     const CATEGORY_DEFINITIONS = [
       {{
         id: 'CAT_TIER1',
@@ -3752,6 +3745,46 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Filtro quantitativo que conjuga retorno sustentável sobre o capital próprio/investido acima da taxa livre de risco com solidez de balanço e qualidade contábil no percentil 80+ da B3.'
       }},
       {{
+        id: 'CAT_BOOK_COMPOUNDER',
+        name: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
+        shortName: 'Acúmulo Patrimonial 5A',
+        icon: '🏛️',
+        color: 'teal',
+        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
+        description: 'Empresas com Score ≥ 65, 5 de 5 anos de lucro líquido positivo e expansão do Patrimônio Líquido (CAGR 5A) ≥ 8,0% ao ano.',
+        rationale: 'Efeito Bola de Neve (Book Value Compounders): retenção disciplinada de lucros reinvestidos em projetos de alto retorno que expandem o valor intrínseco patrimonial ano após ano.'
+      }},
+      {{
+        id: 'CAT_MOAT_EXPANSION',
+        name: 'Fosso em Expansão (Score Subindo 5A)',
+        shortName: 'Fosso em Expansão 5A',
+        icon: '📈',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Empresas de qualidade (Score ≥ 65) cujo Moat Quality Score subiu +3,0 pontos ou mais entre 2022 e 2026 com lucro líquido positivo.',
+        rationale: 'Identifica negócios cujas vantagens competitivas, retorno sobre capital investido (ROIC/ROE) e estrutura de balanço estão se fortalecendo estruturalmente ao longo do tempo.'
+      }},
+      {{
+        id: 'CAT_HIGH_ROIC',
+        name: 'Super ROIC / ROE (≥ 18%)',
+        shortName: 'Super ROIC',
+        icon: '🏰',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Retorno sobre o Capital Investido (ou ROE para financeiras) ≥ 18%, sinalizando fossos econômicos profundos e capacidade de reinvestimento.',
+        rationale: 'Medida direta de eficiência de alocação de capital e barreira de entrada intransponível contra concorrentes.'
+      }},
+      {{
+        id: 'CAT_CLEAN_EARNINGS',
+        name: 'Lucro Limpo & Recorrente (5/5 Anos)',
+        shortName: 'Lucro Limpo',
+        icon: '💎',
+        color: 'teal',
+        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
+        description: 'Histórico auditado de 5 anos consecutivos sem qualquer exercício de prejuízo líquido e sem distorções contábeis não-recorrentes.',
+        rationale: 'Filtro de resiliência e perenidade: empresas que atravessam oscilações do PIB e ciclos de juros preservando ininterruptamente o capital dos acionistas.'
+      }},
+      {{
         id: 'CAT_NET_CASH',
         name: 'Caixa Líquido (Dívida Zero)',
         shortName: 'Caixa Líquido',
@@ -3762,73 +3795,13 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Critério estritamente contábil de solvência máxima: risco de liquidez e solvência virtualmente nulo no curto e médio prazo, imunes ao ciclo restritivo da taxa Selic.'
       }},
       {{
-        id: 'CAT_NET_CASH_STRUCT',
-        name: 'Caixa Líquido Estrutural (ROIC > ROE)',
-        shortName: 'Caixa Líq. Estrutural',
-        icon: '🛡️',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas sem endividamento bancário líquido cujo ROIC supera o ROE em mais de 3 p.p., comprovando rentabilidade pura do negócio central.',
-        rationale: 'O caixa líquido dilui aritmeticamente o ROE contábil, mas o ROIC elevado atesta a altíssima produtividade do capital investido na operação.'
-      }},
-      {{
-        id: 'CAT_3T26',
-        name: 'Safra 3T26 (Recém-Divulgados CVM)',
-        shortName: 'Safra 3T26',
-        icon: '⚡',
-        color: 'teal',
-        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
-        description: 'Companhias abertas que já publicaram os resultados auditados do 3T26 perante a CVM na temporada atual.',
-        rationale: 'Permite acompanhar em tempo real as empresas que inauguraram a temporada de resultados do terceiro trimestre com dados atualizados.'
-      }},
-      {{
-        id: 'CAT_2T26',
-        name: 'Base 2T26 (Aguardando 3T26)',
-        shortName: 'Base 2T26',
-        icon: '📄',
-        color: 'slate',
-        badgeClass: 'bg-slate-50 text-slate-950 border border-slate-300',
-        description: 'Companhias com balanço vigente do 2T26 dentro do calendário CVM aguardando a divulgação do 3T26.',
-        rationale: 'Universo de empresas ainda respaldado pelo 2T26 sem atrasos regulatórios.'
-      }},
-      {{
-        id: 'CAT_EXPANSION',
-        name: 'Lucro Acelerando (Expansão Trimestral)',
-        shortName: 'Lucro Acelerando',
-        icon: '⚡',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas cujo lucro líquido anualizado do trimestre mais recente (Run-Rate) supera em mais de 15% a média dos últimos 12 meses acumulados.',
-        rationale: 'Rastreador de aceleração operacional recente: identifica momento contábil positivo, expansão de margens e alavancagem operacional antes da reprecificação total pelo consenso.'
-      }},
-      {{
-        id: 'CAT_DIVIDENDS',
-        name: 'Dividendos Consistentes (> 6%)',
-        shortName: 'Dividendos > 6%',
-        icon: '💰',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Dividend Yield ≥ 6,0% com Moat Score ≥ 62, ROE ≥ 10% e Payout Sustentável (entre 30% e 88%), sem comprometer o fluxo de caixa.',
-        rationale: 'Filtro rigoroso de proventos consistentes: seleciona pagadoras estruturais com ROE saudável e afasta empresas que distribuem dividendos artificiais via alavancagem ou one-offs.'
-      }},
-      {{
-        id: 'CAT_BAZIN_ARMORED',
-        name: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
-        shortName: 'Bazin Blindado',
-        icon: '🛡️',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
-        description: 'Dividend Yield ≥ 7,0% aliado a Payout ≤ 85% e estrutura financeira confortável (Caixa Líquido ou Dívida Líq./EBITDA ≤ 2,2x).',
-        rationale: 'Filtragem máxima de renda passiva: proventos elevados respaldados por lucros recorrentes e balanço conservador, sem risco iminente de corte nos proventos.'
-      }},
-      {{
         id: 'CAT_DISCOUNT',
         name: 'Múltiplos Atrativos (P/L ≤ 11x)',
         shortName: 'Múltiplos Atrativos',
         icon: '🟢',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
-        description: 'Empresas negociando com P/L ≤ 11,0x e posicionadas na zona de desconto da curva de referência Munger (Acima da Curva).',
+        description: 'Empresas negociando com P/L ≤ 11,0x e posicionadas na zona de desconto da curva de referência Munger (Abaixo da Curva Justa).',
         rationale: 'Múltiplos comprimidos em termos absolutos e relativos, oferecendo expressivo desconto frente à qualidade dos lucros e ao custo de oportunidade da economia.'
       }},
       {{
@@ -3852,36 +3825,6 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Modelo clássico de Value Investing: identifica ativos negociando abaixo do valor intrínseco resultante da combinação ponderada entre lucro por ação e patrimônio líquido auditado.'
       }},
       {{
-        id: 'CAT_GRAHAM_ALERT',
-        name: 'Graham c/ Alerta (Possível Não-Recorrente)',
-        shortName: 'Graham c/ Alerta',
-        icon: '⚠️',
-        color: 'amber',
-        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
-        description: 'Ativos que cumprem o desconto de Graham (> 15%), mas possuem ROE muito maior que o ROIC com rentabilidade modesta ou P/L excessivamente comprimido com baixo Score.',
-        rationale: 'Trava de segurança quantitativa contra falsos positivos inflados por alavancagem financeira ou lucros contábeis pontuais.'
-      }},
-      {{
-        id: 'CAT_BAZIN',
-        name: 'Referência Décio Bazin',
-        shortName: 'Referência Bazin',
-        icon: '🎯',
-        color: 'sky',
-        badgeClass: 'bg-sky-50 text-sky-950 border border-sky-300',
-        description: 'Cotação de mercado abaixo da referência teórica Bazin (Proventos / 0,06) com margem de segurança de pelo menos 15%.',
-        rationale: 'Metodologia tradicional brasileira de seleção por fluxo de dividendos com taxa de retorno teórica de 6,0% a.a. em proventos.'
-      }},
-      {{
-        id: 'CAT_BAZIN_WARNING',
-        name: 'Yield Alto • Atenção ao Payout',
-        shortName: 'Atenção Payout',
-        icon: '⚠️',
-        color: 'amber',
-        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
-        description: 'Dividend Yield de Bazin ≥ 6%, porém associado a Payout superior a 95% ou alavancagem financeira elevada (> 3,0x EBITDA).',
-        rationale: 'Alerta de sustentabilidade de proventos: fluxos de dividendos gerados com alavancagem ou sem retenção de lucros apresentam alto risco de corte futuro.'
-      }},
-      {{
         id: 'CAT_SPREAD_NTNB',
         name: 'Prêmio Real sobre NTN-B',
         shortName: 'Prêmio Real',
@@ -3892,144 +3835,44 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Régua de custo de oportunidade de Charlie Munger: o rendimento operacional dos lucros da empresa supera com folga a taxa real do título soberano livre de risco.'
       }},
       {{
-        id: 'CAT_BALANCED_DEBT',
-        name: 'Dívida Equilibrada',
-        shortName: 'Dívida Ok',
-        icon: '⚖️',
-        color: 'slate',
-        badgeClass: 'bg-slate-100 text-slate-800 border border-slate-300',
-        description: 'Empresas com relação Dívida Líquida / EBITDA ≤ 1,8x, com estrutura de capital conservadora e passivos controlados.',
-        rationale: 'Garante que os ativos possuam passivo financeiro plenamente amortizável em menos de 2 anos de geração operacional de EBITDA.'
-      }},
-      {{
-        id: 'CAT_CLEAN_EARNINGS',
-        name: 'Lucro Limpo & Recorrente',
-        shortName: 'Lucro Limpo',
-        icon: '💎',
-        color: 'teal',
-        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
-        description: 'Histórico auditado de 5 anos consecutivos sem qualquer trimestre de prejuízo líquido e sem distorções contábeis não-recorrentes.',
-        rationale: 'Filtro de resiliência e perenidade: empresas que atravessam oscilações do PIB e ciclos de juros preservando ininterruptamente o capital dos acionistas.'
-      }},
-      {{
-        id: 'CAT_HIGH_ROIC',
-        name: 'Super ROIC (≥ 18%)',
-        shortName: 'Super ROIC',
-        icon: '🏰',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Retorno sobre o Capital Investido ≥ 18%, sinalizando fossos econômicos profundos e capacidade de reinvestimento.',
-        rationale: 'Medida direta de eficiência de alocação de capital e barreira de entrada intransponível contra concorrentes.'
-      }},
-      {{
-        id: 'CAT_DECELERATION',
-        name: 'Lucro em Retração (Desaceleração Trimestral)',
-        shortName: 'Lucro em Retração',
-        icon: '⚠️',
-        color: 'amber',
-        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
-        description: 'Empresas cujo lucro trimestral recente anualizado está 20% ou mais abaixo do lucro acumulado nos últimos 12 meses.',
-        rationale: 'Sinalizador preventivo de arrefecimento operacional ou pressão em margens que pode demandar cautela adicional.'
-      }},
-      {{
-        id: 'CAT_HIGH_DEBT',
-        name: 'Alavancagem Alta (Crítica > 2.5x)',
-        shortName: 'Alavancagem Alta',
-        icon: '🚨',
-        color: 'rose',
-        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
-        description: 'Empresas não-financeiras com Dívida Líquida / EBITDA superior a 2,5x em ambiente de taxas de juros elevadas.',
-        rationale: 'Marcador de risco de solvência: despesas financeiras absorvem fatia relevante do resultado operacional, comprimindo o lucro líquido.'
-      }},
-      {{
-        id: 'CAT_OP_POSITIVE_DEBT_PRESSURE',
-        name: 'Operação Positiva • Pressão Financeira',
-        shortName: 'Operação Positiva • Pressão Fin.',
-        icon: '🏭',
-        color: 'amber',
-        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
-        description: 'Negócio operacionalmente rentável (ROIC ≥ 8% e EV/EBITDA ≤ 10x), mas com prejuízo contábil no período decorrente de custo da dívida ou resultado financeiro.',
-        rationale: 'Diagnóstico de pressão de juros: a operação industrial ou comercial gera resultado positivo, mas as despesas financeiras absorvem o lucro líquido dos acionistas.'
-      }},
-      {{
-        id: 'CAT_CRITICAL_LEVERAGE',
-        name: 'Risco de Alavancagem • Pressão no Balanço',
-        shortName: 'Risco Alavancagem',
-        icon: '🚨',
-        color: 'rose',
-        badgeClass: 'bg-rose-100 text-rose-950 border border-rose-300 font-bold',
-        description: 'Empresas com Dívida Líquida / EBITDA ≥ 3,5x ou ≥ 2,5x associada a prejuízo líquido (ROE < 0 ou P/L < 0). Score limitado a 45 pts.',
-        rationale: 'Alerta preventivo institucional: em cenários de juros restritivos, o serviço da dívida absorve o fluxo operacional e destrói valor para o acionista.'
-      }},
-      {{
-        id: 'CAT_ELITE_COMPOUNDER',
-        name: 'Compounder Premium • Qualidade Extrema',
-        shortName: 'Compounder Premium',
-        icon: '👑',
-        color: 'purple',
-        badgeClass: 'bg-purple-50 text-purple-950 border border-purple-300',
-        description: 'Score ≥ 82, ROIC ≥ 20%, balanço desavancado ou caixa líquido e P/L > 20x. Empresas de qualidade suprema e forte poder de reinvestimento.',
-        rationale: 'Modelo GARP (Growth at a Reasonable Price): negócios com fossos econômicos profundos raramente negociam com múltiplos baixos de Graham.'
-      }},
-      {{
         id: 'CAT_STRONG_NET_CASH_EV',
         name: 'Forte Caixa Líquido • Olhar EV/EBITDA',
         shortName: 'Caixa Forte • EV/EBITDA',
         icon: '💎',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Caixa Líquido ou Disponibilidades representam fatia relevante do Market Cap (> 15%) ou EV/EBITDA ≤ 4,5x com dívida líquida negativa.',
+        description: 'Caixa Líquido ou Disponibilidades representam fatia relevante do Market Cap (> 15%) ou EV/EBITDA ≤ 6,0x com dívida líquida negativa.',
         rationale: 'O P/L tradicional sobretaxa o valor do ativo ao desconsiderar a montanha de caixa desocupada. EV/EBITDA e EV/EBIT revelam a real barganha operacional.'
       }},
       {{
-        id: 'CAT_CYCLICAL_CAPEX',
-        name: 'Negócio Cíclico / Intensivo em Capex',
-        shortName: 'Cíclico • Capex',
-        icon: '🏭',
-        color: 'slate',
-        badgeClass: 'bg-slate-100 text-slate-800 border border-slate-300',
-        description: 'Setores de commodities minerais, petróleo, siderurgia e maquinário industrial pesado sujeitos a ciclos internacionais de preços.',
-        rationale: 'Avaliação de ciclo econômico: múltiplos P/L baixos no topo do ciclo e altos no fundo exigem análise dos lucros médios de meio de ciclo (mid-cycle).'
-      }},
-      {{
-        id: 'CAT_REAL_ESTATE_POC',
-        name: 'Contabilidade POC • Ciclo Imobiliário',
-        shortName: 'Contabilidade POC',
-        icon: '🏗️',
-        color: 'indigo',
-        badgeClass: 'bg-indigo-50 text-indigo-950 border border-indigo-200',
-        description: 'Incorporadoras residenciais operando sob a norma contábil POC (Percentage of Completion), onde o lucro é apropriado conforme a evolução física das obras.',
-        rationale: 'Exige diferenciar caixa de recebíveis de clientes e repasses bancários (SFH/CRI) de endividamento corporativo estrutural de curto prazo.'
-      }},
-      {{
-        id: 'CAT_HOLDING_DISCOUNT',
-        name: 'Holding • Desconto Estrutural',
-        shortName: 'Holding • Desconto Estrutural',
-        icon: '🏛️',
-        color: 'purple',
-        badgeClass: 'bg-purple-50 text-purple-950 border border-purple-200',
-        description: 'Veículos de investimento e holdings puras que negociam historicamente com desconto em relação ao valor de mercado líquido de suas investidas (NAV).',
-        rationale: 'Desconto de governança e tributação de dividendos intermediários que costuma criar assimetrias recorrentes para o investidor fundamentalista.'
-      }},
-      {{
-        id: 'CAT_MOAT_EXPANSION',
-        name: 'Fosso em Expansão (Score Subindo 5A)',
-        shortName: 'Fosso em Expansão 5A',
-        icon: '📈',
+        id: 'CAT_DIVIDENDS',
+        name: 'Dividendos Consistentes (> 6%)',
+        shortName: 'Dividendos > 6%',
+        icon: '💰',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas de qualidade (Score ≥ 65) cujo Moat Quality Score subiu +3,0 pontos ou mais entre 2022 e 2026 com lucro líquido positivo.',
-        rationale: 'Identifica negócios cujas vantagens competitivas, retorno sobre capital investido (ROIC/ROE) e estrutura de balanço estão se fortalecendo estruturalmente ao longo do tempo.'
+        description: 'Dividend Yield ≥ 6,0% com lucro positivo, ROE saudável e Payout sustentável (≤ 105%), sem comprometer o fluxo de caixa.',
+        rationale: 'Filtro rigoroso de proventos consistentes: seleciona pagadoras estruturais com ROE saudável e afasta empresas que distribuem dividendos em prejuízo.'
       }},
       {{
-        id: 'CAT_BOOK_COMPOUNDER',
-        name: 'Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)',
-        shortName: 'Acúmulo Patrimonial 5A',
-        icon: '🏛️',
-        color: 'teal',
-        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300',
-        description: 'Empresas com Score ≥ 65, 5 de 5 anos de lucro líquido positivo e expansão do Patrimônio Líquido (CAGR 5A) ≥ 8,0% ao ano.',
-        rationale: 'Efeito Bola de Neve (Book Value Compounders): retenção disciplinada de lucros reinvestidos em projetos de alto retorno que expandem o valor intrínseco patrimonial ano após ano.'
+        id: 'CAT_BAZIN_ARMORED',
+        name: 'Bazin Blindado (DY ≥ 7% • Caixa Seguro)',
+        shortName: 'Bazin Blindado',
+        icon: '🛡️',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
+        description: 'Dividend Yield ≥ 7,0% aliado a Payout ≤ 85% e estrutura financeira confortável (Caixa Líquido ou Dívida Líq./EBITDA ≤ 2,2x).',
+        rationale: 'Filtragem máxima de renda passiva: proventos elevados respaldados por lucros recorrentes e balanço conservador, sem risco iminente de corte nos proventos.'
+      }},
+      {{
+        id: 'CAT_EXPANSION',
+        name: 'Lucro Acelerando (Expansão Trimestral)',
+        shortName: 'Lucro Acelerando',
+        icon: '⚡',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
+        description: 'Empresas cujo lucro líquido anualizado do trimestre mais recente (Run-Rate) supera em mais de 15% a média dos últimos 12 meses acumulados.',
+        rationale: 'Rastreador de aceleração operacional recente: identifica momento contábil positivo, expansão de margens e alavancagem operacional antes da reprecificação total pelo consenso.'
       }},
       {{
         id: 'CAT_MOAT_EROSION',
@@ -4040,6 +3883,26 @@ html_template = f"""<!DOCTYPE html>
         badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
         description: 'Companhias cujo Moat Quality Score sofreu retração de 4,0 pontos ou mais nos últimos 5 anos (2022–2026).',
         rationale: 'Filtro de controle de risco (Value Trap Prevention): alerta quando uma empresa historicamente rentável sofre perda gradual de retorno sobre capital ou aumento de pressão financeira.'
+      }},
+      {{
+        id: 'CAT_HIGH_DEBT',
+        name: 'Alavancagem Crítica (Dívida > 2,5x EBITDA)',
+        shortName: 'Alavancagem Alta',
+        icon: '🚨',
+        color: 'rose',
+        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
+        description: 'Empresas não-financeiras com Dívida Líquida / EBITDA superior a 2,5x em ambiente de taxas de juros elevadas.',
+        rationale: 'Marcador de risco de solvência: despesas financeiras absorvem fatia relevante do resultado operacional, comprimindo o lucro líquido.'
+      }},
+      {{
+        id: 'CAT_DECELERATION',
+        name: 'Lucro em Retração (Desaceleração Trimestral)',
+        shortName: 'Lucro em Retração',
+        icon: '⚠️',
+        color: 'amber',
+        badgeClass: 'bg-amber-50 text-amber-950 border border-amber-300',
+        description: 'Empresas cujo lucro trimestral recente anualizado está 20% ou mais abaixo do lucro acumulado nos últimos 12 meses.',
+        rationale: 'Sinalizador preventivo de arrefecimento operacional ou pressão em margens que pode demandar cautela adicional.'
       }}
     ];
 
