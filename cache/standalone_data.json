@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "16/11/2026 15:54:36",
+  "audit_timestamp": "16/11/2026 20:51:39",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 211,
@@ -8777,7 +8777,7 @@
       ],
       "details": {
         "ticker": "CLSC4",
-        "audit_timestamp": "15/11/2026 16:35:32",
+        "audit_timestamp": "16/11/2026 20:51:41",
         "audit_source": "Fundamentus (detalhes.php?papel=CLSC4)",
         "empresa": "CELESC PN N2",
         "setor": "Energia Elétrica",
@@ -37316,7 +37316,7 @@
       ],
       "details": {
         "ticker": "CSAN3",
-        "audit_timestamp": "15/11/2026 16:35:31",
+        "audit_timestamp": "16/11/2026 20:51:40",
         "audit_source": "Fundamentus (detalhes.php?papel=CSAN3)",
         "empresa": "COSAN SA INDUSTRIA E COMERCIO ON",
         "setor": "Petróleo, Gás e Biocombustíveis",

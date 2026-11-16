@@ -1392,10 +1392,10 @@
     }
   },
   "CSAN3": {
-    "cached_time": 1794771331.53873,
+    "cached_time": 1794873100.8068984,
     "data": {
       "ticker": "CSAN3",
-      "audit_timestamp": "15/11/2026 16:35:31",
+      "audit_timestamp": "16/11/2026 20:51:40",
       "audit_source": "Fundamentus (detalhes.php?papel=CSAN3)",
       "empresa": "COSAN SA INDUSTRIA E COMERCIO ON",
       "setor": "Petróleo, Gás e Biocombustíveis",
@@ -11658,10 +11658,10 @@
     }
   },
   "CLSC4": {
-    "cached_time": 1794771332.0318825,
+    "cached_time": 1794873101.4954126,
     "data": {
       "ticker": "CLSC4",
-      "audit_timestamp": "15/11/2026 16:35:32",
+      "audit_timestamp": "16/11/2026 20:51:41",
       "audit_source": "Fundamentus (detalhes.php?papel=CLSC4)",
       "empresa": "CELESC PN N2",
       "setor": "Energia Elétrica",
