@@ -1086,7 +1086,7 @@ def generate_acoes_directory(stocks, base_dir, today_str):
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
         <div class="space-y-1">
           <span class="text-xs font-mono font-bold uppercase tracking-wider text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-2.5 py-0.5 rounded-full inline-block">
-            Base CVM 2T26 Auditada
+            Base CVM 3T26 Auditada
           </span>
           <h1 class="text-2xl sm:text-4xl font-bold font-editorial text-slate-900">
             Ações da B3: Diretório Completo de Empresas e Setores
@@ -1751,8 +1751,6 @@ def build_programmatic_seo():
         </div>
       </div>
 
-      {decomposition_html}
-
       {badges_html}
 """
 
@@ -1942,43 +1940,11 @@ def build_programmatic_seo():
         special_balance_note = "\n".join(special_notes)
 
         editorial_section_html = f"""
-    <!-- SEÇÃO EDITORIAL PRE-RENDERIZADA: VEREDITO QUANTITATIVO & PARES SETORIAIS -->
-    <section class="mt-8 pt-8 border-t border-slate-200 space-y-6">
-      
-      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-bold font-editorial text-slate-900">
-              Veredito de Valuation &amp; Análise de {empresa} ({ticker})
-            </h2>
-            <p class="text-xs sm:text-sm text-slate-500 font-sans mt-0.5">
-              Consolidação analítica baseada em demonstrativos contábeis oficiais auditados (CVM {tri_balanco}).
-            </p>
-          </div>
-          <a href="/acoes/" class="text-xs font-mono font-bold text-[#004B49] bg-[#E6F4F1] border border-[#BCE5DC] px-3 py-1.5 rounded-xl hover:bg-[#DCF0EC] transition flex items-center gap-1.5">
-            <span>← Ver Todas as Empresas</span>
-          </a>
-        </div>
-
-        {special_balance_note}
-
-        <!-- Comparativo com Concorrentes do Setor -->
-        <div class="space-y-3 pt-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-mono font-bold text-slate-900 uppercase">
-              Concorrentes Diretos no Setor de {setor}
-            </h3>
-            <span class="text-xs font-sans text-slate-500">Pares comparativos da B3</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {peers_cards_joined}
-          </div>
-        </div>
-
-      </div>
-
+    <!-- NOTAS ESPECIAIS DE CONTEXTO SETORIAL & ESTRUTURA DE CAPITAL -->
+    <section class="mt-6 space-y-4">
+      {special_balance_note}
     </section>
-"""
+""" if special_balance_note.strip() else ""
 
         # Pre-rendered FAQ Accordion HTML (Recolhido com tags semânticas para Google e IA)
         faq_section_html = f"""
