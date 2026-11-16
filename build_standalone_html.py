@@ -936,6 +936,10 @@ html_template = f"""<!DOCTYPE html>
           <button id="mqf-TIER1" onclick="setMatrixQuickFilter('TIER1')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
             🏆 Apenas Tier 1 (Score ≥ 80)
           </button>
+
+          <button id="mqf-TIER1_2" onclick="setMatrixQuickFilter('TIER1_2')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
+            🛡️ Tier 1 &amp; 2 (Score ≥ 65)
+          </button>
           
           <button id="mqf-BELOW_NTNB" onclick="setMatrixQuickFilter('BELOW_NTNB')" class="matrix-qbtn px-2.5 py-1 rounded-lg border text-xs font-semibold transition cursor-pointer bg-white text-slate-800 border-slate-300 hover:bg-slate-100 shadow-2xs">
             📉 Abaixo da NTN-B (P/L ≤ 15,4x)
@@ -4599,6 +4603,8 @@ html_template = f"""<!DOCTYPE html>
         baseStocks = baseStocks.filter(s => (s.quality_score || 0) >= 80.0 && (isPl ? (s.pl !== null && s.pl > 0 && s.pl <= limiarValuation) : (s.earnings_yield_pct >= 6.5)));
       }} else if (matrixQuickQuadrant === 'TIER1') {{
         baseStocks = baseStocks.filter(s => (s.quality_score || 0) >= 80.0);
+      }} else if (matrixQuickQuadrant === 'TIER1_2') {{
+        baseStocks = baseStocks.filter(s => (s.quality_score || 0) >= 65.0);
       }} else if (matrixQuickQuadrant === 'BELOW_NTNB') {{
         baseStocks = baseStocks.filter(s => (isPl ? (s.pl !== null && s.pl > 0 && s.pl <= limiarValuation) : (s.earnings_yield_pct >= 6.5)));
       }}
@@ -4672,8 +4678,12 @@ html_template = f"""<!DOCTYPE html>
         return 7.5;
       }}
 
-      // Limiares dos 4 Quadrantes Estratégicos 2x2 (Tier 1: 80 pts | NTN-B: 6,5% a.a. / 15,38x)
+      // Limiares dos 4 Quadrantes Estratégicos 2x2 e dos 4 Tiers de Qualidade (80 / 65 / 50 pts | NTN-B: 6,5% a.a. / 15,38x)
       const yCross = scaleY(limiarQuality);
+      const yTier2 = scaleY(65.0);
+      const yTier3 = scaleY(50.0);
+      const yTopBand = scaleY(105.0);
+      const yBotBand = scaleY(0.0);
       const xCross = scaleX(limiarValuation);
 
       // Estrutura SVG com ClipPath para que o Zoom & Pan nunca transborde os eixos
@@ -4686,19 +4696,41 @@ html_template = f"""<!DOCTYPE html>
 
         <!-- ÁREA DO GRÁFICO RESTRITA PELO CLIPPATH -->
         <g clip-path="url(#matrixPlotArea)">
-          <!-- Camada de Fundo, Cortes e Watermarks -->
+          <!-- Camada de Fundo, Faixas dos 4 Tiers, Cortes e Watermarks -->
           <g id="matrixBackgroundLayer">
             <!-- Fundo Branco Base Clean -->
             <rect x="${{padL - 3000}}" y="${{padT - 3000}}" width="6000" height="6000" fill="#FFFFFF" />
 
-            <!-- Linhas Divisórias dos 4 Quadrantes 2x2 com Cortes NTN-B & Tier 1 -->
-            <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.8" />
+            <!-- Faixas Horizontais Sutis dos 4 Tiers de Qualidade -->
+            <rect x="${{padL}}" y="${{Math.min(yTopBand, yCross)}}" width="${{innerW}}" height="${{Math.max(0, Math.abs(yCross - yTopBand))}}" fill="#ECFDF5" opacity="0.42" />
+            <rect x="${{padL}}" y="${{Math.min(yCross, yTier2)}}" width="${{innerW}}" height="${{Math.max(0, Math.abs(yTier2 - yCross))}}" fill="#F0FDFA" opacity="0.45" />
+            <rect x="${{padL}}" y="${{Math.min(yTier2, yTier3)}}" width="${{innerW}}" height="${{Math.max(0, Math.abs(yTier3 - yTier2))}}" fill="#FFFBEB" opacity="0.32" />
+            <rect x="${{padL}}" y="${{Math.min(yTier3, yBotBand)}}" width="${{innerW}}" height="${{Math.max(0, Math.abs(yBotBand - yTier3))}}" fill="#FFF1F2" opacity="0.38" />
+
+            <!-- Linhas Divisórias dos 4 Tiers (80, 65 e 50 pts) & Corte Vertical NTN-B -->
+            <line x1="${{padL}}" y1="${{yCross}}" x2="${{padL + innerW}}" y2="${{yCross}}" stroke="#059669" stroke-width="2" stroke-dasharray="6,4" opacity="0.85" />
+            <line x1="${{padL}}" y1="${{yTier2}}" x2="${{padL + innerW}}" y2="${{yTier2}}" stroke="#0D9488" stroke-width="1.6" stroke-dasharray="5,4" opacity="0.75" />
+            <line x1="${{padL}}" y1="${{yTier3}}" x2="${{padL + innerW}}" y2="${{yTier3}}" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.75" />
             <line x1="${{xCross}}" y1="${{padT}}" x2="${{xCross}}" y2="${{padT + innerH}}" stroke="#0284C7" stroke-width="2" stroke-dasharray="6,4" opacity="0.75" />
 
-            <!-- Badges Visuais nos Cortes NTN-B e Tier 1 -->
+            <!-- Badges Visuais nos Cortes Tier 1 (80), Tier 2 (65), Tier 3 (50), Tier 4 (<50) e NTN-B -->
             <g class="pointer-events-none select-none">
-              <rect x="${{padL + 12}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11))}}" width="180" height="22" rx="4" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1" />
-              <text x="${{padL + 18}}" y="${{Math.max(padT + 4, Math.min(padT + innerH - 24, yCross - 11)) + 15}}" fill="#065F46" font-size="11" font-family="JetBrains Mono" font-weight="800">Corte Tier 1: Moat ≥ 80 pts</text>
+              ${{yCross >= padT + 10 && yCross <= padT + innerH - 10 ? `
+                <rect x="${{padL + 12}}" y="${{yCross - 11}}" width="218" height="21" rx="4" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1" />
+                <text x="${{padL + 18}}" y="${{yCross + 3.5}}" fill="#065F46" font-size="10.5" font-family="JetBrains Mono" font-weight="800">🏆 Corte Tier 1: Wide Moat (≥ 80 pts)</text>
+              ` : ''}}
+
+              ${{yTier2 >= padT + 10 && yTier2 <= padT + innerH - 10 ? `
+                <rect x="${{padL + 12}}" y="${{yTier2 - 11}}" width="246" height="21" rx="4" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1" />
+                <text x="${{padL + 18}}" y="${{yTier2 + 3.5}}" fill="#0F766E" font-size="10.5" font-family="JetBrains Mono" font-weight="800">🛡️ Corte Tier 2: Empresa Sólida (≥ 65 pts)</text>
+              ` : ''}}
+
+              ${{yTier3 >= padT + 10 && yTier3 <= padT + innerH - 10 ? `
+                <rect x="${{padL + 12}}" y="${{yTier3 - 22}}" width="252" height="20" rx="4" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1" />
+                <text x="${{padL + 18}}" y="${{yTier3 - 8.5}}" fill="#B45309" font-size="10" font-family="JetBrains Mono" font-weight="800">⚖️ Tier 3: Sensível ao Ciclo (50 a 64,9 pts)</text>
+                <rect x="${{padL + 12}}" y="${{yTier3 + 2}}" width="252" height="20" rx="4" fill="#FFF1F2" stroke="#FECDD3" stroke-width="1" />
+                <text x="${{padL + 18}}" y="${{yTier3 + 15.5}}" fill="#BE123C" font-size="10" font-family="JetBrains Mono" font-weight="800">🚨 Tier 4: Risco / Fragilidade (&lt; 50 pts)</text>
+              ` : ''}}
 
               <rect x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97))}}" y="${{padT + innerH - 26}}" width="195" height="22" rx="4" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
               <text x="${{Math.max(padL + 4, Math.min(padL + innerW - 195, xCross - 97)) + 97}}" y="${{padT + innerH - 11}}" text-anchor="middle" fill="#0369A1" font-size="10.5" font-family="JetBrains Mono" font-weight="800">Corte NTN-B: 6,5% | P/L 15,4x</text>
@@ -4752,15 +4784,19 @@ html_template = f"""<!DOCTYPE html>
       `;
 
       // Gerar Grid Ticks dinâmicos
-      // Y Ticks (Quality Score: 20 a 100)
-      const yTickVals = [20, 30, 40, 50, 60, 70, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
+      // Y Ticks (Quality Score: 20 a 100, incluindo corte 65 do Tier 2)
+      const yTickVals = [20, 30, 40, 50, 60, 65, 70, 80, 90, 100].filter(v => v >= curYMin - 2 && v <= curYMax + 2);
       yTickVals.forEach(v => {{
         const ty = scaleY(v);
         if (ty >= padT && ty <= padT + innerH) {{
-          const isLimiar = (v === 80);
+          const isTier1 = (v === 80);
+          const isTier2 = (v === 65);
+          const isTier3 = (v === 50);
+          const isTierCut = isTier1 || isTier2 || isTier3;
+          const tickColor = isTier1 ? '#059669' : (isTier2 ? '#0F766E' : (isTier3 ? '#B45309' : '#475569'));
           svgHtml += `
-            <line x1="${{padL}}" y1="${{ty}}" x2="${{padL + innerW}}" y2="${{ty}}" stroke="${{isLimiar ? '#A7F3D0' : '#E2E8F0'}}" stroke-width="${{isLimiar ? 1.5 : 1}}" stroke-dasharray="${{isLimiar ? '4,4' : '2,2'}}" />
-            <text x="${{padL - 10}}" y="${{ty + 5}}" text-anchor="end" fill="${{isLimiar ? '#059669' : '#475569'}}" font-size="14" font-family="JetBrains Mono" font-weight="${{isLimiar ? '900' : '700'}}">${{v}}</text>
+            ${{!isTierCut ? `<line x1="${{padL}}" y1="${{ty}}" x2="${{padL + innerW}}" y2="${{ty}}" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="2,2" />` : ''}}
+            <text x="${{padL - 10}}" y="${{ty + 5}}" text-anchor="end" fill="${{tickColor}}" font-size="${{isTierCut ? '13.5' : '13'}}" font-family="JetBrains Mono" font-weight="${{isTierCut ? '900' : '700'}}">${{v}}</text>
           `;
         }}
       }});
