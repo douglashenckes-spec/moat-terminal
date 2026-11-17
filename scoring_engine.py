@@ -581,7 +581,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5) (ou 76.0 para Concessões Reguladas com ROE >= 15%)
         if r_roic_pct is not None:
             if r_roic_pct < 10.0:
-                roic_cap = round(45.0 + (r_roic_pct * 1.3), 1)
+                roic_cap = max(10.0, round(45.0 + (max(-25.0, r_roic_pct) * 1.3), 1))
                 if is_util and ((effective_roe is not None and effective_roe >= 0.12) or (dle_num is not None and dle_num <= 1.5 and anos_lucro == total_anos)):
                     roic_cap = max(roic_cap, 72.5)
                 quality_score = min(quality_score, roic_cap)
@@ -597,6 +597,8 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         if dle_num is not None:
             if dle_num >= max_dle_cap or (not is_util and dle_num >= 2.5 and roe_val is not None and roe_val < 0) or (is_util and dle_num >= 4.0 and roe_val is not None and roe_val < 0.10):
                 quality_score = min(45.0 if not is_util else 55.0, quality_score)
+
+        quality_score = round(max(10.0, min(92.5, quality_score)), 1)
 
         if quality_score >= 80.0:
             quality_tier = "Tier 1: Classe Mundial (Wide/Narrow Moat)"
@@ -783,9 +785,15 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
     if is_high_debt:
         exp_pl = base_exp_pl * 0.75  # Exige desconto 25% maior
     elif is_net_cash_bonus:
-        exp_pl = max(base_exp_pl * 1.30, 16.5)  # Bônus de desconto por caixa líquido robusto
+        exp_pl = max(base_exp_pl * 1.15, 13.5)  # Bônus de desconto por caixa líquido robusto (alinhado 100% com calcAdjustedFairPL)
 
-    is_above_curve = (pl is not None and pl > 0 and pl < exp_pl)
+    roe_cur = row.get("roe")
+    pvp_cur = row.get("pvp")
+    vpa_cur = det.get("vpa")
+    has_neg_eq_val = has_negative_equity or (pvp_cur is not None and float(pvp_cur) < 0) or (vpa_cur is not None and float(vpa_cur) < 0)
+    is_distressed_val = has_neg_eq_val or (not is_fin and dle_num is not None and dle_num >= 3.0 and roe_cur is not None and float(roe_cur) < 0)
+
+    is_above_curve = (pl is not None and pl > 0 and pl < exp_pl and not is_distressed_val)
     
     pl_rr = row.get("pl_run_rate")
     if pl_rr is None:
@@ -802,17 +810,26 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
     if is_high_debt and (pl is not None and pl >= exp_pl):
         is_asymmetry = False
 
-    # Alinhamento Rigoroso de Badges de Valuation (Eliminação de Contradições):
+    # Alinhamento Rigoroso de Badges de Valuation (Eliminação de Contradições 100% igual ao Front-End):
     # - Se está Acima da Curva (Desconto) -> MÚLTIPLOS ATRATIVOS (se P/L <= 11x) ou DESCONTO RELATIVO AO MOAT (se P/L > 11x)
     # - Se está Abaixo da Curva (Prêmio) -> MÚLTIPLOS EXIGENTES (se P/L > 15x) ou PRÊMIO SOBRE A CURVA
-    if is_above_curve:
+    if is_distressed_val:
+        status = "🔴 MÚLTIPLOS ELEVADOS / ALTO RISCO"
+        tag = "ESTICADA"
+        color = "#EF4444"
+        rationale = (
+            f"Balanço sob forte pressão financeira (Dívida Líq./EBITDA de {dle_num:.1f}x associada a prejuízo contábil/ROE negativo). "
+            f"P/L de {pl:.1f}x não oferece margem de segurança frente ao risco de estrutura de capital."
+        ) if dle_num is not None else "Estrutura patrimonial pressionada; múltiplos sem margem de segurança."
+    elif is_above_curve:
         if pl is not None and pl <= 11.0:
             status = "🟢 MÚLTIPLOS ATRATIVOS"
+            tag = "ASSIMETRIA_FAVORAVEL"
             color = "#10B981"
         else:
             status = "🔵 DESCONTO RELATIVO AO MOAT"
+            tag = "DESCONTO_MOAT"
             color = "#0284C7"
-        tag = "ASSIMETRIA_FAVORAVEL"
         if is_net_cash_bonus:
             rationale = (
                 f"Valuation atrativo ajustado por estrutura de capital: opera com Caixa Líquido e EV/EBITDA de {eveb_num:.1f}x (<= 6,0x), "
@@ -820,8 +837,8 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
             )
         else:
             rationale = (
-                f"Earnings Yield de {ey_pct:.1f}% confere spread de +{ey_spread:.1f}% sobre a NTN-B real (6,5%). "
-                f"P/L de {pl:.1f}x negocia abaixo da curva de referência ajustada ({exp_pl:.1f}x) e da média histórica do setor."
+                f"Earnings Yield de {ey_pct:.1f}% confere spread de {ey_spread:+.1f}% sobre a NTN-B real (6,5%). "
+                f"P/L de {pl:.1f}x negocia abaixo da curva de referência ajustada ({exp_pl:.1f}x) para seu nível de qualidade."
             )
     else:
         if pl is not None and pl > 15.0:

@@ -174,6 +174,32 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         else:
             fx_factor = 5.5
 
+    # Ajuste Pro-Forma p/ Reorganizações Societárias / Incorporações (ex: SAUD3, BRBI11, ORVR3, OPCT3)
+    rev_proforma_scale = 1.0
+    if rec_2025 and float(rec_2025) > 0 and rec_ltm > 0:
+        r_2025_brl = float(rec_2025) * fx_factor
+        r_jump = rec_ltm / r_2025_brl
+        if r_jump > 2.4 or r_jump < 0.42:
+            rev_proforma_scale = r_jump / (1.0 + max(-0.10, min(0.18, cagr_rec)))
+
+    pl_proforma_scale = 1.0
+    yr25 = hist_cache.get("2025", {})
+    l25 = yr25.get("lucro_liquido")
+    roe25 = yr25.get("roe")
+    pl25_real = yr25.get("patrimonio_liquido")
+    pl25_est = None
+    if pl25_real is not None and float(pl25_real) > 0:
+        pl25_est = float(pl25_real) * fx_factor
+    elif l25 is not None and roe25 is not None and abs(float(roe25)) > 0.005:
+        cand_pl25 = (float(l25) / float(roe25)) * fx_factor
+        if cand_pl25 > 0:
+            pl25_est = cand_pl25
+    if pl25_est and pl25_est > 0 and pl_cur > 0:
+        pl_jump = pl_cur / pl25_est
+        if pl_jump > 2.2 or pl_jump < 0.45:
+            ret_est = max(0.0, min(0.16, float(row_dict.get("roe") or 0.10) * 0.55))
+            pl_proforma_scale = pl_jump / (1.0 + ret_est)
+
     rev_series = []
     lucro_series = []
     pl_series = []
@@ -189,19 +215,19 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
             dy_val = dy_cur
         else:
             yr_data = hist_cache.get(yr, {})
-            # Receita contábil oficial arquivada (ajustada para BRL se em USD)
+            # Receita contábil oficial arquivada (ajustada para BRL se em USD e pro-forma em fusões)
             rec_real = yr_data.get("receita")
             if rec_real is not None and rec_real > 0:
-                rev_val = float(rec_real) * fx_factor
+                rev_val = float(rec_real) * fx_factor * rev_proforma_scale
             else:
                 step_back = 4 - idx
                 denom = ((1.0 + cagr_rec) ** step_back)
                 rev_val = (rec_ltm / denom) if denom > 0 else rec_ltm
 
-            # Lucro líquido contábil oficial arquivado (ajustado para BRL se em USD)
+            # Lucro líquido contábil oficial arquivado (ajustado para BRL se em USD e pro-forma em fusões)
             lucro_real = yr_data.get("lucro_liquido")
             if lucro_real is not None:
-                lucro_val = float(lucro_real) * fx_factor
+                lucro_val = float(lucro_real) * fx_factor * rev_proforma_scale
             else:
                 step_back = 4 - idx
                 cur_margin = (lucro_ltm / rec_ltm) if rec_ltm > 0 else 0.10
@@ -217,11 +243,16 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
             # Patrimônio Líquido contábil oficial arquivado (derivado de Lucro / ROE da CVM ou estimativa estrutural)
             pl_real = yr_data.get("patrimonio_liquido")
             if pl_real is not None:
-                pl_val = float(pl_real) * fx_factor
+                pl_val = float(pl_real) * fx_factor * pl_proforma_scale
             elif lucro_real is not None and roe_real is not None and abs(float(roe_real)) > 0.005:
-                pl_derived = (float(lucro_real) / float(roe_real)) * fx_factor
+                pl_derived = (float(lucro_real) / float(roe_real)) * fx_factor * pl_proforma_scale
                 if pl_cur < 0 and pl_derived > 0 and idx >= 2:
                     pl_val = pl_cur
+                elif pl_cur > 0 and (pl_derived > pl_cur * 2.3 or pl_derived < pl_cur * 0.35):
+                    step_back = 4 - idx
+                    cagr_pl_est = max(-0.15, min(0.20, cagr_rec * 0.70))
+                    denom_pl = ((1.0 + cagr_pl_est) ** step_back)
+                    pl_val = (pl_cur / denom_pl) if denom_pl > 0 else pl_cur
                 else:
                     pl_val = pl_derived
             else:
@@ -553,6 +584,55 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         l3 = det_entry.get("lucro_liq_3m")
         mcap = det_entry.get("valor_mercado")
         rec12 = det_entry.get("receita_liq_12m")
+        rec3 = det_entry.get("receita_liq_3m")
+        ebit12 = det_entry.get("ebit_12m")
+        ebit3 = det_entry.get("ebit_3m")
+        pl_exact = det_entry.get("patrimonio_liquido") if det_entry.get("patrimonio_liquido") is not None else row_dict.get("patrim_liq")
+        dl_exact = det_entry.get("divida_liquida")
+        ev_exact = det_entry.get("valor_firma")
+
+        # 1. Correção de Subtração 12M Corrompida no Fundamentus por Incorporação Societária (Caso TIMS3: rec3 > 65% de rec12)
+        if rec3 is not None and rec12 is not None and float(rec3) > 0 and float(rec12) > 0 and float(rec3) > float(rec12) * 0.65:
+            rec12 = round(4.0 * float(rec3), 2)
+            det_entry["receita_liq_12m"] = rec12
+            if ebit3 is not None and float(ebit3) > 0:
+                ebit12 = round(4.0 * float(ebit3), 2)
+                det_entry["ebit_12m"] = ebit12
+            if l3 is not None:
+                l12 = round(4.0 * float(l3), 2)
+                det_entry["lucro_liq_12m"] = l12
+            if mcap and float(mcap) > 0 and l12 and float(l12) != 0:
+                row_dict["pl"] = round(float(mcap) / float(l12), 2)
+                row_dict["earnings_yield"] = round(1.0 / row_dict["pl"], 4) if row_dict["pl"] > 0 else None
+            if pl_exact and float(pl_exact) > 0 and l12 is not None:
+                row_dict["roe"] = round(float(l12) / float(pl_exact), 4)
+            if rec12 > 0 and l12 is not None:
+                row_dict["mrg_liq"] = round(float(l12) / float(rec12), 4)
+            if rec12 > 0 and ebit12 is not None:
+                row_dict["mrg_ebit"] = round(float(ebit12) / float(rec12), 4)
+            if ebit12 and float(ebit12) > 0 and pl_exact and float(pl_exact) > 0:
+                inv_cap = float(pl_exact) + max(0.0, float(dl_exact or 0.0))
+                if inv_cap > 0:
+                    row_dict["roic"] = round((float(ebit12) * 0.68) / inv_cap, 4)
+            if ev_exact and float(ev_exact) > 0 and ebit12 and float(ebit12) > 0:
+                row_dict["ev_ebit"] = round(float(ev_exact) / float(ebit12), 2)
+                row_dict["ev_ebitda"] = round(float(ev_exact) / (float(ebit12) * 1.45), 2)
+            if det_entry.get("nro_acoes") and float(det_entry["nro_acoes"]) > 0 and l12 is not None:
+                det_entry["lpa"] = round(float(l12) / float(det_entry["nro_acoes"]), 2)
+
+        # 2. Sanitização de Sinal de ROE em Prejuízo Contábil (Caso PCAR3, RAIZ4, PTBL3, BHIA3, ONCO3)
+        pl_mult = row_dict.get("pl")
+        roe_raw = row_dict.get("roe")
+        if (l12 is not None and float(l12) < 0) or (pl_mult is not None and float(pl_mult) < 0):
+            if roe_raw is not None and float(roe_raw) > 0:
+                if pl_exact is not None and float(pl_exact) > 0 and l12 is not None and float(l12) < 0:
+                    row_dict["roe"] = round(max(-1.50, min(-0.01, float(l12) / float(pl_exact))), 4)
+                else:
+                    row_dict["roe"] = round(-min(1.50, abs(float(roe_raw))), 4)
+        if row_dict.get("roe") is not None:
+            row_dict["roe"] = round(max(-1.50, min(1.50, float(row_dict["roe"]))), 4)
+        if row_dict.get("roic") is not None:
+            row_dict["roic"] = round(max(-1.00, min(1.50, float(row_dict["roic"]))), 4)
 
         row_dict["ticker"] = ticker
         row_dict["setor"] = sector
@@ -565,9 +645,6 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         # Enriquecimento Contábil Exato via Balanço Detalhado (imune a divergências entre classes ON/PN)
         if det_entry.get("patrimonio_liquido") is not None:
             row_dict["patrim_liq"] = det_entry["patrimonio_liquido"]
-
-        dl_exact = det_entry.get("divida_liquida")
-        ev_exact = det_entry.get("valor_firma")
         pl_exact = row_dict.get("patrim_liq")
         ev_ebitda_num = row_dict.get("ev_ebitda")
 
