@@ -529,10 +529,19 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
 
     score_pilar_consistencia = (base_cons * 0.40) + (s_cresc * 0.30) + (s_mrg_bruta * 0.30)
 
-    # Prêmio CFA de Compounder (integrado DENTRO dos pilares para manter 100% de consistência matemática da média ponderada)
+    # Prêmio CFA de Compounder (integrado DENTRO dos pilares; exige ROE >= 14.5% e crescimento positivo de receita, ou Caixa Líquido c/ ROIC >= 18%)
+    cresc_raw = row.get("cresc_rec5a")
+    cresc_val = float(cresc_raw) if cresc_raw is not None and str(cresc_raw).lower() not in ["none", "nan"] else 0.0
+    if abs(cresc_val) > 2.0:
+        cresc_val = cresc_val / 100.0
+    cur_roe_num = float(cur_roe) if cur_roe is not None else 0.0
+    cur_roic_num = float(cur_roic) if cur_roic is not None else 0.0
+    is_genuine_compounder = (cur_roe_num >= 0.145 and cresc_val >= 0.02) or (is_net_cash and cur_roic_num >= 0.18)
+
     if (
         r_roic_pct is not None
         and r_roic_pct >= 15.5
+        and is_genuine_compounder
         and is_controlled_debt
         and not has_negative_equity
         and not is_cyc
@@ -591,6 +600,9 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             elif check_roic_pct < 13.5:
                 cap_mid = 76.0 if (is_util and ((effective_roe is not None and effective_roe >= 0.14) or (dle_num is not None and dle_num <= 1.5))) else 66.5
                 quality_score = min(quality_score, cap_mid)
+            elif cur_roe_num < 0.145 and not (is_net_cash and cur_roic_num >= 0.18):
+                # Trava CFA de Custo de Capital Próprio (Ke ~14,5%): empresa com ROE < 14,5% e sem caixa líquido c/ super ROIC fica em Tier 2 (<= 77.5)
+                quality_score = min(quality_score, 77.5)
 
         # Trava Crítica de Alavancagem Munger:
         # - Empresas comuns: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
