@@ -371,6 +371,7 @@ def build_company_page():
             <div class="flex flex-wrap items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] font-mono font-medium">
               <button id="btnHistRev" onclick="switchHistoryTab('rev_lucro')" class="px-2.5 py-1 rounded-md transition font-bold bg-white text-slate-900 shadow-2xs cursor-pointer">Receita × Lucro</button>
               <button id="btnHistScore" onclick="switchHistoryTab('score')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Histórico Score</button>
+              <button id="btnHistPl" onclick="switchHistoryTab('pl_hist')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Múltiplo P/L</button>
               <button id="btnHistPatrim" onclick="switchHistoryTab('patrimonio')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Patrimônio Líq.</button>
               <button id="btnHistRent" onclick="switchHistoryTab('rentabilidade')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">ROIC / ROE</button>
               <button id="btnHistDiv" onclick="switchHistoryTab('dividendos')" class="px-2.5 py-1 rounded-md transition text-slate-600 hover:text-slate-900 cursor-pointer">Dividend Yield</button>
@@ -1883,6 +1884,7 @@ def build_company_page():
       currentHistTab = tab;
       const bRev = document.getElementById('btnHistRev');
       const bScore = document.getElementById('btnHistScore');
+      const bPl = document.getElementById('btnHistPl');
       const bPatrim = document.getElementById('btnHistPatrim');
       const bRent = document.getElementById('btnHistRent');
       const bDiv = document.getElementById('btnHistDiv');
@@ -1892,6 +1894,7 @@ def build_company_page():
 
       if (bRev) bRev.className = tab === 'rev_lucro' ? actCls : inactCls;
       if (bScore) bScore.className = tab === 'score' ? actCls : inactCls;
+      if (bPl) bPl.className = tab === 'pl_hist' ? actCls : inactCls;
       if (bPatrim) bPatrim.className = tab === 'patrimonio' ? actCls : inactCls;
       if (bRent) bRent.className = tab === 'rentabilidade' ? actCls : inactCls;
       if (bDiv) bDiv.className = tab === 'dividendos' ? actCls : inactCls;
@@ -2289,15 +2292,98 @@ def build_company_page():
             <span class="text-[10px] text-slate-500 font-sans mt-0.5">Payout: ${{s.payout_implicito ? formatNumberBR(s.payout_implicito, 0, '%') : 'N/D'}}</span>
           </div>
         `;
+      }} else if (currentHistTab === 'pl_hist') {{
+        if (subEl) subEl.innerText = 'Evolução histórica do múltiplo P/L (Preço/Lucro) frente à média de 5 anos e teto justo Munger.';
+        
+        const rawPe = (h.pl_historico && h.pl_historico.length === n) ? h.pl_historico : [s.pl || 10, s.pl || 10, s.pl || 10, s.pl || 10, s.pl || 10];
+        const validPes = rawPe.filter(v => v !== null && v !== undefined && Number(v) > 0 && Number(v) <= 80);
+        const avgPe = h.pl_medio_5a ? Number(h.pl_medio_5a) : (validPes.length > 0 ? (validPes.reduce((a, b) => a + Number(b), 0) / validPes.length) : null);
+        const plotVals = rawPe.map(v => (v !== null && v !== undefined && Number(v) > 0) ? Math.min(45, Number(v)) : 0);
+
+        let maxVal = Math.max(...plotVals, avgPe ? Math.min(45, avgPe * 1.2) : 15, 15);
+        let minVal = 0;
+        const range = maxVal - minVal;
+        const scaleY = (v) => padT + innerH - ((v - minVal) / (range || 1)) * innerH;
+
+        const pts = plotVals.map((v, i) => [scaleX(i), scaleY(v)]);
+        const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+        const areaPath = linePath + ` L${{scaleX(n-1).toFixed(1)}},${{(padT + innerH).toFixed(1)}} L${{scaleX(0).toFixed(1)}},${{(padT + innerH).toFixed(1)}} Z`;
+
+        const yAvg = avgPe ? scaleY(Math.min(45, avgPe)) : null;
+
+        const yearsLabelsHtml = h.years.map((y, i) => `
+          <text x="${{scaleX(i).toFixed(1)}}" y="${{height - 6}}" text-anchor="middle" fill="#64748B" font-size="10" font-family="JetBrains Mono" font-weight="600">${{y.replace(' (LTM)','*')}}</text>
+        `).join('');
+
+        const dotsHtml = pts.map((p, i) => {{
+          const rawV = rawPe[i];
+          const isLoss = rawV === null || rawV === undefined || Number(rawV) <= 0;
+          const dotColor = isLoss ? '#EF4444' : (Number(rawV) <= 10 ? '#059669' : (Number(rawV) <= 15 ? '#0284C7' : '#D97706'));
+          const labelTxt = isLoss ? 'Prej.' : (Number(rawV) > 65 ? '>65x' : formatNumberBR(rawV, 1, 'x'));
+          return `
+            <circle cx="${{p[0].toFixed(1)}}" cy="${{p[1].toFixed(1)}}" r="4.5" fill="${{dotColor}}" stroke="#FFFFFF" stroke-width="2" />
+            <text x="${{p[0].toFixed(1)}}" y="${{(p[1] - 8).toFixed(1)}}" text-anchor="middle" fill="${{dotColor}}" font-size="10" font-family="JetBrains Mono" font-weight="800">${{labelTxt}}</text>
+          `;
+        }}).join('');
+
+        container.innerHTML = `
+          <div class="flex items-center justify-end gap-3 text-[11px] font-mono font-bold mb-1">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span><span class="text-slate-700">Múltiplo P/L Anual</span></span>
+            ${{avgPe ? `<span class="flex items-center gap-1.5"><span class="w-4 h-0.5 border-t border-dashed border-indigo-500"></span><span class="text-indigo-700">Média 5A (${{formatNumberBR(avgPe, 1, 'x')}})</span></span>` : ''}}
+          </div>
+          <svg class="w-full h-44 select-none" viewBox="0 0 ${{w}} ${{height}}">
+            <defs>
+              <linearGradient id="gradPeHist" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0284C7" stop-opacity="0.22" />
+                <stop offset="100%" stop-color="#0284C7" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
+            <line x1="${{padL}}" y1="${{padT}}" x2="${{w - padR}}" y2="${{padT}}" stroke="#E2E8F0" stroke-dasharray="3,3" />
+            ${{yAvg !== null ? `
+            <line x1="${{padL}}" y1="${{yAvg}}" x2="${{w - padR}}" y2="${{yAvg}}" stroke="#6366F1" stroke-dasharray="4,4" stroke-width="1.5" />
+            <text x="${{w - padR}}" y="${{yAvg - 4}}" text-anchor="end" fill="#4338CA" font-size="9" font-family="JetBrains Mono" font-weight="bold">Média 5A: ${{formatNumberBR(avgPe, 1, 'x')}}</text>
+            ` : ''}}
+            <line x1="${{padL}}" y1="${{padT + innerH}}" x2="${{w - padR}}" y2="${{padT + innerH}}" stroke="#CBD5E1" stroke-width="1.5" />
+            <path d="${{areaPath}}" fill="url(#gradPeHist)" />
+            <path d="${{linePath}}" fill="none" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round" />
+            ${{dotsHtml}}
+            ${{yearsLabelsHtml}}
+          </svg>
+        `;
+
+        const curPe = (s.pl !== null && s.pl !== undefined) ? Number(s.pl) : null;
+        const discVsAvg = (curPe && curPe > 0 && avgPe && avgPe > 0) ? (((curPe - avgPe) / avgPe) * 100) : null;
+        const expPl = calcAdjustedFairPL(s);
+
+        kpisGrid.innerHTML = `
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">P/L Atual (LTM)</span>
+            <div class="text-base font-bold font-mono ${{curPe && curPe > 0 ? (curPe <= 10 ? 'text-emerald-800' : 'text-slate-900') : 'text-rose-700'}} mt-1">${{curPe && curPe > 0 ? formatNumberBR(curPe, 2, 'x') : 'Prejuízo'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Teto Munger: ${{formatNumberBR(expPl, 1, 'x')}}</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">P/L Médio 5 Anos</span>
+            <div class="text-base font-bold font-mono text-indigo-900 mt-1">${{avgPe ? formatNumberBR(avgPe, 1, 'x') : 'N/D'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">Múltiplo histórico normalizado</span>
+          </div>
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 uppercase font-mono font-semibold">Atual vs. Média 5A</span>
+            <div class="text-base font-bold font-mono ${{discVsAvg !== null ? (discVsAvg <= -10 ? 'text-emerald-700' : (discVsAvg >= 15 ? 'text-rose-700' : 'text-slate-800')) : 'text-slate-500'}} mt-1">${{discVsAvg !== null ? ((discVsAvg > 0 ? '+' : '') + formatNumberBR(discVsAvg, 1, '%')) : 'N/D'}}</div>
+            <span class="text-[10px] text-slate-500 font-sans mt-0.5">${{discVsAvg !== null ? (discVsAvg <= -10 ? 'Negociando com desconto histórico' : (discVsAvg >= 15 ? 'Acima da média histórica' : 'Em linha com a média 5A')) : 'Base histórica insuficiente'}}</span>
+          </div>
+        `;
       }}
 
       const table5YEl = document.getElementById('historyTable5YContainer');
       if (table5YEl) {{
+        const avgPeBadge = (h.pl_medio_5a && s.pl && s.pl > 0)
+          ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded-full border ${{s.pl <= h.pl_medio_5a * 0.92 ? 'bg-emerald-50 text-emerald-800 border-emerald-200 font-bold' : 'bg-slate-100 text-slate-600 border-slate-200'}}">P/L Atual: ${{formatNumberBR(s.pl, 1, 'x')}} vs Média 5A: ${{formatNumberBR(h.pl_medio_5a, 1, 'x')}}</span>`
+          : `<span class="text-slate-500 font-normal">Valores Consolidados</span>`;
         table5YEl.innerHTML = `
           <div class="rounded-xl border border-slate-200 overflow-hidden bg-white">
-            <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700 flex items-center justify-between">
+            <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700 flex flex-wrap items-center justify-between gap-2">
               <span>📋 Demonstração Quinquenal Auditada (2022 - 2026)</span>
-              <span class="text-slate-500 font-normal">Valores Consolidados</span>
+              ${{avgPeBadge}}
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left font-mono text-[11px] whitespace-nowrap">
@@ -2320,6 +2406,18 @@ def build_company_page():
                   <tr class="bg-indigo-50/35">
                     <td class="py-1.5 px-2.5 font-sans font-semibold text-indigo-950">Patrimônio Líquido</td>
                     ${{h.patrimonio_liquido.map(pl => `<td class="py-1.5 px-2.5 text-right font-bold ${{pl > 0 ? 'text-indigo-900' : 'text-rose-700'}}">${{formatBillions(pl)}}</td>`).join('')}}
+                  </tr>` : ''}}
+                  ${{h.pl_historico ? `
+                  <tr class="bg-sky-50/40">
+                    <td class="py-1.5 px-2.5 font-sans font-semibold text-sky-950">Múltiplo P/L <span class="text-[9px] font-mono text-slate-500 font-normal">(Preço/Lucro)</span></td>
+                    ${{h.pl_historico.map(pe => {{
+                      if (pe === null || pe === undefined || Number(pe) <= 0) {{
+                        return `<td class="py-1.5 px-2.5 text-right font-bold text-rose-700">Prej.</td>`;
+                      }}
+                      const peNum = Number(pe);
+                      const peCls = (peNum <= 10.5 && s.quality_score >= 60) ? 'text-emerald-700 font-bold' : (peNum <= 16.0 ? 'text-sky-900 font-bold' : 'text-amber-700 font-semibold');
+                      return `<td class="py-1.5 px-2.5 text-right ${{peCls}}">${{peNum > 65 ? '>65x' : formatNumberBR(peNum, 1, 'x')}}</td>`;
+                    }}).join('')}}
                   </tr>` : ''}}
                   <tr>
                     <td class="py-1.5 px-2.5 font-sans font-semibold text-slate-800">${{s.is_financial ? 'ROE Anual' : 'ROIC / ROE'}}</td>

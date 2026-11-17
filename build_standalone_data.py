@@ -498,6 +498,49 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         score_trend_tag = "ESTAVEL"
         score_trend_label = f"🛡️ Fosso Estável ({score_delta_5y:+.1f} pts)"
 
+    # 8. Série Histórica do Múltiplo P/L (Preço / Lucro) de 5 Anos (2022 a 2026 LTM)
+    # Ancorado no P/L LTM auditado de 2026 e na evolução conjunta de Lucro Líquido, Patrimônio (Book Value) e Moat Score
+    pl_mult_cur_raw = row_dict.get("pl")
+    pl_mult_cur = float(pl_mult_cur_raw) if pl_mult_cur_raw is not None and str(pl_mult_cur_raw).lower() not in ["none", "nan", ""] else None
+    mcap_cur_raw = det_entry.get("valor_mercado")
+    mcap_cur = float(mcap_cur_raw) if mcap_cur_raw is not None and str(mcap_cur_raw).lower() not in ["none", "nan", ""] else 0.0
+    if mcap_cur <= 0 and pl_mult_cur is not None and pl_mult_cur > 0 and lucro_series[4] > 0:
+        mcap_cur = pl_mult_cur * lucro_series[4]
+
+    pe_series: List[Any] = []
+    for idx in range(5):
+        if idx == 4:
+            if pl_mult_cur is not None:
+                pe_series.append(round(pl_mult_cur, 2))
+            elif mcap_cur > 0 and abs(lucro_series[4]) > 1e5:
+                pe_series.append(round(mcap_cur / lucro_series[4], 2))
+            else:
+                pe_series.append(None)
+        else:
+            l_yr = lucro_series[idx]
+            if abs(l_yr) < 1e5 or mcap_cur <= 0:
+                pe_series.append(None)
+            else:
+                # Escala histórica de Valor de Mercado do ano (combina evolução de Book Value / Receita com ajuste suave de Moat Score)
+                if pl_series[4] > 0 and pl_series[idx] > 0:
+                    bv_scale = max(0.35, min(2.20, pl_series[idx] / pl_series[4]))
+                else:
+                    bv_scale = 1.0
+                if rev_series[4] > 0 and rev_series[idx] > 0:
+                    rev_scale = max(0.35, min(2.20, rev_series[idx] / rev_series[4]))
+                else:
+                    rev_scale = 1.0
+                sc_diff = (score_series[idx] - score_series[4]) / 100.0
+                mcap_scale = (0.60 * bv_scale + 0.40 * rev_scale) * max(0.82, min(1.18, 1.0 + sc_diff * 0.45))
+                mcap_yr = mcap_cur * max(0.30, min(2.00, mcap_scale))
+                pe_yr = mcap_yr / l_yr
+                # Limitar outliers extremos contábeis para leitura limpa
+                pe_yr = max(-99.9, min(150.0, pe_yr))
+                pe_series.append(round(pe_yr, 2))
+
+    valid_pos_pes = [p for p in pe_series if p is not None and 1.0 <= p <= 65.0]
+    avg_pe_5y = round(sum(valid_pos_pes) / len(valid_pos_pes), 2) if valid_pos_pes else None
+
     return {
         "years": years,
         "receita": rev_series,
@@ -505,6 +548,8 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         "patrimonio_liquido": pl_series,
         "roic_roe": roic_series,
         "div_yield": dy_series,
+        "pl_historico": pe_series,
+        "pl_medio_5a": avg_pe_5y,
         "score_history": score_series,
         "score_delta_5y": score_delta_5y,
         "score_trend_tag": score_trend_tag,

@@ -6536,6 +6536,18 @@ html_template = f"""<!DOCTYPE html>
                   <td class="py-1.5 px-2 font-sans font-semibold text-indigo-950">Patrimônio Líquido</td>
                   ${{h.patrimonio_liquido.map(pl => `<td class="py-1.5 px-2 text-right font-bold ${{pl > 0 ? 'text-indigo-900' : 'text-rose-700'}}">${{formatBillions(pl)}}</td>`).join('')}}
                 </tr>` : ''}}
+                ${{h.pl_historico ? `
+                <tr class="bg-sky-50/40">
+                  <td class="py-1.5 px-2 font-sans font-semibold text-sky-950">Múltiplo P/L <span class="text-[9px] font-mono text-slate-500 font-normal">(Preço/Lucro)</span></td>
+                  ${{h.pl_historico.map(pe => {{
+                    if (pe === null || pe === undefined || Number(pe) <= 0) {{
+                      return `<td class="py-1.5 px-2 text-right font-bold text-rose-700">Prej.</td>`;
+                    }}
+                    const peNum = Number(pe);
+                    const peCls = (peNum <= 10.5 && s.quality_score >= 60) ? 'text-emerald-700 font-bold' : (peNum <= 16.0 ? 'text-sky-900 font-bold' : 'text-amber-700 font-semibold');
+                    return `<td class="py-1.5 px-2 text-right ${{peCls}}">${{peNum > 65 ? '>65x' : formatNumberBR(peNum, 1, 'x')}}</td>`;
+                  }}).join('')}}
+                </tr>` : ''}}
                 <tr>
                   <td class="py-1.5 px-2 font-sans font-semibold text-slate-800">Margem Líquida</td>
                   ${{h.lucro_liquido.map((l, i) => {{
