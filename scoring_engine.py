@@ -580,12 +580,15 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         # 1. Se ROIC < 10%: recalcule moat_score = min(moat_score, round(45 + roic * 1.3, 1))
         # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5) (ou 76.0 para Concessões Reguladas com ROE >= 15%)
         if r_roic_pct is not None:
-            if r_roic_pct < 10.0:
-                roic_cap = max(10.0, round(45.0 + (max(-25.0, r_roic_pct) * 1.3), 1))
+            cur_roic_pct = (cur_roic * 100.0 if abs(cur_roic) < 2.0 else cur_roic) if cur_roic is not None else r_roic_pct
+            cur_roe_pct = (cur_roe * 100.0 if abs(cur_roe) < 2.0 else cur_roe) if cur_roe is not None else cur_roic_pct
+            check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, cur_roe_pct or 0.0))
+            if check_roic_pct < 10.0:
+                roic_cap = max(10.0, round(45.0 + (max(-25.0, check_roic_pct) * 1.3), 1))
                 if is_util and ((effective_roe is not None and effective_roe >= 0.12) or (dle_num is not None and dle_num <= 1.5 and anos_lucro == total_anos)):
                     roic_cap = max(roic_cap, 72.5)
                 quality_score = min(quality_score, roic_cap)
-            elif r_roic_pct < 13.5:
+            elif check_roic_pct < 13.5:
                 cap_mid = 76.0 if (is_util and ((effective_roe is not None and effective_roe >= 0.14) or (dle_num is not None and dle_num <= 1.5))) else 66.5
                 quality_score = min(quality_score, cap_mid)
 
