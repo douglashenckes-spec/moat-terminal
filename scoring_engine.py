@@ -47,13 +47,13 @@ CONSUMER_DISCRETIONARY_SECTORS = [
 
 REGULATED_UTILITY_SECTORS = [
     "energia elétrica", "energia eletrica", "água e saneamento", "agua e saneamento",
-    "saneamento", "telecomunicações", "telecomunicacoes",
+    "saneamento",
 ]
 
 REGULATED_UTILITY_TICKERS = {
     "EGIE3", "TAEE11", "TAEE4", "TAEE3", "ISAE4", "TRPL4", "EQTL3", "CPFE3",
     "CMIG4", "CMIG3", "ENGI11", "ALUP11", "NEOE3", "CPLE3", "CPLE6", "SBSP3",
-    "SAPR11", "SAPR4", "SAPR3", "CSMG3", "AURE3", "ENEV3", "VIVT3", "TIMS3",
+    "SAPR11", "SAPR4", "SAPR3", "CSMG3", "AURE3", "ENEV3",
 }
 
 FINANCIAL_SECTORS = [
@@ -628,13 +628,14 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             else:
                 check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, recurring_roe_pct))
 
+            is_large_telecom = ticker in {"VIVT3", "TIMS3"}
             if check_roic_pct < 10.0:
                 roic_cap = max(10.0, round(42.0 + (max(-22.0, check_roic_pct) * 1.5), 1))
-                if is_util and ((recurring_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and recurring_roe_pct >= 9.5)):
+                if (is_util or is_large_telecom) and ((recurring_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and recurring_roe_pct >= 9.5)):
                     roic_cap = max(roic_cap, 68.5)
                 quality_score = min(quality_score, roic_cap)
             elif check_roic_pct < 13.5:
-                if is_util and ((recurring_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and recurring_roe_pct >= 9.5)):
+                if (is_util or is_large_telecom) and ((recurring_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and recurring_roe_pct >= 9.5)):
                     cap_mid = 73.5
                 else:
                     cap_mid = round(57.0 + ((check_roic_pct - 10.0) / 3.5) * 7.2, 1)  # Máx 64.2 (Tier 3)
@@ -642,10 +643,13 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             elif cur_roe_num < 0.145 and not (is_net_cash and cur_roic_num >= 0.18):
                 # Trava CFA de Custo de Capital Próprio (Ke ~14,5%): empresa com ROE < 14,5% e sem caixa líquido c/ super ROIC fica em Tier 2 (<= 77.5)
                 quality_score = min(quality_score, 77.5)
+            elif (not is_util) and ((cur_roic_pct or 0.0) < 15.2 or check_roic_pct < 14.5 or (capital_intensity is not None and capital_intensity < 0.56)):
+                # Trava CFA de Tier 1 (Wide Moat): exige ROIC LTM >= 15,2%, ROIC histórico >= 14,5% e conversão saudável de EBITDA em EBIT (>= 56%)
+                quality_score = min(quality_score, 76.5 if (capital_intensity is not None and capital_intensity < 0.56) else 78.5)
 
             # Trava de Remuneração Mínima ao Acionista (ROE Recorrente < 11,5% não pode ser Tier 2, salvo Telecom/Utility desavancada c/ ROE >= 9,5%)
             if recurring_roe_pct < 11.5:
-                if is_util and recurring_roe_pct >= 9.5 and (dle_num is not None and dle_num <= 1.5):
+                if (is_util or is_large_telecom) and recurring_roe_pct >= 9.5 and (dle_num is not None and dle_num <= 1.5):
                     quality_score = min(quality_score, 71.5 if check_roic_pct >= 11.5 else 68.5)
                 else:
                     roe_sh_cap = max(10.0, round(48.0 + max(-20.0, recurring_roe_pct) * 1.40, 1))
