@@ -497,8 +497,24 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
 
     # Teste DuPont de Erosão Financeira do EBIT (Interest Burden: quanto do EBIT sobra após juros e impostos)
     # Caso ASAI3 / Varejo Alavancado: EBIT alto, mas despesa financeira consome > 65% do EBIT e margem líquida < 3,5%
+    # Diferenciação Forense: se a empresa tem Dívida/EBITDA baixa (<= 1,5x) e o lucro 3M anualizado é forte (> 35% do EBIT 12M),
+    # a queda do Lucro 12M decorre de provisão/impairment não-caixa de 1 trimestre (ex: VALE3, SAPR11), e não de erosão por juros!
+    l3_raw_chk = det.get("lucro_liq_3m")
+    l3_num_chk = float(l3_raw_chk) if l3_raw_chk is not None and str(l3_raw_chk).lower() not in ["none", "nan"] else None
+    is_non_cash_oneoff_provision = (
+        (is_net_cash or (dle_num is not None and dle_num <= 1.5))
+        and ebit_num is not None and ebit_num > 0
+        and l3_num_chk is not None and (4.0 * l3_num_chk) >= ebit_num * 0.35
+    )
+    if is_non_cash_oneoff_provision and pl_num_det > 0 and l3_num_chk is not None:
+        norm_roe_run = (4.0 * l3_num_chk) / pl_num_det
+        if effective_roe is not None:
+            effective_roe = max(float(effective_roe), min(norm_roe_run, 0.16))
+        if cur_rec and float(cur_rec) > 0:
+            mrg_liq_val = max(mrg_liq_val, (4.0 * l3_num_chk) / float(cur_rec))
+
     interest_burden = (lucro_num / ebit_num) if (ebit_num is not None and ebit_num > 0 and lucro_num is not None) else 1.0
-    has_severe_interest_erosion = (not is_net_cash and interest_burden < 0.35 and mrg_liq_val < 0.035)
+    has_severe_interest_erosion = (not is_net_cash and not is_non_cash_oneoff_provision and interest_burden < 0.35 and mrg_liq_val < 0.035)
 
     # Obter ROIC efetivo e contábil LTM percentual (%):
     r_roic_pct = None
@@ -625,6 +641,10 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             recurring_roe_pct = max(cur_roe_pct or 0.0, min(eff_roe_pct, rr_roe_pct * 1.15) if rr_roe_pct > 0 else (cur_roe_pct or 0.0))
             if (cur_roic_pct or 0.0) >= 13.5 and (cur_roe_pct or 0.0) >= 14.0:
                 check_roic_pct = max(r_roic_pct, cur_roic_pct or 0.0)
+            elif (not is_util) and (cur_roic_pct or 0.0) < 13.0 and (cur_roe_pct or 0.0) < 11.5:
+                # Trava de Deterioração Operacional Presente (Caso SAUD3 / RANI3): se AMBOS ROIC atual (<13%) e ROE atual (<11,5%)
+                # caíram abaixo do custo de capital, o histórico antigo de 2022 não pode sustentar a empresa no Tier 2
+                check_roic_pct = max(cur_roic_pct or 0.0, cur_roe_pct or 0.0)
             else:
                 check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, recurring_roe_pct))
 
@@ -632,11 +652,11 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             if check_roic_pct < 10.0:
                 roic_cap = max(10.0, round(42.0 + (max(-22.0, check_roic_pct) * 1.5), 1))
                 if (is_util or is_large_telecom) and ((recurring_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and recurring_roe_pct >= 9.5)):
-                    roic_cap = max(roic_cap, 68.5)
+                    roic_cap = max(roic_cap, 69.5)
                 quality_score = min(quality_score, roic_cap)
             elif check_roic_pct < 13.5:
-                if (is_util or is_large_telecom) and ((recurring_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and recurring_roe_pct >= 9.5)):
-                    cap_mid = 73.5
+                if (is_util or is_large_telecom) and ((recurring_roe_pct >= 12.0 and (dle_num is None or dle_num <= 4.0)) or (dle_num is not None and dle_num <= 1.5 and recurring_roe_pct >= 9.5)):
+                    cap_mid = 73.5 if recurring_roe_pct >= 14.0 else 70.5
                 else:
                     cap_mid = round(57.0 + ((check_roic_pct - 10.0) / 3.5) * 7.2, 1)  # Máx 64.2 (Tier 3)
                 quality_score = min(quality_score, cap_mid)
