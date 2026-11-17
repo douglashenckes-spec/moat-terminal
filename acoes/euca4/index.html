@@ -933,14 +933,6 @@
       }
       return true;
     }
-      const pl = s.pl !== null && s.pl !== undefined ? Number(s.pl) : null;
-      if (!pl || pl <= 0) return false;
-      const payout = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
-      const dle = s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined ? Number(s.div_liq_ebitda) : null;
-      const healthyPayout = (payout === null) || (payout > 0 && payout <= 105.0);
-      const safeDebt = s.is_financial || isNetCashStock(s) || (dle === null || dle <= 3.2);
-      return healthyPayout && safeDebt && (s.quality_score || 0) >= 52.0;
-    }
 
     // Rótulos e Categorias Institucionais Munger da Ação (Sem exclusão mútua que esconda empresas dos filtros)
     function getStockCategories(s) {
