@@ -150,7 +150,15 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     pl_cur = float(det_entry.get("patrimonio_liquido") or (row_dict.get("patrim_liq") if row_dict.get("patrim_liq") is not None else 0.0))
 
     # 6. Carregar demonstrações financeiras oficiais auditadas (2022-2025)
-    hist_cache = get_historical_cache().get(ticker, {})
+    all_hist = get_historical_cache()
+    hist_cache = all_hist.get(ticker)
+    if not hist_cache:
+        pref4 = ticker[:4]
+        for hk, hv in all_hist.items():
+            if hk[:4] == pref4 and hv:
+                hist_cache = hv
+                break
+    hist_cache = hist_cache or {}
     rec_2025 = hist_cache.get("2025", {}).get("receita")
 
     if has_real_rec:
@@ -664,7 +672,14 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         row_dict["pl_run_rate"] = pl_run_rate
         row_dict["details"] = det_entry
 
-        ticker_hist = get_historical_cache().get(ticker)
+        all_hist_map = get_historical_cache()
+        ticker_hist = all_hist_map.get(ticker)
+        if not ticker_hist:
+            pref4 = ticker[:4]
+            for hk, hv in all_hist_map.items():
+                if hk[:4] == pref4 and hv:
+                    ticker_hist = hv
+                    break
         q = calculate_business_quality(row_dict, sector, ticker_hist)
         v = evaluate_entry_valuation(row_dict, sector, quality_score=q.get("quality_score"))
         bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)
@@ -763,6 +778,29 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
             "historical_5y": generate_5y_history(ticker, row_dict, det_entry, q, v),
         }
         stocks_payload.append(stock_item)
+
+    # Unificação Institucional de Score por Empresa (CNPJ / Prefixo de 4 Letras: ON, PN e UNT da mesma empresa têm a mesma Qualidade de Negócio)
+    by_prefix: Dict[str, List[Dict[str, Any]]] = {}
+    for st in stocks_payload:
+        pref = st["ticker"][:4]
+        by_prefix.setdefault(pref, []).append(st)
+    for pref, grp in by_prefix.items():
+        if len(grp) > 1:
+            canon = max(grp, key=lambda x: float(x.get("liq_2m") or 0.0))
+            for st in grp:
+                if st is not canon:
+                    st["quality_score"] = canon["quality_score"]
+                    st["quality_tier"] = canon["quality_tier"]
+                    st["quality_tag"] = canon["quality_tag"]
+                    st["pilar_rentabilidade"] = canon["pilar_rentabilidade"]
+                    st["pilar_solidez"] = canon["pilar_solidez"]
+                    st["pilar_consistencia"] = canon["pilar_consistencia"]
+                    st["sub_scores"] = canon["sub_scores"]
+                    if "historical_5y" in st and "historical_5y" in canon:
+                        st["historical_5y"]["score_history"] = list(canon["historical_5y"]["score_history"])
+                        st["historical_5y"]["score_delta_5y"] = canon["historical_5y"]["score_delta_5y"]
+                        st["historical_5y"]["score_trend_tag"] = canon["historical_5y"]["score_trend_tag"]
+                        st["historical_5y"]["score_trend_label"] = canon["historical_5y"]["score_trend_label"]
 
     stocks_payload.sort(key=lambda s: s["quality_score"], reverse=True)
 

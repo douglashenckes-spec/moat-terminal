@@ -79,9 +79,9 @@ def is_commodity_sector(sector_name: str) -> bool:
 def is_cyclical_sector(sector_name: str, ticker: str = "") -> bool:
     """Detecta se o ativo opera em setor altamente sensível a ciclos macroeconômicos, industriais pesados e imobiliários."""
     t = (ticker or "").strip().upper()
-    if t == "WEGE3":
+    if t.startswith("WEGE"):
         return False
-    if t in CYCLICAL_TICKERS:
+    if t in CYCLICAL_TICKERS or t[:4] in {x[:4] for x in CYCLICAL_TICKERS}:
         return True
     s = sector_name.lower().strip()
     return any(cyc in s for cyc in CYCLICAL_SECTORS)
@@ -90,7 +90,7 @@ def is_cyclical_sector(sector_name: str, ticker: str = "") -> bool:
 def is_consumer_discretionary_sector(sector_name: str, ticker: str = "") -> bool:
     """Detecta varejo discricionário e vestuário (sensível ao ciclo de crédito e juros, porém mais resiliente que indústria pesada)."""
     t = (ticker or "").strip().upper()
-    if t in {"RADL3", "PGMN3", "PNVL3", "ASAI3", "GMAT3"}:  # Varejo farmacêutico e alimentar essencial
+    if t[:4] in {"RADL", "PGMN", "PNVL", "ASAI", "GMAT"}:  # Varejo farmacêutico e alimentar essencial
         return False
     s = sector_name.lower().strip()
     return any(cd in s for cd in CONSUMER_DISCRETIONARY_SECTORS)
@@ -99,9 +99,9 @@ def is_consumer_discretionary_sector(sector_name: str, ticker: str = "") -> bool
 def is_regulated_utility(sector_name: str, ticker: str = "") -> bool:
     """Detecta concessões de infraestrutura regulada (energia elétrica, transmissão, saneamento e telecom)."""
     t = (ticker or "").strip().upper()
-    if t == "LIGT3":  # Concessão em recuperação judicial
+    if t.startswith("LIGT"):  # Concessão em recuperação judicial
         return False
-    if t in REGULATED_UTILITY_TICKERS:
+    if t in REGULATED_UTILITY_TICKERS or t[:4] in {x[:4] for x in REGULATED_UTILITY_TICKERS}:
         return True
     s = sector_name.lower().strip()
     return any(u in s for u in REGULATED_UTILITY_SECTORS)
@@ -392,15 +392,19 @@ def calculate_financial_institution_quality(row: Dict[str, Any], hist_data: Opti
     # Teto teórico assintótico (nenhuma empresa atinge 100.0)
     quality_score = round(max(5.0, min(92.5, quality_score)), 1)
 
-    # Trava CFA de Custo de Capital Próprio Bancário (Ke ~14,5% a 15,0%):
+    # Trava CFA de Custo de Capital Próprio Bancário (Ke ~14,5% a 15,0%) e Escala Prudencial (S1/S2 vs S3/S4):
     # Instituições financeiras com ROE abaixo de 15% não geram Economic Profit (EVA) suficiente para Tier 1 (Classe Mundial)
     cur_roe_pct = (cur_roe * 100.0 if abs(cur_roe) < 2.0 else cur_roe) if cur_roe is not None else 0.0
     min_roe_pct = min(r_pct, cur_roe_pct)
     if min_roe_pct < 10.0:
-        roe_cap = round(52.0 + max(0.0, min_roe_pct) * 1.5, 1)
+        roe_cap = round(50.0 + max(0.0, min_roe_pct) * 1.4, 1)
         quality_score = min(quality_score, roe_cap)
     elif min_roe_pct < 15.0:
         quality_score = min(quality_score, 74.5)
+
+    # Trava de Escala Bancária (Bancos de pequeno porte / nicho com PL < R$ 4 Bilhões possuem funding mais caro e carteira concentrada)
+    if not is_insurance and pl_val < 4_000_000_000:
+        quality_score = min(quality_score, 72.5)
 
     if quality_score >= 80.0:
         quality_tier = "Tier 1: Classe Mundial (Wide/Narrow Moat)"
@@ -466,14 +470,35 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     if is_util and effective_roic is not None and effective_roe is not None and effective_roe > effective_roic and effective_roic > 0.08:
         effective_roic = (effective_roic * 0.50) + (effective_roe * 0.50)
 
-    # Estrutura de capital para validação de Solidez e Compounder
+    # Estrutura de capital para validação de Solidez, Interest Burden e Compounder
     dle_val = row.get("div_liq_ebitda")
     dle_num = float(dle_val) if dle_val is not None and str(dle_val).lower() not in ["none", "nan"] else None
     det = row.get("details", {}) or {}
     dl_val = det.get("divida_liquida")
     dl_num = float(dl_val) if dl_val is not None and str(dl_val).lower() not in ["none", "nan"] else None
+    ebit_12m = det.get("ebit_12m")
+    ebit_num = float(ebit_12m) if ebit_12m is not None and str(ebit_12m).lower() not in ["none", "nan"] else None
+    lucro_12m = det.get("lucro_liq_12m") if det.get("lucro_liq_12m") is not None else cur_lucro
+    lucro_num = float(lucro_12m) if lucro_12m is not None and str(lucro_12m).lower() not in ["none", "nan"] else None
+    pl_num_det = float(det.get("patrimonio_liquido") or row.get("patrim_liq") or 0.0)
+    mrg_liq_val = float(row.get("mrg_liq") or 0.0)
+
     is_net_cash = (dl_num is not None and dl_num < 0) or (dle_num is not None and dle_num < 0)
     is_controlled_debt = is_net_cash or (dle_num is not None and dle_num <= (3.2 if is_util else 1.8))
+
+    # Sanitização CFA contra Lucro Líquido Inflado por Crédito Tributário One-Off (ex: VTRU3 onde Lucro > EBIT mesmo com dívida)
+    has_tax_credit_distortion = (not is_net_cash and ebit_num is not None and ebit_num > 0 and lucro_num is not None and lucro_num > ebit_num * 0.90)
+    if has_tax_credit_distortion and pl_num_det > 0:
+        norm_lucro = ebit_num * 0.66
+        cur_roe = norm_lucro / pl_num_det
+        effective_roe = min(float(effective_roe or cur_roe), (cur_roe * 0.70) + (float(effective_roe or cur_roe) * 0.30))
+        if cur_rec and float(cur_rec) > 0:
+            mrg_liq_val = norm_lucro / float(cur_rec)
+
+    # Teste DuPont de Erosão Financeira do EBIT (Interest Burden: quanto do EBIT sobra após juros e impostos)
+    # Caso ASAI3 / Varejo Alavancado: EBIT alto, mas despesa financeira consome > 65% do EBIT e margem líquida < 3,5%
+    interest_burden = (lucro_num / ebit_num) if (ebit_num is not None and ebit_num > 0 and lucro_num is not None) else 1.0
+    has_severe_interest_erosion = (not is_net_cash and interest_burden < 0.35 and mrg_liq_val < 0.035)
 
     # Obter ROIC efetivo e contábil LTM percentual (%):
     r_roic_pct = None
@@ -483,7 +508,7 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     # 1. Rentabilidade (Peso 40%) - ROIC, ROE e Margem Líquida em Curvas Contínuas
     s_roic = score_roic(effective_roic)
     s_roe = score_roe(effective_roe)
-    s_mrg_liq = score_mrg_liq(row.get("mrg_liq"))
+    s_mrg_liq = score_mrg_liq(mrg_liq_val)
     score_pilar_rentabilidade = (s_roic * 0.40) + (s_roe * 0.35) + (s_mrg_liq * 0.25)
 
     # 2. Solidez Financeira (Peso 35%) - 70% Dívida Líquida/EBITDA e 30% Liquidez Corrente (com ajuste p/ Ciclo de Caixa Negativo e Concessões)
@@ -504,6 +529,8 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         elif is_util and s_liq_corr >= 35.0:
             s_liq_corr = max(72.0, s_liq_corr)
         score_pilar_solidez = (s_dl_ebitda * 0.70) + (s_liq_corr * 0.30)
+        if has_severe_interest_erosion:
+            score_pilar_solidez = max(25.0, score_pilar_solidez - 22.0)
 
     # 3. Consistência e Defensibilidade (Peso 25%)
     anos_lucro = h_metrics["anos_com_lucro"]
@@ -585,24 +612,46 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
     else:
         quality_score = round(max(5.0, min(92.5, raw_score)), 1)
         
-        # Trava Crítica CFA de ROIC / Criação de Valor Econômico (Custo de Capital ~13,5%):
-        # 1. Se ROIC < 10%: recalcule moat_score = min(moat_score, round(45 + roic * 1.3, 1))
-        # 2. Se 10.0 <= ROIC < 13.5: limite moat_score = min(moat_score, 66.5) (ou 76.0 para Concessões Reguladas com ROE >= 15%)
+        # Trava Crítica CFA de ROIC / Criação de Valor Econômico (WACC ~13,5%) e Remuneração ao Acionista (ROE):
+        # 1. Nenhuma empresa comum com retorno abaixo do WACC (< 13,5%) pode entrar no Tier 2 (>= 65,0): curva contínua de 42 a 64,2 pts.
+        # 2. Empresas com ROE atual < 11,5% (remuneração pífia ao acionista, ex: CSED3 4%, DESK3 5%, SAPR11 4%, BLAU3 8%) ficam restritas ao Tier 3.
         if r_roic_pct is not None:
             cur_roic_pct = (cur_roic * 100.0 if abs(cur_roic) < 2.0 else cur_roic) if cur_roic is not None else r_roic_pct
             cur_roe_pct = (cur_roe * 100.0 if abs(cur_roe) < 2.0 else cur_roe) if cur_roe is not None else cur_roic_pct
             check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, cur_roe_pct or 0.0))
             if check_roic_pct < 10.0:
-                roic_cap = max(10.0, round(45.0 + (max(-25.0, check_roic_pct) * 1.3), 1))
-                if is_util and ((effective_roe is not None and effective_roe >= 0.12) or (dle_num is not None and dle_num <= 1.5 and anos_lucro == total_anos)):
-                    roic_cap = max(roic_cap, 72.5)
+                roic_cap = max(10.0, round(42.0 + (max(-22.0, check_roic_pct) * 1.5), 1))
+                if is_util and ((cur_roe_pct is not None and cur_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and cur_roe_pct is not None and cur_roe_pct >= 10.0)):
+                    roic_cap = max(roic_cap, 68.5)
                 quality_score = min(quality_score, roic_cap)
             elif check_roic_pct < 13.5:
-                cap_mid = 76.0 if (is_util and ((effective_roe is not None and effective_roe >= 0.14) or (dle_num is not None and dle_num <= 1.5))) else 66.5
+                if is_util and ((cur_roe_pct is not None and cur_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and cur_roe_pct is not None and cur_roe_pct >= 10.5)):
+                    cap_mid = 74.5
+                else:
+                    cap_mid = round(57.0 + ((check_roic_pct - 10.0) / 3.5) * 7.2, 1)  # Máx 64.2 (Tier 3)
                 quality_score = min(quality_score, cap_mid)
             elif cur_roe_num < 0.145 and not (is_net_cash and cur_roic_num >= 0.18):
                 # Trava CFA de Custo de Capital Próprio (Ke ~14,5%): empresa com ROE < 14,5% e sem caixa líquido c/ super ROIC fica em Tier 2 (<= 77.5)
                 quality_score = min(quality_score, 77.5)
+
+            # Trava de Remuneração Mínima ao Acionista (ROE LTM < 11,5% não pode ser Tier 2, salvo Telecom/Utility desavancada c/ ROE >= 10%)
+            if cur_roe_pct is not None and cur_roe_pct < 11.5:
+                if is_util and cur_roe_pct >= 10.0 and (dle_num is not None and dle_num <= 1.5):
+                    quality_score = min(quality_score, 68.5)
+                else:
+                    roe_sh_cap = max(10.0, round(48.0 + max(-20.0, cur_roe_pct) * 1.40, 1))
+                    quality_score = min(quality_score, roe_sh_cap)
+
+        # Trava de Erosão Financeira do EBIT (Caso ASAI3: juros consomem > 65% do EBIT e margem líquida < 3,5%)
+        if has_severe_interest_erosion:
+            quality_score = min(quality_score, 61.5)
+
+        # Trava de Desaceleração Severa de Lucro Recente (Queda de Run-Rate > 45% em empresa fora de caixa líquido)
+        l3_det = det.get("lucro_liq_3m")
+        if not is_net_cash and not is_util and lucro_num is not None and lucro_num > 0 and l3_det is not None:
+            rr_div_val = ((4.0 * float(l3_det)) - lucro_num) / lucro_num
+            if rr_div_val <= -0.45:
+                quality_score = min(quality_score, 63.5)
 
         # Trava Crítica de Alavancagem Munger:
         # - Empresas comuns: Dívida Líquida/EBITDA >= 3.5x OU (>= 2.5x com ROE < 0)
