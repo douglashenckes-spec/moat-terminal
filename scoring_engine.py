@@ -614,19 +614,28 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
         
         # Trava Crítica CFA de ROIC / Criação de Valor Econômico (WACC ~13,5%) e Remuneração ao Acionista (ROE):
         # 1. Nenhuma empresa comum com retorno abaixo do WACC (< 13,5%) pode entrar no Tier 2 (>= 65,0): curva contínua de 42 a 64,2 pts.
-        # 2. Empresas com ROE atual < 11,5% (remuneração pífia ao acionista, ex: CSED3 4%, DESK3 5%, SAPR11 4%, BLAU3 8%) ficam restritas ao Tier 3.
+        # 2. Empresas com ROE recorrente < 11,5% (remuneração pífia ao acionista, ex: CSED3 4%, DESK3 5%, BLAU3 8%) ficam restritas ao Tier 3.
+        l3_det = det.get("lucro_liq_3m")
+        rr_roe_pct = ((4.0 * float(l3_det)) / pl_num_det * 100.0) if (l3_det is not None and float(l3_det) > 0 and pl_num_det > 0) else 0.0
+        eff_roe_pct = (effective_roe * 100.0 if abs(effective_roe) < 2.0 else effective_roe) if effective_roe is not None else 0.0
+
         if r_roic_pct is not None:
             cur_roic_pct = (cur_roic * 100.0 if abs(cur_roic) < 2.0 else cur_roic) if cur_roic is not None else r_roic_pct
             cur_roe_pct = (cur_roe * 100.0 if abs(cur_roe) < 2.0 else cur_roe) if cur_roe is not None else cur_roic_pct
-            check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, cur_roe_pct or 0.0))
+            recurring_roe_pct = max(cur_roe_pct or 0.0, min(eff_roe_pct, rr_roe_pct * 1.15) if rr_roe_pct > 0 else (cur_roe_pct or 0.0))
+            if (cur_roic_pct or 0.0) >= 13.5 and (cur_roe_pct or 0.0) >= 14.0:
+                check_roic_pct = max(r_roic_pct, cur_roic_pct or 0.0)
+            else:
+                check_roic_pct = min(r_roic_pct, max(cur_roic_pct or 0.0, recurring_roe_pct))
+
             if check_roic_pct < 10.0:
                 roic_cap = max(10.0, round(42.0 + (max(-22.0, check_roic_pct) * 1.5), 1))
-                if is_util and ((cur_roe_pct is not None and cur_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and cur_roe_pct is not None and cur_roe_pct >= 10.0)):
+                if is_util and ((recurring_roe_pct >= 12.0) or (dle_num is not None and dle_num <= 1.2 and recurring_roe_pct >= 9.5)):
                     roic_cap = max(roic_cap, 68.5)
                 quality_score = min(quality_score, roic_cap)
             elif check_roic_pct < 13.5:
-                if is_util and ((cur_roe_pct is not None and cur_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and cur_roe_pct is not None and cur_roe_pct >= 10.5)):
-                    cap_mid = 74.5
+                if is_util and ((recurring_roe_pct >= 14.0) or (dle_num is not None and dle_num <= 1.5 and recurring_roe_pct >= 9.5)):
+                    cap_mid = 73.5
                 else:
                     cap_mid = round(57.0 + ((check_roic_pct - 10.0) / 3.5) * 7.2, 1)  # Máx 64.2 (Tier 3)
                 quality_score = min(quality_score, cap_mid)
@@ -634,12 +643,12 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
                 # Trava CFA de Custo de Capital Próprio (Ke ~14,5%): empresa com ROE < 14,5% e sem caixa líquido c/ super ROIC fica em Tier 2 (<= 77.5)
                 quality_score = min(quality_score, 77.5)
 
-            # Trava de Remuneração Mínima ao Acionista (ROE LTM < 11,5% não pode ser Tier 2, salvo Telecom/Utility desavancada c/ ROE >= 10%)
-            if cur_roe_pct is not None and cur_roe_pct < 11.5:
-                if is_util and cur_roe_pct >= 10.0 and (dle_num is not None and dle_num <= 1.5):
-                    quality_score = min(quality_score, 68.5)
+            # Trava de Remuneração Mínima ao Acionista (ROE Recorrente < 11,5% não pode ser Tier 2, salvo Telecom/Utility desavancada c/ ROE >= 9,5%)
+            if recurring_roe_pct < 11.5:
+                if is_util and recurring_roe_pct >= 9.5 and (dle_num is not None and dle_num <= 1.5):
+                    quality_score = min(quality_score, 71.5 if check_roic_pct >= 11.5 else 68.5)
                 else:
-                    roe_sh_cap = max(10.0, round(48.0 + max(-20.0, cur_roe_pct) * 1.40, 1))
+                    roe_sh_cap = max(10.0, round(48.0 + max(-20.0, recurring_roe_pct) * 1.40, 1))
                     quality_score = min(quality_score, roe_sh_cap)
 
         # Trava de Erosão Financeira do EBIT (Caso ASAI3: juros consomem > 65% do EBIT e margem líquida < 3,5%)
@@ -647,7 +656,6 @@ def calculate_business_quality(row: Dict[str, Any], sector_name: str = "", hist_
             quality_score = min(quality_score, 61.5)
 
         # Trava de Desaceleração Severa de Lucro Recente (Queda de Run-Rate > 45% em empresa fora de caixa líquido)
-        l3_det = det.get("lucro_liq_3m")
         if not is_net_cash and not is_util and lucro_num is not None and lucro_num > 0 and l3_det is not None:
             rr_div_val = ((4.0 * float(l3_det)) - lucro_num) / lucro_num
             if rr_div_val <= -0.45:
@@ -857,7 +865,15 @@ def evaluate_entry_valuation(row: Dict[str, Any], sector_name: str = "", quality
     has_neg_eq_val = has_negative_equity or (pvp_cur is not None and float(pvp_cur) < 0) or (vpa_cur is not None and float(vpa_cur) < 0)
     is_distressed_val = has_neg_eq_val or (not is_fin and dle_num is not None and dle_num >= 3.0 and roe_cur is not None and float(roe_cur) < 0)
 
-    is_above_curve = (pl is not None and pl > 0 and pl < exp_pl and not is_distressed_val)
+    is_util_val = is_regulated_utility(sector_name, ticker)
+    qs_num = float(qs or 50.0)
+    roe_num_val = float(roe_cur or 0.0)
+    roic_num_val = float(roic or 0.0)
+    DISTRESSED_VAL_TICKERS = {"LIGT3", "AMER3", "OIBR3", "AZUL3", "AZUL4", "GOLL4", "CVCB3", "BHIA3", "PCAR3", "ONCO3", "RCSL4", "ENJU3"}
+    is_debt_trap_val = (not is_fin) and (dle_num is not None) and (dle_num > (3.5 if (is_util_val and qs_num >= 68.0) else 2.5))
+    is_value_trap = (qs_num < 60.0) or (roe_num_val < 0.10 and (is_fin or roic_num_val < 0.13)) or is_debt_trap_val or (ticker in DISTRESSED_VAL_TICKERS)
+
+    is_above_curve = (pl is not None and pl > 0 and pl < exp_pl and not is_distressed_val and not is_value_trap)
     
     pl_rr = row.get("pl_run_rate")
     if pl_rr is None:

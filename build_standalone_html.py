@@ -1513,21 +1513,30 @@ html_template = f"""<!DOCTYPE html>
       return baseExp;
     }}
 
-    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada
+    // Salvaguarda Munger: Alinhar Múltiplos com Curva de Referência Ajustada e Travas Anti-Value Trap
     function sanitizeStockValuation(s) {{
       if (!s) return;
       const expPL = calcAdjustedFairPL(s);
-      const isAbove = s.pl && s.pl > 0 && s.pl < expPL;
       const det = s.details || {{}};
       const hasNegEquity = (s.pvp !== null && Number(s.pvp) < 0) || (det.vpa !== null && Number(det.vpa) < 0);
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      const isDistressedVal = hasNegEquity || (!s.is_financial && dle !== null && dle >= 3.0 && s.roe !== null && Number(s.roe) < 0);
+      const qs = Number(s.quality_score || 0);
+      const roeNum = Number(s.roe || 0);
+      const roicNum = Number(s.roic || 0);
+      const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+      const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+      const DISTRESSED_SET = new Set(['LIGT3', 'AMER3', 'OIBR3', 'AZUL3', 'AZUL4', 'GOLL4', 'CVCB3', 'BHIA3', 'PCAR3', 'ONCO3', 'RCSL4', 'ENJU3']);
+
+      const isDistressedVal = hasNegEquity || DISTRESSED_SET.has(s.ticker) || (!s.is_financial && dle !== null && dle >= 3.0 && roeNum < 0);
+      const isDebtTrap = !s.is_financial && dle !== null && (dle > (isUtil && qs >= 68.0 ? 3.5 : 2.5));
+      const isValueTrap = (qs < 60.0) || (roeNum < 0.10 && (s.is_financial || roicNum < 0.13)) || isDebtTrap || isDistressedVal;
+      const isAbove = !!(s.pl && s.pl > 0 && s.pl < expPL && !isValueTrap);
 
       if (s.pl === null || s.pl === undefined || Number(s.pl) <= 0) {{
         s.entry_tag = 'ESTICADA';
         s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / SEM BASE DE LUCRO';
         s.entry_color = '#EF4444';
-      }} else if (isDistressedVal) {{
+      }} else if (isDistressedVal || (qs < 48.0 && isDebtTrap)) {{
         s.entry_tag = 'ESTICADA';
         s.entry_status = '🔴 MÚLTIPLOS ELEVADOS / ALTO RISCO';
         s.entry_color = '#EF4444';
@@ -1734,27 +1743,36 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     // =========================================================================
-    // PREDICADOS UNIFICADOS DE FILTRAGEM CFA / MUNGER (100% CONSISTENTES)
+    // PREDICADOS UNIFICADOS DE FILTRAGEM CFA / MUNGER (100% BLINDADOS CONTRA VALUE TRAPS)
     // =========================================================================
     function isNetCashStock(s) {{
       if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
+      if ((s.quality_score || 0) < 60.0) return false;
+      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.09) return false;
       const det = s.details || {{}};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
       if (s.is_financial) {{
         // Seguradoras, Bolsas (B3) e Corretoras não-bancárias que operam com Caixa Líquido / Dívida Zero
-        return dl !== null && dl <= 0 && (Number(s.roe || 0) > 0);
+        return dl !== null && dl <= 0 && (Number(s.roe || 0) >= 0.12);
       }}
-      if (dle !== null && dle > 0.15) return false;
-      return (dl !== null && dl <= 0) || (dle !== null && dle <= 0.15);
+      if (dle !== null && dle > 0.05) return false;
+      return (dl !== null && dl < 0);
     }}
 
     function isConsistentDividendStock(s) {{
-      if (!s || s.div_yield === null || s.div_yield < 0.06) return false;
-      if (s.pl !== null && s.pl <= 0) return false;
-      if (s.roe !== null && s.roe <= 0) return false;
+      if (!s || s.div_yield === null || s.div_yield < 0.06 || s.div_yield > 0.22) return false;
+      if ((s.quality_score || 0) < 62.0) return false;
+      if (!s.pl || s.pl <= 0) return false;
+      if (!s.roe || s.roe < 0.115) return false;
       const p = s.payout_implicito;
-      if (p !== null && p !== undefined && (p <= 0 || p > 105)) return false;
+      if (p !== null && p !== undefined && (p < 15 || p > 95)) return false;
+      if (!s.is_financial) {{
+        const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+        const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 3.5 : 2.3;
+        if (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined && s.div_liq_ebitda > maxDle) return false;
+      }}
       return true;
     }}
 
@@ -1765,14 +1783,14 @@ html_template = f"""<!DOCTYPE html>
       if (f === 'DIVIDENDS' || f === 'CAT_DIVIDENDS') return isConsistentDividendStock(s);
       if (f === 'NET_CASH' || f === 'CAT_NET_CASH') return isNetCashStock(s);
       if (f === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
-      if (f === 'NTNB' || f === 'CAT_SPREAD_NTNB') return s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0));
+      if (f === 'NTNB' || f === 'CAT_SPREAD_NTNB') return getStockCategories(s).some(c => c.id === 'CAT_SPREAD_NTNB');
       if (f === 'CAT_3T26') return !!(s.tri_balanco && s.tri_balanco.includes('3T26'));
       if (f === 'CAT_2T26') return !!(s.tri_balanco && s.tri_balanco.includes('2T26'));
-      if (f === 'CAT_EXPANSION') return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88);
+      if (f === 'CAT_EXPANSION') return getStockCategories(s).some(c => c.id === 'CAT_EXPANSION');
       if (f === 'CAT_DECELERATION') return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25);
       if (f === 'CAT_HIGH_DEBT') return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
-      if (f === 'CAT_CLEAN_EARNINGS') return !s.is_distorted && !!(s.historical_5y && s.historical_5y.is_all_profitable);
-      if (f === 'CAT_HIGH_ROIC') return (!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18);
+      if (f === 'CAT_CLEAN_EARNINGS') return getStockCategories(s).some(c => c.id === 'CAT_CLEAN_EARNINGS');
+      if (f === 'CAT_HIGH_ROIC') return getStockCategories(s).some(c => c.id === 'CAT_HIGH_ROIC');
       if (f === 'CAT_FINANCIAL') return !!s.is_financial;
       if (f === 'CAT_GRAHAM') return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
       if (f === 'CAT_BAZIN') return getStockCategories(s).some(c => c.id === 'CAT_BAZIN');
@@ -1996,7 +2014,7 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      // Qualidade: Tier 1 & Super ROIC (Independentes para não excluir WEGE3 ou Tier 1 do filtro Super ROIC!)
+      // Qualidade: Tier 1 & Super ROIC (Exige Score >= 65, P/L > 0 e ROE >= 14% para Super ROIC!)
       if ((s.quality_score || 0) >= 80.0) {{
         cats.push({{
           id: 'CAT_TIER1',
@@ -2007,7 +2025,7 @@ html_template = f"""<!DOCTYPE html>
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
         }});
       }}
-      if ((!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18)) {{
+      if ((s.quality_score || 0) >= 65.0 && s.pl && s.pl > 0 && (s.roe || 0) >= 0.14 && ((!s.is_financial && s.roic !== null && s.roic >= 0.18) || (s.is_financial && (s.roe || 0) >= 0.18))) {{
         cats.push({{
           id: 'CAT_HIGH_ROIC',
           group: 'QUALIDADE',
@@ -2018,7 +2036,7 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      if (!s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {{
+      if ((s.quality_score || 0) >= 65.0 && (s.roe || 0) >= 0.12 && !s.is_distorted && s.historical_5y && s.historical_5y.is_all_profitable) {{
         cats.push({{
           id: 'CAT_CLEAN_EARNINGS',
           group: 'QUALIDADE',
@@ -2096,11 +2114,10 @@ html_template = f"""<!DOCTYPE html>
       const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
       const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
 
-      // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Casos BMOB3, LAVV3, LREN3)
-      const isStrongCashEv = !s.is_financial && (
-        (isNetCashVal && (cashRatioVal >= 0.10 || dispRatioVal >= 0.15)) ||
-        (isNetCashVal && evebValNum !== null && evebValNum > 0 && evebValNum <= 6.0) ||
-        (s.ticker === 'LAVV3')
+      // Regra 1: Forte Caixa Líquido • Olhar EV/EBITDA (Exige isNetCashVal auditado e Score >= 60)
+      const isStrongCashEv = !s.is_financial && isNetCashVal && (
+        (cashRatioVal >= 0.10 || dispRatioVal >= 0.15) ||
+        (evebValNum !== null && evebValNum > 0 && evebValNum <= 6.0)
       );
       if (isStrongCashEv) {{
         cats.push({{
@@ -2126,12 +2143,16 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0) {{
+      const secStrCat = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+      const isUtilCat = secStrCat.includes('energia') || secStrCat.includes('saneamento') || secStrCat.includes('água') || secStrCat.includes('telecom');
+      const isSafeDebtForVal = s.is_financial || (dle === null) || (dle <= (isUtilCat && (s.quality_score || 0) >= 68.0 ? 3.5 : 2.3));
+
+      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 60.0 && eValNum >= 0.10 && isSafeDebtForVal) {{
         const graham = Math.sqrt(22.5 * lpa * vpa);
         if (graham > cot * 1.15) {{
           // Regra 1: Trava de Qualidade Graham
           const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12);
-          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 60);
+          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 65);
           if (condG1 || condG2) {{
             cats.push({{
               id: 'CAT_GRAHAM_ALERT',
@@ -2153,13 +2174,13 @@ html_template = f"""<!DOCTYPE html>
           }}
         }}
       }}
-      if (s.div_yield && s.div_yield >= 0.06 && cot > 0) {{
+      if (s.div_yield && s.div_yield >= 0.06 && s.div_yield <= 0.22 && cot > 0 && (s.quality_score || 0) >= 60.0 && eValNum >= 0.11) {{
         const bazin = (cot * s.div_yield) / 0.06;
         if (bazin > cot * 1.15) {{
           // Regra 4: Trava de Segurança Bazin
           const payoutNum = (s.payout_implicito !== null && s.payout_implicito !== undefined) ? Number(s.payout_implicito) : null;
           const dleNum = dle;
-          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 3.0);
+          const isBazinWarning = (payoutNum !== null && payoutNum > 95.0) || (!s.is_financial && dleNum !== null && dleNum > 2.8);
           if (isBazinWarning) {{
             cats.push({{
               id: 'CAT_BAZIN_WARNING',
@@ -2181,7 +2202,7 @@ html_template = f"""<!DOCTYPE html>
           }}
         }}
       }}
-      if (s.ey_spread !== null && s.ey_spread >= 2.0 && (!s.pl || (s.pl > 0 && s.pl <= 15.0))) {{
+      if ((s.quality_score || 0) >= 60.0 && eValNum >= 0.105 && isSafeDebtForVal && s.ey_spread !== null && s.ey_spread >= 2.0 && s.pl && s.pl >= 3.0 && s.pl <= 15.0) {{
         cats.push({{
           id: 'CAT_SPREAD_NTNB',
           group: 'VALUATION',
@@ -2192,10 +2213,10 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      // Momento de Resultados
+      // Momento de Resultados (Expansão exige Score >= 60, ROE >= 10,5%, P/L Run-Rate <= 18x e Dívida Saudável)
       if (s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct !== undefined) {{
         const triLbl = s.tri_balanco ? s.tri_balanco.split(' ')[0] : 'Trimestral';
-        if (s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
+        if ((s.quality_score || 0) >= 60.0 && eValNum >= 0.105 && isSafeDebtForVal && s.pl_run_rate <= 18.0 && s.run_rate_div_pct >= 15.0 && s.pl_run_rate < s.pl * 0.88) {{
           cats.push({{
             id: 'CAT_EXPANSION',
             group: 'VALUATION',
@@ -2216,13 +2237,13 @@ html_template = f"""<!DOCTYPE html>
         }}
       }}
 
-      // Proventos & Payout (Bazin Blindado e Dividendos > 6% não-excludentes!)
+      // Proventos & Payout (Bazin Blindado exclusivo p/ Tier 1 e Tier 2: Score >= 65, ROE >= 13,5%, Payout 20-85% e Dívida Segura!)
       const dyVal = Number(s.div_yield || 0);
       const payoutVal = s.payout_implicito !== null && s.payout_implicito !== undefined ? Number(s.payout_implicito) : null;
       const dleVal = dle;
-      const isDebtSafe = s.is_financial || (dleVal !== null && dleVal <= 2.2) || isNetCashVal;
-      const isPayoutHealthy = payoutVal !== null && payoutVal > 0 && payoutVal <= 85.0;
-      const isBazinBlindado = (dyVal >= 0.07) && isPayoutHealthy && isDebtSafe;
+      const isDebtSafe = s.is_financial || isNetCashVal || (dleVal !== null && dleVal <= (isUtilCat && (s.quality_score || 0) >= 70.0 ? 3.3 : 2.0));
+      const isPayoutHealthy = payoutVal !== null && payoutVal >= 20.0 && payoutVal <= 85.0;
+      const isBazinBlindado = (s.quality_score || 0) >= 65.0 && eValNum >= 0.135 && (dyVal >= 0.07 && dyVal <= 0.20) && isPayoutHealthy && isDebtSafe;
 
       if (isBazinBlindado) {{
         cats.push({{

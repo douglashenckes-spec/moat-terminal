@@ -389,7 +389,8 @@ def generate_stock_badges_html(s):
     dl_val = float(dl) if dl is not None and str(dl).lower() not in ["none", "nan"] else None
     dle = s.get("div_liq_ebitda")
     dle_num = float(dle) if dle is not None and str(dle).lower() not in ["none", "nan"] else None
-    is_net_cash = (dl_val is not None and dl_val < 0) or (dle_num is not None and dle_num < 0)
+    is_util_seo = ("Energia Elétrica" in setor_name or "Água e Saneamento" in setor_name or "Gás" in setor_name or "Energia" in subsetor_name or "Saneamento" in subsetor_name)
+    is_net_cash = (not is_fin) and (dl_val is not None and dl_val < 0) and (qs >= 60.0) and (pl_num is not None and pl_num > 0) and (roe_val >= 0.09)
 
     # 1. Risco de Alavancagem Crítica (Regra 2 - Alavancagem alta com compressão de resultado)
     is_critical_debt = (not is_fin) and (dle_num is not None) and (qs <= 45.5 or roe_val < 0.08 or (pl_num is not None and pl_num < 0)) and (dle_num >= 3.5 or (dle_num >= 2.5 and (roe_val < 0 or (pl_num is not None and pl_num < 0))))
@@ -431,13 +432,13 @@ def generate_stock_badges_html(s):
         quality_pills.append(('Contabilidade POC', 'bg-indigo-500', 'bg-indigo-50/90 text-indigo-950 border border-indigo-200/90 font-medium', 'CAT_REAL_ESTATE_POC'))
 
     roic_or_roe = roic_val or roe_val
-    if qs >= 80 and roic_or_roe >= 0.15:
+    if qs >= 80 and roic_or_roe >= 0.145:
         quality_pills.append(('Tier 1 (Wide Moat)', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_TIER1'))
-    elif not is_fin and roic_val >= 0.18:
+    elif not is_fin and roic_val >= 0.18 and qs >= 65.0 and (pl_num is not None and pl_num > 0) and roe_val >= 0.14:
         quality_pills.append(('Super ROIC ≥ 18%', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_HIGH_ROIC'))
 
     h5 = s.get("historical_5y") or {}
-    if not s.get("is_distorted") and h5.get("is_all_profitable"):
+    if not s.get("is_distorted") and h5.get("is_all_profitable") and qs >= 65.0 and roe_val >= 0.12:
         quality_pills.append(('Lucro Limpo 5A', 'bg-teal-500', 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium', 'CAT_CLEAN_EARNINGS'))
 
     score_delta_5y = float(h5.get("score_delta_5y") or 0.0)
@@ -486,14 +487,16 @@ def generate_stock_badges_html(s):
 
     lpa = float(details.get("lpa") or 0)
     vpa = float(details.get("vpa") or 0)
+    is_val_safe_debt = is_fin or (dle_num is not None and dle_num <= 2.5) or (is_util_seo and qs >= 68.0 and dle_num is not None and dle_num <= 3.5) or is_net_cash
     if lpa > 0 and vpa > 0 and cot > 0:
         graham = math.sqrt(22.5 * lpa * vpa)
         if graham > cot * 1.15:
             # Regra 1: Trava de Qualidade no Badge Graham
             graham_alert_cond1 = (roe_val > 2 * roic_val and roic_val < 0.12)
             graham_alert_cond2 = (pl_val is not None and float(pl_val) > 0 and float(pl_val) < 3.5 and qs < 60)
-            if graham_alert_cond1 or graham_alert_cond2:
-                valuation_pills.append(('Graham c/ Alerta (Possível Não-Recorrente)', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_GRAHAM_ALERT'))
+            if graham_alert_cond1 or graham_alert_cond2 or qs < 60.0 or roe_val < 0.10 or not is_val_safe_debt:
+                if qs >= 45.0:
+                    valuation_pills.append(('Graham c/ Alerta (Possível Não-Recorrente)', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_GRAHAM_ALERT'))
             else:
                 valuation_pills.append(('Desconto Graham', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_GRAHAM'))
 
@@ -507,19 +510,19 @@ def generate_stock_badges_html(s):
             # Regra 4: Trava de Segurança no Badge Ref. Bazin
             bazin_warn_payout = (payout_num is not None and payout_num > 95.0)
             bazin_warn_debt = (not is_fin and dle_num is not None and dle_num > 3.0)
-            if bazin_warn_payout or bazin_warn_debt:
+            if bazin_warn_payout or bazin_warn_debt or qs < 62.0 or roe_val < 0.115:
                 valuation_pills.append(('Yield Alto • Atenção ao Payout', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_BAZIN_WARNING'))
             else:
                 valuation_pills.append(('Ref. Bazin (DY 6%)', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_BAZIN'))
 
     ey = s.get("ey_spread")
-    if ey is not None and float(ey) >= 2.0 and (pl_val is None or float(pl_val) <= 15.0):
+    if ey is not None and float(ey) >= 2.0 and (pl_val is None or (2.5 <= float(pl_val) <= 15.0)) and qs >= 60.0 and roe_val >= 0.105 and is_val_safe_debt:
         valuation_pills.append(('Prêmio Real NTN-B', 'bg-cyan-500', 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium', 'CAT_SPREAD_NTNB'))
 
     pl_rr = s.get("pl_run_rate")
     rr_div = s.get("run_rate_div_pct")
     if pl_val and pl_rr and rr_div is not None:
-        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl_val) * 0.88:
+        if float(rr_div) >= 15.0 and float(pl_rr) < float(pl_val) * 0.88 and float(pl_rr) <= 18.0 and qs >= 60.0 and roe_val >= 0.105 and is_val_safe_debt:
             valuation_pills.append(('Lucro Acelerando', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_EXPANSION'))
         elif float(rr_div) <= -25.0 and float(pl_rr) > float(pl_val) * 1.25:
             seasonal_sectors = {"Consumo Cíclico", "Tecidos, Vestuário e Calçados", "Comércio", "Agropecuária", "Alimentos Processados"}
@@ -530,13 +533,14 @@ def generate_stock_badges_html(s):
             else:
                 valuation_pills.append(('Queda de Run-Rate', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_DECELERATION'))
 
-    is_debt_safe = is_fin or (dle_num is not None and dle_num <= 2.2) or is_net_cash
-    is_payout_healthy = (payout_num is not None and 0 < payout_num <= 85.0)
-    is_bazin_blindado = (dy >= 0.07) and is_payout_healthy and is_debt_safe
+    is_debt_safe = is_fin or (dle_num is not None and dle_num <= 2.0) or (is_util_seo and qs >= 70.0 and dle_num is not None and dle_num <= 3.3) or is_net_cash
+    is_payout_healthy = (payout_num is not None and 20 <= payout_num <= 85.0)
+    is_bazin_blindado = (qs >= 65.0) and (0.07 <= dy <= 0.20) and (roe_val >= 0.135) and (pl_num is not None and 3.5 <= pl_num <= 14.5) and is_payout_healthy and is_debt_safe and (not s.get("is_distorted")) and (not s.get("is_commodity_peak"))
 
+    is_div_debt_safe = is_fin or (dle_num is not None and dle_num <= 2.3) or (is_util_seo and qs >= 68.0 and dle_num is not None and dle_num <= 3.5) or is_net_cash
     if is_bazin_blindado:
         valuation_pills.append(('Bazin Blindado', 'bg-emerald-600', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold', 'CAT_BAZIN_ARMORED'))
-    elif dy >= 0.05 and payout_num is not None and 30 <= payout_num <= 88:
+    elif qs >= 62.0 and (0.06 <= dy <= 0.22) and (roe_val >= 0.115) and (pl_num is not None and 3.0 <= pl_num <= 16.0) and (payout_num is not None and 15 <= payout_num <= 95) and is_div_debt_safe and (not s.get("is_distorted")) and (not s.get("is_commodity_peak")):
         valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
     elif payout_num is not None and payout_num > 105:
         valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
