@@ -1032,46 +1032,41 @@ html_template = f"""<!DOCTYPE html>
               <span class="text-[11px] font-normal text-slate-500">Plotados: <b class="text-emerald-700 font-bold" id="matrixPlotCount">--</b></span>
             </div>
 
-            <!-- Botões Verticais de Filtro -->
+            <!-- Botões Verticais de Filtro (7 Filtros Inteligentes Multi-Fator 5A) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-1.5">
               <button id="btn-mat-ALL" onclick="setMatrixFilter('ALL')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-800 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
                 <span class="flex items-center gap-2"><span>🌐</span><span>Todos os Ativos</span></span>
                 <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-all">--</span>
               </button>
 
-              <button id="btn-mat-CAT_TIER1" onclick="setMatrixFilter('CAT_TIER1')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>🏆</span><span>Wide Moat (Tier 1)</span></span>
+              <button id="btn-mat-CAT_TIER1" onclick="setMatrixFilter('CAT_TIER1')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Elite Moat Tier 1: Score ≥ 80, 5/5 anos de lucro e ROIC/ROE superiores">
+                <span class="flex items-center gap-2"><span>🏆</span><span>Elite Moat (Tier 1)</span></span>
                 <span class="bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-tier1">--</span>
               </button>
 
-              <button id="btn-mat-CAT_DISCOUNT" onclick="setMatrixFilter('CAT_DISCOUNT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>🟢</span><span>Múltiplos Atrativos</span></span>
+              <button id="btn-mat-CAT_DISCOUNT" onclick="setMatrixFilter('CAT_DISCOUNT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-emerald-200 bg-white hover:bg-emerald-50 text-emerald-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Assimetria 5A: Score ≥ 65, 5/5 anos de lucro, P/L ≤ 11x e abaixo da média de 5 anos">
+                <span class="flex items-center gap-2"><span>🟢</span><span>Assimetria de Valor 5A</span></span>
                 <span class="bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-discount">--</span>
               </button>
 
-              <button id="btn-mat-CAT_DESCONTO_MOAT" onclick="setMatrixFilter('CAT_DESCONTO_MOAT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-sky-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>🔵</span><span>Desconto ao Moat</span></span>
-                <span class="bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-desconto-moat">--</span>
-              </button>
-
-              <button id="btn-mat-CAT_NET_CASH" onclick="setMatrixFilter('CAT_NET_CASH')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-800 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>🛡️</span><span>Caixa Líquido</span></span>
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-cash">--</span>
-              </button>
-
-              <button id="btn-mat-CAT_EXPANSION" onclick="setMatrixFilter('CAT_EXPANSION')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>⚡</span><span>Lucro Acelerando</span></span>
-                <span class="bg-teal-100 text-teal-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-expansion">--</span>
-              </button>
-
-              <button id="btn-mat-CAT_DIVIDENDS" onclick="setMatrixFilter('CAT_DIVIDENDS')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-cyan-200 bg-white hover:bg-cyan-50 text-cyan-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>💰</span><span>Dividendos &gt; 6%</span></span>
+              <button id="btn-mat-CAT_DIVIDENDS" onclick="setMatrixFilter('CAT_DIVIDENDS')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-cyan-200 bg-white hover:bg-cyan-50 text-cyan-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Vacas Leiteiras 5A: DY atual ≥ 6%, DY médio 5A ≥ 6% e 3+ de 5 anos pagando ≥ 5,5%">
+                <span class="flex items-center gap-2"><span>💰</span><span>Vacas Leiteiras 5A</span></span>
                 <span class="bg-cyan-100 text-cyan-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-dividends">--</span>
               </button>
 
-              <button id="btn-mat-CAT_SPREAD_NTNB" onclick="setMatrixFilter('CAT_SPREAD_NTNB')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-sky-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs">
-                <span class="flex items-center gap-2"><span>📈</span><span>Prêmio Real NTN-B</span></span>
-                <span class="bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-spread">--</span>
+              <button id="btn-mat-CAT_MOAT_EXPANSION" onclick="setMatrixFilter('CAT_MOAT_EXPANSION')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-teal-200 bg-white hover:bg-teal-50 text-teal-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Fosso & Lucro em Expansão 5A: Score subindo + Lucro e Patrimônio crescendo em 5 anos">
+                <span class="flex items-center gap-2"><span>📈</span><span>Fosso em Expansão 5A</span></span>
+                <span class="bg-teal-100 text-teal-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-expansion">--</span>
+              </button>
+
+              <button id="btn-mat-CAT_DESCONTO_MOAT" onclick="setMatrixFilter('CAT_DESCONTO_MOAT')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-sky-950 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Compounders GARP: Score ≥ 74, ROE ≥ 15% e P/L abaixo do teto Munger">
+                <span class="flex items-center gap-2"><span>🔵</span><span>Compounders GARP</span></span>
+                <span class="bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-desconto-moat">--</span>
+              </button>
+
+              <button id="btn-mat-CAT_NET_CASH" onclick="setMatrixFilter('CAT_NET_CASH')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-800 text-xs font-semibold transition cursor-pointer text-left shadow-2xs" title="Fortaleza de Caixa Líquido: Dívida Líquida negativa, Score ≥ 65 e 5/5 anos de lucro">
+                <span class="flex items-center gap-2"><span>🛡️</span><span>Fortaleza Caixa Líq.</span></span>
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full text-[10px] font-bold" id="stat-mat-cash">--</span>
               </button>
             </div>
           </div>
@@ -1151,47 +1146,36 @@ html_template = f"""<!DOCTYPE html>
             <span class="bg-indigo-200/70 text-indigo-950 px-1.5 py-0.2 rounded-full text-[10px]" id="cnt-IBOV">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_TIER1')" id="flt-CAT_TIER1" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Wide Moat (Tier 1: Score ≥ 80, ROIC/ROE elevado e balanço forte)">
-            <span>🏆 Wide Moat (Tier 1)</span>
+          <button onclick="setFilter('CAT_TIER1')" id="flt-CAT_TIER1" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Elite Moat (Tier 1: Score ≥ 80, 5/5 anos de lucro, ROIC ≥ 15,2% / ROE ≥ 18% e balanço forte)">
+            <span>🏆 Elite Moat (Tier 1)</span>
             <span class="text-slate-500 text-[10px]" id="cnt-TIER1">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_DIVIDENDS')" id="flt-CAT_DIVIDENDS" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Dividend Yield > 6% com payout seguro">
-            <span>💰 Dividendos > 6%</span>
+          <button onclick="setFilter('CAT_DIVIDENDS')" id="flt-CAT_DIVIDENDS" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Vacas Leiteiras 5A: DY Atual ≥ 6%, Média 5A ≥ 6%, 3+ de 5 anos pagando ≥ 5,5%, Score ≥ 65 e 5/5 anos de lucro">
+            <span>💰 Vacas Leiteiras 5A</span>
             <span class="text-slate-500 text-[10px]" id="sb-cnt-div">--</span>
           </button>
 
-          <button onclick="setFilter('CAT_NET_CASH')" id="flt-CAT_NET_CASH" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Empresas com Caixa Líquido (Dívida zero)">
-            <span>🛡️ Caixa Líquido</span>
-            <span class="text-slate-500 text-[10px]" id="cnt-NET_CASH">--</span>
+          <button onclick="setFilter('CAT_DISCOUNT')" id="flt-CAT_DISCOUNT" class="filter-btn rounded-full px-3 py-1 text-xs font-sans font-semibold hover:text-slate-900 text-slate-700 bg-slate-50 border border-slate-200 hover:bg-slate-100 transition cursor-pointer flex items-center gap-1.5" title="Assimetria de Valor 5A: Score ≥ 65, 5/5 anos de lucro, P/L ≤ 11x e abaixo da média de 5 anos">
+            <span>🟢 Assimetria 5A (Bom &amp; Barato)</span>
+            <span class="text-slate-500 text-[10px]" id="cnt-DISCOUNT">--</span>
           </button>
 
-          <!-- Seletor Rápido de Outras Categorias (Organizado em 4 Pilares Institucionais) -->
+          <!-- Seletor Rápido de Estratégias Inteligentes (Enxuto, 6 Filtros Multi-Fator 5A) -->
           <div class="relative inline-flex items-center">
             <select id="secondaryCategorySelect" onchange="if(this.value) setFilter(this.value)" class="bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-700 font-sans focus:outline-none focus:border-emerald-500 cursor-pointer">
-              <option value="" disabled selected>+ Mais Filtros...</option>
-              <optgroup label="🏰 1. Qualidade &amp; Evolução do Fosso (Moat)">
-                <option value="CAT_BOOK_COMPOUNDER">🏛️ Acúmulo Patrimonial • Bola de Neve (PL ≥ 8% a.a.)</option>
-                <option value="CAT_MOAT_EXPANSION">📈 Fosso em Expansão (Score Subindo 5A)</option>
-                <option value="CAT_HIGH_ROIC">🏰 Super ROIC / ROE (≥ 18%)</option>
-                <option value="CAT_CLEAN_EARNINGS">💎 Lucro Limpo &amp; Recorrente (5/5 Anos)</option>
-                <option value="CAT_ULTRA_CRITIC">🛡️ Máxima Solvência &amp; Resiliência (Ultra-Crítico)</option>
+              <option value="" disabled selected>+ Estratégias 5A...</option>
+              <optgroup label="🏰 1. Qualidade &amp; Expansão 5 Anos">
+                <option value="CAT_MOAT_EXPANSION">📈 Fosso &amp; Lucro em Expansão 5A (Score ↑ + CAGR ≥ 8%)</option>
+                <option value="CAT_NET_CASH">🛡️ Fortaleza de Caixa Líquido (Dívida Zero • 5/5 Lucro)</option>
               </optgroup>
-              <optgroup label="📐 2. Valuation &amp; Assimetria de Preço">
-                <option value="CAT_DISCOUNT">🟢 Múltiplos Atrativos (P/L ≤ 11x • Abaixo da Curva)</option>
-                <option value="CAT_DESCONTO_MOAT">🔵 Desconto Relativo ao Moat (P/L > 11x • Abaixo da Curva)</option>
-                <option value="CAT_GRAHAM">📐 Desconto Fórmula de Graham (Margem > 15%)</option>
-                <option value="CAT_SPREAD_NTNB">📈 Prêmio Real sobre NTN-B (+2% IPCA)</option>
-                <option value="CAT_STRONG_NET_CASH_EV">💎 Forte Caixa Líquido • Olhar EV/EBITDA</option>
+              <optgroup label="📐 2. Valuation &amp; GARP 5 Anos">
+                <option value="CAT_DESCONTO_MOAT">🔵 Compounders a Preço Justo (GARP • Score ≥ 74)</option>
+                <option value="CAT_GRAHAM">📐 Desconto Graham 5A (Margem &gt; 18% • P/L ≤ Média 5A)</option>
               </optgroup>
-              <optgroup label="⚡ 3. Renda Blindada &amp; Momento Operacional">
-                <option value="CAT_BAZIN_ARMORED">🛡️ Bazin Blindado (DY ≥ 7% • Caixa Seguro)</option>
-                <option value="CAT_EXPANSION">⚡ Lucro Acelerando (Expansão Trimestral > 15%)</option>
-              </optgroup>
-              <optgroup label="🚨 4. Alertas de Risco &amp; Red Flags">
-                <option value="CAT_MOAT_EROSION">⚠️ Fosso em Erosão (Queda de Score 5A)</option>
-                <option value="CAT_HIGH_DEBT">🚨 Alavancagem Crítica (Dívida Líq./EBITDA > 2,5x)</option>
-                <option value="CAT_DECELERATION">⚠️ Lucro em Retração (Desaceleração Trimestral)</option>
+              <optgroup label="🚨 3. Alertas de Risco &amp; Red Flags">
+                <option value="CAT_MOAT_EROSION">⚠️ Alerta: Fosso em Erosão (Queda de Score 5A)</option>
+                <option value="CAT_HIGH_DEBT">🚨 Alerta: Alavancagem Crítica (Dívida &gt; 2,5x EBITDA)</option>
               </optgroup>
             </select>
           </div>
@@ -1747,30 +1731,34 @@ html_template = f"""<!DOCTYPE html>
     // =========================================================================
     function isNetCashStock(s) {{
       if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
-      if ((s.quality_score || 0) < 60.0) return false;
-      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.09) return false;
+      if ((s.quality_score || 0) < 65.0) return false;
+      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.12) return false;
+      const h5 = s.historical_5y || {{}};
+      if (h5.is_all_profitable === false) return false;
+      if (s.is_financial) return false;
       const det = s.details || {{}};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      if (s.is_financial) {{
-        // Seguradoras, Bolsas (B3) e Corretoras não-bancárias que operam com Caixa Líquido / Dívida Zero
-        return dl !== null && dl <= 0 && (Number(s.roe || 0) >= 0.12);
-      }}
       if (dle !== null && dle > 0.05) return false;
       return (dl !== null && dl < 0);
     }}
 
     function isConsistentDividendStock(s) {{
       if (!s || s.div_yield === null || s.div_yield < 0.06 || s.div_yield > 0.22) return false;
-      if ((s.quality_score || 0) < 62.0) return false;
-      if (!s.pl || s.pl <= 0) return false;
-      if (!s.roe || s.roe < 0.115) return false;
+      if ((s.quality_score || 0) < 65.0) return false;
+      if (!s.pl || s.pl < 3.5 || s.pl > 15.5) return false;
+      if (!s.roe || s.roe < 0.12) return false;
       const p = s.payout_implicito;
-      if (p !== null && p !== undefined && (p < 15 || p > 95)) return false;
+      if (p !== null && p !== undefined && (p < 20 || p > 92)) return false;
+      const h5 = s.historical_5y || {{}};
+      if (h5.is_all_profitable === false) return false;
+      const dy5a = Number(h5.dy_medio_5a || 0);
+      const dyAnos = Number(h5.dy_anos_acima_6 || 0);
+      if (dy5a < 0.058 || dyAnos < 3) return false;
       if (!s.is_financial) {{
         const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
         const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
-        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 3.5 : 2.3;
+        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.2;
         if (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined && s.div_liq_ebitda > maxDle) return false;
       }}
       return true;
@@ -1779,38 +1767,43 @@ html_template = f"""<!DOCTYPE html>
     function matchesFilter(s, f) {{
       if (!f || f === 'ALL') return true;
       if (f === 'IBOV') return !!s.is_ibov;
-      if (f === 'TIER1' || f === 'CAT_TIER1') return (s.quality_score || 0) >= 80.0;
+      if (f === 'TIER1' || f === 'CAT_TIER1') return (s.quality_score || 0) >= 80.0 && (!s.historical_5y || s.historical_5y.is_all_profitable !== false);
       if (f === 'DIVIDENDS' || f === 'CAT_DIVIDENDS') return isConsistentDividendStock(s);
       if (f === 'NET_CASH' || f === 'CAT_NET_CASH') return isNetCashStock(s);
-      if (f === 'ASYMMETRY') return (s.quality_score || 0) >= 75.0 && s.pl !== null && s.pl > 0 && s.pl <= 15.0;
-      if (f === 'NTNB' || f === 'CAT_SPREAD_NTNB') return getStockCategories(s).some(c => c.id === 'CAT_SPREAD_NTNB');
-      if (f === 'CAT_3T26') return !!(s.tri_balanco && s.tri_balanco.includes('3T26'));
-      if (f === 'CAT_2T26') return !!(s.tri_balanco && s.tri_balanco.includes('2T26'));
-      if (f === 'CAT_EXPANSION') return getStockCategories(s).some(c => c.id === 'CAT_EXPANSION');
-      if (f === 'CAT_DECELERATION') return !!(s.pl && s.pl > 0 && s.pl_run_rate && s.pl_run_rate > 0 && s.run_rate_div_pct !== null && s.run_rate_div_pct <= -20.0 && s.pl_run_rate > s.pl * 1.25);
-      if (f === 'CAT_HIGH_DEBT') return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
-      if (f === 'CAT_CLEAN_EARNINGS') return getStockCategories(s).some(c => c.id === 'CAT_CLEAN_EARNINGS');
-      if (f === 'CAT_HIGH_ROIC') return getStockCategories(s).some(c => c.id === 'CAT_HIGH_ROIC');
-      if (f === 'CAT_FINANCIAL') return !!s.is_financial;
-      if (f === 'CAT_GRAHAM') return getStockCategories(s).some(c => c.id === 'CAT_GRAHAM');
-      if (f === 'CAT_BAZIN') return getStockCategories(s).some(c => c.id === 'CAT_BAZIN');
-      if (f === 'CAT_ULTRA_CRITIC') {{
-        if ((s.quality_score || 0) < 75) return false;
-        if (s.is_distorted || s.is_commodity_peak) return false;
-        if (s.ey_spread === null || s.ey_spread < 1.5) return false;
-        if (s.is_financial) {{
-          if ((s.roe || 0) < 0.15) return false;
-        }} else {{
-          if (s.capital_intensity === null || s.capital_intensity < 0.75) return false;
-          const dl = s.details ? s.details.divida_liquida : null;
-          const dle = s.div_liq_ebitda;
-          const isSafeDebt = (dl !== null && dl <= 0) || (dle !== null && dle <= 1.0);
-          if (!isSafeDebt) return false;
-        }}
-        return true;
+      if (f === 'CAT_DISCOUNT') {{
+        const h5 = s.historical_5y || {{}};
+        const pl5a = Number(h5.pl_medio_5a || 0);
+        return s.entry_tag === 'ASSIMETRIA_FAVORAVEL' && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.5 && s.pl <= 11.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.08) && (s.ey_spread === null || s.ey_spread >= 2.5) && (s.roe || 0) >= 0.12;
       }}
-      if (f === 'CAT_DISCOUNT') return s.entry_tag === 'ASSIMETRIA_FAVORAVEL';
-      if (f === 'CAT_DESCONTO_MOAT') return s.entry_tag === 'DESCONTO_MOAT';
+      if (f === 'CAT_MOAT_EXPANSION') {{
+        const h5 = s.historical_5y || {{}};
+        const delta = Number(h5.score_delta_5y || 0);
+        const cLucro = Number(h5.cagr_lucro_pct || 0);
+        const cPl = Number(h5.cagr_patrimonio_pct || 0);
+        return (s.quality_score || 0) >= 65.0 && (s.roe || 0) >= 0.14 && h5.is_all_profitable === true && delta >= 2.0 && cLucro >= 8.0 && cPl >= 6.0;
+      }}
+      if (f === 'CAT_DESCONTO_MOAT') {{
+        const h5 = s.historical_5y || {{}};
+        return (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 10.0 && s.pl <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && (s.roe || 0) >= 0.15 && h5.is_all_profitable === true && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 5.0);
+      }}
+      if (f === 'CAT_GRAHAM') {{
+        const h5 = s.historical_5y || {{}};
+        const det = s.details || {{}};
+        const lpa = Number(det.lpa || 0);
+        const vpa = Number(det.vpa || 0);
+        const cot = Number(s.cotacao || 0);
+        if (lpa <= 0 || vpa <= 0 || cot <= 0 || (s.quality_score || 0) < 65.0 || (s.roe || 0) < 0.12 || h5.is_all_profitable === false) return false;
+        const vi = Math.sqrt(22.5 * lpa * vpa);
+        const pl5a = Number(h5.pl_medio_5a || 0);
+        return vi >= cot * 1.18 && (pl5a <= 0 || s.pl <= pl5a * 1.08);
+      }}
+      if (f === 'CAT_MOAT_EROSION') {{
+        const h5 = s.historical_5y || {{}};
+        return Number(h5.score_delta_5y || 0) <= -4.0;
+      }}
+      if (f === 'CAT_HIGH_DEBT') {{
+        return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
+      }}
       if (f === 'QUAD_Q1') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
       if (f === 'QUAD_Q2') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 14.0);
       if (f === 'QUAD_Q3') return (s.quality_score || 0) < 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
@@ -2147,32 +2140,15 @@ html_template = f"""<!DOCTYPE html>
       const isUtilCat = secStrCat.includes('energia') || secStrCat.includes('saneamento') || secStrCat.includes('água') || secStrCat.includes('telecom');
       const isSafeDebtForVal = s.is_financial || (dle === null) || (dle <= (isUtilCat && (s.quality_score || 0) >= 68.0 ? 3.5 : 2.3));
 
-      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 60.0 && eValNum >= 0.10 && isSafeDebtForVal) {{
-        const graham = Math.sqrt(22.5 * lpa * vpa);
-        if (graham > cot * 1.15) {{
-          // Regra 1: Trava de Qualidade Graham
-          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12);
-          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 65);
-          if (condG1 || condG2) {{
-            cats.push({{
-              id: 'CAT_GRAHAM_ALERT',
-              group: 'VALUATION',
-              label: 'Graham c/ Alerta (Possível Não-Recorrente)',
-              shortLabel: 'Graham c/ Alerta',
-              ledClass: 'bg-amber-500',
-              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
-            }});
-          }} else {{
-            cats.push({{
-              id: 'CAT_GRAHAM',
-              group: 'VALUATION',
-              label: 'Desconto Graham (Margem > 15%)',
-              shortLabel: 'Desconto Graham',
-              ledClass: 'bg-cyan-500',
-              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-            }});
-          }}
-        }}
+      if (matchesFilter(s, 'CAT_GRAHAM')) {{
+        cats.push({{
+          id: 'CAT_GRAHAM',
+          group: 'VALUATION',
+          label: 'Desconto Graham 5A (Margem > 18%)',
+          shortLabel: 'Desconto Graham 5A',
+          ledClass: 'bg-cyan-500',
+          bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300 font-bold'
+        }});
       }}
       if (s.div_yield && s.div_yield >= 0.06 && s.div_yield <= 0.22 && cot > 0 && (s.quality_score || 0) >= 60.0 && eValNum >= 0.11) {{
         const bazin = (cot * s.div_yield) / 0.06;
@@ -2259,10 +2235,10 @@ html_template = f"""<!DOCTYPE html>
         cats.push({{
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
-          label: 'Dividendos Consistentes (> 6%)',
-          shortLabel: 'Dividendos Consistentes',
+          label: 'Vacas Leiteiras 5A (DY ≥ 6% • Consistente)',
+          shortLabel: 'Vacas Leiteiras 5A',
           ledClass: 'bg-emerald-500',
-          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
         }});
       }} else if (s.payout_implicito !== null && s.payout_implicito > 105) {{
         cats.push({{
@@ -2272,6 +2248,27 @@ html_template = f"""<!DOCTYPE html>
           shortLabel: 'Payout Elevado',
           ledClass: 'bg-amber-500',
           bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+        }});
+      }}
+
+      if (matchesFilter(s, 'CAT_DISCOUNT')) {{
+        cats.push({{
+          id: 'CAT_DISCOUNT',
+          group: 'VALUATION',
+          label: 'Assimetria de Valor 5A (P/L ≤ 11x)',
+          shortLabel: 'Assimetria 5A',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
+        }});
+      }}
+      if (matchesFilter(s, 'CAT_DESCONTO_MOAT')) {{
+        cats.push({{
+          id: 'CAT_DESCONTO_MOAT',
+          group: 'VALUATION',
+          label: 'Compounders a Preço Justo (GARP)',
+          shortLabel: 'GARP Compounders',
+          ledClass: 'bg-sky-500',
+          bgClass: 'bg-sky-50/90 text-sky-950 border border-sky-300 font-bold'
         }});
       }}
 
@@ -2331,62 +2328,51 @@ html_template = f"""<!DOCTYPE html>
       const sbUltra = document.getElementById('sb-cnt-ultra');
       if (sbUltra) sbUltra.innerText = cntUltra;
 
-      const cntT1 = basePool.filter(s => (s.quality_score || 0) >= 80.0).length;
+      const cntT1 = basePool.filter(s => matchesFilter(s, 'CAT_TIER1')).length;
       const elT1 = document.getElementById('cnt-TIER1');
       if (elT1) elT1.innerText = cntT1;
-      const sbT1 = document.getElementById('sb-cnt-tier1');
+      const sbT1 = document.getElementById('stat-mat-tier1');
       if (sbT1) sbT1.innerText = cntT1;
 
       const cntCash = basePool.filter(s => isNetCashStock(s)).length;
       const elCash = document.getElementById('cnt-NET_CASH');
       if (elCash) elCash.innerText = cntCash;
-      const sbCash = document.getElementById('sb-cnt-cash');
+      const sbCash = document.getElementById('stat-mat-cash');
       if (sbCash) sbCash.innerText = cntCash;
-
-      const cntExp = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_EXPANSION')).length;
-      const sbExp = document.getElementById('sb-cnt-exp');
-      if (sbExp) sbExp.innerText = cntExp;
 
       const cntDiv = basePool.filter(s => isConsistentDividendStock(s)).length;
       const elDiv = document.getElementById('cnt-CAT_DIVIDENDS') || document.getElementById('cnt-DIVIDENDS');
       if (elDiv) elDiv.innerText = cntDiv;
       const sbDiv = document.getElementById('sb-cnt-div');
       if (sbDiv) sbDiv.innerText = cntDiv;
+      const matDiv = document.getElementById('stat-dividends');
+      if (matDiv) matDiv.innerText = cntDiv;
 
-      const cntGraham = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_GRAHAM')).length;
+      const cntDiscount = basePool.filter(s => matchesFilter(s, 'CAT_DISCOUNT')).length;
+      const elDiscount = document.getElementById('cnt-DISCOUNT');
+      if (elDiscount) elDiscount.innerText = cntDiscount;
+      const sbDiscount = document.getElementById('stat-mat-discount');
+      if (sbDiscount) sbDiscount.innerText = cntDiscount;
+
+      const cntMoatExp = basePool.filter(s => matchesFilter(s, 'CAT_MOAT_EXPANSION')).length;
+      const sbExp = document.getElementById('stat-expansion');
+      if (sbExp) sbExp.innerText = cntMoatExp;
+
+      const cntDescontoMoat = basePool.filter(s => matchesFilter(s, 'CAT_DESCONTO_MOAT')).length;
+      const elDescontoMoat = document.getElementById('stat-mat-desconto-moat');
+      if (elDescontoMoat) elDescontoMoat.innerText = cntDescontoMoat;
+
+      const cntGraham = basePool.filter(s => matchesFilter(s, 'CAT_GRAHAM')).length;
       const sbGraham = document.getElementById('sb-cnt-graham');
       if (sbGraham) sbGraham.innerText = cntGraham;
-
-      const cntSpread = basePool.filter(s => getStockCategories(s).some(c => c.id === 'CAT_SPREAD_NTNB')).length;
-      const sbSpread = document.getElementById('sb-cnt-spread');
-      if (sbSpread) sbSpread.innerText = cntSpread;
 
       const sbUniv = document.getElementById('sidebarUniverseCount');
       if (sbUniv) sbUniv.innerText = basePool.length + ' ativos';
       const sbUnivM = document.getElementById('sidebarUniverseCountMobile');
       if (sbUnivM) sbUnivM.innerText = basePool.length;
 
-      // Atualizar contadores da Matriz e Filtros Estratégicos (100% sincronizados)
-      const cntDiscount = basePool.filter(s => s.entry_tag === 'ASSIMETRIA_FAVORAVEL').length;
-      const cntDescontoMoat = basePool.filter(s => s.entry_tag === 'DESCONTO_MOAT').length;
-
-      const elDiscount = document.getElementById('stat-mat-discount');
-      if (elDiscount) elDiscount.innerText = cntDiscount;
-      const elDescontoMoat = document.getElementById('stat-mat-desconto-moat');
-      if (elDescontoMoat) elDescontoMoat.innerText = cntDescontoMoat;
-      const elMatSpread = document.getElementById('stat-mat-spread');
-      if (elMatSpread) elMatSpread.innerText = cntSpread;
-      const elExp = document.getElementById('stat-expansion');
-      if (elExp) elExp.innerText = cntExp;
-      const elDivs = document.getElementById('stat-dividends');
-      if (elDivs) elDivs.innerText = cntDiv;
-
       const elMatAll = document.getElementById('stat-mat-all');
       if (elMatAll) elMatAll.innerText = basePool.length;
-      const elMatT1 = document.getElementById('stat-mat-tier1');
-      if (elMatT1) elMatT1.innerText = cntT1;
-      const elMatCash = document.getElementById('stat-mat-cash');
-      if (elMatCash) elMatCash.innerText = cntCash;
 
       const elPlotCount = document.getElementById('matrixPlotCount');
       if (elPlotCount) {{
@@ -2493,7 +2479,7 @@ html_template = f"""<!DOCTYPE html>
         }}
       }}
 
-      const presetIds = ['IBOV', 'CAT_TIER1', 'CAT_DIVIDENDS', 'CAT_NET_CASH'];
+      const presetIds = ['IBOV', 'CAT_TIER1', 'CAT_DIVIDENDS', 'CAT_DISCOUNT'];
       presetIds.forEach(id => {{
         const btn = document.getElementById('flt-' + id);
         if (btn) {{
@@ -2713,44 +2699,49 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Os ativos de maior liquidez e representatividade no mercado financeiro brasileiro, que compõem a carteira teórica oficial do Ibovespa.'
       }},
       'TIER1': {{
-        name: 'Wide Moat (Tier 1)',
+        name: 'Elite Moat (Tier 1)',
         icon: '🏆',
-        rationale: 'Empresas de alta rentabilidade sobre capital (ROIC/ROE elevado), barreiras de entrada comprovadas, sólida alocação de capital e Moat Score ≥ 80.'
+        rationale: 'Empresas de máxima qualidade competitiva: Moat Score ≥ 80, 5/5 anos consecutivos de lucro auditado e rentabilidade sobre capital (ROIC/ROE) de excelência.'
       }},
       'CAT_TIER1': {{
-        name: 'Wide Moat (Tier 1)',
+        name: 'Elite Moat (Tier 1)',
         icon: '🏆',
-        rationale: 'Empresas de alta rentabilidade sobre capital (ROIC/ROE elevado), barreiras de entrada comprovadas, sólida alocação de capital e Moat Score ≥ 80.'
+        rationale: 'Empresas de máxima qualidade competitiva: Moat Score ≥ 80, 5/5 anos consecutivos de lucro auditado e rentabilidade sobre capital (ROIC/ROE) de excelência.'
       }},
       'CAT_DISCOUNT': {{
-        name: 'Múltiplos Atrativos (P/L ≤ 11x)',
+        name: 'Assimetria de Valor 5A',
         icon: '🟢',
-        rationale: 'Ações negociando Acima da Curva (Desconto de Valuation) com múltiplo P/L absoluto igual ou inferior a 11,0x.'
+        rationale: 'Ações de alta qualidade (Score ≥ 65) negociando com P/L ≤ 11,0x, P/L atual abaixo da média de 5 anos, histórico 5/5 anos lucrativo e spread favorável sobre o custo de oportunidade.'
       }},
       'CAT_DESCONTO_MOAT': {{
-        name: 'Desconto Relativo ao Moat (P/L > 11x)',
+        name: 'Compounders a Preço Justo (GARP)',
         icon: '🔵',
-        rationale: 'Empresas de alta qualidade (Compounders) negociando com P/L > 11,0x, porém abaixo do seu P/L Justo Teórico Ajustado pelo Moat Score (Acima da Curva).'
+        rationale: 'Estratégia GARP (Growth at a Reasonable Price): Score de Qualidade ≥ 74, P/L entre 10x e 17.5x abaixo da curva Munger, ROE ≥ 15% e crescimento consistente de lucro.'
       }},
       'CAT_DIVIDENDS': {{
-        name: 'Dividendos Consistentes (≥ 6%)',
+        name: 'Vacas Leiteiras 5A',
         icon: '💰',
-        rationale: 'Ações lucrativas com Dividend Yield ≥ 6,0% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
+        rationale: 'Dividendos sustentáveis e comprovados: DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, ao menos 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos com lucro positivo e dívida controlada.'
       }},
       'DIVIDENDS': {{
-        name: 'Dividendos Consistentes (≥ 6%)',
+        name: 'Vacas Leiteiras 5A',
         icon: '💰',
-        rationale: 'Ações lucrativas com Dividend Yield ≥ 6,0% ao ano, balanços saudáveis e fluxo de proventos sustentável dentro do payout seguro.'
+        rationale: 'Dividendos sustentáveis e comprovados: DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, ao menos 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos com lucro positivo e dívida controlada.'
       }},
       'CAT_NET_CASH': {{
-        name: 'Caixa Líquido (Dívida Zero)',
+        name: 'Fortaleza de Caixa Líquido',
         icon: '🛡️',
-        rationale: 'Empresas cujas disponibilidades financeiras superam suas dívidas brutas (Dívida Líquida ≤ 0) ou possuem alavancagem líquida residual (≤ 0,15x EBITDA por arrendamento IFRS-16).'
+        rationale: 'Empresas com Dívida Líquida estritamente negativa (caixa livre supera a dívida total), Score ≥ 65, ROE ≥ 12% e 5/5 anos consecutivos de lucro auditado.'
       }},
       'NET_CASH': {{
-        name: 'Caixa Líquido (Dívida Zero)',
+        name: 'Fortaleza de Caixa Líquido',
         icon: '🛡️',
-        rationale: 'Empresas cujas disponibilidades financeiras superam suas dívidas brutas (Dívida Líquida ≤ 0) ou possuem alavancagem líquida residual (≤ 0,15x EBITDA por arrendamento IFRS-16).'
+        rationale: 'Empresas com Dívida Líquida estritamente negativa (caixa livre supera a dívida total), Score ≥ 65, ROE ≥ 12% e 5/5 anos consecutivos de lucro auditado.'
+      }},
+      'CAT_MOAT_EXPANSION': {{
+        name: 'Fosso & Lucro em Expansão 5A',
+        icon: '📈',
+        rationale: 'Negócios em aceleração plurianual: Moat Score subindo nos últimos 5 anos (+2,0 pts), CAGR de Lucro Líquido ≥ 8% a.a., CAGR de Patrimônio Líquido ≥ 6% a.a. e 5/5 anos de lucro.'
       }},
       'CAT_3T26': {{
         name: 'Safra 3T26 (Recém-Divulgados CVM)',
@@ -2773,9 +2764,14 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Empresas cujo lucro run-rate anualizado do trimestre mais recente recuou mais de 20% frente à média dos últimos 12 meses.'
       }},
       'CAT_HIGH_DEBT': {{
-        name: 'Alavancagem Alta (Crítica > 2.5x)',
+        name: 'Alerta: Alavancagem Crítica (> 2,5x)',
         icon: '🚨',
         rationale: 'Empresas não-financeiras com relação Dívida Líquida / EBITDA superior a 2,5x sob ambiente de Selic elevada.'
+      }},
+      'CAT_MOAT_EROSION': {{
+        name: 'Alerta: Fosso em Erosão 5A',
+        icon: '⚠️',
+        rationale: 'Empresas cujo Moat Score encolheu 4,0 pontos ou mais nos últimos 5 anos, sinalizando perda de rentabilidade, compressão de margens ou deterioração de balanço.'
       }},
       'CAT_CLEAN_EARNINGS': {{
         name: 'Lucro Limpo & Recorrente',
@@ -2793,9 +2789,9 @@ html_template = f"""<!DOCTYPE html>
         rationale: 'Grandes instituições financeiras com sólida rentabilidade sobre o patrimônio líquido (ROE) e conformidade com o Índice de Basileia.'
       }},
       'CAT_GRAHAM': {{
-        name: 'Desconto Fórmula de Graham',
+        name: 'Desconto Graham 5A (Margem > 18%)',
         icon: '📐',
-        rationale: 'Ações sendo negociadas com desconto superior a 15% em relação ao Valor Intrínseco clássico de Benjamin Graham (√(22.5 * LPA * VPA)).'
+        rationale: 'Ações sendo negociadas com margem de segurança > 18% frente à fórmula clássica de Graham, P/L abaixo da média de 5 anos, Score ≥ 65 e 5/5 anos de lucro.'
       }},
       'CAT_GRAHAM_ALERT': {{
         name: 'Graham c/ Alerta (Possível Não-Recorrente)',
@@ -3188,7 +3184,7 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function updateMatrixFilterButtons() {{
-      const btnKeys = ['ALL', 'CAT_TIER1', 'CAT_DISCOUNT', 'CAT_DESCONTO_MOAT', 'CAT_NET_CASH', 'CAT_EXPANSION', 'CAT_DIVIDENDS', 'CAT_SPREAD_NTNB'];
+      const btnKeys = ['ALL', 'CAT_TIER1', 'CAT_DISCOUNT', 'CAT_DIVIDENDS', 'CAT_MOAT_EXPANSION', 'CAT_DESCONTO_MOAT', 'CAT_NET_CASH'];
       btnKeys.forEach(k => {{
         const btn = document.getElementById('btn-mat-' + k);
         if (btn) {{
@@ -3761,13 +3757,13 @@ html_template = f"""<!DOCTYPE html>
     const CATEGORY_DEFINITIONS = [
       {{
         id: 'CAT_TIER1',
-        name: 'Wide Moat (Tier 1)',
-        shortName: 'Wide Moat (Tier 1)',
+        name: 'Elite Moat (Tier 1)',
+        shortName: 'Tier 1 (Elite)',
         icon: '🏆',
         color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas excepcionais com Score Fundamentalista ≥ 80 pts e ROIC/ROE ≥ 15%. Líderes de mercado com vantagens competitivas estruturais duráveis.',
-        rationale: 'Filtro quantitativo que conjuga retorno sustentável sobre o capital próprio/investido acima da taxa livre de risco com solidez de balanço e qualidade contábil no percentil 80+ da B3.'
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
+        description: 'Empresas excepcionais com Score Fundamentalista ≥ 80 pts, 5/5 anos de lucros positivos auditados e retorno sobre capital (ROIC/ROE) de primeira linha.',
+        rationale: 'Filtro quantitativo que isola o topo competitivo da bolsa: barreiras de entrada estruturais, histórico de lucratividade ininterrupto e solidez patrimonial de longo prazo.'
       }},
       {{
         id: 'CAT_BOOK_COMPOUNDER',
@@ -3781,13 +3777,13 @@ html_template = f"""<!DOCTYPE html>
       }},
       {{
         id: 'CAT_MOAT_EXPANSION',
-        name: 'Fosso em Expansão (Score Subindo 5A)',
+        name: 'Fosso & Lucro em Expansão 5A',
         shortName: 'Fosso em Expansão 5A',
         icon: '📈',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas de qualidade (Score ≥ 65) cujo Moat Quality Score subiu +3,0 pontos ou mais entre 2022 e 2026 com lucro líquido positivo.',
-        rationale: 'Identifica negócios cujas vantagens competitivas, retorno sobre capital investido (ROIC/ROE) e estrutura de balanço estão se fortalecendo estruturalmente ao longo do tempo.'
+        color: 'teal',
+        badgeClass: 'bg-teal-50 text-teal-950 border border-teal-300 font-bold',
+        description: 'Empresas cujo Score de Qualidade cresceu +2,0 pts nos últimos 5 anos, com CAGR de Lucro ≥ 8% a.a., CAGR de Patrimônio ≥ 6% a.a. e 5/5 anos de lucro.',
+        rationale: 'Identifica negócios onde o poder de precificação e as vantagens competitivas estão se alargando ano após ano.'
       }},
       {{
         id: 'CAT_HIGH_ROIC',
@@ -3811,43 +3807,43 @@ html_template = f"""<!DOCTYPE html>
       }},
       {{
         id: 'CAT_NET_CASH',
-        name: 'Caixa Líquido (Dívida Zero)',
-        shortName: 'Caixa Líquido',
+        name: 'Fortaleza de Caixa Líquido',
+        shortName: 'Fortaleza Caixa Líq.',
         icon: '🛡️',
         color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Empresas não-financeiras cuja disponibilidade financeira imediata supera o montante integral da dívida bruta bancária (Dívida Líquida ≤ 0).',
-        rationale: 'Critério estritamente contábil de solvência máxima: risco de liquidez e solvência virtualmente nulo no curto e médio prazo, imunes ao ciclo restritivo da taxa Selic.'
+        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
+        description: 'Empresas não-financeiras com Dívida Líquida estritamente negativa (caixa financeiro superior à dívida bancária total), Score ≥ 65, ROE ≥ 12% e 5/5 anos lucrativos.',
+        rationale: 'Blindagem máxima de solvência: negócios imunes ao custo do crédito e juros altos, com balanço de fortaleza.'
       }},
       {{
         id: 'CAT_DISCOUNT',
-        name: 'Múltiplos Atrativos (P/L ≤ 11x)',
-        shortName: 'Múltiplos Atrativos',
+        name: 'Assimetria de Valor 5A',
+        shortName: 'Assimetria 5A',
         icon: '🟢',
         color: 'emerald',
         badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300 font-bold',
-        description: 'Empresas negociando com P/L ≤ 11,0x e posicionadas na zona de desconto da curva de referência Munger (Abaixo da Curva Justa).',
-        rationale: 'Múltiplos comprimidos em termos absolutos e relativos, oferecendo expressivo desconto frente à qualidade dos lucros e ao custo de oportunidade da economia.'
+        description: 'Empresas com Score ≥ 65, 5/5 anos de lucro, negociando com P/L ≤ 11,0x e P/L abaixo da sua média histórica de 5 anos.',
+        rationale: 'Qualidade comprada a preço de barganha: empresas com lucros recorrentes negociando na faixa inferior de seus múltiplos históricos.'
       }},
       {{
         id: 'CAT_DESCONTO_MOAT',
-        name: 'Desconto Relativo ao Moat (GARP)',
-        shortName: 'Desconto ao Moat',
+        name: 'Compounders a Preço Justo (GARP)',
+        shortName: 'GARP Compounders',
         icon: '🔵',
         color: 'sky',
         badgeClass: 'bg-sky-50 text-sky-950 border border-sky-300 font-bold',
-        description: 'Empresas de alta qualidade (P/L > 11,0x) que negociam abaixo do P/L justo exigido pela curva de Munger para o seu nível de Moat Score.',
-        rationale: 'Conceito GARP (Growth at a Reasonable Price): negócios com vantagens competitivas duráveis negociando com desconto relativo ao seu poder de composição de capital.'
+        description: 'Empresas de alta qualidade (Score ≥ 74, ROE ≥ 15%, 5/5 anos de lucro) negociando com P/L entre 10x e 17,5x abaixo do seu teto justo Munger.',
+        rationale: 'A filosofia central de Warren Buffett e Charlie Munger: é muito melhor comprar uma empresa maravilhosa a um preço justo do que uma empresa medíocre a um preço maravilhoso.'
       }},
       {{
         id: 'CAT_GRAHAM',
-        name: 'Desconto Benjamin Graham',
-        shortName: 'Desconto Graham',
+        name: 'Desconto Graham 5A',
+        shortName: 'Desconto Graham 5A',
         icon: '📐',
-        color: 'sky',
-        badgeClass: 'bg-sky-50 text-sky-950 border border-sky-300',
-        description: 'Cotação com desconto superior a 15% em relação ao Valor Intrínseco calculado pela fórmula clássica de Graham: √(22,5 × LPA × VPA).',
-        rationale: 'Modelo clássico de Value Investing: identifica ativos negociando abaixo do valor intrínseco resultante da combinação ponderada entre lucro por ação e patrimônio líquido auditado.'
+        color: 'cyan',
+        badgeClass: 'bg-cyan-50 text-cyan-950 border border-cyan-300 font-bold',
+        description: 'Desconto superior a 18% em relação ao Valor Intrínseco clássico de Benjamin Graham √(22,5 × LPA × VPA), com P/L abaixo da média de 5 anos e 5/5 anos de lucro.',
+        rationale: 'Margem de segurança profunda da escola clássica de Value Investing aplicada exclusivamente sobre companhias comprovadamente lucrativas.'
       }},
       {{
         id: 'CAT_SPREAD_NTNB',
@@ -3871,13 +3867,13 @@ html_template = f"""<!DOCTYPE html>
       }},
       {{
         id: 'CAT_DIVIDENDS',
-        name: 'Dividendos Consistentes (> 6%)',
-        shortName: 'Dividendos > 6%',
+        name: 'Vacas Leiteiras 5A',
+        shortName: 'Vacas Leiteiras 5A',
         icon: '💰',
-        color: 'emerald',
-        badgeClass: 'bg-emerald-50 text-emerald-950 border border-emerald-300',
-        description: 'Dividend Yield ≥ 6,0% com lucro positivo, ROE saudável e Payout sustentável (≤ 105%), sem comprometer o fluxo de caixa.',
-        rationale: 'Filtro rigoroso de proventos consistentes: seleciona pagadoras estruturais com ROE saudável e afasta empresas que distribuem dividendos em prejuízo.'
+        color: 'cyan',
+        badgeClass: 'bg-cyan-50 text-cyan-950 border border-cyan-300 font-bold',
+        description: 'DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, no mínimo 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos de lucro e dívida segura.',
+        rationale: 'Renda passiva genuína e sustentável: elimina falsos picos de dividendos e seleciona pagadoras perenes que geram caixa real.'
       }},
       {{
         id: 'CAT_BAZIN_ARMORED',
@@ -3901,21 +3897,21 @@ html_template = f"""<!DOCTYPE html>
       }},
       {{
         id: 'CAT_MOAT_EROSION',
-        name: 'Fosso em Erosão (Queda de Score 5A)',
+        name: 'Alerta: Fosso em Erosão 5A',
         shortName: 'Fosso em Erosão 5A',
         icon: '⚠️',
         color: 'rose',
-        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
+        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-bold',
         description: 'Companhias cujo Moat Quality Score sofreu retração de 4,0 pontos ou mais nos últimos 5 anos (2022–2026).',
         rationale: 'Filtro de controle de risco (Value Trap Prevention): alerta quando uma empresa historicamente rentável sofre perda gradual de retorno sobre capital ou aumento de pressão financeira.'
       }},
       {{
         id: 'CAT_HIGH_DEBT',
-        name: 'Alavancagem Crítica (Dívida > 2,5x EBITDA)',
-        shortName: 'Alavancagem Alta',
+        name: 'Alerta: Alavancagem Crítica (> 2,5x)',
+        shortName: 'Alavancagem Crítica',
         icon: '🚨',
         color: 'rose',
-        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300',
+        badgeClass: 'bg-rose-50 text-rose-950 border border-rose-300 font-bold',
         description: 'Empresas não-financeiras com Dívida Líquida / EBITDA superior a 2,5x em ambiente de taxas de juros elevadas.',
         rationale: 'Marcador de risco de solvência: despesas financeiras absorvem fatia relevante do resultado operacional, comprimindo o lucro líquido.'
       }},

@@ -269,12 +269,25 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
                 denom_pl = ((1.0 + cagr_pl_est) ** step_back)
                 pl_val = (pl_cur / denom_pl) if denom_pl > 0 else pl_cur
 
-            # Dividend Yield contábil oficial
+            # Dividend Yield contábil oficial (sem copiar dy_cur cegamente quando div_per_share == 0)
             div_per_share = yr_data.get("div_per_share")
-            if div_per_share is not None and div_per_share > 0 and cotacao > 0:
+            if div_per_share is not None and float(div_per_share) > 0 and cotacao > 0:
                 dy_val = float(div_per_share / cotacao)
+            elif div_per_share is not None and float(div_per_share) == 0.0:
+                # Só preenche lacuna de 0.0 para concessionárias elétricas/saneamento que pagam dividendo todo ano (ex: CPFE3)
+                is_util_dy = any(k in full_sector_init for k in ["energia", "saneamento", "água"])
+                if is_util_dy and lucro_val > 0 and lucro_ltm > 0 and dy_cur > 0:
+                    dy_val = dy_cur * min(1.10, max(0.0, lucro_val / lucro_ltm))
+                else:
+                    dy_val = 0.0
             else:
-                dy_val = dy_cur
+                # Sem registro de div_per_share no cache: proporcional ao lucro do ano se lucrativa, ou 0 se prejuízo
+                if lucro_val <= 0:
+                    dy_val = 0.0
+                elif lucro_ltm > 0 and dy_cur > 0:
+                    dy_val = dy_cur * min(1.15, max(0.25, lucro_val / lucro_ltm))
+                else:
+                    dy_val = 0.0
 
         rev_series.append(round(rev_val, 2))
         lucro_series.append(round(lucro_val, 2))
@@ -541,6 +554,9 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     valid_pos_pes = [p for p in pe_series if p is not None and 1.0 <= p <= 65.0]
     avg_pe_5y = round(sum(valid_pos_pes) / len(valid_pos_pes), 2) if valid_pos_pes else None
 
+    avg_dy_5y = round(sum(dy_series) / len(dy_series), 4) if dy_series else 0.0
+    dy_years_above_55 = sum(1 for d in dy_series if d >= 0.055)
+
     return {
         "years": years,
         "receita": rev_series,
@@ -548,6 +564,8 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
         "patrimonio_liquido": pl_series,
         "roic_roe": roic_series,
         "div_yield": dy_series,
+        "dy_medio_5a": avg_dy_5y,
+        "dy_anos_acima_6": dy_years_above_55,
         "pl_historico": pe_series,
         "pl_medio_5a": avg_pe_5y,
         "score_history": score_series,

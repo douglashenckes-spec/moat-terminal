@@ -716,29 +716,34 @@ def build_company_page():
     // =========================================================================
     function isNetCashStock(s) {{
       if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
-      if ((s.quality_score || 0) < 60.0) return false;
-      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.09) return false;
+      if ((s.quality_score || 0) < 65.0) return false;
+      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.12) return false;
+      const h5 = s.historical_5y || {{}};
+      if (h5.is_all_profitable === false) return false;
+      if (s.is_financial) return false;
       const det = s.details || {{}};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      if (s.is_financial) {{
-        return dl !== null && dl <= 0 && (Number(s.roe || 0) >= 0.12);
-      }}
       if (dle !== null && dle > 0.05) return false;
       return (dl !== null && dl < 0);
     }}
 
     function isConsistentDividendStock(s) {{
       if (!s || s.div_yield === null || s.div_yield < 0.06 || s.div_yield > 0.22) return false;
-      if ((s.quality_score || 0) < 62.0) return false;
-      if (!s.pl || s.pl <= 0) return false;
-      if (!s.roe || s.roe < 0.115) return false;
+      if ((s.quality_score || 0) < 65.0) return false;
+      if (!s.pl || s.pl < 3.5 || s.pl > 15.5) return false;
+      if (!s.roe || s.roe < 0.12) return false;
       const p = s.payout_implicito;
-      if (p !== null && p !== undefined && (p < 15 || p > 95)) return false;
+      if (p !== null && p !== undefined && (p < 20 || p > 92)) return false;
+      const h5 = s.historical_5y || {{}};
+      if (h5.is_all_profitable === false) return false;
+      const dy5a = Number(h5.dy_medio_5a || 0);
+      const dyAnos = Number(h5.dy_anos_acima_6 || 0);
+      if (dy5a < 0.058 || dyAnos < 3) return false;
       if (!s.is_financial) {{
         const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
         const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
-        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 3.5 : 2.3;
+        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.2;
         if (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined && s.div_liq_ebitda > maxDle) return false;
       }}
       return true;
@@ -1028,30 +1033,19 @@ def build_company_page():
       const isUtilCat = secStrCat.includes('energia') || secStrCat.includes('saneamento') || secStr.includes('água') || secStrCat.includes('telecom');
       const isSafeDebtForVal = s.is_financial || (dle === null) || (dle <= (isUtilCat && (s.quality_score || 0) >= 68.0 ? 3.5 : 2.3));
 
-      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 60.0 && eValNum >= 0.10 && isSafeDebtForVal) {{
+      const h5 = s.historical_5y || {{}};
+      const pl5a = Number(h5.pl_medio_5a || 0);
+      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 65.0 && eValNum >= 0.12 && h5.is_all_profitable !== false) {{
         const graham = Math.sqrt(22.5 * lpa * vpa);
-        if (graham > cot * 1.15) {{
-          const condG1 = (eValNum > 2 * rValNum && rValNum < 0.12 && !s.is_financial);
-          const condG2 = (s.pl !== null && s.pl > 0 && s.pl < 3.5 && (s.quality_score || 0) < 65);
-          if (condG1 || condG2) {{
-            cats.push({{
-              id: 'CAT_GRAHAM_ALERT',
-              group: 'VALUATION',
-              label: 'Graham c/ Alerta (Possível Não-Recorrente)',
-              shortLabel: 'Graham c/ Alerta',
-              ledClass: 'bg-amber-500',
-              bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
-            }});
-          }} else {{
-            cats.push({{
-              id: 'CAT_GRAHAM',
-              group: 'VALUATION',
-              label: 'Desconto Graham (Margem > 15%)',
-              shortLabel: 'Desconto Graham',
-              ledClass: 'bg-cyan-500',
-              bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300/90 font-medium'
-            }});
-          }}
+        if (graham >= cot * 1.18 && (pl5a <= 0 || (s.pl !== null && s.pl <= pl5a * 1.08))) {{
+          cats.push({{
+            id: 'CAT_GRAHAM',
+            group: 'VALUATION',
+            label: 'Desconto Graham 5A (Margem > 18%)',
+            shortLabel: 'Desconto Graham 5A',
+            ledClass: 'bg-cyan-500',
+            bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300 font-bold'
+          }});
         }}
       }}
 
@@ -1157,10 +1151,10 @@ def build_company_page():
         cats.push({{
           id: 'CAT_DIVIDENDS',
           group: 'VALUATION',
-          label: 'Dividendos Consistentes (≥ 6%)',
-          shortLabel: 'Dividendos Consistentes',
+          label: 'Vacas Leiteiras 5A (DY ≥ 6% • Consistente)',
+          shortLabel: 'Vacas Leiteiras 5A',
           ledClass: 'bg-emerald-500',
-          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
         }});
       }} else if (s.payout_implicito !== null && s.payout_implicito > 105) {{
         cats.push({{
@@ -1170,6 +1164,30 @@ def build_company_page():
           shortLabel: 'Payout Elevado',
           ledClass: 'bg-amber-500',
           bgClass: 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium'
+        }});
+      }}
+
+      const isAsym5a = s.entry_tag === 'ASSIMETRIA_FAVORAVEL' && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.5 && s.pl <= 11.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.08) && (s.ey_spread === null || s.ey_spread >= 2.5) && eValNum >= 0.12;
+      if (isAsym5a) {{
+        cats.push({{
+          id: 'CAT_DISCOUNT',
+          group: 'VALUATION',
+          label: 'Assimetria de Valor 5A (P/L ≤ 11x)',
+          shortLabel: 'Assimetria 5A',
+          ledClass: 'bg-emerald-500',
+          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
+        }});
+      }}
+
+      const isGarp5a = (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 10.0 && s.pl <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && eValNum >= 0.15 && h5.is_all_profitable === true && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 5.0);
+      if (isGarp5a) {{
+        cats.push({{
+          id: 'CAT_DESCONTO_MOAT',
+          group: 'VALUATION',
+          label: 'Compounders a Preço Justo (GARP)',
+          shortLabel: 'GARP Compounders',
+          ledClass: 'bg-sky-500',
+          bgClass: 'bg-sky-50/90 text-sky-950 border border-sky-300 font-bold'
         }});
       }}
 

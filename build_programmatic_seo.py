@@ -537,11 +537,16 @@ def generate_stock_badges_html(s):
     is_payout_healthy = (payout_num is not None and 20 <= payout_num <= 85.0)
     is_bazin_blindado = (qs >= 65.0) and (0.07 <= dy <= 0.20) and (roe_val >= 0.135) and (pl_num is not None and 3.5 <= pl_num <= 14.5) and is_payout_healthy and is_debt_safe and (not s.get("is_distorted")) and (not s.get("is_commodity_peak"))
 
-    is_div_debt_safe = is_fin or (dle_num is not None and dle_num <= 2.3) or (is_util_seo and qs >= 68.0 and dle_num is not None and dle_num <= 3.5) or is_net_cash
+    h5_seo = s.get("historical_5y") or {}
+    dy5a_seo = float(h5_seo.get("dy_medio_5a") or 0)
+    dy_anos_seo = int(h5_seo.get("dy_anos_acima_6") or 0)
+    is_all_prof_seo = h5_seo.get("is_all_profitable") is not False
+    max_dle_div = 5.2 if (is_util_seo and qs >= 68.0) else 2.2
+    is_div_debt_safe = is_fin or (dle_num is not None and dle_num <= max_dle_div) or is_net_cash
     if is_bazin_blindado:
         valuation_pills.append(('Bazin Blindado', 'bg-emerald-600', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold', 'CAT_BAZIN_ARMORED'))
-    elif qs >= 62.0 and (0.06 <= dy <= 0.22) and (roe_val >= 0.115) and (pl_num is not None and 3.0 <= pl_num <= 16.0) and (payout_num is not None and 15 <= payout_num <= 95) and is_div_debt_safe and (not s.get("is_distorted")) and (not s.get("is_commodity_peak")):
-        valuation_pills.append(('Dividendos Consistentes', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_DIVIDENDS'))
+    elif qs >= 65.0 and (0.06 <= dy <= 0.22) and (roe_val >= 0.12) and (pl_num is not None and 3.5 <= pl_num <= 15.5) and (payout_num is not None and 20 <= payout_num <= 92) and is_div_debt_safe and dy5a_seo >= 0.058 and dy_anos_seo >= 3 and is_all_prof_seo:
+        valuation_pills.append(('Vacas Leiteiras 5A', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold', 'CAT_DIVIDENDS'))
     elif payout_num is not None and payout_num > 105:
         valuation_pills.append(('Payout Elevado', 'bg-amber-500', 'bg-amber-50/90 text-amber-950 border border-amber-300/90 font-medium', 'CAT_PAYOUT_RISK'))
 
