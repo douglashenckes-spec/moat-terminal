@@ -1744,23 +1744,43 @@ html_template = f"""<!DOCTYPE html>
     }}
 
     function isConsistentDividendStock(s) {{
-      if (!s || s.div_yield === null || s.div_yield < 0.06 || s.div_yield > 0.22) return false;
+      if (!s || s.div_yield === null || s.div_yield <= 0 || s.div_yield > 0.22) return false;
       if ((s.quality_score || 0) < 65.0) return false;
-      if (!s.pl || s.pl < 3.5 || s.pl > 15.5) return false;
-      if (!s.roe || s.roe < 0.12) return false;
-      const p = s.payout_implicito;
-      if (p !== null && p !== undefined && (p < 20 || p > 92)) return false;
+      if (!s.pl || s.pl < 3.0 || s.pl > 16.5) return false;
+      if (!s.roe || s.roe < 0.11) return false;
+      
       const h5 = s.historical_5y || {{}};
       if (h5.is_all_profitable === false) return false;
       const dy5a = Number(h5.dy_medio_5a || 0);
       const dyAnos = Number(h5.dy_anos_acima_6 || 0);
-      if (dy5a < 0.058 || dyAnos < 3) return false;
-      if (!s.is_financial) {{
-        const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
-        const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
-        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.2;
-        if (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined && s.div_liq_ebitda > maxDle) return false;
+      
+      // Proventos consistentes: DY atual robusto (≥5.8%) com média 5A sólida (≥5.0%), OU média 5A superior (≥5.8%) com yield atual resiliente (≥4.8%)
+      const isDyOk = (s.div_yield >= 0.058 && dy5a >= 0.050) || (dy5a >= 0.058 && s.div_yield >= 0.048);
+      if (!isDyOk) return false;
+      if (dyAnos < 2) return false;
+
+      const isFin = !!s.is_financial;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+      const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) && (dle !== null && dle <= 0.05);
+
+      if (!isFin) {{
+        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.5;
+        if (dle !== null && dle > maxDle) return false;
       }}
+
+      const p = s.payout_implicito;
+      if (p !== null && p !== undefined) {{
+        const pNum = Number(p);
+        if (pNum < 18.0) return false;
+        // Empresas com dívida zero/caixa líquido, financeiras ou baixa alavancagem (<1.5x) distribuem reservas com sustentabilidade até 125%
+        const maxP = (isFin || isNetCash || (dle !== null && dle <= 1.5) || isUtil) ? 125.0 : 95.0;
+        if (pNum > maxP) return false;
+      }}
+
       return true;
     }}
 
@@ -1773,18 +1793,18 @@ html_template = f"""<!DOCTYPE html>
       if (f === 'CAT_DISCOUNT') {{
         const h5 = s.historical_5y || {{}};
         const pl5a = Number(h5.pl_medio_5a || 0);
-        return s.entry_tag === 'ASSIMETRIA_FAVORAVEL' && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.5 && s.pl <= 11.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.08) && (s.ey_spread === null || s.ey_spread >= 2.5) && (s.roe || 0) >= 0.12;
+        return (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.0 && s.pl <= 12.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.10) && (s.roe || 0) >= 0.11;
       }}
       if (f === 'CAT_MOAT_EXPANSION') {{
         const h5 = s.historical_5y || {{}};
         const delta = Number(h5.score_delta_5y || 0);
         const cLucro = Number(h5.cagr_lucro_pct || 0);
         const cPl = Number(h5.cagr_patrimonio_pct || 0);
-        return (s.quality_score || 0) >= 65.0 && (s.roe || 0) >= 0.14 && h5.is_all_profitable === true && delta >= 2.0 && cLucro >= 8.0 && cPl >= 6.0;
+        return (s.quality_score || 0) >= 65.0 && (s.roe || 0) >= 0.12 && h5.is_all_profitable !== false && delta >= 1.5 && cLucro >= 6.0 && cPl >= 5.0;
       }}
       if (f === 'CAT_DESCONTO_MOAT') {{
         const h5 = s.historical_5y || {{}};
-        return (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 10.0 && s.pl <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && (s.roe || 0) >= 0.15 && h5.is_all_profitable === true && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 5.0);
+        return (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 9.5 && s.pl <= 18.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || s.entry_tag === 'PRECO_JUSTO') && (s.roe || 0) >= 0.14 && h5.is_all_profitable !== false && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 3.0);
       }}
       if (f === 'CAT_GRAHAM') {{
         const h5 = s.historical_5y || {{}};
@@ -1792,10 +1812,10 @@ html_template = f"""<!DOCTYPE html>
         const lpa = Number(det.lpa || 0);
         const vpa = Number(det.vpa || 0);
         const cot = Number(s.cotacao || 0);
-        if (lpa <= 0 || vpa <= 0 || cot <= 0 || (s.quality_score || 0) < 65.0 || (s.roe || 0) < 0.12 || h5.is_all_profitable === false) return false;
+        if (lpa <= 0 || vpa <= 0 || cot <= 0 || (s.quality_score || 0) < 65.0 || (s.roe || 0) < 0.11 || h5.is_all_profitable === false) return false;
         const vi = Math.sqrt(22.5 * lpa * vpa);
         const pl5a = Number(h5.pl_medio_5a || 0);
-        return vi >= cot * 1.18 && (pl5a <= 0 || s.pl <= pl5a * 1.08);
+        return vi >= cot * 1.15 && (pl5a <= 0 || s.pl <= pl5a * 1.10);
       }}
       if (f === 'CAT_MOAT_EROSION') {{
         const h5 = s.historical_5y || {{}};
@@ -2721,12 +2741,12 @@ html_template = f"""<!DOCTYPE html>
       'CAT_DIVIDENDS': {{
         name: 'Vacas Leiteiras 5A',
         icon: '💰',
-        rationale: 'Dividendos sustentáveis e comprovados: DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, ao menos 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos com lucro positivo e dívida controlada.'
+        rationale: 'Dividendos estruturais: DY atual ≥ 5,8% com média 5A ≥ 5,0% (ou média 5A ≥ 5,8% com resiliência atual ≥ 4,8%), pelo menos 2 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos de lucros comprovados e balanço saudável.'
       }},
       'DIVIDENDS': {{
         name: 'Vacas Leiteiras 5A',
         icon: '💰',
-        rationale: 'Dividendos sustentáveis e comprovados: DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, ao menos 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos com lucro positivo e dívida controlada.'
+        rationale: 'Dividendos estruturais: DY atual ≥ 5,8% com média 5A ≥ 5,0% (ou média 5A ≥ 5,8% com resiliência atual ≥ 4,8%), pelo menos 2 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos de lucros comprovados e balanço saudável.'
       }},
       'CAT_NET_CASH': {{
         name: 'Fortaleza de Caixa Líquido',
@@ -3872,7 +3892,7 @@ html_template = f"""<!DOCTYPE html>
         icon: '💰',
         color: 'cyan',
         badgeClass: 'bg-cyan-50 text-cyan-950 border border-cyan-300 font-bold',
-        description: 'DY atual ≥ 6%, DY médio dos últimos 5 anos ≥ 5,8%, no mínimo 3 de 5 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos de lucro e dívida segura.',
+        description: 'DY atual ≥ 5,8% com média 5A ≥ 5,0% (ou média 5A ≥ 5,8% com resiliência atual ≥ 4,8%), pelo menos 2 anos pagando ≥ 5,5%, Score ≥ 65, 5/5 anos de lucros comprovados e endividamento sob controle.',
         rationale: 'Renda passiva genuína e sustentável: elimina falsos picos de dividendos e seleciona pagadoras perenes que geram caixa real.'
       }},
       {{

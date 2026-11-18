@@ -729,23 +729,41 @@ def build_company_page():
     }}
 
     function isConsistentDividendStock(s) {{
-      if (!s || s.div_yield === null || s.div_yield < 0.06 || s.div_yield > 0.22) return false;
+      if (!s || s.div_yield === null || s.div_yield <= 0 || s.div_yield > 0.22) return false;
       if ((s.quality_score || 0) < 65.0) return false;
-      if (!s.pl || s.pl < 3.5 || s.pl > 15.5) return false;
-      if (!s.roe || s.roe < 0.12) return false;
-      const p = s.payout_implicito;
-      if (p !== null && p !== undefined && (p < 20 || p > 92)) return false;
+      if (!s.pl || s.pl < 3.0 || s.pl > 16.5) return false;
+      if (!s.roe || s.roe < 0.11) return false;
+      
       const h5 = s.historical_5y || {{}};
       if (h5.is_all_profitable === false) return false;
       const dy5a = Number(h5.dy_medio_5a || 0);
       const dyAnos = Number(h5.dy_anos_acima_6 || 0);
-      if (dy5a < 0.058 || dyAnos < 3) return false;
-      if (!s.is_financial) {{
-        const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
-        const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
-        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.2;
-        if (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined && s.div_liq_ebitda > maxDle) return false;
+      
+      const isDyOk = (s.div_yield >= 0.058 && dy5a >= 0.050) || (dy5a >= 0.058 && s.div_yield >= 0.048);
+      if (!isDyOk) return false;
+      if (dyAnos < 2) return false;
+
+      const isFin = !!s.is_financial;
+      const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
+      const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+      const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+      const det = s.details || {{}};
+      const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
+      const isNetCash = (dl !== null && dl < 0) && (dle !== null && dle <= 0.05);
+
+      if (!isFin) {{
+        const maxDle = (isUtil && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.5;
+        if (dle !== null && dle > maxDle) return false;
       }}
+
+      const p = s.payout_implicito;
+      if (p !== null && p !== undefined) {{
+        const pNum = Number(p);
+        if (pNum < 18.0) return false;
+        const maxP = (isFin || isNetCash || (dle !== null && dle <= 1.5) || isUtil) ? 125.0 : 95.0;
+        if (pNum > maxP) return false;
+      }}
+
       return true;
     }}
 
