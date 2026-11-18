@@ -1485,8 +1485,11 @@ html_template = f"""<!DOCTYPE html>
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const isNetCash = isNetCashStock(s);
 
-      // Penalidade: Dívida Líquida/EBITDA > 2,5x exige desconto 25% maior (teto de P/L reduzido em 25%)
-      if (dle !== null && dle > 2.5) {{
+      // Penalidade: Dívida Líquida/EBITDA acima do limite seguro exige desconto 25% maior (teto de P/L reduzido em 25%)
+      const secStrPl = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+      const isUtilPl = secStrPl.includes('energia') || secStrPl.includes('saneamento') || secStrPl.includes('água') || secStrPl.includes('telecom');
+      const maxSafeDlePl = (isUtilPl && (s.quality_score || 0) >= 68.0) ? 5.2 : 2.5;
+      if (dle !== null && dle > maxSafeDlePl) {{
         return baseExp * 0.75;
       }}
       // Bônus: Caixa Líquido relevante e EV/EBITDA <= 6,0x (mesmo com P/L entre 12x e 16x)
@@ -1512,7 +1515,7 @@ html_template = f"""<!DOCTYPE html>
       const DISTRESSED_SET = new Set(['LIGT3', 'AMER3', 'OIBR3', 'AZUL3', 'AZUL4', 'GOLL4', 'CVCB3', 'BHIA3', 'PCAR3', 'ONCO3', 'RCSL4', 'ENJU3']);
 
       const isDistressedVal = hasNegEquity || DISTRESSED_SET.has(s.ticker) || (!s.is_financial && dle !== null && dle >= 3.0 && roeNum < 0);
-      const isDebtTrap = !s.is_financial && dle !== null && (dle > (isUtil && qs >= 68.0 ? 3.5 : 2.5));
+      const isDebtTrap = !s.is_financial && dle !== null && (dle > (isUtil && qs >= 68.0 ? 5.2 : 2.5));
       const isValueTrap = (qs < 60.0) || (roeNum < 0.10 && (s.is_financial || roicNum < 0.13)) || isDebtTrap || isDistressedVal;
       const isAbove = !!(s.pl && s.pl > 0 && s.pl < expPL && !isValueTrap);
 
@@ -1731,16 +1734,25 @@ html_template = f"""<!DOCTYPE html>
     // =========================================================================
     function isNetCashStock(s) {{
       if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
-      if ((s.quality_score || 0) < 65.0) return false;
-      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.12) return false;
+      const qs = Number(s.quality_score || 0);
+      if (qs < 53.5) return false;
+      if (!s.pl || s.pl <= 0) return false;
+      const roeNum = Number(s.roe || 0);
+      const roicNum = Number(s.roic || 0);
+      if (roeNum < 0.115 && roicNum < 0.12) return false;
       const h5 = s.historical_5y || {{}};
       if (h5.is_all_profitable === false) return false;
-      if (s.is_financial) return false;
       const det = s.details || {{}};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      if (dle !== null && dle > 0.05) return false;
-      return (dl !== null && dl < 0);
+      if (s.is_financial) {{
+        // Seguradoras, Bolsas (B3) e Gestoras que operam com Dívida Zero e Caixa Livre positivo
+        return dl !== null && dl <= 0 && qs >= 65.0 && roeNum >= 0.15;
+      }}
+      if (dl !== null && dl < 0 && (dle === null || dle <= 0.05)) return true;
+      // Empresas de alta qualidade cujo único passivo residual é arrendamento IFRS-16 (≤ 0,12x EBITDA)
+      if (qs >= 75.0 && dle !== null && dle <= 0.12 && dl !== null && dl >= 0) return true;
+      return false;
     }}
 
     function isConsistentDividendStock(s) {{
@@ -1793,18 +1805,38 @@ html_template = f"""<!DOCTYPE html>
       if (f === 'CAT_DISCOUNT') {{
         const h5 = s.historical_5y || {{}};
         const pl5a = Number(h5.pl_medio_5a || 0);
-        return (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.0 && s.pl <= 12.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.10) && (s.roe || 0) >= 0.11;
+        const qs = Number(s.quality_score || 0);
+        const pl = s.pl !== null && s.pl !== undefined ? Number(s.pl) : 0;
+        const roe = Number(s.roe || 0);
+        if (qs < 65.0 || pl < 3.0 || pl > 12.0 || roe < 0.11 || h5.is_all_profitable === false) return false;
+        if (!s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) {{
+          const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+          const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+          const maxDle = (isUtil && qs >= 68.0) ? 5.2 : 2.5;
+          if (Number(s.div_liq_ebitda) > maxDle) return false;
+        }}
+        // Se P/L <= 9,5x já é barganha absoluta; se entre 9,5x e 12x, precisa estar abaixo/próximo da média de 5A
+        if (pl > 9.5 && pl5a > 0 && pl > pl5a * 1.10) return false;
+        return (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || (pl <= 9.0 && qs >= 70.0));
       }}
       if (f === 'CAT_MOAT_EXPANSION') {{
         const h5 = s.historical_5y || {{}};
         const delta = Number(h5.score_delta_5y || 0);
         const cLucro = Number(h5.cagr_lucro_pct || 0);
+        const cRec = Number(h5.cagr_receita_pct || 0);
         const cPl = Number(h5.cagr_patrimonio_pct || 0);
-        return (s.quality_score || 0) >= 65.0 && (s.roe || 0) >= 0.12 && h5.is_all_profitable !== false && delta >= 1.5 && cLucro >= 6.0 && cPl >= 5.0;
+        const roe = Number(s.roe || 0);
+        return (s.quality_score || 0) >= 65.0 && roe >= 0.12 && h5.is_all_profitable !== false && delta >= 1.5 && cLucro >= 6.0 && (cPl >= 3.0 || (cRec >= 5.0 && roe >= 0.15));
       }}
       if (f === 'CAT_DESCONTO_MOAT') {{
         const h5 = s.historical_5y || {{}};
-        return (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 9.5 && s.pl <= 18.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || s.entry_tag === 'PRECO_JUSTO') && (s.roe || 0) >= 0.14 && h5.is_all_profitable !== false && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 3.0);
+        const qs = Number(s.quality_score || 0);
+        const pl = s.pl !== null && s.pl !== undefined ? Number(s.pl) : 0;
+        const roe = Number(s.roe || 0);
+        const roic = Number(s.roic || 0);
+        const cLucro = Number(h5.cagr_lucro_pct || 0);
+        const cRec = Number(h5.cagr_receita_pct || 0);
+        return qs >= 73.5 && pl >= 4.5 && pl <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || s.entry_tag === 'PRECO_JUSTO') && (roe >= 0.15 || roic >= 0.15) && h5.is_all_profitable !== false && cLucro >= 6.5 && cRec >= 5.0;
       }}
       if (f === 'CAT_GRAHAM') {{
         const h5 = s.historical_5y || {{}};
@@ -1812,17 +1844,39 @@ html_template = f"""<!DOCTYPE html>
         const lpa = Number(det.lpa || 0);
         const vpa = Number(det.vpa || 0);
         const cot = Number(s.cotacao || 0);
-        if (lpa <= 0 || vpa <= 0 || cot <= 0 || (s.quality_score || 0) < 65.0 || (s.roe || 0) < 0.11 || h5.is_all_profitable === false) return false;
+        const qs = Number(s.quality_score || 0);
+        if (lpa <= 0 || vpa <= 0 || cot <= 0 || qs < 65.0 || (s.roe || 0) < 0.11 || h5.is_all_profitable === false) return false;
+        if (!s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) {{
+          const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+          const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+          const maxDle = (isUtil && qs >= 68.0) ? 5.2 : 2.5;
+          if (Number(s.div_liq_ebitda) > maxDle) return false;
+        }}
         const vi = Math.sqrt(22.5 * lpa * vpa);
         const pl5a = Number(h5.pl_medio_5a || 0);
-        return vi >= cot * 1.15 && (pl5a <= 0 || s.pl <= pl5a * 1.10);
+        const pl = Number(s.pl || 0);
+        return vi >= cot * 1.15 && (pl <= 9.5 || pl5a <= 0 || pl <= pl5a * 1.10);
       }}
       if (f === 'CAT_MOAT_EROSION') {{
+        const qs = Number(s.quality_score || 0);
+        if (qs >= 68.0) return false;
         const h5 = s.historical_5y || {{}};
-        return Number(h5.score_delta_5y || 0) <= -4.0;
+        const delta = Number(h5.score_delta_5y || 0);
+        if (delta > -4.0) return false;
+        const cLucro = Number(h5.cagr_lucro_pct || 0);
+        const roe = Number(s.roe || 0);
+        if (h5.is_all_profitable !== false && cLucro > 2.0) return false;
+        return (cLucro <= 0 || roe < 0.12 || h5.is_all_profitable === false);
       }}
       if (f === 'CAT_HIGH_DEBT') {{
-        return !s.is_financial && s.div_liq_ebitda !== null && s.div_liq_ebitda > 2.5;
+        if (s.is_financial || s.div_liq_ebitda === null || s.div_liq_ebitda === undefined) return false;
+        const dle = Number(s.div_liq_ebitda);
+        const qs = Number(s.quality_score || 0);
+        const roe = Number(s.roe || 0);
+        const secStr = `${{s.setor || ''}} ${{s.subsetor || ''}}`.toLowerCase();
+        const isUtil = secStr.includes('energia') || secStr.includes('saneamento') || secStr.includes('água') || secStr.includes('telecom');
+        if (isUtil && qs >= 68.0 && roe >= 0.11 && dle <= 5.2) return false;
+        return dle > 2.5;
       }}
       if (f === 'QUAD_Q1') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 0 && s.pl <= 14.0);
       if (f === 'QUAD_Q2') return (s.quality_score || 0) >= 75 && (s.pl !== null && s.pl > 14.0);
@@ -1967,7 +2021,7 @@ html_template = f"""<!DOCTYPE html>
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           }});
-        }} else if (dle !== null && dle > 2.5) {{
+        }} else if (matchesFilter(s, 'CAT_HIGH_DEBT')) {{
           cats.push({{
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -2066,11 +2120,11 @@ html_template = f"""<!DOCTYPE html>
       const cagrPl5y = (h5.cagr_patrimonio_pct !== undefined && h5.cagr_patrimonio_pct !== null) ? Number(h5.cagr_patrimonio_pct) : 0;
       const hasPositiveRecentProfit = !!(h5.lucro_liquido && h5.lucro_liquido.length > 0 && h5.lucro_liquido[h5.lucro_liquido.length - 1] > 0);
 
-      if ((s.quality_score || 0) >= 65.0 && scoreDelta5y >= 3.0 && hasPositiveRecentProfit) {{
+      if (matchesFilter(s, 'CAT_MOAT_EXPANSION')) {{
         cats.push({{
           id: 'CAT_MOAT_EXPANSION',
           group: 'QUALIDADE',
-          label: 'Fosso em Expansão (Score Subindo 5A)',
+          label: 'Fosso & Lucro em Expansão 5A',
           shortLabel: 'Fosso em Expansão 5A',
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
@@ -2088,11 +2142,11 @@ html_template = f"""<!DOCTYPE html>
         }});
       }}
 
-      if (scoreDelta5y <= -4.0) {{
+      if (matchesFilter(s, 'CAT_MOAT_EROSION')) {{
         cats.push({{
           id: 'CAT_MOAT_EROSION',
           group: 'QUALIDADE',
-          label: 'Fosso em Erosão (Queda de Score 5A)',
+          label: 'Alerta: Fosso em Erosão (Queda 5A)',
           shortLabel: 'Fosso em Erosão 5A',
           ledClass: 'bg-rose-500',
           bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'

@@ -443,16 +443,17 @@ def generate_stock_badges_html(s):
 
     score_delta_5y = float(h5.get("score_delta_5y") or 0.0)
     cagr_pl_5y = float(h5.get("cagr_patrimonio_pct") or 0.0)
-    ll_hist = h5.get("lucro_liquido") or []
-    has_pos_recent_profit = bool(len(ll_hist) > 0 and float(ll_hist[-1] or 0) > 0)
+    cagr_lucro_5y = float(h5.get("cagr_lucro_pct") or 0.0)
+    cagr_rec_5y = float(h5.get("cagr_receita_pct") or 0.0)
+    is_all_prof_5y = h5.get("is_all_profitable") is not False
 
-    if qs >= 65.0 and score_delta_5y >= 3.0 and has_pos_recent_profit:
+    if qs >= 65.0 and roe_val >= 0.12 and is_all_prof_5y and score_delta_5y >= 1.5 and cagr_lucro_5y >= 6.0 and (cagr_pl_5y >= 3.0 or (cagr_rec_5y >= 5.0 and roe_val >= 0.15)):
         quality_pills.append(('Fosso em Expansão 5A', 'bg-emerald-500', 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium', 'CAT_MOAT_EXPANSION'))
 
     if qs >= 65.0 and cagr_pl_5y >= 8.0 and h5.get("is_all_profitable"):
         quality_pills.append(('Acúmulo Patrimonial 5A', 'bg-teal-500', 'bg-teal-50/90 text-teal-950 border border-teal-300/90 font-medium', 'CAT_BOOK_COMPOUNDER'))
 
-    if score_delta_5y <= -4.0:
+    if qs < 68.0 and score_delta_5y <= -4.0 and not (is_all_prof_5y and cagr_lucro_5y > 2.0) and (cagr_lucro_5y <= 0 or roe_val < 0.12 or not is_all_prof_5y):
         quality_pills.append(('Fosso em Erosão 5A', 'bg-rose-500', 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium', 'CAT_MOAT_EROSION'))
 
     if s.get("is_distorted"):

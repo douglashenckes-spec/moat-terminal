@@ -906,16 +906,23 @@
     // =========================================================================
     function isNetCashStock(s) {
       if (!s || s.ticker === 'RCSL4' || s.ticker === 'IRBR3') return false;
-      if ((s.quality_score || 0) < 65.0) return false;
-      if (!s.pl || s.pl <= 0 || !s.roe || s.roe < 0.12) return false;
+      const qs = Number(s.quality_score || 0);
+      if (qs < 53.5) return false;
+      if (!s.pl || s.pl <= 0) return false;
+      const roeNum = Number(s.roe || 0);
+      const roicNum = Number(s.roic || 0);
+      if (roeNum < 0.115 && roicNum < 0.12) return false;
       const h5 = s.historical_5y || {};
       if (h5.is_all_profitable === false) return false;
-      if (s.is_financial) return false;
       const det = s.details || {};
       const dl = (det.divida_liquida !== null && det.divida_liquida !== undefined) ? Number(det.divida_liquida) : null;
       const dle = (s.div_liq_ebitda !== null && s.div_liq_ebitda !== undefined) ? Number(s.div_liq_ebitda) : null;
-      if (dle !== null && dle > 0.05) return false;
-      return (dl !== null && dl < 0);
+      if (s.is_financial) {
+        return dl !== null && dl <= 0 && qs >= 65.0 && roeNum >= 0.15;
+      }
+      if (dl !== null && dl < 0 && (dle === null || dle <= 0.05)) return true;
+      if (qs >= 75.0 && dle !== null && dle <= 0.12 && dl !== null && dl >= 0) return true;
+      return false;
     }
 
     function isConsistentDividendStock(s) {
@@ -1024,6 +1031,9 @@
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           });
         }
+        const secStrDebt = `${s.setor || ''} ${s.subsetor || ''}`.toLowerCase();
+        const isUtilDebt = secStrDebt.includes('energia') || secStrDebt.includes('saneamento') || secStrDebt.includes('água') || secStrDebt.includes('telecom');
+        const isSafeUtilDebt = isUtilDebt && (s.quality_score || 0) >= 68.0 && eVal >= 0.11 && dle !== null && dle <= 5.2;
         if (isNetCash) {
           cats.push({
             id: 'CAT_NET_CASH',
@@ -1033,7 +1043,7 @@
             ledClass: 'bg-emerald-500',
             bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
           });
-        } else if (dle !== null && dle > 2.5) {
+        } else if (dle !== null && dle > 2.5 && !isSafeUtilDebt) {
           cats.push({
             id: 'CAT_HIGH_DEBT',
             group: 'QUALIDADE',
@@ -1126,13 +1136,14 @@
       const h5 = s.historical_5y || {};
       const scoreDelta5y = (h5.score_delta_5y !== undefined && h5.score_delta_5y !== null) ? Number(h5.score_delta_5y) : 0;
       const cagrPl5y = (h5.cagr_patrimonio_pct !== undefined && h5.cagr_patrimonio_pct !== null) ? Number(h5.cagr_patrimonio_pct) : 0;
-      const hasPositiveRecentProfit = !!(h5.lucro_liquido && h5.lucro_liquido.length > 0 && h5.lucro_liquido[h5.lucro_liquido.length - 1] > 0);
+      const cagrLucro5y = (h5.cagr_lucro_pct !== undefined && h5.cagr_lucro_pct !== null) ? Number(h5.cagr_lucro_pct) : 0;
+      const cagrRec5y = (h5.cagr_receita_pct !== undefined && h5.cagr_receita_pct !== null) ? Number(h5.cagr_receita_pct) : 0;
 
-      if ((s.quality_score || 0) >= 65.0 && scoreDelta5y >= 3.0 && hasPositiveRecentProfit) {
+      if ((s.quality_score || 0) >= 65.0 && eVal >= 0.12 && h5.is_all_profitable !== false && scoreDelta5y >= 1.5 && cagrLucro5y >= 6.0 && (cagrPl5y >= 3.0 || (cagrRec5y >= 5.0 && eVal >= 0.15))) {
         cats.push({
           id: 'CAT_MOAT_EXPANSION',
           group: 'QUALIDADE',
-          label: 'Fosso em Expansão (Score Subindo 5A)',
+          label: 'Fosso & Lucro em Expansão 5A',
           shortLabel: 'Fosso em Expansão 5A',
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-medium'
@@ -1150,11 +1161,12 @@
         });
       }
 
-      if (scoreDelta5y <= -4.0) {
+      const isMoatErosion = (s.quality_score || 0) < 68.0 && scoreDelta5y <= -4.0 && !(h5.is_all_profitable !== false && cagrLucro5y > 2.0) && (cagrLucro5y <= 0 || eVal < 0.12 || h5.is_all_profitable === false);
+      if (isMoatErosion) {
         cats.push({
           id: 'CAT_MOAT_EROSION',
           group: 'QUALIDADE',
-          label: 'Fosso em Erosão (Queda de Score 5A)',
+          label: 'Alerta: Fosso em Erosão (Queda 5A)',
           shortLabel: 'Fosso em Erosão 5A',
           ledClass: 'bg-rose-500',
           bgClass: 'bg-rose-50/90 text-rose-950 border border-rose-300/90 font-medium'
@@ -1190,26 +1202,6 @@
       const dispRatioVal = mcapNum ? (dispNum / mcapNum) : 0;
       const evebValNum = (s.ev_ebitda !== null && s.ev_ebitda !== undefined) ? Number(s.ev_ebitda) : null;
 
-      if (s.entry_tag === 'ASSIMETRIA_FAVORAVEL') {
-        cats.push({
-          id: 'CAT_DISCOUNT',
-          group: 'VALUATION',
-          label: 'Múltiplos Atrativos (P/L ≤ 11x)',
-          shortLabel: 'Múltiplos Atrativos',
-          ledClass: 'bg-emerald-500',
-          bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300/90 font-semibold'
-        });
-      } else if (s.entry_tag === 'DESCONTO_MOAT') {
-        cats.push({
-          id: 'CAT_DESCONTO_MOAT',
-          group: 'VALUATION',
-          label: 'Desconto Relativo ao Moat (P/L > 11x)',
-          shortLabel: 'Desconto ao Moat',
-          ledClass: 'bg-sky-600',
-          bgClass: 'bg-sky-50/90 text-sky-950 border border-sky-300/90 font-semibold'
-        });
-      }
-
       const isStrongCashEv = !s.is_financial && isNetCashVal && (
         (cashRatioVal >= 0.10 || dispRatioVal >= 0.15) ||
         (evebValNum !== null && evebValNum > 0 && evebValNum <= 6.0)
@@ -1238,18 +1230,18 @@
       }
 
       const secStrCat = `${s.setor || ''} ${s.subsetor || ''}`.toLowerCase();
-      const isUtilCat = secStrCat.includes('energia') || secStrCat.includes('saneamento') || secStr.includes('água') || secStrCat.includes('telecom');
-      const isSafeDebtForVal = s.is_financial || (dle === null) || (dle <= (isUtilCat && (s.quality_score || 0) >= 68.0 ? 3.5 : 2.3));
+      const isUtilCat = secStrCat.includes('energia') || secStrCat.includes('saneamento') || secStrCat.includes('água') || secStrCat.includes('telecom');
+      const isSafeDebtForVal = s.is_financial || (dle === null) || (dle <= (isUtilCat && (s.quality_score || 0) >= 68.0 ? 5.2 : 2.5));
 
-      const h5 = s.historical_5y || {};
       const pl5a = Number(h5.pl_medio_5a || 0);
-      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 65.0 && eValNum >= 0.12 && h5.is_all_profitable !== false) {
+      const plNumVal = s.pl !== null && s.pl !== undefined ? Number(s.pl) : 0;
+      if (lpa && vpa && lpa > 0 && vpa > 0 && cot > 0 && (s.quality_score || 0) >= 65.0 && eValNum >= 0.11 && h5.is_all_profitable !== false && isSafeDebtForVal) {
         const graham = Math.sqrt(22.5 * lpa * vpa);
-        if (graham >= cot * 1.18 && (pl5a <= 0 || (s.pl !== null && s.pl <= pl5a * 1.08))) {
+        if (graham >= cot * 1.15 && (plNumVal <= 9.5 || pl5a <= 0 || plNumVal <= pl5a * 1.10)) {
           cats.push({
             id: 'CAT_GRAHAM',
             group: 'VALUATION',
-            label: 'Desconto Graham 5A (Margem > 18%)',
+            label: 'Desconto Graham 5A (Margem > 15%)',
             shortLabel: 'Desconto Graham 5A',
             ledClass: 'bg-cyan-500',
             bgClass: 'bg-cyan-50/90 text-cyan-950 border border-cyan-300 font-bold'
@@ -1375,19 +1367,19 @@
         });
       }
 
-      const isAsym5a = s.entry_tag === 'ASSIMETRIA_FAVORAVEL' && (s.quality_score || 0) >= 65.0 && s.pl !== null && s.pl >= 3.5 && s.pl <= 11.0 && h5.is_all_profitable !== false && (pl5a <= 0 || s.pl <= pl5a * 1.08) && (s.ey_spread === null || s.ey_spread >= 2.5) && eValNum >= 0.12;
+      const isAsym5a = (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || (plNumVal <= 9.0 && (s.quality_score || 0) >= 70.0)) && (s.quality_score || 0) >= 65.0 && plNumVal >= 3.0 && plNumVal <= 12.0 && h5.is_all_profitable !== false && isSafeDebtForVal && (plNumVal <= 9.5 || pl5a <= 0 || plNumVal <= pl5a * 1.10) && eValNum >= 0.11;
       if (isAsym5a) {
         cats.push({
           id: 'CAT_DISCOUNT',
           group: 'VALUATION',
-          label: 'Assimetria de Valor 5A (P/L ≤ 11x)',
+          label: 'Assimetria de Valor 5A (Bom & Barato)',
           shortLabel: 'Assimetria 5A',
           ledClass: 'bg-emerald-500',
           bgClass: 'bg-emerald-50/90 text-emerald-950 border border-emerald-300 font-bold'
         });
       }
 
-      const isGarp5a = (s.quality_score || 0) >= 74.0 && s.pl !== null && s.pl >= 10.0 && s.pl <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT') && eValNum >= 0.15 && h5.is_all_profitable === true && (h5.cagr_lucro_pct === undefined || Number(h5.cagr_lucro_pct) >= 5.0);
+      const isGarp5a = (s.quality_score || 0) >= 73.5 && plNumVal >= 4.5 && plNumVal <= 17.5 && (s.entry_tag === 'ASSIMETRIA_FAVORAVEL' || s.entry_tag === 'DESCONTO_MOAT' || s.entry_tag === 'PRECO_JUSTO') && (eValNum >= 0.15 || rValNum >= 0.15) && h5.is_all_profitable !== false && cagrLucro5y >= 6.5 && cagrRec5y >= 5.0;
       if (isGarp5a) {
         cats.push({
           id: 'CAT_DESCONTO_MOAT',
