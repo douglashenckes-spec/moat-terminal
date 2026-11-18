@@ -4998,5 +4998,337 @@
       "roe": null,
       "div_per_share": 0.0
     }
+  },
+  "CSUD3": {
+    "2025": {
+      "receita": 623529000.0,
+      "lucro_liquido": 106051000.0,
+      "roe": 0.228,
+      "div_per_share": 2.786816
+    },
+    "2024": {
+      "receita": 567639000.0,
+      "lucro_liquido": 91177000.0,
+      "roe": 0.1911,
+      "div_per_share": 1.085893
+    },
+    "2023": {
+      "receita": 530233000.0,
+      "lucro_liquido": 88423000.0,
+      "roe": 0.2059,
+      "div_per_share": 1.163592
+    },
+    "2022": {
+      "receita": 537168000.0,
+      "lucro_liquido": 73572000.0,
+      "roe": 0.1927,
+      "div_per_share": 0.775045
+    }
+  },
+  "CLSC4": {
+    "2025": {
+      "receita": 11154142000.0,
+      "lucro_liquido": 729495000.0,
+      "roe": 0.1838,
+      "div_per_share": 9.724893
+    },
+    "2024": {
+      "receita": 9911967000.0,
+      "lucro_liquido": 715802000.0,
+      "roe": 0.195,
+      "div_per_share": 6.498302
+    },
+    "2023": {
+      "receita": 9733298000.0,
+      "lucro_liquido": 557034000.0,
+      "roe": 0.1899,
+      "div_per_share": 6.890038
+    },
+    "2022": {
+      "receita": 9274237000.0,
+      "lucro_liquido": 540562000.0,
+      "roe": 0.1875,
+      "div_per_share": 2.798098
+    }
+  },
+  "MATD3": {
+    "2025": {
+      "receita": 2175285000.0,
+      "lucro_liquido": 110511000.0,
+      "roe": 0.0755,
+      "div_per_share": 0.225383
+    },
+    "2024": {
+      "receita": 2226001000.0,
+      "lucro_liquido": -338440000.0,
+      "roe": -0.2337,
+      "div_per_share": 0.074861
+    },
+    "2023": {
+      "receita": 2187665000.0,
+      "lucro_liquido": 119654000.0,
+      "roe": 0.0723,
+      "div_per_share": 0.064345
+    },
+    "2022": {
+      "receita": 1763132000.0,
+      "lucro_liquido": 103505000.0,
+      "roe": 0.064,
+      "div_per_share": 0.090022
+    }
+  },
+  "PFRM3": {
+    "2025": {
+      "receita": 11450521000.0,
+      "lucro_liquido": 118898000.0,
+      "roe": 0.0884,
+      "div_per_share": 0.611693
+    },
+    "2024": {
+      "receita": 10153623000.0,
+      "lucro_liquido": 114579000.0,
+      "roe": 0.0879,
+      "div_per_share": 0.559576
+    },
+    "2023": {
+      "receita": 8661744000.0,
+      "lucro_liquido": 70397000.0,
+      "roe": 0.0564,
+      "div_per_share": 0.115732
+    },
+    "2022": {
+      "receita": 7816218000.0,
+      "lucro_liquido": 80874000.0,
+      "roe": 0.0679,
+      "div_per_share": 0.173318
+    }
+  },
+  "DEXP3": {
+    "2025": {
+      "receita": 2136827000.0,
+      "lucro_liquido": 143653000.0,
+      "roe": 0.1434,
+      "div_per_share": 0.837333
+    },
+    "2024": {
+      "receita": 1810394000.0,
+      "lucro_liquido": 144196000.0,
+      "roe": 0.1516,
+      "div_per_share": 0.472222
+    },
+    "2023": {
+      "receita": 1745275000.0,
+      "lucro_liquido": 180791000.0,
+      "roe": 0.2484,
+      "div_per_share": 0.347447
+    },
+    "2022": {
+      "receita": 2098108000.0,
+      "lucro_liquido": 149891000.0,
+      "roe": 0.2626,
+      "div_per_share": 0.342055
+    }
+  },
+  "BRST3": {
+    "2025": {
+      "receita": 1677263000.0,
+      "lucro_liquido": 40841000.0,
+      "roe": 0.0265,
+      "div_per_share": 0.041095
+    },
+    "2024": {
+      "receita": 1427794000.0,
+      "lucro_liquido": 60790000.0,
+      "roe": 0.0401,
+      "div_per_share": 0.0
+    },
+    "2023": {
+      "receita": 1227870000.0,
+      "lucro_liquido": 172493000.0,
+      "roe": 0.1123,
+      "div_per_share": 0.0
+    }
+  },
+  "VITT3": {
+    "2025": {
+      "receita": 819983000.0,
+      "lucro_liquido": 66528000.0,
+      "roe": 0.1032,
+      "div_per_share": 0.242402
+    },
+    "2024": {
+      "receita": 786619000.0,
+      "lucro_liquido": 75526000.0,
+      "roe": 0.119,
+      "div_per_share": 0.134879
+    },
+    "2023": {
+      "receita": 756109000.0,
+      "lucro_liquido": 97359000.0,
+      "roe": 0.1569,
+      "div_per_share": 0.324793
+    },
+    "2022": {
+      "receita": 851191000.0,
+      "lucro_liquido": 150003000.0,
+      "roe": 0.2597,
+      "div_per_share": 0.301886
+    }
+  },
+  "ESPA3": {
+    "2025": {
+      "receita": 1092985000.0,
+      "lucro_liquido": 15676000.0,
+      "roe": 0.0183,
+      "div_per_share": 0.016575
+    },
+    "2024": {
+      "receita": 1029771000.0,
+      "lucro_liquido": 2518000.0,
+      "roe": 0.0029,
+      "div_per_share": 0.0
+    },
+    "2023": {
+      "receita": 1006447000.0,
+      "lucro_liquido": -23111000.0,
+      "roe": -0.0269,
+      "div_per_share": 0.0
+    },
+    "2022": {
+      "receita": 906515000.0,
+      "lucro_liquido": -50198000.0,
+      "roe": -0.057,
+      "div_per_share": 0.0
+    }
+  },
+  "ROMI3": {
+    "2025": {
+      "receita": 1326712000.0,
+      "lucro_liquido": 85113000.0,
+      "roe": 0.0683,
+      "div_per_share": 0.54
+    },
+    "2024": {
+      "receita": 1220011000.0,
+      "lucro_liquido": 113883000.0,
+      "roe": 0.0928,
+      "div_per_share": 0.804286
+    },
+    "2023": {
+      "receita": 1227247000.0,
+      "lucro_liquido": 164086000.0,
+      "roe": 0.1403,
+      "div_per_share": 0.897241
+    },
+    "2022": {
+      "receita": 1592302000.0,
+      "lucro_liquido": 215027000.0,
+      "roe": 0.1967,
+      "div_per_share": 0.717827
+    }
+  },
+  "VVEO3": {
+    "2025": {
+      "receita": 11566926000.0,
+      "lucro_liquido": 18239000.0,
+      "roe": 0.0094,
+      "div_per_share": 0.0
+    },
+    "2024": {
+      "receita": 11583371000.0,
+      "lucro_liquido": -1415491000.0,
+      "roe": -0.7347,
+      "div_per_share": 0.136522
+    },
+    "2023": {
+      "receita": 11083830000.0,
+      "lucro_liquido": 359916000.0,
+      "roe": 0.1094,
+      "div_per_share": 0.0
+    },
+    "2022": {
+      "receita": 8746531000.0,
+      "lucro_liquido": 259733000.0,
+      "roe": 0.1139,
+      "div_per_share": 0.432966
+    }
+  },
+  "AMOB3": {
+    "2025": {
+      "receita": 12815400000.0,
+      "lucro_liquido": -285575000.0,
+      "roe": -0.1414,
+      "div_per_share": 0.0
+    },
+    "2024": {
+      "receita": 11986551000.0,
+      "lucro_liquido": -105482000.0,
+      "roe": -0.0458,
+      "div_per_share": 0.0
+    },
+    "2023": {
+      "receita": 9521565000.0,
+      "lucro_liquido": 134782000.0,
+      "roe": 0.0511,
+      "div_per_share": 0.0
+    },
+    "2022": {
+      "receita": 2683188000.0,
+      "lucro_liquido": 247541000.0,
+      "roe": 0.3208,
+      "div_per_share": 0.0
+    }
+  },
+  "PTBL3": {
+    "2025": {
+      "receita": 2606148000.0,
+      "lucro_liquido": -291738000.0,
+      "roe": -11.0194,
+      "div_per_share": 0.0
+    },
+    "2024": {
+      "receita": 2407806000.0,
+      "lucro_liquido": -102038000.0,
+      "roe": -0.275,
+      "div_per_share": 0.0
+    },
+    "2023": {
+      "receita": 2190834000.0,
+      "lucro_liquido": -35130000.0,
+      "roe": -0.091,
+      "div_per_share": 0.210052
+    },
+    "2022": {
+      "receita": 2196681000.0,
+      "lucro_liquido": 153098000.0,
+      "roe": 0.3277,
+      "div_per_share": 0.35762
+    }
+  },
+  "ENJU3": {
+    "2025": {
+      "receita": 263964000.0,
+      "lucro_liquido": -16788000.0,
+      "roe": -0.0552,
+      "div_per_share": 0.0
+    },
+    "2024": {
+      "receita": 265221000.0,
+      "lucro_liquido": -23935000.0,
+      "roe": -0.0747,
+      "div_per_share": 0.0
+    },
+    "2023": {
+      "receita": 194555000.0,
+      "lucro_liquido": -52971000.0,
+      "roe": -0.1559,
+      "div_per_share": 0.0
+    },
+    "2022": {
+      "receita": 138901000.0,
+      "lucro_liquido": -66515000.0,
+      "roe": -0.1746,
+      "div_per_share": 0.0
+    }
   }
 }

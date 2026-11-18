@@ -166,7 +166,8 @@ def generate_5y_history(ticker: str, row_dict: Dict[str, Any], det_entry: Dict[s
     elif rec_2025 and rec_2025 > 0:
         lucro_2025 = hist_cache.get("2025", {}).get("lucro_liquido")
         if lucro_2025 and lucro_2025 > 0 and lucro_ltm > 0:
-            rec_ltm = float(rec_2025) * (lucro_ltm / float(lucro_2025))
+            ratio_l = max(0.85, min(1.22, lucro_ltm / float(lucro_2025)))
+            rec_ltm = float(rec_2025) * ratio_l
         else:
             rec_ltm = float(rec_2025) * (1.0 + max(0.0, min(0.15, cagr_rec)))
     else:
@@ -631,7 +632,7 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         # 3. Cache padrão com mais de 24h
         is_stale_default = (now_ts - cached_ts) > (24 * 3600)
 
-        should_fetch = (not det_entry) or force_details or has_pl_divergence or is_stale_season or (is_ci and is_stale_default)
+        should_fetch = (not det_entry) or force_details or has_pl_divergence or is_stale_season or is_stale_default
 
         if should_fetch:
             try:
@@ -640,6 +641,15 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
                 logger.warning("Erro ao coletar detalhes de %s: %s", ticker, e)
                 if not det_entry:
                     det_entry = {}
+
+        all_hist_map = get_historical_cache()
+        ticker_hist = all_hist_map.get(ticker)
+        if not ticker_hist:
+            pref4 = ticker[:4]
+            for hk, hv in all_hist_map.items():
+                if hk[:4] == pref4 and hv:
+                    ticker_hist = hv
+                    break
 
         sector = det_entry.get("setor") or row_dict.get("setor", "Industria / Geral")
         subsetor = det_entry.get("subsetor") or "Geral"
@@ -661,6 +671,29 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         pl_exact = det_entry.get("patrimonio_liquido") if det_entry.get("patrimonio_liquido") is not None else row_dict.get("patrim_liq")
         dl_exact = det_entry.get("divida_liquida")
         ev_exact = det_entry.get("valor_firma")
+
+        # 0. Enriquecimento de Receita e Margem p/ Bancos, Seguradoras e Holdings (onde Fundamentus deixa Receita Líq = None ou 0)
+        if (rec12 is None or float(rec12) == 0.0):
+            if ebit12 is not None and float(ebit12) > 0:
+                rec12 = float(ebit12)
+                det_entry["receita_liq_12m"] = rec12
+                if (rec3 is None or float(rec3) == 0.0) and ebit3 is not None and float(ebit3) > 0:
+                    rec3 = float(ebit3)
+                    det_entry["receita_liq_3m"] = rec3
+            elif ticker_hist and isinstance(ticker_hist.get("2025"), dict):
+                r25 = ticker_hist["2025"].get("receita")
+                l25 = ticker_hist["2025"].get("lucro_liquido")
+                if r25 and float(r25) > 0:
+                    scale_r = 1.08
+                    if l25 and float(l25) > 0 and l12 and float(l12) > 0:
+                        scale_r = max(0.88, min(1.20, float(l12) / float(l25)))
+                    rec12 = round(float(r25) * scale_r, 2)
+                    det_entry["receita_liq_12m"] = rec12
+                    if rec3 is None:
+                        rec3 = round(rec12 / 4.0, 2)
+                        det_entry["receita_liq_3m"] = rec3
+            if rec12 and float(rec12) > 0 and l12 is not None and (row_dict.get("mrg_liq") is None or float(row_dict.get("mrg_liq") or 0) == 0.0):
+                row_dict["mrg_liq"] = round(min(0.95, max(-1.50, float(l12) / float(rec12))), 4)
 
         # 1. Correção de Subtração 12M Corrompida no Fundamentus por Incorporação Societária (Caso TIMS3: rec3 > 65% de rec12)
         if rec3 is not None and rec12 is not None and float(rec3) > 0 and float(rec12) > 0 and float(rec3) > float(rec12) * 0.65:
@@ -705,6 +738,28 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
         if row_dict.get("roic") is not None:
             row_dict["roic"] = round(max(-1.00, min(1.50, float(row_dict["roic"]))), 4)
 
+        # 3. Sincronização do Espelho raw_indicators com os Indicadores Sanitizados e Atualizados
+        raw_ind = det_entry.get("raw_indicators")
+        if isinstance(raw_ind, dict):
+            if row_dict.get("pl") is not None:
+                raw_ind["P/L"] = f"{float(row_dict['pl']):.2f}"
+            if row_dict.get("pvp") is not None:
+                raw_ind["P/VP"] = f"{float(row_dict['pvp']):.2f}"
+            if row_dict.get("div_yield") is not None:
+                raw_ind["Div. Yield"] = f"{float(row_dict['div_yield']) * 100.0:.1f}%".replace(".", ",")
+            if row_dict.get("roe") is not None:
+                raw_ind["ROE"] = f"{float(row_dict['roe']) * 100.0:.1f}%".replace(".", ",")
+            if row_dict.get("roic") is not None and not row_dict.get("is_financial"):
+                raw_ind["ROIC"] = f"{float(row_dict['roic']) * 100.0:.1f}%".replace(".", ",")
+            if row_dict.get("mrg_liq") is not None:
+                raw_ind["Marg. Líquida"] = f"{float(row_dict['mrg_liq']) * 100.0:.1f}%".replace(".", ",")
+            if row_dict.get("ev_ebitda") is not None and not row_dict.get("is_financial"):
+                raw_ind["EV / EBITDA"] = f"{float(row_dict['ev_ebitda']):.2f}"
+            if det_entry.get("lpa") is not None:
+                raw_ind["LPA"] = f"{float(det_entry['lpa']):.2f}"
+            if det_entry.get("vpa") is not None:
+                raw_ind["VPA"] = f"{float(det_entry['vpa']):.2f}"
+
         row_dict["ticker"] = ticker
         row_dict["setor"] = sector
         row_dict["subsetor"] = subsetor
@@ -734,15 +789,6 @@ def compile_standalone_dataset(force_refresh: bool = False, force_details: bool 
             pl_run_rate = round(mcap / lucro_run_rate, 2)
         row_dict["pl_run_rate"] = pl_run_rate
         row_dict["details"] = det_entry
-
-        all_hist_map = get_historical_cache()
-        ticker_hist = all_hist_map.get(ticker)
-        if not ticker_hist:
-            pref4 = ticker[:4]
-            for hk, hv in all_hist_map.items():
-                if hk[:4] == pref4 and hv:
-                    ticker_hist = hv
-                    break
         q = calculate_business_quality(row_dict, sector, ticker_hist)
         v = evaluate_entry_valuation(row_dict, sector, quality_score=q.get("quality_score"))
         bullets = generate_cfa_verdict(ticker, empresa, q, v, row_dict)

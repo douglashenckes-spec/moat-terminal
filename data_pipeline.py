@@ -428,7 +428,7 @@ def fetch_fundamentus_ticker_details(ticker: str, force_refresh: bool = False) -
                     if "vpa" in k_ind2.lower():
                         extracted["vpa"] = parse_brazilian_number(v_ind2)
 
-        # Tabela 3: Balanço Patrimonial
+        # Tabela 3: Balanço Patrimonial (Industrial / Varejo e Bancos)
         if len(dfs) > 3:
             t3 = dfs[3]
             for _, r in t3.iterrows():
@@ -440,6 +440,10 @@ def fetch_fundamentus_ticker_details(ticker: str, force_refresh: bool = False) -
                     extracted["disponibilidades"] = parse_brazilian_number(v0)
                 if "ativo circulante" in k0.lower():
                     extracted["ativo_circulante"] = parse_brazilian_number(v0)
+                if "cart" in k0.lower() and "cr" in k0.lower():
+                    extracted["cart_credito"] = parse_brazilian_number(v0)
+                if "dep" in k1.lower() and "sito" in k1.lower():
+                    extracted["depositos"] = parse_brazilian_number(v1)
                 if "bruta" in k1.lower():
                     extracted["divida_bruta"] = parse_brazilian_number(v1)
                 if "líquida" in k1.lower() or "lquida" in k1.lower():
@@ -447,19 +451,26 @@ def fetch_fundamentus_ticker_details(ticker: str, force_refresh: bool = False) -
                 if "patrim" in k1.lower():
                     extracted["patrimonio_liquido"] = parse_brazilian_number(v1)
 
-        # Tabela 4: Demonstrativos de Resultados (DRE)
+        # Tabela 4: Demonstrativos de Resultados (DRE Industrial e Intermediação Financeira)
         if len(dfs) > 4:
             t4 = dfs[4]
             for _, r in t4.iterrows():
                 k = str(r[0]).strip().replace("?", "")
+                kl = k.lower()
                 v_12m, v_3m = r[1], r[3]
-                if "receita" in k.lower():
+                if "receita" in kl:
                     extracted["receita_liq_12m"] = parse_brazilian_number(v_12m)
                     extracted["receita_liq_3m"] = parse_brazilian_number(v_3m)
-                if "ebit" in k.lower():
+                if "result int financ" in kl or "intermedia" in kl:
+                    extracted["result_int_fin_12m"] = parse_brazilian_number(v_12m)
+                    extracted["result_int_fin_3m"] = parse_brazilian_number(v_3m)
+                if "rec servi" in kl:
+                    extracted["rec_servicos_12m"] = parse_brazilian_number(v_12m)
+                    extracted["rec_servicos_3m"] = parse_brazilian_number(v_3m)
+                if "ebit" in kl:
                     extracted["ebit_12m"] = parse_brazilian_number(v_12m)
                     extracted["ebit_3m"] = parse_brazilian_number(v_3m)
-                if "lucro" in k.lower():
+                if "lucro" in kl:
                     extracted["lucro_liq_12m"] = parse_brazilian_number(v_12m)
                     extracted["lucro_liq_3m"] = parse_brazilian_number(v_3m)
 
