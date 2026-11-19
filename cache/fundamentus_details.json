@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795060237.1852677,
+    "cached_time": 1795109879.5757086,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "19/11/2026 00:50:37",
+      "audit_timestamp": "19/11/2026 14:37:59",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795060238.777561,
+    "cached_time": 1795109880.736813,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "19/11/2026 00:50:38",
+      "audit_timestamp": "19/11/2026 14:38:00",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795060234.9936721,
+    "cached_time": 1795109878.9278178,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "19/11/2026 00:50:34",
+      "audit_timestamp": "19/11/2026 14:37:58",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795060238.286766,
+    "cached_time": 1795109880.2081404,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "19/11/2026 00:50:38",
+      "audit_timestamp": "19/11/2026 14:38:00",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795060311.72389,
+    "cached_time": 1795109881.2609427,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "19/11/2026 00:51:51",
+      "audit_timestamp": "19/11/2026 14:38:01",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
