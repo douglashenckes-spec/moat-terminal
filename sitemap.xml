@@ -181,13 +181,13 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/plpl3/</loc>
+    <loc>https://moatterminal.com.br/acoes/csud3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/csud3/</loc>
+    <loc>https://moatterminal.com.br/acoes/plpl3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -265,13 +265,13 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/prio3/</loc>
+    <loc>https://moatterminal.com.br/acoes/leve3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/leve3/</loc>
+    <loc>https://moatterminal.com.br/acoes/prio3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -373,6 +373,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://moatterminal.com.br/acoes/alpa4/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://moatterminal.com.br/acoes/rent4/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
@@ -380,12 +386,6 @@
   </url>
   <url>
     <loc>https://moatterminal.com.br/acoes/rent3/</loc>
-    <lastmod>2026-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://moatterminal.com.br/acoes/alpa4/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -835,6 +835,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://moatterminal.com.br/acoes/posi3/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://moatterminal.com.br/acoes/natu3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
@@ -848,12 +854,6 @@
   </url>
   <url>
     <loc>https://moatterminal.com.br/acoes/cbav3/</loc>
-    <lastmod>2026-11-20</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://moatterminal.com.br/acoes/posi3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -1027,13 +1027,13 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/romi3/</loc>
+    <loc>https://moatterminal.com.br/acoes/jall3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/jall3/</loc>
+    <loc>https://moatterminal.com.br/acoes/romi3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -1099,13 +1099,13 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/jslg3/</loc>
+    <loc>https://moatterminal.com.br/acoes/hbsa3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://moatterminal.com.br/acoes/hbsa3/</loc>
+    <loc>https://moatterminal.com.br/acoes/jslg3/</loc>
     <lastmod>2026-11-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
