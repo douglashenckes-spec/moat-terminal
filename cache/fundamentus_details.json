@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795231662.339218,
+    "cached_time": 1795278185.1712413,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "21/11/2026 00:27:42",
+      "audit_timestamp": "21/11/2026 13:23:05",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795231663.180312,
+    "cached_time": 1795278186.177664,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "21/11/2026 00:27:43",
+      "audit_timestamp": "21/11/2026 13:23:06",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795231661.4959443,
+    "cached_time": 1795278184.6495998,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "21/11/2026 00:27:41",
+      "audit_timestamp": "21/11/2026 13:23:04",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795231662.7563984,
+    "cached_time": 1795278185.6731746,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "21/11/2026 00:27:42",
+      "audit_timestamp": "21/11/2026 13:23:05",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795231664.054359,
+    "cached_time": 1795278186.7548587,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "21/11/2026 00:27:44",
+      "audit_timestamp": "21/11/2026 13:23:06",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
