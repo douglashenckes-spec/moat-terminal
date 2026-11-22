@@ -1682,10 +1682,10 @@
     }
   },
   "AZEV3": {
-    "cached_time": 1795231661.0726628,
+    "cached_time": 1795365470.036234,
     "data": {
       "ticker": "AZEV3",
-      "audit_timestamp": "21/11/2026 00:27:41",
+      "audit_timestamp": "22/11/2026 13:37:50",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV3)",
       "empresa": "AZEVEDO & TRAVASSOS ON",
       "setor": "Construção e Engenharia",
@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795315101.7179854,
+    "cached_time": 1795365471.8360333,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "21/11/2026 23:38:21",
+      "audit_timestamp": "22/11/2026 13:37:51",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -1914,10 +1914,10 @@
     }
   },
   "AZEV4": {
-    "cached_time": 1795231661.916155,
+    "cached_time": 1795365471.242257,
     "data": {
       "ticker": "AZEV4",
-      "audit_timestamp": "21/11/2026 00:27:41",
+      "audit_timestamp": "22/11/2026 13:37:51",
       "audit_source": "Fundamentus (detalhes.php?papel=AZEV4)",
       "empresa": "AZEVEDO & TRAVASSOS PN",
       "setor": "Construção e Engenharia",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795315102.9223757,
+    "cached_time": 1795365472.8070626,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "21/11/2026 23:38:22",
+      "audit_timestamp": "22/11/2026 13:37:52",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795315101.0922468,
+    "cached_time": 1795365470.6422005,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "21/11/2026 23:38:21",
+      "audit_timestamp": "22/11/2026 13:37:50",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795315102.3100317,
+    "cached_time": 1795365472.3209586,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "21/11/2026 23:38:22",
+      "audit_timestamp": "22/11/2026 13:37:52",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -3376,10 +3376,10 @@
     }
   },
   "MTRE3": {
-    "cached_time": 1795231663.603933,
+    "cached_time": 1795365473.4036086,
     "data": {
       "ticker": "MTRE3",
-      "audit_timestamp": "21/11/2026 00:27:43",
+      "audit_timestamp": "22/11/2026 13:37:53",
       "audit_source": "Fundamentus (detalhes.php?papel=MTRE3)",
       "empresa": "MITRE REALTY ON NM",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795315103.5505967,
+    "cached_time": 1795365474.0346277,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "21/11/2026 23:38:23",
+      "audit_timestamp": "22/11/2026 13:37:54",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
