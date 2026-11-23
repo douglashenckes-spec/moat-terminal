@@ -1,5 +1,5 @@
 {
-  "audit_timestamp": "22/11/2026 18:16:24",
+  "audit_timestamp": "23/11/2026 00:06:04",
   "ntn_b_benchmark": 6.5,
   "latest_quarter": "3T26",
   "total_stocks": 211,
@@ -31609,7 +31609,7 @@
       ],
       "details": {
         "ticker": "CAML3",
-        "audit_timestamp": "22/11/2026 13:37:54",
+        "audit_timestamp": "23/11/2026 00:06:07",
         "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
         "empresa": "CAMIL ON NM",
         "setor": "Alimentos Processados",
@@ -39768,7 +39768,7 @@
       ],
       "details": {
         "ticker": "ONCO3",
-        "audit_timestamp": "22/11/2026 13:37:51",
+        "audit_timestamp": "23/11/2026 00:06:05",
         "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
         "empresa": "ONCOCLINICAS ON NM",
         "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -39967,7 +39967,7 @@
       ],
       "details": {
         "ticker": "GFSA3",
-        "audit_timestamp": "22/11/2026 13:37:52",
+        "audit_timestamp": "23/11/2026 00:06:06",
         "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
         "empresa": "GAFISA ON",
         "setor": "Construção Civil",
@@ -40365,7 +40365,7 @@
       ],
       "details": {
         "ticker": "BHIA3",
-        "audit_timestamp": "22/11/2026 13:37:52",
+        "audit_timestamp": "23/11/2026 00:06:06",
         "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
         "empresa": "CASAS BAHIA ON",
         "setor": "Comércio",
@@ -41957,7 +41957,7 @@
       ],
       "details": {
         "ticker": "PMAM3",
-        "audit_timestamp": "22/11/2026 13:37:50",
+        "audit_timestamp": "23/11/2026 00:06:05",
         "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
         "empresa": "PARANAPANEMA S.A. ON",
         "setor": "Siderurgia e Metalurgia",
