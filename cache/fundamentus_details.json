@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795487770.949449,
+    "cached_time": 1795549324.415293,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "23/11/2026 23:36:10",
+      "audit_timestamp": "24/11/2026 16:42:04",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795487772.4339433,
+    "cached_time": 1795549325.6187358,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "23/11/2026 23:36:12",
+      "audit_timestamp": "24/11/2026 16:42:05",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795487768.9726326,
+    "cached_time": 1795549323.813819,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "23/11/2026 23:36:08",
+      "audit_timestamp": "24/11/2026 16:42:03",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795487771.932459,
+    "cached_time": 1795549325.00784,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "23/11/2026 23:36:11",
+      "audit_timestamp": "24/11/2026 16:42:05",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795487849.1415522,
+    "cached_time": 1795549326.243712,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "23/11/2026 23:37:29",
+      "audit_timestamp": "24/11/2026 16:42:06",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
