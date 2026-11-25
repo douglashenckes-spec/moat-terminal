@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795582922.989014,
+    "cached_time": 1795632609.5394022,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "25/11/2026 02:02:02",
+      "audit_timestamp": "25/11/2026 15:50:09",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795582924.4060295,
+    "cached_time": 1795632610.7787766,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "25/11/2026 02:02:04",
+      "audit_timestamp": "25/11/2026 15:50:10",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795582921.3484516,
+    "cached_time": 1795632608.9813914,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "25/11/2026 02:02:01",
+      "audit_timestamp": "25/11/2026 15:50:08",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795582923.8943262,
+    "cached_time": 1795632610.0849247,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "25/11/2026 02:02:03",
+      "audit_timestamp": "25/11/2026 15:50:10",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795582985.1458075,
+    "cached_time": 1795632611.524302,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "25/11/2026 02:03:05",
+      "audit_timestamp": "25/11/2026 15:50:11",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
