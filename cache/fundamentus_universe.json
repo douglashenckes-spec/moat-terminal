@@ -1,6 +1,6 @@
 {
-  "audit_timestamp": "24/11/2026 16:42:02",
-  "created_at": "2026-11-24T19:42:03.183902+00:00",
+  "audit_timestamp": "24/11/2026 21:07:33",
+  "created_at": "2026-11-25T00:07:33.267924+00:00",
   "records": [
     {
       "ticker": "MGLU3",
@@ -32,7 +32,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -65,7 +65,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Telecomunicações",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -98,7 +98,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -131,7 +131,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -164,7 +164,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -197,7 +197,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -230,7 +230,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -263,7 +263,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -296,7 +296,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -329,40 +329,40 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AURE3",
-      "cotacao": 11.69,
-      "pl": -18.81,
-      "pvp": 1.06,
-      "psr": 0.928,
+      "cotacao": 11.85,
+      "pl": -19.06,
+      "pvp": 1.08,
+      "psr": 0.941,
       "div_yield": 0.0,
-      "p_ativo": 0.263,
-      "p_cap_giro": 11.06,
-      "p_ebit": 8.04,
+      "p_ativo": 0.266,
+      "p_cap_giro": 11.21,
+      "p_ebit": 8.15,
       "p_ativ_circ_liq": -0.46,
-      "ev_ebit": 21.12,
-      "ev_ebitda": 10.48,
+      "ev_ebit": 21.23,
+      "ev_ebitda": 10.54,
       "mrg_bruta": 0.16579999999999998,
       "mrg_ebit": 0.1153,
       "mrg_liq": -0.0359,
       "liq_corr": 1.19,
       "roic": 0.0362,
       "roe": -0.0565,
-      "liq_2m": 76846100.0,
+      "liq_2m": 76779400.0,
       "patrim_liq": 11557200000.0,
       "div_liq_patrim": 1.73,
       "cresc_rec5a": 0.31370000000000003,
       "earnings_yield": NaN,
-      "div_liq_ebitda": 6.498351254480287,
+      "div_liq_ebitda": 6.489039145907473,
       "is_net_cash": false,
       "alert_flags": [
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -395,7 +395,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -428,20 +428,20 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BEEF3",
-      "cotacao": 3.75,
-      "pl": -9.46,
-      "pvp": 4.95,
+      "cotacao": 3.76,
+      "pl": -9.49,
+      "pvp": 4.97,
       "psr": 0.064,
-      "div_yield": 0.0546,
+      "div_yield": 0.0545,
       "p_ativo": 0.079,
       "p_cap_giro": 0.41,
       "p_ebit": 1.0,
-      "p_ativ_circ_liq": -0.22,
+      "p_ativ_circ_liq": -0.23,
       "ev_ebit": 5.22,
       "ev_ebitda": 4.04,
       "mrg_bruta": 0.17,
@@ -450,18 +450,18 @@
       "liq_corr": 1.46,
       "roic": 0.1548,
       "roe": -0.5236999999999999,
-      "liq_2m": 100876000.0,
+      "liq_2m": 101252000.0,
       "patrim_liq": 722945000.0,
       "div_liq_patrim": 20.97,
       "cresc_rec5a": 0.19390000000000002,
       "earnings_yield": NaN,
-      "div_liq_ebitda": 3.268472222222222,
+      "div_liq_ebitda": 3.265952197378566,
       "is_net_cash": false,
       "alert_flags": [
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -494,7 +494,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Produtos de Uso Pessoal e de Limpeza",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -527,7 +527,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -560,7 +560,41 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "AZEV3",
+      "cotacao": 14.01,
+      "pl": -4.41,
+      "pvp": 15.03,
+      "psr": 2.44,
+      "div_yield": 0.0,
+      "p_ativo": 1.317,
+      "p_cap_giro": 369.09,
+      "p_ebit": -8.16,
+      "p_ativ_circ_liq": -3.15,
+      "ev_ebit": -8.46,
+      "ev_ebitda": -9.8,
+      "mrg_bruta": 0.1661,
+      "mrg_ebit": -0.2989,
+      "mrg_liq": -0.5538000000000001,
+      "liq_corr": 1.01,
+      "roic": -0.1925,
+      "roe": -3.4114999999999998,
+      "liq_2m": 9059810.0,
+      "patrim_liq": 103674000.0,
+      "div_liq_patrim": 0.56,
+      "cresc_rec5a": 0.0791,
+      "earnings_yield": NaN,
+      "div_liq_ebitda": NaN,
+      "is_net_cash": false,
+      "alert_flags": [
+        "LUCRO_LIQUIDO_NEGATIVO",
+        "EBITDA_NEGATIVO"
+      ],
+      "setor": "Construção e Engenharia",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -593,41 +627,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "AZEV3",
-      "cotacao": 11.95,
-      "pl": -3.76,
-      "pvp": 12.82,
-      "psr": 2.081,
-      "div_yield": 0.0,
-      "p_ativo": 1.124,
-      "p_cap_giro": 314.82,
-      "p_ebit": -6.96,
-      "p_ativ_circ_liq": -2.69,
-      "ev_ebit": -7.26,
-      "ev_ebitda": -8.41,
-      "mrg_bruta": 0.1661,
-      "mrg_ebit": -0.2989,
-      "mrg_liq": -0.5538000000000001,
-      "liq_corr": 1.01,
-      "roic": -0.1925,
-      "roe": -3.4114999999999998,
-      "liq_2m": 8445400.0,
-      "patrim_liq": 103674000.0,
-      "div_liq_patrim": 0.56,
-      "cresc_rec5a": 0.0791,
-      "earnings_yield": NaN,
-      "div_liq_ebitda": NaN,
-      "is_net_cash": false,
-      "alert_flags": [
-        "LUCRO_LIQUIDO_NEGATIVO",
-        "EBITDA_NEGATIVO"
-      ],
-      "setor": "Construção e Engenharia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -660,7 +660,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -694,7 +694,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -727,7 +727,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -760,7 +760,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Viagens e Lazer",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -793,7 +793,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -826,40 +826,40 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AMOB3",
-      "cotacao": 9.06,
-      "pl": -1.3,
+      "cotacao": 9.29,
+      "pl": -1.34,
       "pvp": 0.19,
       "psr": 0.026,
       "div_yield": 0.0,
-      "p_ativo": 0.041,
-      "p_cap_giro": 0.35,
-      "p_ebit": 1.45,
-      "p_ativ_circ_liq": -0.17,
-      "ev_ebit": 12.66,
-      "ev_ebitda": 6.76,
+      "p_ativo": 0.042,
+      "p_cap_giro": 0.36,
+      "p_ebit": 1.49,
+      "p_ativ_circ_liq": -0.18,
+      "ev_ebit": 12.69,
+      "ev_ebitda": 6.78,
       "mrg_bruta": 0.1472,
       "mrg_ebit": 0.0177,
       "mrg_liq": -0.0197,
       "liq_corr": 1.27,
       "roic": 0.039,
       "roe": -0.1456,
-      "liq_2m": 1792620.0,
+      "liq_2m": 1772450.0,
       "patrim_liq": 1810790000.0,
       "div_liq_patrim": 1.46,
       "cresc_rec5a": -0.3146,
       "earnings_yield": NaN,
-      "div_liq_ebitda": 5.981575757575757,
+      "div_liq_ebitda": 5.999272727272727,
       "is_net_cash": false,
       "alert_flags": [
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -892,7 +892,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -925,40 +925,40 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AMER3",
-      "cotacao": 3.98,
-      "pl": -0.8,
+      "cotacao": 3.9,
+      "pl": -0.78,
       "pvp": 0.21,
-      "psr": 0.066,
+      "psr": 0.065,
       "div_yield": 0.0,
-      "p_ativo": 0.054,
-      "p_cap_giro": 0.38,
-      "p_ebit": -1.45,
-      "p_ativ_circ_liq": -0.18,
-      "ev_ebit": -4.87,
-      "ev_ebitda": 13.84,
+      "p_ativo": 0.053,
+      "p_cap_giro": 0.37,
+      "p_ebit": -1.43,
+      "p_ativ_circ_liq": -0.17,
+      "ev_ebit": -4.84,
+      "ev_ebitda": 13.76,
       "mrg_bruta": 0.2548,
       "mrg_ebit": -0.0454,
       "mrg_liq": -0.0828,
       "liq_corr": 1.48,
       "roic": -0.0452,
       "roe": -0.2626,
-      "liq_2m": 13590000.0,
+      "liq_2m": 13470900.0,
       "patrim_liq": 3804000000.0,
       "div_liq_patrim": 0.49,
       "cresc_rec5a": -0.1727,
       "earnings_yield": NaN,
-      "div_liq_ebitda": 9.688,
+      "div_liq_ebitda": 9.632,
       "is_net_cash": false,
       "alert_flags": [
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -993,7 +993,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1028,7 +1028,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1062,7 +1062,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1096,7 +1096,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1130,7 +1130,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Químicos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1152,7 +1152,7 @@
       "liq_corr": 1.01,
       "roic": -0.1925,
       "roe": -3.4114999999999998,
-      "liq_2m": 3196000.0,
+      "liq_2m": 3239780.0,
       "patrim_liq": 103674000.0,
       "div_liq_patrim": 0.56,
       "cresc_rec5a": 0.0791,
@@ -1164,7 +1164,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Construção e Engenharia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1197,7 +1197,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1231,7 +1231,7 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1265,21 +1265,21 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BHIA3",
-      "cotacao": 0.64,
+      "cotacao": 0.63,
       "pl": -0.05,
       "pvp": -0.08,
-      "psr": 0.022,
+      "psr": 0.021,
       "div_yield": 0.0,
       "p_ativo": 0.025,
       "p_cap_giro": -0.08,
       "p_ebit": 0.28,
       "p_ativ_circ_liq": -0.03,
-      "ev_ebit": 2.8,
+      "ev_ebit": 2.79,
       "ev_ebitda": 1.91,
       "mrg_bruta": 0.3119,
       "mrg_ebit": 0.07690000000000001,
@@ -1287,7 +1287,7 @@
       "liq_corr": 0.64,
       "roic": 0.1481,
       "roe": 1.5969,
-      "liq_2m": 16175700.0,
+      "liq_2m": 16075200.0,
       "patrim_liq": -8270000000.0,
       "div_liq_patrim": -0.69,
       "cresc_rec5a": -0.013500000000000002,
@@ -1299,40 +1299,40 @@
         "LUCRO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AZUL3",
-      "cotacao": 11.27,
-      "pl": 1.85,
-      "pvp": -0.8,
-      "psr": 0.209,
+      "cotacao": 11.05,
+      "pl": 1.81,
+      "pvp": -0.79,
+      "psr": 0.205,
       "div_yield": 0.0,
-      "p_ativo": 0.141,
-      "p_cap_giro": -0.49,
-      "p_ebit": 1.76,
+      "p_ativo": 0.138,
+      "p_cap_giro": -0.48,
+      "p_ebit": 1.73,
       "p_ativ_circ_liq": -0.14,
-      "ev_ebit": 9.59,
-      "ev_ebitda": 4.62,
+      "ev_ebit": 9.55,
+      "ev_ebitda": 4.6,
       "mrg_bruta": 0.1697,
       "mrg_ebit": 0.1186,
       "mrg_liq": 0.11320000000000001,
       "liq_corr": 0.41,
       "roic": 0.0955,
       "roe": -0.4339,
-      "liq_2m": 3527220.0,
+      "liq_2m": 3508500.0,
       "patrim_liq": -5650120000.0,
       "div_liq_patrim": -3.56,
       "cresc_rec5a": 0.0922,
-      "earnings_yield": 0.5405405405405405,
-      "div_liq_ebitda": 3.7722935779816513,
+      "earnings_yield": 0.5524861878453039,
+      "div_liq_ebitda": 3.764597701149425,
       "is_net_cash": false,
       "alert_flags": [
         "PATRIMONIO_LIQUIDO_NEGATIVO"
       ],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1363,7 +1363,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1394,7 +1394,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1425,7 +1425,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1456,7 +1456,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1487,7 +1487,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1518,7 +1518,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1549,7 +1549,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1580,7 +1580,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1611,7 +1611,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1642,7 +1642,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1673,7 +1673,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1704,7 +1704,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1735,7 +1735,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1766,7 +1766,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1797,7 +1797,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1828,7 +1828,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1859,7 +1859,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1890,7 +1890,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1921,7 +1921,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1952,7 +1952,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -1983,7 +1983,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2014,7 +2014,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2045,7 +2045,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2076,7 +2076,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2107,38 +2107,69 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "ALLD3",
+      "cotacao": 6.49,
+      "pl": 4.64,
+      "pvp": 0.39,
+      "psr": 0.111,
+      "div_yield": 0.1605,
+      "p_ativo": 0.163,
+      "p_cap_giro": 0.6,
+      "p_ebit": 3.93,
+      "p_ativ_circ_liq": 0.93,
+      "ev_ebit": 2.73,
+      "ev_ebitda": 2.16,
+      "mrg_bruta": 0.12359999999999999,
+      "mrg_ebit": 0.0282,
+      "mrg_liq": 0.0239,
+      "liq_corr": 1.56,
+      "roic": 0.0966,
+      "roe": 0.08349999999999999,
+      "liq_2m": 13343200.0,
+      "patrim_liq": 1608490000.0,
+      "div_liq_patrim": -0.12,
+      "cresc_rec5a": -0.0003,
+      "earnings_yield": 0.21551724137931036,
+      "div_liq_ebitda": -0.96,
+      "is_net_cash": true,
+      "alert_flags": [],
+      "setor": "Comércio",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "ANIM3",
-      "cotacao": 2.35,
-      "pl": 4.61,
-      "pvp": 0.38,
-      "psr": 0.224,
-      "div_yield": 0.0331,
-      "p_ativo": 0.087,
-      "p_cap_giro": 1.06,
-      "p_ebit": 0.72,
+      "cotacao": 2.39,
+      "pl": 4.69,
+      "pvp": 0.39,
+      "psr": 0.228,
+      "div_yield": 0.0325,
+      "p_ativo": 0.088,
+      "p_cap_giro": 1.08,
+      "p_ebit": 0.73,
       "p_ativ_circ_liq": -0.2,
-      "ev_ebit": 3.77,
-      "ev_ebitda": 2.89,
+      "ev_ebit": 3.78,
+      "ev_ebitda": 2.9,
       "mrg_bruta": 0.6308,
       "mrg_ebit": 0.3107,
       "mrg_liq": 0.0803,
       "liq_corr": 1.42,
       "roic": 0.1518,
       "roe": 0.08259999999999999,
-      "liq_2m": 42541500.0,
+      "liq_2m": 42437800.0,
       "patrim_liq": 2492860000.0,
       "div_liq_patrim": 1.61,
       "cresc_rec5a": 0.0431,
-      "earnings_yield": 0.21691973969631234,
-      "div_liq_ebitda": 2.3381407035175883,
+      "earnings_yield": 0.21321961620469082,
+      "div_liq_ebitda": 2.3345000000000002,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2169,38 +2200,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "ALLD3",
-      "cotacao": 6.69,
-      "pl": 4.78,
-      "pvp": 0.4,
-      "psr": 0.114,
-      "div_yield": 0.1557,
-      "p_ativo": 0.168,
-      "p_cap_giro": 0.62,
-      "p_ebit": 4.06,
-      "p_ativ_circ_liq": 0.95,
-      "ev_ebit": 2.85,
-      "ev_ebitda": 2.26,
-      "mrg_bruta": 0.12359999999999999,
-      "mrg_ebit": 0.0282,
-      "mrg_liq": 0.0239,
-      "liq_corr": 1.56,
-      "roic": 0.0966,
-      "roe": 0.08349999999999999,
-      "liq_2m": 13303700.0,
-      "patrim_liq": 1608490000.0,
-      "div_liq_patrim": -0.12,
-      "cresc_rec5a": -0.0003,
-      "earnings_yield": 0.20920502092050208,
-      "div_liq_ebitda": -0.9685714285714285,
-      "is_net_cash": true,
-      "alert_flags": [],
-      "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2231,7 +2231,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2262,7 +2262,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2293,7 +2293,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2324,7 +2324,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2355,7 +2355,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2386,7 +2386,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2417,7 +2417,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2448,7 +2448,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2479,7 +2479,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2510,16 +2510,16 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BBDC3",
-      "cotacao": 12.59,
-      "pl": 5.49,
-      "pvp": 0.75,
+      "cotacao": 12.51,
+      "pl": 5.46,
+      "pvp": 0.74,
       "psr": 0.0,
-      "div_yield": 0.1103,
+      "div_yield": 0.111,
       "p_ativo": 0.0,
       "p_cap_giro": 0.0,
       "p_ebit": 0.0,
@@ -2532,16 +2532,16 @@
       "liq_corr": 0.0,
       "roic": 0.0,
       "roe": 0.1362,
-      "liq_2m": 282302000.0,
+      "liq_2m": 282492000.0,
       "patrim_liq": 188475000000.0,
       "div_liq_patrim": 0.0,
       "cresc_rec5a": 0.1306,
-      "earnings_yield": 0.18214936247723132,
+      "earnings_yield": 0.18315018315018314,
       "div_liq_ebitda": NaN,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2572,7 +2572,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2603,7 +2603,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2634,7 +2634,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2665,7 +2665,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2696,7 +2696,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2727,7 +2727,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2758,7 +2758,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2789,16 +2789,16 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BBDC4",
-      "cotacao": 13.71,
-      "pl": 5.98,
+      "cotacao": 13.62,
+      "pl": 5.94,
       "pvp": 0.81,
       "psr": 0.0,
-      "div_yield": 0.1114,
+      "div_yield": 0.1121,
       "p_ativo": 0.0,
       "p_cap_giro": 0.0,
       "p_ebit": 0.0,
@@ -2811,47 +2811,16 @@
       "liq_corr": 0.0,
       "roic": 0.0,
       "roe": 0.1362,
-      "liq_2m": 1265530000.0,
+      "liq_2m": 1265760000.0,
       "patrim_liq": 188475000000.0,
       "div_liq_patrim": 0.0,
       "cresc_rec5a": 0.1306,
-      "earnings_yield": 0.16722408026755853,
+      "earnings_yield": 0.16835016835016833,
       "div_liq_ebitda": NaN,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "ABCB4",
-      "cotacao": 23.07,
-      "pl": 5.99,
-      "pvp": 0.83,
-      "psr": 0.0,
-      "div_yield": 0.1093,
-      "p_ativo": 0.0,
-      "p_cap_giro": 0.0,
-      "p_ebit": 0.0,
-      "p_ativ_circ_liq": 0.0,
-      "ev_ebit": 0.0,
-      "ev_ebitda": 0.0,
-      "mrg_bruta": 0.0,
-      "mrg_ebit": 0.0,
-      "mrg_liq": 0.0,
-      "liq_corr": 0.0,
-      "roic": 0.0,
-      "roe": 0.1379,
-      "liq_2m": 22063200.0,
-      "patrim_liq": 7520370000.0,
-      "div_liq_patrim": 0.0,
-      "cresc_rec5a": 0.0452,
-      "earnings_yield": 0.1669449081803005,
-      "div_liq_ebitda": NaN,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2882,7 +2851,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "ABCB4",
+      "cotacao": 23.35,
+      "pl": 6.06,
+      "pvp": 0.84,
+      "psr": 0.0,
+      "div_yield": 0.10800000000000001,
+      "p_ativo": 0.0,
+      "p_cap_giro": 0.0,
+      "p_ebit": 0.0,
+      "p_ativ_circ_liq": 0.0,
+      "ev_ebit": 0.0,
+      "ev_ebitda": 0.0,
+      "mrg_bruta": 0.0,
+      "mrg_ebit": 0.0,
+      "mrg_liq": 0.0,
+      "liq_corr": 0.0,
+      "roic": 0.0,
+      "roe": 0.1379,
+      "liq_2m": 22352400.0,
+      "patrim_liq": 7520370000.0,
+      "div_liq_patrim": 0.0,
+      "cresc_rec5a": 0.0452,
+      "earnings_yield": 0.16501650165016502,
+      "div_liq_ebitda": NaN,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Intermediários Financeiros",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2913,7 +2913,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2944,7 +2944,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Automóveis e Motocicletas",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -2975,7 +2975,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3006,16 +3006,16 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BBAS3",
-      "cotacao": 14.2,
-      "pl": 6.43,
+      "cotacao": 14.18,
+      "pl": 6.42,
       "pvp": 0.45,
       "psr": 0.0,
-      "div_yield": 0.048499999999999995,
+      "div_yield": 0.048600000000000004,
       "p_ativo": 0.0,
       "p_cap_giro": 0.0,
       "p_ebit": 0.0,
@@ -3028,16 +3028,16 @@
       "liq_corr": 0.0,
       "roic": 0.0,
       "roe": 0.0699,
-      "liq_2m": 1182570000.0,
+      "liq_2m": 1181450000.0,
       "patrim_liq": 181263000000.0,
       "div_liq_patrim": 0.0,
       "cresc_rec5a": -0.1625,
-      "earnings_yield": 0.15552099533437014,
+      "earnings_yield": 0.1557632398753894,
       "div_liq_ebitda": NaN,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3068,7 +3068,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3099,7 +3099,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3130,69 +3130,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "AXIA7",
-      "cotacao": 45.52,
-      "pl": 6.71,
-      "pvp": 1.06,
-      "psr": 2.803,
-      "div_yield": 0.0,
-      "p_ativo": 0.443,
-      "p_cap_giro": 4.03,
-      "p_ebit": 8.48,
-      "p_ativ_circ_liq": -1.19,
-      "ev_ebit": 11.67,
-      "ev_ebitda": 8.73,
-      "mrg_bruta": 0.4692,
-      "mrg_ebit": 0.33049999999999996,
-      "mrg_liq": 0.4175,
-      "liq_corr": 2.13,
-      "roic": 0.0594,
-      "roe": 0.1574,
-      "liq_2m": 109769000.0,
-      "patrim_liq": 118290000000.0,
-      "div_liq_patrim": 0.4,
-      "cresc_rec5a": 0.054900000000000004,
-      "earnings_yield": 0.14903129657228018,
-      "div_liq_ebitda": 2.3917808219178083,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AXIA3",
-      "cotacao": 45.52,
-      "pl": 6.71,
+      "cotacao": 45.71,
+      "pl": 6.74,
       "pvp": 1.06,
-      "psr": 2.803,
+      "psr": 2.814,
       "div_yield": 0.0,
-      "p_ativo": 0.443,
-      "p_cap_giro": 4.03,
-      "p_ebit": 8.48,
+      "p_ativo": 0.445,
+      "p_cap_giro": 4.05,
+      "p_ebit": 8.52,
       "p_ativ_circ_liq": -1.19,
-      "ev_ebit": 11.67,
-      "ev_ebitda": 8.73,
+      "ev_ebit": 11.71,
+      "ev_ebitda": 8.76,
       "mrg_bruta": 0.4692,
       "mrg_ebit": 0.33049999999999996,
       "mrg_liq": 0.4175,
       "liq_corr": 2.13,
       "roic": 0.0594,
       "roe": 0.1574,
-      "liq_2m": 1062890000.0,
+      "liq_2m": 1052750000.0,
       "patrim_liq": 118290000000.0,
       "div_liq_patrim": 0.4,
       "cresc_rec5a": 0.054900000000000004,
-      "earnings_yield": 0.14903129657228018,
-      "div_liq_ebitda": 2.3917808219178083,
+      "earnings_yield": 0.14836795252225518,
+      "div_liq_ebitda": 2.4,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3223,7 +3192,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3254,7 +3223,38 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "AXIA7",
+      "cotacao": 45.88,
+      "pl": 6.77,
+      "pvp": 1.07,
+      "psr": 2.825,
+      "div_yield": 0.0,
+      "p_ativo": 0.447,
+      "p_cap_giro": 4.07,
+      "p_ebit": 8.55,
+      "p_ativ_circ_liq": -1.2,
+      "ev_ebit": 11.74,
+      "ev_ebitda": 8.78,
+      "mrg_bruta": 0.4692,
+      "mrg_ebit": 0.33049999999999996,
+      "mrg_liq": 0.4175,
+      "liq_corr": 2.13,
+      "roic": 0.0594,
+      "roe": 0.1574,
+      "liq_2m": 108583000.0,
+      "patrim_liq": 118290000000.0,
+      "div_liq_patrim": 0.4,
+      "cresc_rec5a": 0.054900000000000004,
+      "earnings_yield": 0.14771048744460857,
+      "div_liq_ebitda": 2.3891156462585035,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Indústria / Geral",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3285,7 +3285,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3316,7 +3316,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3347,7 +3347,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3378,7 +3378,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3409,7 +3409,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3440,7 +3440,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3471,7 +3471,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3502,7 +3502,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3533,7 +3533,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3564,7 +3564,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3595,7 +3595,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3626,7 +3626,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3657,7 +3657,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3688,7 +3688,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3719,7 +3719,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "BBSE3",
+      "cotacao": 36.22,
+      "pl": 7.65,
+      "pvp": 5.22,
+      "psr": 0.0,
+      "div_yield": 0.1285,
+      "p_ativo": 3.386,
+      "p_cap_giro": 0.0,
+      "p_ebit": 7.07,
+      "p_ativ_circ_liq": 0.0,
+      "ev_ebit": 0.0,
+      "ev_ebitda": 0.0,
+      "mrg_bruta": 0.0,
+      "mrg_ebit": 0.0,
+      "mrg_liq": 0.0,
+      "liq_corr": 0.0,
+      "roic": 0.0,
+      "roe": 0.6817,
+      "liq_2m": 324183000.0,
+      "patrim_liq": 13478600000.0,
+      "div_liq_patrim": 0.0,
+      "cresc_rec5a": 0.0,
+      "earnings_yield": 0.13071895424836602,
+      "div_liq_ebitda": NaN,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Previdência e Seguros",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3750,38 +3781,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "BBSE3",
-      "cotacao": 36.51,
-      "pl": 7.71,
-      "pvp": 5.26,
-      "psr": 0.0,
-      "div_yield": 0.1275,
-      "p_ativo": 3.413,
-      "p_cap_giro": 0.0,
-      "p_ebit": 7.12,
-      "p_ativ_circ_liq": 0.0,
-      "ev_ebit": 0.0,
-      "ev_ebitda": 0.0,
-      "mrg_bruta": 0.0,
-      "mrg_ebit": 0.0,
-      "mrg_liq": 0.0,
-      "liq_corr": 0.0,
-      "roic": 0.0,
-      "roe": 0.6817,
-      "liq_2m": 322924000.0,
-      "patrim_liq": 13478600000.0,
-      "div_liq_patrim": 0.0,
-      "cresc_rec5a": 0.0,
-      "earnings_yield": 0.1297016861219196,
-      "div_liq_ebitda": NaN,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Previdência e Seguros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3812,38 +3812,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "BMEB4",
-      "cotacao": 54.29,
-      "pl": 7.96,
-      "pvp": 2.02,
-      "psr": 0.0,
-      "div_yield": 0.0594,
-      "p_ativo": 0.0,
-      "p_cap_giro": 0.0,
-      "p_ebit": 0.0,
-      "p_ativ_circ_liq": 0.0,
-      "ev_ebit": 0.0,
-      "ev_ebitda": 0.0,
-      "mrg_bruta": 0.0,
-      "mrg_ebit": 0.0,
-      "mrg_liq": 0.0,
-      "liq_corr": 0.0,
-      "roic": 0.0,
-      "roe": 0.2534,
-      "liq_2m": 2131650.0,
-      "patrim_liq": 3329090000.0,
-      "div_liq_patrim": 0.0,
-      "cresc_rec5a": 0.2275,
-      "earnings_yield": 0.12562814070351758,
-      "div_liq_ebitda": NaN,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3874,7 +3843,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3905,7 +3874,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3936,7 +3905,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3967,7 +3936,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -3998,7 +3967,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4029,7 +3998,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4060,7 +4029,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4091,7 +4060,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4122,7 +4091,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4153,7 +4122,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4184,7 +4153,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4215,7 +4184,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "AZZA3",
+      "cotacao": 14.18,
+      "pl": 8.69,
+      "pvp": 0.36,
+      "psr": 0.26,
+      "div_yield": 0.1118,
+      "p_ativo": 0.19,
+      "p_cap_giro": 0.79,
+      "p_ebit": 3.87,
+      "p_ativ_circ_liq": -7.27,
+      "ev_ebit": 6.57,
+      "ev_ebitda": 3.5,
+      "mrg_bruta": 0.5523,
+      "mrg_ebit": 0.0672,
+      "mrg_liq": 0.029900000000000003,
+      "liq_corr": 2.23,
+      "roic": 0.059699999999999996,
+      "roe": 0.040999999999999995,
+      "liq_2m": 104407000.0,
+      "patrim_liq": 8222230000.0,
+      "div_liq_patrim": 0.25,
+      "cresc_rec5a": 0.3482,
+      "earnings_yield": 0.11507479861910243,
+      "div_liq_ebitda": 1.4344262295081966,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Comércio",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4246,7 +4246,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4277,7 +4277,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4308,38 +4308,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "AZZA3",
-      "cotacao": 14.58,
-      "pl": 8.94,
-      "pvp": 0.37,
-      "psr": 0.268,
-      "div_yield": 0.10869999999999999,
-      "p_ativo": 0.196,
-      "p_cap_giro": 0.81,
-      "p_ebit": 3.98,
-      "p_ativ_circ_liq": -7.47,
-      "ev_ebit": 6.68,
-      "ev_ebitda": 3.56,
-      "mrg_bruta": 0.5523,
-      "mrg_ebit": 0.0672,
-      "mrg_liq": 0.029900000000000003,
-      "liq_corr": 2.23,
-      "roic": 0.059699999999999996,
-      "roe": 0.040999999999999995,
-      "liq_2m": 103802000.0,
-      "patrim_liq": 8222230000.0,
-      "div_liq_patrim": 0.25,
-      "cresc_rec5a": 0.3482,
-      "earnings_yield": 0.11185682326621925,
-      "div_liq_ebitda": 1.435483870967742,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4370,7 +4339,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4401,7 +4370,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4432,7 +4401,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4463,7 +4432,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4494,7 +4463,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4525,7 +4494,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Intermediários Financeiros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4556,21 +4525,21 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "ALUP11",
-      "cotacao": 32.78,
-      "pl": 10.48,
+      "cotacao": 32.86,
+      "pl": 10.51,
       "pvp": 1.12,
-      "psr": 2.069,
-      "div_yield": 0.0302,
-      "p_ativo": 0.301,
+      "psr": 2.074,
+      "div_yield": 0.0301,
+      "p_ativo": 0.302,
       "p_cap_giro": 2.02,
-      "p_ebit": 3.73,
+      "p_ebit": 3.74,
       "p_ativ_circ_liq": -0.79,
-      "ev_ebit": 7.09,
+      "ev_ebit": 7.1,
       "ev_ebitda": 6.61,
       "mrg_bruta": 0.6059,
       "mrg_ebit": 0.5540999999999999,
@@ -4578,47 +4547,16 @@
       "liq_corr": 2.53,
       "roic": 0.0964,
       "roe": 0.1066,
-      "liq_2m": 56225200.0,
+      "liq_2m": 56251800.0,
       "patrim_liq": 9668530000.0,
       "div_liq_patrim": 1.01,
       "cresc_rec5a": 0.077,
-      "earnings_yield": 0.09541984732824427,
+      "earnings_yield": 0.09514747859181732,
       "div_liq_ebitda": 3.134319248826291,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "ASAI3",
-      "cotacao": 9.36,
-      "pl": 10.59,
-      "pvp": 1.9,
-      "psr": 0.163,
-      "div_yield": 0.0111,
-      "p_ativo": 0.271,
-      "p_cap_giro": 16.81,
-      "p_ebit": 1.79,
-      "p_ativ_circ_liq": -0.57,
-      "ev_ebit": 3.39,
-      "ev_ebitda": 2.69,
-      "mrg_bruta": 0.1866,
-      "mrg_ebit": 0.09140000000000001,
-      "mrg_liq": 0.0154,
-      "liq_corr": 1.04,
-      "roic": 0.2267,
-      "roe": 0.1793,
-      "liq_2m": 237587000.0,
-      "patrim_liq": 6676000000.0,
-      "div_liq_patrim": 1.7,
-      "cresc_rec5a": 0.1112,
-      "earnings_yield": 0.09442870632672333,
-      "div_liq_ebitda": 1.2702777777777776,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4649,38 +4587,69 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "BLAU3",
-      "cotacao": 9.47,
-      "pl": 11.1,
-      "pvp": 0.93,
-      "psr": 1.215,
-      "div_yield": 0.0786,
-      "p_ativo": 0.52,
-      "p_cap_giro": 1.46,
-      "p_ebit": 6.03,
-      "p_ativ_circ_liq": 5.14,
-      "ev_ebit": 5.84,
-      "ev_ebitda": 4.8,
+      "cotacao": 9.14,
+      "pl": 10.72,
+      "pvp": 0.89,
+      "psr": 1.173,
+      "div_yield": 0.0815,
+      "p_ativo": 0.502,
+      "p_cap_giro": 1.41,
+      "p_ebit": 5.82,
+      "p_ativ_circ_liq": 4.96,
+      "ev_ebit": 5.63,
+      "ev_ebitda": 4.63,
       "mrg_bruta": 0.42060000000000003,
       "mrg_ebit": 0.2016,
       "mrg_liq": 0.1091,
       "liq_corr": 2.91,
       "roic": 0.12480000000000001,
       "roe": 0.0833,
-      "liq_2m": 4016880.0,
+      "liq_2m": 4003930.0,
       "patrim_liq": 2386620000.0,
       "div_liq_patrim": -0.03,
       "cresc_rec5a": 0.08380000000000001,
-      "earnings_yield": 0.0900900900900901,
-      "div_liq_ebitda": -0.16,
+      "earnings_yield": 0.09328358208955223,
+      "div_liq_ebitda": -0.16151162790697673,
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "ASAI3",
+      "cotacao": 9.65,
+      "pl": 10.92,
+      "pvp": 1.96,
+      "psr": 0.168,
+      "div_yield": 0.0108,
+      "p_ativo": 0.279,
+      "p_cap_giro": 17.33,
+      "p_ebit": 1.84,
+      "p_ativ_circ_liq": -0.59,
+      "ev_ebit": 3.45,
+      "ev_ebitda": 2.74,
+      "mrg_bruta": 0.1866,
+      "mrg_ebit": 0.09140000000000001,
+      "mrg_liq": 0.0154,
+      "liq_corr": 1.04,
+      "roic": 0.2267,
+      "roe": 0.1793,
+      "liq_2m": 240251000.0,
+      "patrim_liq": 6676000000.0,
+      "div_liq_patrim": 1.7,
+      "cresc_rec5a": 0.1112,
+      "earnings_yield": 0.09157509157509157,
+      "div_liq_ebitda": 1.2726775956284153,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Comércio e Distribuição",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4711,7 +4680,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4742,38 +4711,69 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Máquinas e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "ALOS3",
-      "cotacao": 25.5,
-      "pl": 11.69,
-      "pvp": 1.01,
-      "psr": 4.359,
-      "div_yield": 0.1375,
-      "p_ativo": 0.503,
-      "p_cap_giro": 5.1,
-      "p_ebit": 8.61,
-      "p_ativ_circ_liq": -1.4,
-      "ev_ebit": 6.73,
-      "ev_ebitda": 4.8,
+      "cotacao": 25.83,
+      "pl": 11.84,
+      "pvp": 1.02,
+      "psr": 4.415,
+      "div_yield": 0.13570000000000002,
+      "p_ativo": 0.51,
+      "p_cap_giro": 5.17,
+      "p_ebit": 8.72,
+      "p_ativ_circ_liq": -1.42,
+      "ev_ebit": 6.84,
+      "ev_ebitda": 4.88,
       "mrg_bruta": 0.7353000000000001,
       "mrg_ebit": 0.5061,
       "mrg_liq": 0.4068,
       "liq_corr": 3.43,
       "roic": 0.0658,
       "roe": 0.08650000000000001,
-      "liq_2m": 271508000.0,
+      "liq_2m": 270818000.0,
       "patrim_liq": 12716500000.0,
       "div_liq_patrim": -0.22,
       "cresc_rec5a": 0.2504,
-      "earnings_yield": 0.0855431993156544,
-      "div_liq_ebitda": -1.3367088607594935,
+      "earnings_yield": 0.08445945945945946,
+      "div_liq_ebitda": -1.3419999999999999,
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Exploração de Imóveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "AURA33",
+      "cotacao": 119.3,
+      "pl": 11.85,
+      "pvp": 9.51,
+      "psr": 3.489,
+      "div_yield": 0.016,
+      "p_ativo": 2.52,
+      "p_cap_giro": 31.65,
+      "p_ebit": 6.44,
+      "p_ativ_circ_liq": -6.42,
+      "ev_ebit": 6.72,
+      "ev_ebitda": 6.72,
+      "mrg_bruta": 0.5936,
+      "mrg_ebit": 0.5414,
+      "mrg_liq": 0.2943,
+      "liq_corr": 1.3,
+      "roic": 0.5697,
+      "roe": 0.8022,
+      "liq_2m": 119075000.0,
+      "patrim_liq": 2725040000.0,
+      "div_liq_patrim": 0.41,
+      "cresc_rec5a": 0.32130000000000003,
+      "earnings_yield": 0.08438818565400844,
+      "div_liq_ebitda": 0.27774193548387094,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Mineração",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4804,7 +4804,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Gás",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4835,38 +4835,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "AURA33",
-      "cotacao": 123.53,
-      "pl": 12.27,
-      "pvp": 9.85,
-      "psr": 3.613,
-      "div_yield": 0.0154,
-      "p_ativo": 2.61,
-      "p_cap_giro": 32.78,
-      "p_ebit": 6.67,
-      "p_ativ_circ_liq": -6.65,
-      "ev_ebit": 6.95,
-      "ev_ebitda": 6.95,
-      "mrg_bruta": 0.5936,
-      "mrg_ebit": 0.5414,
-      "mrg_liq": 0.2943,
-      "liq_corr": 1.3,
-      "roic": 0.5697,
-      "roe": 0.8022,
-      "liq_2m": 119703000.0,
-      "patrim_liq": 2725040000.0,
-      "div_liq_patrim": 0.41,
-      "cresc_rec5a": 0.32130000000000003,
-      "earnings_yield": 0.08149959250203749,
-      "div_liq_ebitda": 0.277729044834308,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Mineração",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4897,69 +4866,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "B3SA3",
-      "cotacao": 14.16,
-      "pl": 12.51,
-      "pvp": 3.78,
-      "psr": 5.805,
-      "div_yield": 0.0649,
-      "p_ativo": 1.418,
-      "p_cap_giro": 7.85,
-      "p_ebit": 9.86,
-      "p_ativ_circ_liq": -6.44,
-      "ev_ebit": 9.47,
-      "ev_ebitda": 9.0,
+      "cotacao": 14.18,
+      "pl": 12.53,
+      "pvp": 3.79,
+      "psr": 5.813,
+      "div_yield": 0.06480000000000001,
+      "p_ativo": 1.42,
+      "p_cap_giro": 7.86,
+      "p_ebit": 9.87,
+      "p_ativ_circ_liq": -6.45,
+      "ev_ebit": 9.48,
+      "ev_ebitda": 9.01,
       "mrg_bruta": 0.8978,
       "mrg_ebit": 0.5888,
       "mrg_liq": 0.46399999999999997,
       "liq_corr": 1.81,
       "roic": 0.225,
       "roe": 0.3024,
-      "liq_2m": 1169170000.0,
+      "liq_2m": 1159040000.0,
       "patrim_liq": 18880200000.0,
       "div_liq_patrim": -0.15,
       "cresc_rec5a": 0.0458,
-      "earnings_yield": 0.07993605115907275,
-      "div_liq_ebitda": -0.371900826446281,
+      "earnings_yield": 0.07980845969672785,
+      "div_liq_ebitda": -0.3712912087912088,
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Serviços Financeiros Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "ALPA4",
-      "cotacao": 13.06,
-      "pl": 12.65,
-      "pvp": 2.34,
-      "psr": 1.802,
-      "div_yield": 0.0414,
-      "p_ativo": 1.303,
-      "p_cap_giro": 5.42,
-      "p_ebit": 9.4,
-      "p_ativ_circ_liq": 16.35,
-      "ev_ebit": 9.79,
-      "ev_ebitda": 7.76,
-      "mrg_bruta": 0.5299,
-      "mrg_ebit": 0.1918,
-      "mrg_liq": 0.1424,
-      "liq_corr": 1.85,
-      "roic": 0.1832,
-      "roe": 0.18489999999999998,
-      "liq_2m": 39567000.0,
-      "patrim_liq": 3813770000.0,
-      "div_liq_patrim": 0.1,
-      "cresc_rec5a": 0.060700000000000004,
-      "earnings_yield": 0.07905138339920949,
-      "div_liq_ebitda": 0.3180327868852459,
-      "is_net_cash": false,
-      "alert_flags": [],
-      "setor": "Tecidos, Vestuário e Calçados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -4990,7 +4928,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "ALPA4",
+      "cotacao": 13.1,
+      "pl": 12.69,
+      "pvp": 2.35,
+      "psr": 1.807,
+      "div_yield": 0.041299999999999996,
+      "p_ativo": 1.307,
+      "p_cap_giro": 5.44,
+      "p_ebit": 9.43,
+      "p_ativ_circ_liq": 16.4,
+      "ev_ebit": 9.81,
+      "ev_ebitda": 7.78,
+      "mrg_bruta": 0.5299,
+      "mrg_ebit": 0.1918,
+      "mrg_liq": 0.1424,
+      "liq_corr": 1.85,
+      "roic": 0.1832,
+      "roe": 0.18489999999999998,
+      "liq_2m": 39549500.0,
+      "patrim_liq": 3813770000.0,
+      "div_liq_patrim": 0.1,
+      "cresc_rec5a": 0.060700000000000004,
+      "earnings_yield": 0.07880220646178093,
+      "div_liq_ebitda": 0.3175510204081633,
+      "is_net_cash": false,
+      "alert_flags": [],
+      "setor": "Tecidos, Vestuário e Calçados",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5021,7 +4990,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5052,7 +5021,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5085,7 +5054,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Previdência e Seguros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5116,7 +5085,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5147,7 +5116,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5178,7 +5147,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5209,7 +5178,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5240,7 +5209,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Programas e Serviços",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5271,7 +5240,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serviços Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5302,7 +5271,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Viagens e Lazer",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5333,7 +5302,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5364,38 +5333,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
-      "audit_source": "Fundamentus (resultado.php)"
-    },
-    {
-      "ticker": "ABEV3",
-      "cotacao": 15.94,
-      "pl": 15.67,
-      "pvp": 2.72,
-      "psr": 2.773,
-      "div_yield": 0.054000000000000006,
-      "p_ativo": 1.743,
-      "p_cap_giro": 101.64,
-      "p_ebit": 11.93,
-      "p_ativ_circ_liq": -35.36,
-      "ev_ebit": 11.0,
-      "ev_ebitda": 8.46,
-      "mrg_bruta": 0.5178,
-      "mrg_ebit": 0.2325,
-      "mrg_liq": 0.1826,
-      "liq_corr": 1.06,
-      "roic": 0.20739999999999997,
-      "roe": 0.1732,
-      "liq_2m": 607963000.0,
-      "patrim_liq": 90895700000.0,
-      "div_liq_patrim": -0.21,
-      "cresc_rec5a": 0.0337,
-      "earnings_yield": 0.06381620931716656,
-      "div_liq_ebitda": -0.707808764940239,
-      "is_net_cash": true,
-      "alert_flags": [],
-      "setor": "Bebidas",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5426,7 +5364,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5457,38 +5395,69 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
+      "audit_source": "Fundamentus (resultado.php)"
+    },
+    {
+      "ticker": "ABEV3",
+      "cotacao": 16.1,
+      "pl": 15.83,
+      "pvp": 2.74,
+      "psr": 2.801,
+      "div_yield": 0.0535,
+      "p_ativo": 1.761,
+      "p_cap_giro": 102.67,
+      "p_ebit": 12.05,
+      "p_ativ_circ_liq": -35.72,
+      "ev_ebit": 11.12,
+      "ev_ebitda": 8.55,
+      "mrg_bruta": 0.5178,
+      "mrg_ebit": 0.2325,
+      "mrg_liq": 0.1826,
+      "liq_corr": 1.06,
+      "roic": 0.20739999999999997,
+      "roe": 0.1732,
+      "liq_2m": 612511000.0,
+      "patrim_liq": 90895700000.0,
+      "div_liq_patrim": -0.21,
+      "cresc_rec5a": 0.0337,
+      "earnings_yield": 0.06317119393556538,
+      "div_liq_ebitda": -0.7096837944664031,
+      "is_net_cash": true,
+      "alert_flags": [],
+      "setor": "Bebidas",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AUAU3",
-      "cotacao": 4.16,
-      "pl": 16.27,
-      "pvp": 1.1,
-      "psr": 0.601,
-      "div_yield": 0.0073,
-      "p_ativo": 0.523,
-      "p_cap_giro": 6.72,
-      "p_ebit": 7.73,
-      "p_ativ_circ_liq": -2.95,
-      "ev_ebit": 6.81,
-      "ev_ebitda": 3.12,
+      "cotacao": 4.2,
+      "pl": 16.42,
+      "pvp": 1.11,
+      "psr": 0.606,
+      "div_yield": 0.0072,
+      "p_ativo": 0.528,
+      "p_cap_giro": 6.79,
+      "p_ebit": 7.8,
+      "p_ativ_circ_liq": -2.98,
+      "ev_ebit": 6.89,
+      "ev_ebitda": 3.16,
       "mrg_bruta": 0.4731,
       "mrg_ebit": 0.07769999999999999,
       "mrg_liq": 0.0369,
       "liq_corr": 1.29,
       "roic": 0.0867,
       "roe": 0.0677,
-      "liq_2m": 25261200.0,
+      "liq_2m": 25040300.0,
       "patrim_liq": 3251500000.0,
       "div_liq_patrim": -0.13,
       "cresc_rec5a": 0.0,
-      "earnings_yield": 0.06146281499692686,
-      "div_liq_ebitda": -0.4181443298969072,
+      "earnings_yield": 0.06090133982947624,
+      "div_liq_ebitda": -0.41918367346938773,
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Comércio",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5519,7 +5488,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5550,7 +5519,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5581,7 +5550,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5612,7 +5581,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Siderurgia e Metalurgia",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5643,7 +5612,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5674,7 +5643,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5707,7 +5676,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5738,7 +5707,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5769,7 +5738,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Comércio e Distribuição",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5800,7 +5769,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5831,7 +5800,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5864,7 +5833,7 @@
         "EBITDA_NEGATIVO"
       ],
       "setor": "Mineração",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5895,38 +5864,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "ARML3",
-      "cotacao": 4.0,
-      "pl": 21.59,
-      "pvp": 0.94,
-      "psr": 0.658,
-      "div_yield": 0.1011,
-      "p_ativo": 0.226,
-      "p_cap_giro": 1.44,
-      "p_ebit": 2.94,
+      "cotacao": 4.05,
+      "pl": 21.86,
+      "pvp": 0.95,
+      "psr": 0.666,
+      "div_yield": 0.0999,
+      "p_ativo": 0.229,
+      "p_cap_giro": 1.46,
+      "p_ebit": 2.97,
       "p_ativ_circ_liq": -0.55,
-      "ev_ebit": 8.17,
-      "ev_ebitda": 4.7,
+      "ev_ebit": 8.2,
+      "ev_ebitda": 4.72,
       "mrg_bruta": 0.314,
       "mrg_ebit": 0.2242,
       "mrg_liq": 0.04650000000000001,
       "liq_corr": 2.08,
       "roic": 0.0983,
       "roe": 0.0434,
-      "liq_2m": 8230490.0,
+      "liq_2m": 8211180.0,
       "patrim_liq": 1479770000.0,
       "div_liq_patrim": 1.67,
       "cresc_rec5a": 0.2516,
-      "earnings_yield": 0.04631773969430292,
-      "div_liq_ebitda": 3.00727969348659,
+      "earnings_yield": 0.04574565416285453,
+      "div_liq_ebitda": 3.00854961832061,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Diversos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5957,7 +5926,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Indústria / Geral",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -5988,7 +5957,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6019,7 +5988,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6050,7 +6019,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Construção Civil",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6081,7 +6050,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Computadores e Equipamentos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6112,7 +6081,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6143,7 +6112,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Petróleo, Gás e Biocombustíveis",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6174,38 +6143,38 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Telecomunicações",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
       "ticker": "AGRO3",
-      "cotacao": 16.51,
-      "pl": 30.52,
+      "cotacao": 16.54,
+      "pl": 30.57,
       "pvp": 0.84,
-      "psr": 1.747,
+      "psr": 1.751,
       "div_yield": 0.0182,
-      "p_ativo": 0.44,
+      "p_ativo": 0.441,
       "p_cap_giro": 3.93,
-      "p_ebit": 49.19,
-      "p_ativ_circ_liq": -2.98,
-      "ev_ebit": 83.78,
-      "ev_ebitda": 25.92,
+      "p_ebit": 49.28,
+      "p_ativ_circ_liq": -2.99,
+      "ev_ebit": 83.87,
+      "ev_ebitda": 25.95,
       "mrg_bruta": 0.1776,
       "mrg_ebit": 0.0355,
       "mrg_liq": 0.057300000000000004,
       "liq_corr": 1.52,
       "roic": 0.0102,
       "roe": 0.0274,
-      "liq_2m": 5425900.0,
+      "liq_2m": 5420540.0,
       "patrim_liq": 2026370000.0,
       "div_liq_patrim": 0.59,
       "cresc_rec5a": -0.1225,
-      "earnings_yield": 0.0327653997378768,
-      "div_liq_ebitda": 10.694265734265734,
+      "earnings_yield": 0.03271180896303565,
+      "div_liq_ebitda": 10.706643356643356,
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6236,7 +6205,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Holdings Diversificadas",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6267,7 +6236,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6298,7 +6267,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Motores, Compressores e Outros",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6329,7 +6298,7 @@
       "is_net_cash": true,
       "alert_flags": [],
       "setor": "Material de Transporte",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6360,7 +6329,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Químicos",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6391,7 +6360,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Automóveis e Motocicletas",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6422,7 +6391,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6453,7 +6422,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6484,7 +6453,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Madeira e Papel",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6515,7 +6484,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Agropecuária",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6546,7 +6515,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Alimentos Processados",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6577,7 +6546,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Energia Elétrica",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6608,7 +6577,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Mineração",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     },
     {
@@ -6639,7 +6608,7 @@
       "is_net_cash": false,
       "alert_flags": [],
       "setor": "Água e Saneamento",
-      "audit_timestamp": "24/11/2026 16:42:02",
+      "audit_timestamp": "24/11/2026 21:07:33",
       "audit_source": "Fundamentus (resultado.php)"
     }
   ]
