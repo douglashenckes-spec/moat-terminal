@@ -1856,10 +1856,10 @@
     }
   },
   "ONCO3": {
-    "cached_time": 1795753866.224177,
+    "cached_time": 1795804042.819751,
     "data": {
       "ticker": "ONCO3",
-      "audit_timestamp": "27/11/2026 01:31:06",
+      "audit_timestamp": "27/11/2026 15:27:22",
       "audit_source": "Fundamentus (detalhes.php?papel=ONCO3)",
       "empresa": "ONCOCLINICAS ON NM",
       "setor": "Serv.Méd.Hospit. Análises e Diagnósticos",
@@ -2030,10 +2030,10 @@
     }
   },
   "BHIA3": {
-    "cached_time": 1795753867.1952674,
+    "cached_time": 1795804044.034001,
     "data": {
       "ticker": "BHIA3",
-      "audit_timestamp": "27/11/2026 01:31:07",
+      "audit_timestamp": "27/11/2026 15:27:24",
       "audit_source": "Fundamentus (detalhes.php?papel=BHIA3)",
       "empresa": "CASAS BAHIA ON",
       "setor": "Comércio",
@@ -2088,10 +2088,10 @@
     }
   },
   "PMAM3": {
-    "cached_time": 1795753865.01699,
+    "cached_time": 1795804042.2091594,
     "data": {
       "ticker": "PMAM3",
-      "audit_timestamp": "27/11/2026 01:31:05",
+      "audit_timestamp": "27/11/2026 15:27:22",
       "audit_source": "Fundamentus (detalhes.php?papel=PMAM3)",
       "empresa": "PARANAPANEMA S.A. ON",
       "setor": "Siderurgia e Metalurgia",
@@ -2146,10 +2146,10 @@
     }
   },
   "GFSA3": {
-    "cached_time": 1795753866.7074208,
+    "cached_time": 1795804043.435807,
     "data": {
       "ticker": "GFSA3",
-      "audit_timestamp": "27/11/2026 01:31:06",
+      "audit_timestamp": "27/11/2026 15:27:23",
       "audit_source": "Fundamentus (detalhes.php?papel=GFSA3)",
       "empresa": "GAFISA ON",
       "setor": "Construção Civil",
@@ -9306,10 +9306,10 @@
     }
   },
   "CAML3": {
-    "cached_time": 1795753868.3210065,
+    "cached_time": 1795804044.5736768,
     "data": {
       "ticker": "CAML3",
-      "audit_timestamp": "27/11/2026 01:31:08",
+      "audit_timestamp": "27/11/2026 15:27:24",
       "audit_source": "Fundamentus (detalhes.php?papel=CAML3)",
       "empresa": "CAMIL ON NM",
       "setor": "Alimentos Processados",
